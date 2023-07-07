@@ -4,3 +4,27 @@
     color: red;
   }
 }
+.sidebar{
+  .MuiPaper-root{
+    margin: 20px 0;
+  }
+  .MuiTabs-scroller{
+    width: 250px;
+  }
+  .MuiButtonBase-root{
+    display: block;
+    width: 250px;
+  }
+  .rank_accordion{
+    .MuiPaper-root{
+      margin: 0;
+    }
+    .MuiButtonBase-root{
+      display: flex;
+      width: 400px;
+    }
+    .MuiTypography-root{
+      width: 100%;
+    }
+  }
+}

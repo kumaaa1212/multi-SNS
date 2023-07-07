@@ -12,7 +12,7 @@ const Header = () => {
         </Link>
         <div className="header_nav_link">
           <Link href={"/"} className="nav_link">
-            <svg
+          <svg
               xmlns="http://www.w3.org/2000/svg"
               className="icon icon-tabler icon-tabler-map-search"
               width="48"
@@ -40,9 +40,6 @@ const Header = () => {
           </Link>
           <Link href={""} className="nav_link link_style">
             channel
-          </Link>
-          <Link href={"/team"} className="nav_link link_style">
-            team
           </Link>
           <Link href={"/mypage"} className="nav_link link_style">
             mypage
