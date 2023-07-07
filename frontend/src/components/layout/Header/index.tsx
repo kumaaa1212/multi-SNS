@@ -2,6 +2,7 @@ import Link from "next/link";
 import React from "react";
 import Logo from "../../../../public/logo.png";
 import Image from "next/image";
+import BadgeAvatars from "@/components/parts/Account";
 const Header = () => {
   return (
     <header className="header">
@@ -31,27 +32,27 @@ const Header = () => {
               <path d="M20.2 20.2l1.8 1.8" />
             </svg>
           </Link>
-          <Link href={"/"} className="nav_link">
+          <Link href={"/"} className="nav_link link_style">
             HOME
           </Link>
-          <Link href={"/chat"} className="nav_link">
-            チャット
+          <Link href={"/chat"} className="nav_link link_style">
+          chat
           </Link>
-          <Link href={""} className="nav_link">
-            掲示板
+          <Link href={""} className="nav_link link_style">
+            channel
           </Link>
-          <Link href={"/team"} className="nav_link">
-            マイチーム
+          <Link href={"/team"} className="nav_link link_style">
+            team
           </Link>
-          <Link href={"/mypage"} className="nav_link">
-            マイページ
+          <Link href={"/mypage"} className="nav_link link_style">
+            mypage
           </Link>
-          <Link href={"/settings"} className="nav_link">
-            設定
+          <Link href={"/settings"} className="nav_link link_style">
+            settings
           </Link>
+          <BadgeAvatars/>
         </div>
       </nav>
-      <div></div>
     </header>
   );
 };

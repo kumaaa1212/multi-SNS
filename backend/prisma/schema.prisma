@@ -17,6 +17,7 @@ model User {
   username String   @unique
   posts    Post[]
   comments Comment[]
+  access Boolean  @default(false)
 }
 
 model Post {
