@@ -10,7 +10,7 @@ const Header = () => {
           <Image src={Logo} alt={""} />
         </Link>
         <div className="header_nav_link">
-          <Link href={""} className="nav_link">
+          <Link href={"/"} className="nav_link">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="icon icon-tabler icon-tabler-map-search"
@@ -31,22 +31,22 @@ const Header = () => {
               <path d="M20.2 20.2l1.8 1.8" />
             </svg>
           </Link>
-          <Link href={""} className="nav_link">
+          <Link href={"/"} className="nav_link">
             HOME
           </Link>
-          <Link href={""} className="nav_link">
+          <Link href={"/chat"} className="nav_link">
             チャット
           </Link>
           <Link href={""} className="nav_link">
             掲示板
           </Link>
-          <Link href={""} className="nav_link">
-            クラブ
+          <Link href={"/team"} className="nav_link">
+            マイチーム
           </Link>
-          <Link href={""} className="nav_link">
+          <Link href={"/mypage"} className="nav_link">
             マイページ
           </Link>
-          <Link href={""} className="nav_link">
+          <Link href={"/settings"} className="nav_link">
             設定
           </Link>
         </div>
