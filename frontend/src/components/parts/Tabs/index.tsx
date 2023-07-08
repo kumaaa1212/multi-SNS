@@ -20,7 +20,7 @@ function CustomTabPanel(props: any) {
     >
       {value === index && (
         <Box sx={{ p: 3 }}>
-          <Typography>{children}</Typography>
+          <span>{children}</span>
         </Box>
       )}
     </div>
@@ -55,8 +55,8 @@ export default function BasicTabs() {
           onChange={handleChange}
           aria-label="basic tabs example"
         >
-          <Tab label="全体" {...a11yProps(0)} />
-          <Tab label="個人" {...a11yProps(1)} />
+          <Tab label="ALL" {...a11yProps(0)} />
+          <Tab label="TEAM" {...a11yProps(1)} />
         </Tabs>
       </Box>
       <CustomTabPanel value={value} index={0}>

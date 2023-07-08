@@ -8,30 +8,30 @@ import Link from "next/link";
 const DropDown = () => {
   return (
     <div className="header_dropdown">
-      <div className="dropdown_list">
-        <PersonIcon />
-        <Link href={"/account"} className="link_style">
+      <Link href={"/account"} className="link_style">
+        <div className="dropdown_list">
+          <PersonIcon />
           account
-        </Link>
-      </div>
-      <div className="dropdown_list">
-        <LogoutIcon />
-        <Link href={"/login"} className="link_style">
+        </div>
+      </Link>
+      <Link href={"/login"} className="link_style">
+        <div className="dropdown_list">
+          <LogoutIcon />
           logout
-        </Link>
-      </div>
-      <div className="dropdown_list">
-        <PersonAddIcon />
-        <Link href={"/signup"} className="link_style">
+        </div>
+      </Link>
+      <Link href={"/signup"} className="link_style">
+        <div className="dropdown_list">
+          <PersonAddIcon />
           sighup
-        </Link>
-      </div>
-      <div className="dropdown_list">
-        <LoginIcon />
-        <Link href={"/login"} className="link_style">
+        </div>
+      </Link>
+      <Link href={"/login"} className="link_style">
+        <div className="dropdown_list">
+          <LoginIcon />
           login
-        </Link>
-      </div>
+        </div>
+      </Link>
     </div>
   );
 };

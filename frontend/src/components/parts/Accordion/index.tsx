@@ -2,7 +2,6 @@ import * as React from 'react';
 import Accordion from '@mui/material/Accordion';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import AccordionSummary from '@mui/material/AccordionSummary';
-import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 export default function Rank() {
@@ -15,21 +14,21 @@ export default function Rank() {
 
   return (
     <div className='rank_accordion'>
-      <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
+      <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')}  TransitionProps={{ unmountOnExit: true }} >
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
           aria-controls="panel1bh-content"
           id="panel1bh-header"
         >
-          <Typography sx={{ width: '33%', flexShrink: 0 }}>
+          <span>
             General settings
-          </Typography>
+          </span>
         </AccordionSummary>
         <AccordionDetails>
-          <Typography>
+          <span>
             Nulla facilisi. Phasellus sollicitudin nulla et quam mattis feugiat.
             Aliquam eget maximus est, id dignissim quam.
-          </Typography>
+          </span>
         </AccordionDetails>
       </Accordion>
       <Accordion expanded={expanded === 'panel2'} onChange={handleChange('panel2')}>
@@ -38,14 +37,14 @@ export default function Rank() {
           aria-controls="panel2bh-content"
           id="panel2bh-header"
         >
-          <Typography sx={{ width: '33%', flexShrink: 0 }}>Users</Typography>
+          <span>Users</span>
         </AccordionSummary>
         <AccordionDetails>
-          <Typography>
+          <span>
             Donec placerat, lectus sed mattis semper, neque lectus feugiat lectus,
             varius pulvinar diam eros in elit. Pellentesque convallis laoreet
             laoreet.
-          </Typography>
+          </span>
         </AccordionDetails>
       </Accordion>
       <Accordion expanded={expanded === 'panel3'} onChange={handleChange('panel3')}>
@@ -54,15 +53,15 @@ export default function Rank() {
           aria-controls="panel3bh-content"
           id="panel3bh-header"
         >
-          <Typography sx={{ width: '33%', flexShrink: 0 }}>
+          <span>
             Advanced settings
-          </Typography>
+          </span>
         </AccordionSummary>
         <AccordionDetails>
-          <Typography>
+          <span>
             Nunc vitae orci ultricies, auctor nunc in, volutpat nisl. Integer sit
             amet egestas eros, vitae egestas augue. Duis vel est augue.
-          </Typography>
+          </span>
         </AccordionDetails>
       </Accordion>
       <Accordion expanded={expanded === 'panel4'} onChange={handleChange('panel4')}>
@@ -71,13 +70,13 @@ export default function Rank() {
           aria-controls="panel4bh-content"
           id="panel4bh-header"
         >
-          <Typography sx={{ width: '33%', flexShrink: 0 }}>Personal data</Typography>
+          <span>Personal data</span>
         </AccordionSummary>
         <AccordionDetails>
-          <Typography>
+          <span>
             Nunc vitae orci ultricies, auctor nunc in, volutpat nisl. Integer sit
             amet egestas eros, vitae egestas augue. Duis vel est augue.
-          </Typography>
+          </span>
         </AccordionDetails>
       </Accordion>
       <Accordion expanded={expanded === 'panel5'} onChange={handleChange('panel4')}>
@@ -86,13 +85,13 @@ export default function Rank() {
           aria-controls="panel4bh-content"
           id="panel4bh-header"
         >
-          <Typography sx={{ width: '33%', flexShrink: 0 }}>Personal data</Typography>
+          <span>Personal data</span>
         </AccordionSummary>
         <AccordionDetails>
-          <Typography>
+          <span>
             Nunc vitae orci ultricies, auctor nunc in, volutpat nisl. Integer sit
             amet egestas eros, vitae egestas augue. Duis vel est augue.
-          </Typography>
+          </span>
         </AccordionDetails>
       </Accordion>
       <Accordion expanded={expanded === 'panel6'} onChange={handleChange('panel4')}>
@@ -101,13 +100,13 @@ export default function Rank() {
           aria-controls="panel4bh-content"
           id="panel4bh-header"
         >
-          <Typography sx={{ width: '33%', flexShrink: 0 }}>Personal data</Typography>
+          <span>Personal data</span>
         </AccordionSummary>
         <AccordionDetails>
-          <Typography>
+          <span>
             Nunc vitae orci ultricies, auctor nunc in, volutpat nisl. Integer sit
             amet egestas eros, vitae egestas augue. Duis vel est augue.
-          </Typography>
+          </span>
         </AccordionDetails>
       </Accordion>
       <Accordion expanded={expanded === 'panel7'} onChange={handleChange('panel4')}>
@@ -116,13 +115,13 @@ export default function Rank() {
           aria-controls="panel4bh-content"
           id="panel4bh-header"
         >
-          <Typography sx={{ width: '33%', flexShrink: 0 }}>Personal data</Typography>
+          <span>Personal data</span>
         </AccordionSummary>
         <AccordionDetails>
-          <Typography>
+          <span>
             Nunc vitae orci ultricies, auctor nunc in, volutpat nisl. Integer sit
             amet egestas eros, vitae egestas augue. Duis vel est augue.
-          </Typography>
+          </span>
         </AccordionDetails>
       </Accordion>
       <Accordion expanded={expanded === 'panel8'} onChange={handleChange('panel4')}>
@@ -131,13 +130,13 @@ export default function Rank() {
           aria-controls="panel4bh-content"
           id="panel4bh-header"
         >
-          <Typography sx={{ width: '33%', flexShrink: 0 }}>Personal data</Typography>
+          <span>Personal data</span>
         </AccordionSummary>
         <AccordionDetails>
-          <Typography>
+          <span>
             Nunc vitae orci ultricies, auctor nunc in, volutpat nisl. Integer sit
             amet egestas eros, vitae egestas augue. Duis vel est augue.
-          </Typography>
+          </span>
         </AccordionDetails>
       </Accordion>
     </div>
