@@ -21,7 +21,7 @@ export default function Rank() {
           id="panel1bh-header"
         >
           <span>
-            General settings
+           1 横浜 F マリノス
           </span>
         </AccordionSummary>
         <AccordionDetails>
@@ -37,7 +37,7 @@ export default function Rank() {
           aria-controls="panel2bh-content"
           id="panel2bh-header"
         >
-          <span>Users</span>
+          <span>2 川崎フロンターレ</span>
         </AccordionSummary>
         <AccordionDetails>
           <span>
@@ -54,7 +54,7 @@ export default function Rank() {
           id="panel3bh-header"
         >
           <span>
-            Advanced settings
+            3 FC東京
           </span>
         </AccordionSummary>
         <AccordionDetails>
@@ -70,7 +70,7 @@ export default function Rank() {
           aria-controls="panel4bh-content"
           id="panel4bh-header"
         >
-          <span>Personal data</span>
+          <span>4 浦和レッズ</span>
         </AccordionSummary>
         <AccordionDetails>
           <span>
@@ -85,7 +85,7 @@ export default function Rank() {
           aria-controls="panel4bh-content"
           id="panel4bh-header"
         >
-          <span>Personal data</span>
+          <span>5 鹿島アントラーズ</span>
         </AccordionSummary>
         <AccordionDetails>
           <span>
@@ -100,7 +100,7 @@ export default function Rank() {
           aria-controls="panel4bh-content"
           id="panel4bh-header"
         >
-          <span>Personal data</span>
+          <span>6 名古屋グランパス</span>
         </AccordionSummary>
         <AccordionDetails>
           <span>
@@ -115,7 +115,7 @@ export default function Rank() {
           aria-controls="panel4bh-content"
           id="panel4bh-header"
         >
-          <span>Personal data</span>
+          <span>7 柏レイソル</span>
         </AccordionSummary>
         <AccordionDetails>
           <span>
@@ -130,7 +130,7 @@ export default function Rank() {
           aria-controls="panel4bh-content"
           id="panel4bh-header"
         >
-          <span>Personal data</span>
+          <span>8 湘南ベルマーレ</span>
         </AccordionSummary>
         <AccordionDetails>
           <span>

@@ -1,9 +1,40 @@
 import Head from "next/head";
 import { Inter } from "next/font/google";
+import { supabase } from "@/utils/supabaseClient";
+import { useState } from "react";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home(): any {
+  const [file, setFile] = useState<any>(null);
+  const data = async () => {
+    const {
+      data: { session },
+      error,
+    } = await supabase.auth.getSession();
+    if (error) {
+      throw error;
+    }
+    console.log(session);
+  };
+  supabase.auth.onAuthStateChange((event, session) => {
+    console.log(session);
+    if (event == "SIGNED_IN") {
+      console.log("ログインしました");
+    }
+    if (event == "SIGNED_OUT") {
+      console.log("ログアウトしました");
+    }
+  });
+  const datafetch = async () => {
+    const storageResponse:any= await supabase.storage
+    .from("avatars")
+    .upload(`avatars/${file.name}`, file,{
+    cacheControl: '3600',
+    upsert: false
+  });
+    console.log(storageResponse);
+  }
   return (
     <>
       <Head>
@@ -13,10 +44,9 @@ export default function Home(): any {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <div className="">
-        </div>
-        <div>
-        </div>
+        <h1>csssc</h1>
+        <input type="file" onChange={(e) => setFile(e.target.files![0])} />
+        <button onClick={datafetch}>ボタン</button>
       </main>
     </>
   );

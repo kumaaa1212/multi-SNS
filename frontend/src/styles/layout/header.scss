@@ -1,50 +1,50 @@
-.header{
+.header {
   height: 64px;
   font-weight: 700;
 }
-.header_nav{
+.header_nav {
   position: relative;
   height: 50px;
-  border-top: 3px solid black;
+  // border-top: 3px solid black;
   border-bottom: 3px solid black;
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
-.header_nav::before{
+.header_nav::before {
   content: "";
   position: absolute;
   top: 47px;
   left: 0;
   width: 100%;
   height: 15px;
-  background: linear-gradient(to top right, blue 50%, black 50%,);
+  background: linear-gradient(to top right, blue 50%, black 50%);
   opacity: 0.9;
 }
-.header_nav_link{
-  padding-right:20px ;
+.header_nav_link {
+  padding-right: 20px;
   height: 50px;
   display: flex;
   align-items: center;
-  .nav_link{
+  .nav_link {
     height: 50px;
     line-height: 50px;
     font-weight: 500;
     font-size: 20px;
-    padding:0px 20px;
+    padding: 0px 20px;
   }
 }
-.account{
+.account {
   position: relative;
   cursor: pointer;
-  .header_dropdown{
-    background-color: #FAFBFB;
+  .header_dropdown {
+    background-color: #fafbfb;
     border-radius: 5px;
     position: absolute;
     top: 50px;
     right: 0px;
     width: 150px;
-    .dropdown_list{
+    .dropdown_list {
       margin: 0 auto;
       width: 120px;
       display: flex;

@@ -9,12 +9,12 @@ router.post("/register", async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, 10);
     const user = await prisma.user.create({
       data: {
-        username,
+        username:username,
         password:hashedPassword,
-        email,
+        email:email,
       }})
       // ここではkeyを入れている。そして非同期処理を行う
-      // username:usernameとしなくていい。keyを設定して、勝手に型にあったものを入れてくれる
+      // username:usernameとしなくていい。省略しているだけ。
    return res.json({user});
   })
 // ログインはpostで行う

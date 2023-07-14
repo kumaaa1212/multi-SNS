@@ -8,11 +8,11 @@ const Header = () => {
     <header className="header">
       <nav className="header_nav">
         <Link href={""}>
-          <Image src={Logo} alt={""} />
+          {/* <Image src={Logo} alt={""} /> */}
         </Link>
         <div className="header_nav_link">
           <Link href={"/"} className="nav_link">
-          {/* <svg
+          <svg
               xmlns="http://www.w3.org/2000/svg"
               className="icon icon-tabler icon-tabler-map-search"
               width="48"
@@ -30,22 +30,16 @@ const Header = () => {
               <path d="M15 7v5" />
               <path d="M18 18m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" />
               <path d="M20.2 20.2l1.8 1.8" />
-            </svg> */}
-          </Link>
-          <Link href={"/"} className="nav_link link_style">
-            HOME
+            </svg>
           </Link>
           <Link href={"/chat"} className="nav_link link_style">
-          chat
-          </Link>
-          <Link href={""} className="nav_link link_style">
-            channel
+          チャット
           </Link>
           <Link href={"/mypage"} className="nav_link link_style">
-            mypage
+            マイページ
           </Link>
           <Link href={"/settings"} className="nav_link link_style">
-            settings
+            設定
           </Link>
           <BadgeAvatars/>
         </div>

@@ -15,6 +15,12 @@
     display: block;
     width: 250px;
   }
+  .MuiButtonBase-root{
+    color:black ;
+  }
+  .MuiTabs-indicator{
+    background-color: rgb(80, 80, 80);
+  }
   .rank_accordion{
     .MuiPaper-root{
       margin: 0;
@@ -26,5 +32,15 @@
     .MuiTypography-root{
       width: 100%;
     }
+  }
+}
+
+.handle_btn{
+  .MuiButtonBase-root{
+    display: block;
+    background-color: rgb(80, 80, 80);
+  }
+  .MuiButtonBase-root:hover{
+    background-color: rgb(42, 42, 42);
   }
 }

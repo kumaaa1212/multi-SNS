@@ -1,10 +1,12 @@
 import SignUp from '@/components/template/signup'
 import React from 'react'
 
-const signUp = () => {
+const Signup = () => {
   return (
-    <SignUp/>
+    <>
+      <SignUp />
+    </>
   )
 }
 
-export default signUp
+export default Signup
