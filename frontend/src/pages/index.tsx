@@ -1,31 +1,24 @@
 import Head from "next/head";
 import { Inter } from "next/font/google";
 import { supabase } from "@/utils/supabaseClient";
-import { useState } from "react";
-
+import { useContext, useState } from "react";
+import { AuthContext } from "@/context/auth";
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home(): any {
+  const auth = useContext(AuthContext)
+  console.log(auth);
   const [file, setFile] = useState<any>(null);
-  const data = async () => {
-    const {
-      data: { session },
-      error,
-    } = await supabase.auth.getSession();
-    if (error) {
-      throw error;
-    }
-    console.log(session);
-  };
-  supabase.auth.onAuthStateChange((event, session) => {
-    console.log(session);
-    if (event == "SIGNED_IN") {
-      console.log("ログインしました");
-    }
-    if (event == "SIGNED_OUT") {
-      console.log("ログアウトしました");
-    }
-  });
+  // const data = async () => {
+  //   const {
+  //     data: { session },
+  //     error,
+  //   } = await supabase.auth.getSession();
+  //   if (error) {
+  //     throw error;
+  //   }
+  //   console.log(session);
+  // };
   const datafetch = async () => {
     const storageResponse:any= await supabase.storage
     .from("avatars")

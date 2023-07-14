@@ -16,3 +16,34 @@
     }
   }
 }
+.container{
+  margin: 50px;
+  width: 500px;
+  position: fixed;
+}
+.image_area{
+  position: relative;
+}
+.bg_img{
+  width: 500px;
+  height: 200px;
+  object-fit: cover;
+  margin-bottom: 70px;
+}
+.profile_img{
+  width: 140px;
+  height: 140px;
+  object-fit: cover;
+  border-radius: 50%;
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, 0%);
+}
+.detail_profile{
+  font-size: 25px;
+  padding: 6px;
+  span{
+    display: block;
+  }
+}

@@ -14,7 +14,7 @@ const Layout = ({children}:{children:React.ReactNode}) => {
   return (
     <div className='layout'>
     <Header/>
-    <main>
+    <main className='main_area'>
       <Sidebarhandle/>
     {children}
     </main>

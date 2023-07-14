@@ -4,7 +4,6 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import Individual from "./Individual";
 import Rank from "../Accordion";
 
 function CustomTabPanel(props: any) {
@@ -55,15 +54,15 @@ export default function BasicTabs() {
           onChange={handleChange}
           aria-label="basic tabs example"
         >
-          <Tab label="ALL" {...a11yProps(0)} />
-          <Tab label="TEAM" {...a11yProps(1)} />
+          <Tab label="ALL" {...a11yProps(0)} disableRipple />
+          <Tab label="TEAM" {...a11yProps(1)} disableRipple/>
         </Tabs>
       </Box>
       <CustomTabPanel value={value} index={0}>
         <Rank/>
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
-        <Individual/>
+        <p>sssss</p>
       </CustomTabPanel>
     </Box>
   );

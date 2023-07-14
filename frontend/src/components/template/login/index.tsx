@@ -10,6 +10,7 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { supabase } from "@/utils/supabaseClient";
 import { useRouter } from "next/router";
+import styles from "./Login.module.scss";
 
 const defaultTheme = createTheme();
 
@@ -90,12 +91,12 @@ export default function Login() {
               </Button>
               <Grid container>
                 <Grid item xs>
-                  <Link href="/" variant="body2">
+                  <Link href="/" variant="body2" className={styles.link}>
                     パスワードを忘れた場合はこちら
                   </Link>
                 </Grid>
                 <Grid item>
-                  <Link href="/" variant="body2">
+                  <Link href="/" variant="body2" className={styles.link}>
                     新規登録はこちら
                   </Link>
                 </Grid>

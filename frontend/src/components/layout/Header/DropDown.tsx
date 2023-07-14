@@ -24,7 +24,7 @@ const DropDown = () => {
   }
   return (
     <div className="header_dropdown">
-      <Link href={"/account"} className="link_style">
+      <Link href={"/profile"} className="link_style">
         <div className="dropdown_list">
           <PersonIcon />
           account

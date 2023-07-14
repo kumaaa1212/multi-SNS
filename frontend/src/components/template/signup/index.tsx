@@ -18,10 +18,8 @@ import {
 } from "@mui/material";
 import { useRouter } from "next/router";
 import ModalWind from "@/components/parts/Modal";
-
 const defaultTheme = createTheme();
 export default function SignUp() {
-  const router = useRouter();
   const [username, setusername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -30,7 +28,6 @@ export default function SignUp() {
   const [open, setOpen] = useState(false);
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setOpen(true);
     setIsLoading(true);
     try {
       const { error: signUpError } = await supabase.auth.signUp({
@@ -46,14 +43,15 @@ export default function SignUp() {
       if (signUpError) {
         throw signUpError;
       }
-      setIsLoading(false);
     } catch (error) {
       alert("エラーが発生しました");
+    }finally{
+      setOpen(true)
     }
   };
   return (
     <ThemeProvider theme={defaultTheme}>
-      {isLoading && ( <ModalWind isLoading={isLoading} open={open} setOpen={setOpen} email={email} />
+      {isLoading && ( <ModalWind open={open}  email={email} text={'に登録完了メールを送りました。メール内のリンクをクリックして登録を完了してください。'} />
       )}
       <Container component="main" maxWidth="xs">
         <CssBaseline />

@@ -1,46 +1,93 @@
-.header{
-  .css-frs8jf-MuiBadge-root .MuiBadge-badge{
+.header {
+  .css-frs8jf-MuiBadge-root .MuiBadge-badge {
     background-color: red;
     color: red;
   }
 }
-.sidebar{
-  .MuiPaper-root{
+.sidebar {
+  .MuiPaper-root {
     margin: 20px 0;
   }
-  .MuiTabs-scroller{
+  .MuiTabs-scroller {
     width: 250px;
   }
-  .MuiButtonBase-root{
+  .MuiButtonBase-root {
     display: block;
     width: 250px;
   }
-  .MuiButtonBase-root{
-    color:black ;
+  .MuiButtonBase-root {
+    color: black;
   }
-  .MuiTabs-indicator{
+  .MuiTabs-indicator {
     background-color: rgb(80, 80, 80);
   }
-  .rank_accordion{
-    .MuiPaper-root{
+  .rank_accordion {
+    .MuiPaper-root {
       margin: 0;
     }
-    .MuiButtonBase-root{
+    .MuiButtonBase-root {
       display: flex;
       width: 400px;
     }
-    .MuiTypography-root{
+    .MuiTypography-root {
       width: 100%;
     }
   }
 }
 
-.handle_btn{
-  .MuiButtonBase-root{
+.handle_btn {
+  .MuiButtonBase-root {
     display: block;
     background-color: rgb(80, 80, 80);
   }
-  .MuiButtonBase-root:hover{
+  .MuiButtonBase-root:hover {
     background-color: rgb(42, 42, 42);
+  }
+}
+
+// Profile
+.profile {
+  display: grid;
+  grid-template-columns:1fr 2fr ;
+.MuiBox-root{
+  width: 100%;
+  padding: 0;
+}
+}
+.timeline_tab{
+  .MuiTabs-scroller{
+    border-bottom: 1px solid rgb(80, 80, 80);
+    // position: fixed;
+  }
+  .MuiButtonBase-root {
+    color: black;
+  }
+  .MuiTabs-indicator{
+    background-color: rgb(80, 80, 80);
+  }
+  .add_btn{
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 100;
+    .MuiSvgIcon-root {
+      color: white;
+      // font-size: 30px;
+    }
+    .MuiButtonBase-root {
+      // display: block;
+      background-color: black;
+    }
+  }
+}
+.timeline{
+  .timeline_img{
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+  }
+  .MuiPaper-root{
+    margin: 40px;
+    width: 90%;
   }
 }

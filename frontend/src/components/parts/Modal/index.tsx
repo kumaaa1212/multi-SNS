@@ -1,3 +1,6 @@
+import React from "react";
+import { Box, CircularProgress, Modal, Typography } from "@mui/material";
+import Link from "next/link";
 const style = {
   position: "absolute" as "absolute",
   top: "50%",
@@ -8,28 +11,32 @@ const style = {
   boxShadow: 24,
   p: 4,
 };
-import { Box, CircularProgress, Modal, Typography } from "@mui/material";
-import Link from "next/link";
-import React, { useState } from "react";
+
 interface OpenProps {
-  isLoading: boolean;
-  open: boolean;
-  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  email: string;
+  open?: boolean;
+  email?: string;
+  text?:string;
 }
-const ModalWind = (props:OpenProps) => {
-  const { isLoading,open, setOpen,email} = props;
+const ModalWind = (props: OpenProps) => {
+  const { open, email ,text} = props;
   return (
     <Modal
       open={true}
-      onClose={() => setOpen(false)}
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
     >
       <Box sx={style}>
-        {isLoading ? (<CircularProgress color="inherit" />) : ( <div><Typography id="modal-modal-description" sx={{ mt: 2 }}>
-          {email}に登録完了メールを送りました。メール内のリンクをクリックして登録を完了してください。
-        </Typography><Link href={'/login'}>閉じる</Link></div>)}
+        {open ? (
+          <div>
+            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+              {email}
+              {text}
+            </Typography>
+            <Link href={"/login"}>閉じる</Link>
+          </div>
+        ) : (
+          <CircularProgress color="inherit" />
+        )}
       </Box>
     </Modal>
   );
