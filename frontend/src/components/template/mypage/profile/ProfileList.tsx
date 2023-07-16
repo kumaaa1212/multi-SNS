@@ -11,8 +11,9 @@ const ProfileList = () => {
         width={200}
         height={200}
         alt=""
-        src={auth ? auth?.icon : TestImg}
+        src={auth.username ? auth?.icon : '/testImg1.jpg'}
         className={styles.img}
+        priority={false}
       />
       <ul>
         <li className={styles.list}>

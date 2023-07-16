@@ -1,3 +1,4 @@
+// 共通のcss
 *{
   margin: 0;
   padding: 0;
@@ -9,4 +10,16 @@
 }
 .main_area{
   margin-top: 64px;
+}
+// 各ページのcss
+.profile{
+  display: grid;
+  grid-template-columns: 500px 1fr;
+  .profile_right{
+    width: 500px;
+  }
+}
+.chat{
+  display: grid;
+  grid-template-columns: 400px 1fr;
 }

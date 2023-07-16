@@ -1,0 +1,64 @@
+.container{
+  margin: 50px;
+  width: 500px;
+  position: fixed;
+  padding-bottom: 100px;
+}
+.image_area{
+  position: relative;
+  // margin-bottom: 40px;
+}
+.bg_img{
+  width: 500px;
+  height: 200px;
+  object-fit: cover;
+  // margin-bottom: 70px;
+}
+.profile_img{
+  width: 140px;
+  height: 140px;
+  object-fit: cover;
+  border-radius: 50%;
+  position: absolute;
+  top: 60%;
+  left: 5%;
+  transform: translatY(-50%);
+}
+// 編集ボタン
+.edit_btnArea{
+  display: flex;
+  justify-content: end;
+  .edit_btn{
+    margin-right: 20px;
+    margin-top: 10px;
+    padding: 7px;
+  }
+}
+// プロフィールの詳細
+.profile_area{
+  padding: 10px;
+  .detail_name{
+    font-size: 30px;
+    line-height: 30px;
+    margin-top: 10px;
+  }
+  .detail_team{
+    padding:5px 0 0 5px;
+    font-size: 20px;
+    line-height: 20px;
+    opacity: 0.8;
+  }
+  .detail_bio{
+    padding-left: 4px;
+    font-size: 20px;
+    margin-top: 15px;
+  }
+  .detail_number{
+    text-align: center;
+    margin-top: 30px;
+    font-size: 15px;
+    span{
+      margin-left: 10px;
+    }
+  }
+}

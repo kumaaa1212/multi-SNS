@@ -55,7 +55,7 @@ export default function BadgeAvatars() {
         variant="dot"
         onClick={() => setOpen(!open)}
       >
-        <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
+        {/* <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" /> */}
       </StyledBadge>
       <div ref={dropdownRef}>
         {open && ( <DropDown/> )}

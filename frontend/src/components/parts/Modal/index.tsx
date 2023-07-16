@@ -16,9 +16,10 @@ interface OpenProps {
   open?: boolean;
   email?: string;
   text?:string;
+  content:any
 }
 const ModalWind = (props: OpenProps) => {
-  const { open, email ,text} = props;
+  const { open, email ,text,content} = props;
   return (
     <Modal
       open={true}
@@ -29,6 +30,7 @@ const ModalWind = (props: OpenProps) => {
         {open ? (
           <div>
             <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+              {content}
               {email}
               {text}
             </Typography>

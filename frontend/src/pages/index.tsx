@@ -2,32 +2,10 @@ import Head from "next/head";
 import { Inter } from "next/font/google";
 import { supabase } from "@/utils/supabaseClient";
 import { useContext, useState } from "react";
-import { AuthContext } from "@/context/auth";
+import { AuthContext, AuthInfo } from "@/context/auth";
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home(): any {
-  const auth = useContext(AuthContext)
-  console.log(auth);
-  const [file, setFile] = useState<any>(null);
-  // const data = async () => {
-  //   const {
-  //     data: { session },
-  //     error,
-  //   } = await supabase.auth.getSession();
-  //   if (error) {
-  //     throw error;
-  //   }
-  //   console.log(session);
-  // };
-  const datafetch = async () => {
-    const storageResponse:any= await supabase.storage
-    .from("avatars")
-    .upload(`avatars/${file.name}`, file,{
-    cacheControl: '3600',
-    upsert: false
-  });
-    console.log(storageResponse);
-  }
   return (
     <>
       <Head>
@@ -36,11 +14,13 @@ export default function Home(): any {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main>
-        <h1>csssc</h1>
-        <input type="file" onChange={(e) => setFile(e.target.files![0])} />
-        <button onClick={datafetch}>ボタン</button>
-      </main>
+      <div>
+        <div>
+
+        </div>
+        <div className="table">
+        </div>
+      </div>
     </>
   );
 }

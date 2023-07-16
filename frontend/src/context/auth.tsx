@@ -1,51 +1,49 @@
+import React from "react";
 import Icongenerate from "@/components/parts/Avater";
 import { supabase } from "@/utils/supabaseClient";
 import { createContext, useContext, useEffect, useState } from "react";
+
 interface AuthContextProps {
   username: string;
   team: string;
-  icon: string;
+  icon: any;
+  bio: string;
 }
+
 export const AuthContext = createContext({
   username: "",
   team: "",
   icon: "",
+  bio: "AAAAA",
 });
+
+export const AuthInfo = () => useContext(AuthContext);
 
 export const AuthProvider = ({ children }: any) => {
   const [currentUser, setcurrentUser] = useState<AuthContextProps>({
     username: "",
     team: "",
     icon: "",
-});
-  const getCurrentUser = async () => {
-    // ログインのセッションを取得する処理
-    try{
-      const { data } = await supabase.auth.getSession()
-      console.log(data);
-      const Icon =  Icongenerate(data.session!.refresh_token)
-            // セッションがあるときだけ現在ログインしているユーザーを取得する
-    if (data.session !== null) {
-      // supabaseに用意されている現在ログインしているユーザーを取得する関数
-      const { data }:any = await supabase.auth.getUser()
-      console.log(data);
-      // currentUserにユーザーのメールアドレスを格納
-      setcurrentUser({
-         username:data.user.user_metadata.username,
-         team:data.user.user_metadata.team,
-         icon:Icon
-      })
-    }
-    }catch(error){
-      console.log(error);
-    }
-  }
-  useEffect(()=>{
-    getCurrentUser()
-  },[])
+    bio: "",
+  });
+  useEffect(() => {
+    setcurrentUser({
+      username: 'kuma',
+      team: 'aaaaa',
+      bio: 'AAAA',
+      icon: Icongenerate("ccscsvdsrtnrytuk.ljk,hjh"),
+    });
+    // supabase.auth.onAuthStateChange((event, session: any) => {
+    //   console.log(session);
+    //   setcurrentUser({
+    //     username: session?.user.user_metadata.username,
+    //     team: session?.user.user_metadata.team,
+    //     bio: session?.user.user_metadata.bio,
+    //     icon: Icongenerate("ccscsvdsrtnrytuk.ljk,hjh"),
+    //   });
+    // });
+  }, []);
   return (
-    <AuthContext.Provider value={currentUser}>
-      {children}
-    </AuthContext.Provider>
+    <AuthContext.Provider value={currentUser}>{children}</AuthContext.Provider>
   );
 };

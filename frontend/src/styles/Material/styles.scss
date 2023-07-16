@@ -34,7 +34,6 @@
     }
   }
 }
-
 .handle_btn {
   .MuiButtonBase-root {
     display: block;
@@ -48,24 +47,26 @@
 // Profile
 .profile {
   display: grid;
-  grid-template-columns:1fr 2fr ;
-.MuiBox-root{
-  width: 100%;
-  padding: 0;
+  grid-template-columns: 1fr 2fr;
 }
-}
-.timeline_tab{
-  .MuiTabs-scroller{
+.timeline_tab {
+  .MuiBox-root{
+    margin-bottom: 20px;
+  }
+  .MuiTabs-scroller {
     border-bottom: 1px solid rgb(80, 80, 80);
     // position: fixed;
   }
   .MuiButtonBase-root {
     color: black;
   }
-  .MuiTabs-indicator{
+  .MuiTabs-indicator {
     background-color: rgb(80, 80, 80);
   }
-  .add_btn{
+  .MuiPaper-root{
+    margin:0 auto
+  }
+  .add_btn {
     position: fixed;
     bottom: 20px;
     right: 20px;
@@ -80,14 +81,41 @@
     }
   }
 }
-.timeline{
-  .timeline_img{
+.timeline {
+  .timeline_img {
     width: 100%;
     height: 300px;
     object-fit: cover;
   }
-  .MuiPaper-root{
+  .MuiPaper-root {
     margin: 40px;
     width: 90%;
   }
 }
+
+
+// プロフィールの編集画面
+.input_area {
+  display: flex;
+  flex-direction: column; /* 要素を縦に並べるための指定 */
+  justify-content: center;
+  // border: 1px red solid;
+  margin-top: 50px;
+  .MuiInputBase-root {
+    margin: 5px 0;
+  }
+  .MuiInputBase-input {
+    display: block;
+    width: 500px;
+    font-size: 20px;
+  }
+  textarea {
+    display: block;
+    resize: vertical;
+    width: 600px;
+    min-height: 200px;
+    max-height: 200px;
+    font-size: 20px;
+  }
+}
+

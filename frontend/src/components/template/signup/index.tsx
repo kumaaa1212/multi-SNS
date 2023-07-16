@@ -18,13 +18,14 @@ import {
 } from "@mui/material";
 import { useRouter } from "next/router";
 import ModalWind from "@/components/parts/Modal";
+import Icongenerate from "@/components/parts/Avater";
 const defaultTheme = createTheme();
 export default function SignUp() {
   const [username, setusername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [team, setteam] = useState<any>("");
-  const [isLoading, setIsLoading] = useState(false); 
+  const [isLoading, setIsLoading] = useState(false);
   const [open, setOpen] = useState(false);
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -37,6 +38,7 @@ export default function SignUp() {
           data: {
             username: username,
             team: team,
+            icon: Icongenerate(`cscscscscsbtnmmyjnhfgbdfvsdca`),
           },
         },
       });
@@ -45,13 +47,21 @@ export default function SignUp() {
       }
     } catch (error) {
       alert("エラーが発生しました");
-    }finally{
-      setOpen(true)
+    } finally {
+      setOpen(true);
     }
   };
   return (
     <ThemeProvider theme={defaultTheme}>
-      {isLoading && ( <ModalWind open={open}  email={email} text={'に登録完了メールを送りました。メール内のリンクをクリックして登録を完了してください。'} />
+      {isLoading && (
+        <ModalWind
+          open={open}
+          email={email}
+          text={
+            "に登録完了メールを送りました。メール内のリンクをクリックして登録を完了してください。"
+          }
+          content={undefined}
+        />
       )}
       <Container component="main" maxWidth="xs">
         <CssBaseline />
@@ -95,8 +105,10 @@ export default function SignUp() {
                     label="Age"
                     onChange={(e) => setteam(e.target.value)}
                   >
-                    <MenuItem value={10}>FC東京</MenuItem>
-                    <MenuItem value={20}>Twenty</MenuItem>
+                    <MenuItem value={"FC東京"}>FC東京</MenuItem>
+                    <MenuItem value={"川崎フロンターレ"}>
+                      川崎フロンターレ
+                    </MenuItem>
                     <MenuItem value={30}>Thirty</MenuItem>
                   </Select>
                 </FormControl>

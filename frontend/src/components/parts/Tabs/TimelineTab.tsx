@@ -6,7 +6,7 @@ import Box from "@mui/material/Box";
 import RecipeReviewCard from "../Card";
 import styles from "./Tabs.module.scss";
 import { Skeleton } from "@mui/material";
-import CustomizedInputBase from "../Search";
+import CustomizedInputBase from "../Search/PostSearch";
 import ControlledOpenSpeedDial from "../Button/addbtn";
 
 interface TabPanelProps {
