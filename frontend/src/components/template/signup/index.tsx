@@ -17,8 +17,8 @@ import {
   Select,
 } from "@mui/material";
 import { useRouter } from "next/router";
-import ModalWind from "@/components/parts/Modal";
 import Icongenerate from "@/components/parts/Avater";
+import ModalWind from "@/components/parts/Modal/LoginModal";
 const defaultTheme = createTheme();
 export default function SignUp() {
   const [username, setusername] = useState("");
@@ -37,8 +37,9 @@ export default function SignUp() {
         options: {
           data: {
             username: username,
+            bio: "自己紹介文を入力してください",
             team: team,
-            icon: Icongenerate(`cscscscscsbtnmmyjnhfgbdfvsdca`),
+            icon:`cscscscscsbtnmmyjnhfgbdfvsdca`,
           },
         },
       });

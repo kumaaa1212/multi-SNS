@@ -1,8 +1,9 @@
+import Post from '@/components/template/post'
 import React from 'react'
 
 const PostPage = () => {
   return (
-    <div>PostPage</div>
+    <Post/>
   )
 }
 

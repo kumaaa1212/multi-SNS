@@ -29,6 +29,7 @@ interface OpenProps {
 }
 export default function EditModal(props: OpenProps) {
   const auth = AuthInfo();
+  console.log(auth);
   const { open, setOpen } = props;
   const [file, setFile] = useState<any>(null);
   const [editName, setEditName] = useState<string>(auth.username);
@@ -39,26 +40,26 @@ export default function EditModal(props: OpenProps) {
     fileInput?.click();
   }
 
-  function handleFileSelect(e:any) {
-    const selectedFile = e.target.files![0]
-    console.log(selectedFile);
+  async function handleFileSelect(e: any) {
+    const selectedFile = e.target.files![0];
+    await supabase.storage
+      .from("avatars")
+      .upload(`avatars/${selectedFile.name}`, selectedFile, {
+        cacheControl: "3600",
+        upsert: false,
+      });
+    seteditIcon(selectedFile.name);
   }
-
-  const datafetch = async () => {
-    // const storageResponse: any = await supabase.storage
-    //   .from("avatars")
-    //   .upload(`avatars/${file.name}`, file, {
-    //     cacheControl: "3600",
-    //     upsert: false,
-    //   });
-    // seteditIcon(storageResponse);
-  };
-
+  console.log(editIcon);
   const handleSubmit = async (e: any) => {
     e.preventDefault();
+    supabase.storage
+      .from("avatars")
+      .getPublicUrl(`avatars/${editIcon}`);
     await supabase.auth.updateUser({
       data: { username: editName, bio: editIntro, icon: editIcon },
     });
+    setOpen(!open);
   };
 
   return (
@@ -101,7 +102,7 @@ export default function EditModal(props: OpenProps) {
           />
           <span className={styles.edit_bgImg}>
             <svg
-            onClick={() => openFileInput()}
+              onClick={() => openFileInput()}
               xmlns="http://www.w3.org/2000/svg"
               className={styles.icon}
               width="68"

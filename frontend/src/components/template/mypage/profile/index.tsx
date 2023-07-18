@@ -40,7 +40,6 @@ const Profile = () => {
       <div className={styles.profile_area}>
         <div className={styles.detail_name}>
           <span>{auth.username}</span>
-          <span>リョウヘイ</span>
         </div>
         <div className={styles.detail_team}>
           {/* <span>{auth.team}</span> */}
@@ -48,9 +47,6 @@ const Profile = () => {
         </div>
         <div className={styles.detail_bio}>
           <span>{auth.bio}</span>
-          <span>
-            初めまして、私はFC東京のえふしーとうきょうのサポータを10年しています。試合の観戦記録であったり、結果を投稿していきます。
-          </span>
         </div>
         <div className={styles.detail_number}>
           <span>10 Following</span>

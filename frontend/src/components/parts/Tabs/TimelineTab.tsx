@@ -8,6 +8,7 @@ import styles from "./Tabs.module.scss";
 import { Skeleton } from "@mui/material";
 import CustomizedInputBase from "../Search/PostSearch";
 import ControlledOpenSpeedDial from "../Button/addbtn";
+import TweetModal from "../Modal/TweetModal";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -44,6 +45,7 @@ function a11yProps(index: number) {
 
 export default function BasicTabs() {
   const [value, setValue] = React.useState(0);
+  const [open, setOpen] = React.useState(false);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
@@ -51,6 +53,7 @@ export default function BasicTabs() {
 
   return (
     <div className="timeline_tab">
+      {open && <TweetModal open={open} setOpen={setOpen} />}
       <Box sx={{ width: "100%" }}>
         <div className={styles.tab_header}>
           <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
@@ -84,7 +87,7 @@ export default function BasicTabs() {
         </CustomTabPanel>
       </Box>
       <div className="add_btn">
-        <ControlledOpenSpeedDial />
+        <ControlledOpenSpeedDial setOpen={setOpen} />
       </div>
     </div>
   );
