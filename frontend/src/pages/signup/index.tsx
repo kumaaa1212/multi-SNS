@@ -1,3 +1,4 @@
+import ModalWind from '@/components/parts/Modal/LoginModal'
 import SignUp from '@/components/template/signup'
 import React from 'react'
 

@@ -40,16 +40,16 @@ export default function EditModal(props: OpenProps) {
     fileInput?.click();
   }
 
-  async function handleFileSelect(e: any) {
-    const selectedFile = e.target.files![0];
-    await supabase.storage
-      .from("avatars")
-      .upload(`avatars/${selectedFile.name}`, selectedFile, {
-        cacheControl: "3600",
-        upsert: false,
-      });
-    seteditIcon(selectedFile.name);
-  }
+  // async function handleFileSelect(e: any) {
+  //   const selectedFile = e.target.files![0];
+  //   await supabase.storage
+  //     .from("avatars")
+  //     .upload(`avatars/${selectedFile.name}`, selectedFile, {
+  //       cacheControl: "3600",
+  //       upsert: false,
+  //     });
+  //   seteditIcon(selectedFile.name);
+  // }
   console.log(editIcon);
   const handleSubmit = async (e: any) => {
     e.preventDefault();
@@ -57,7 +57,7 @@ export default function EditModal(props: OpenProps) {
       .from("avatars")
       .getPublicUrl(`avatars/${editIcon}`);
     await supabase.auth.updateUser({
-      data: { username: editName, bio: editIntro, icon: editIcon },
+      data: { username: editName, bio: editIntro, icon: 'mhnfgbdrvsfeadwserdgfnscd' },
     });
     setOpen(!open);
   };

@@ -9,6 +9,7 @@ import { Skeleton } from "@mui/material";
 import CustomizedInputBase from "../Search/PostSearch";
 import ControlledOpenSpeedDial from "../Button/addbtn";
 import TweetModal from "../Modal/TweetModal";
+import BasicPagination from "../Pagenation";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -86,6 +87,7 @@ export default function BasicTabs() {
           <RecipeReviewCard />
         </CustomTabPanel>
       </Box>
+      <BasicPagination/>
       <div className="add_btn">
         <ControlledOpenSpeedDial setOpen={setOpen} />
       </div>

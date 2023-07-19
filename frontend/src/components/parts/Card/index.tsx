@@ -33,7 +33,7 @@ const ExpandMore = styled((props: ExpandMoreProps) => {
   }),
 }));
 
-export default function RecipeReviewCard() {
+export default function RecipeReviewCard({className}:any) {
   const [expanded, setExpanded] = React.useState(false);
 
   const handleExpandClick = () => {
@@ -42,7 +42,7 @@ export default function RecipeReviewCard() {
 
   return (
     <div className="timeline">
-      <Card sx={{ width: 2000 }}>
+      <Card sx={{ width: Number(className) }}>
         <CardHeader
           avatar={
             <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">

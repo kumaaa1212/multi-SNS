@@ -1,4 +1,4 @@
-import React from "react";
+import React  from "react";
 import { Box, CircularProgress, Modal, Typography } from "@mui/material";
 import Link from "next/link";
 const style = {
@@ -11,15 +11,11 @@ const style = {
   boxShadow: 24,
   p: 4,
 };
+type PropsChildren1Props = {
+  children: React.ReactNode
+};
 
-interface OpenProps {
-  open?: boolean;
-  email?: string;
-  text?:string;
-  content:any
-}
-const ModalWind = (props: OpenProps) => {
-  const { open, email ,text,content} = props;
+const ModalWind = ({children}:PropsChildren1Props) => {
   return (
     <Modal
       open={true}
@@ -27,18 +23,7 @@ const ModalWind = (props: OpenProps) => {
       aria-describedby="modal-modal-description"
     >
       <Box sx={style}>
-        {open ? (
-          <div>
-            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-              {content}
-              {email}
-              {text}
-            </Typography>
-            <Link href={"/login"}>閉じる</Link>
-          </div>
-        ) : (
-          <CircularProgress color="inherit" />
-        )}
+        {children}
       </Box>
     </Modal>
   );

@@ -13,12 +13,10 @@ import {
   FormControl,
   InputLabel,
   MenuItem,
-  Modal,
   Select,
 } from "@mui/material";
-import { useRouter } from "next/router";
-import Icongenerate from "@/components/parts/Avater";
 import ModalWind from "@/components/parts/Modal/LoginModal";
+import Link from "next/link";
 const defaultTheme = createTheme();
 export default function SignUp() {
   const [username, setusername] = useState("");
@@ -31,7 +29,7 @@ export default function SignUp() {
     e.preventDefault();
     setIsLoading(true);
     try {
-      const { error: signUpError } = await supabase.auth.signUp({
+      await supabase.auth.signUp({
         email: email,
         password: password,
         options: {
@@ -39,30 +37,31 @@ export default function SignUp() {
             username: username,
             bio: "自己紹介文を入力してください",
             team: team,
-            icon:`cscscscscsbtnmmyjnhfgbdfvsdca`,
+            icon: `cscscscscsbtnmmyjnhfgbdfvsdca`,
           },
         },
       });
-      if (signUpError) {
-        throw signUpError;
-      }
+      setOpen(true);
     } catch (error) {
       alert("エラーが発生しました");
-    } finally {
-      setOpen(true);
     }
   };
   return (
     <ThemeProvider theme={defaultTheme}>
       {isLoading && (
-        <ModalWind
-          open={open}
-          email={email}
-          text={
-            "に登録完了メールを送りました。メール内のリンクをクリックして登録を完了してください。"
-          }
-          content={undefined}
-        />
+        <ModalWind>
+          {open ? (
+            <div>
+              <p>
+                {email}
+                に仮登録完了メールを送りました。メール内のリンクをクリックして登録を完了してください。
+              </p>
+              <Link href={"/login"}>閉じる</Link>
+            </div>
+          ) : (
+            <CircularProgress color="inherit" />
+          )}
+        </ModalWind>
       )}
       <Container component="main" maxWidth="xs">
         <CssBaseline />
