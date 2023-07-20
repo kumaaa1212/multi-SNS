@@ -1,11 +1,11 @@
-import BasicTabs from "@/components/parts/Tabs/RankTab";
-import ProfileList from "@/components/template/mypage/profile/ProfileList";
-import { Paper } from "@mui/material";
-import React from "react";
+import BasicTabs from '@/components/parts/Tabs/RankTab'
+import ProfileList from '@/components/template/mypage/profile/ProfileList'
+import { Paper } from '@mui/material'
+import React from 'react'
 
 const Sidebar = () => {
   return (
-    <div className="sidebar">
+    <div className='sidebar'>
       <Paper elevation={2}>
         <ProfileList />
       </Paper>
@@ -13,7 +13,7 @@ const Sidebar = () => {
         <BasicTabs />
       </Paper>
     </div>
-  );
-};
+  )
+}
 
-export default Sidebar;
+export default Sidebar

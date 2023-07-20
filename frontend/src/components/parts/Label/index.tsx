@@ -1,17 +1,17 @@
-import * as React from 'react';
-import { styled } from '@mui/material/styles';
-import Chip from '@mui/material/Chip';
-import Paper from '@mui/material/Paper';
-import TagFacesIcon from '@mui/icons-material/TagFaces';
+import * as React from 'react'
+import { styled } from '@mui/material/styles'
+import Chip from '@mui/material/Chip'
+import Paper from '@mui/material/Paper'
+import TagFacesIcon from '@mui/icons-material/TagFaces'
 
 interface ChipData {
-  key: number;
-  label: string;
+  key: number
+  label: string
 }
 
 const ListItem = styled('li')(({ theme }) => ({
   margin: theme.spacing(0.5),
-}));
+}))
 
 export default function Label() {
   const [chipData, setChipData] = React.useState<readonly ChipData[]>([
@@ -20,11 +20,11 @@ export default function Label() {
     { key: 2, label: 'Polymer' },
     { key: 3, label: 'React' },
     { key: 4, label: 'Vue.js' },
-  ]);
+  ])
 
   const handleDelete = (chipToDelete: ChipData) => () => {
-    setChipData((chips) => chips.filter((chip) => chip.key !== chipToDelete.key));
-  };
+    setChipData((chips) => chips.filter((chip) => chip.key !== chipToDelete.key))
+  }
 
   return (
     <Paper
@@ -37,13 +37,13 @@ export default function Label() {
         m: 0,
         borderR: 'solid 1px blue',
       }}
-      component="ul"
+      component='ul'
     >
       {chipData.map((data) => {
-        let icon;
+        let icon
 
         if (data.label === 'React') {
-          icon = <TagFacesIcon />;
+          icon = <TagFacesIcon />
         }
 
         return (
@@ -54,8 +54,8 @@ export default function Label() {
               onDelete={data.label === 'React' ? undefined : handleDelete(data)}
             />
           </ListItem>
-        );
+        )
       })}
     </Paper>
-  );
+  )
 }

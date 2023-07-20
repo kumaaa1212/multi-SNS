@@ -1,11 +1,10 @@
-import * as React from 'react';
-import { useState,useEffect,useRef } from 'react';
-import { styled } from '@mui/material/styles';
-import Badge from '@mui/material/Badge';
-import Avatar from '@mui/material/Avatar';
-import Stack from '@mui/material/Stack';
-import DropDown from '@/components/layout/Header/DropDown';
-
+import * as React from 'react'
+import { useState, useEffect, useRef } from 'react'
+import { styled } from '@mui/material/styles'
+import Badge from '@mui/material/Badge'
+import Avatar from '@mui/material/Avatar'
+import Stack from '@mui/material/Stack'
+import DropDown from '@/components/layout/Header/DropDown'
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
   '& .MuiBadge-badge': {
@@ -34,32 +33,34 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
       opacity: 0,
     },
   },
-}));
+}))
 
 export default function BadgeAvatars() {
-  const [open, setOpen] = useState<boolean>(false);
+  const [open, setOpen] = useState<boolean>(false)
   const dropdownRef = useRef<HTMLDivElement>(null)
   useEffect(() => {
     function handleClickOutside(e: MouseEvent): void {
-      if (dropdownRef.current && !dropdownRef.current.parentNode?.contains(e.target as Node) && e.target !== dropdownRef.current) {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.parentNode?.contains(e.target as Node) &&
+        e.target !== dropdownRef.current
+      ) {
         setOpen(false)
       }
     }
     return document.addEventListener('mousedown', handleClickOutside)
   }, [dropdownRef])
   return (
-    <Stack direction="row" spacing={2} className='account'>
+    <Stack direction='row' spacing={2} className='account'>
       <StyledBadge
-        overlap="circular"
+        overlap='circular'
         anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-        variant="dot"
+        variant='dot'
         onClick={() => setOpen(!open)}
       >
         {/* <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" /> */}
       </StyledBadge>
-      <div ref={dropdownRef}>
-        {open && ( <DropDown/> )}
-      </div>
+      <div ref={dropdownRef}>{open && <DropDown />}</div>
     </Stack>
-  );
+  )
 }

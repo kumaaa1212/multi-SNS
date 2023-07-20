@@ -1,10 +1,10 @@
-import Thumbnail from "@/components/template/post/Thumbnail";
-import React from "react";
+import Thumbnail from '@/components/template/post/Thumbnail'
+import React from 'react'
 
 const ThumbnailPage = () => {
-  return <Thumbnail/>
-};
+  return <Thumbnail />
+}
 
-export default ThumbnailPage;
+export default ThumbnailPage
 
 // RecipeReviewCard

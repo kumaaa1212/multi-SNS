@@ -6,7 +6,9 @@
     "dev": "next -p 3002",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint --dir src",
+    "lint:fix": "npm lint --fix",
+    "format": "prettier --write --ignore-path .gitignore './**/*.{js,jsx,ts,tsx,json}'"
   },
   "dependencies": {
     "@emotion/react": "^11.11.1",
@@ -32,6 +34,8 @@
   },
   "devDependencies": {
     "@types/identicon.js": "^2.3.1",
+    "eslint-config-prettier": "^8.8.0",
+    "prettier": "^3.0.0",
     "sass": "^1.63.6"
   }
 }

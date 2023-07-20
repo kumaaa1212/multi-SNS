@@ -5,8 +5,8 @@ import ChatRoom from './ChatRoom'
 const Chat = () => {
   return (
     <div className='chat'>
-      <SideBar/>
-      <ChatRoom/>
+      <SideBar />
+      <ChatRoom />
     </div>
   )
 }

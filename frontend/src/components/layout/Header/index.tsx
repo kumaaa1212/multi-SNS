@@ -1,18 +1,16 @@
-import Link from "next/link";
-import React from "react";
-import Logo from "../../../../public/logo.png";
-import Image from "next/image";
-import BadgeAvatars from "@/components/parts/Account";
+import Link from 'next/link'
+import React from 'react'
+import Logo from '../../../../public/logo.png'
+import Image from 'next/image'
+import BadgeAvatars from '@/components/parts/Account'
 const Header = () => {
   return (
-    <header className="header">
-      <nav className="header_nav">
-        <Link href={""}>
-          {/* <Image src={Logo} alt={""} /> */}
-        </Link>
-        <div className="header_nav_link">
-          <Link href={"/"} className="nav_link">
-          {/* <svg
+    <header className='header'>
+      <nav className='header_nav'>
+        <Link href={''}>{/* <Image src={Logo} alt={""} /> */}</Link>
+        <div className='header_nav_link'>
+          <Link href={'/'} className='nav_link'>
+            {/* <svg
               xmlns="http://www.w3.org/2000/svg"
               className="icon icon-tabler icon-tabler-map-search"
               width="48"
@@ -32,20 +30,20 @@ const Header = () => {
               <path d="M20.2 20.2l1.8 1.8" />
             </svg> */}
           </Link>
-          <Link href={"/chat"} className="nav_link link_style">
-          チャット
+          <Link href={'/chat'} className='nav_link link_style'>
+            チャット
           </Link>
-          <Link href={"/mypage"} className="nav_link link_style">
+          <Link href={'/mypage'} className='nav_link link_style'>
             マイページ
           </Link>
-          <Link href={"/bulletinboard"} className="nav_link link_style">
+          <Link href={'/bulletinBoard'} className='nav_link link_style'>
             掲示板
           </Link>
-          <BadgeAvatars/>
+          <BadgeAvatars />
         </div>
       </nav>
     </header>
-  );
-};
+  )
+}
 
-export default Header;
+export default Header

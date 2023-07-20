@@ -1,8 +1,8 @@
-import React, { useContext } from "react";
-import styles from "./Prolife.module.scss";
-import Image from "next/image";
-import TestImg from "../../../../public/testImg1.jpg";
-import { AuthContext } from "@/context/auth";
+import React, { useContext } from 'react'
+import styles from './Prolife.module.scss'
+import Image from 'next/image'
+import TestImg from '../../../../public/testImg1.jpg'
+import { AuthContext } from '@/context/auth'
 const ProfileList = () => {
   const auth = useContext(AuthContext)
   return (
@@ -10,7 +10,7 @@ const ProfileList = () => {
       <Image
         width={200}
         height={200}
-        alt=""
+        alt=''
         src={auth.username ? auth?.icon : '/testImg1.jpg'}
         className={styles.img}
         priority={false}
@@ -32,7 +32,7 @@ const ProfileList = () => {
         </li>
       </ul>
     </div>
-  );
-};
+  )
+}
 
-export default ProfileList;
+export default ProfileList

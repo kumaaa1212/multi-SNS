@@ -7,7 +7,7 @@ const ChatContent = () => {
   return (
     <div className={styles.chatContent}>
       <div className={styles.chat_person}>
-        <Image src={Img} alt={''} width={40} height={40} className={styles.chatImg}/>
+        <Image src={Img} alt={''} width={40} height={40} className={styles.chatImg} />
         <span className={styles.chat_name}>Kuma</span>
       </div>
       <div className={styles.chatmessage}>
