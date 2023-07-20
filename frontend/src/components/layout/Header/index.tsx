@@ -38,8 +38,8 @@ const Header = () => {
           <Link href={"/mypage"} className="nav_link link_style">
             マイページ
           </Link>
-          <Link href={"/settings"} className="nav_link link_style">
-            設定
+          <Link href={"/bulletinboard"} className="nav_link link_style">
+            掲示板
           </Link>
           <BadgeAvatars/>
         </div>

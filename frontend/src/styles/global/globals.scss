@@ -3,14 +3,18 @@
   margin: 0;
   padding: 0;
 }
+body{
+  background-color:#F2F3F5;
+}
 .link_style{
   text-decoration: none;
   color: black;
   // border: 1px solid red;
 }
 .main_area{
-  margin-top: 64px;
+  margin-top: 55px;
 }
+
 // 各ページのcss
 .profile{
   display: grid;

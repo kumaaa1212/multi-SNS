@@ -77,11 +77,13 @@ export default function BasicTabs() {
           <RecipeReviewCard />
         </CustomTabPanel>
         <CustomTabPanel value={value} index={1}>
+          <p>jjjjjjjnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn</p>
           <RecipeReviewCard />
           <RecipeReviewCard />
           <RecipeReviewCard />
         </CustomTabPanel>
         <CustomTabPanel value={value} index={2}>
+          <p>njnjnjjjjjjjjnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnj</p>
           <RecipeReviewCard />
           <RecipeReviewCard />
           <RecipeReviewCard />
