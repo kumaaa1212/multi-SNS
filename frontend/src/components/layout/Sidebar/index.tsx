@@ -1,7 +1,6 @@
+import { Paper } from '@mui/material'
 import BasicTabs from '@/components/parts/Tabs/RankTab'
 import ProfileList from '@/components/template/mypage/profile/ProfileList'
-import { Paper } from '@mui/material'
-import React from 'react'
 
 const Sidebar = () => {
   return (

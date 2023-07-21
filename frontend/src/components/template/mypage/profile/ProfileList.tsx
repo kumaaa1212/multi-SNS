@@ -1,7 +1,6 @@
+import Image from 'next/image'
 import React, { useContext } from 'react'
 import styles from './Prolife.module.scss'
-import Image from 'next/image'
-import TestImg from '../../../../public/testImg1.jpg'
 import { AuthContext } from '@/context/auth'
 const ProfileList = () => {
   const auth = useContext(AuthContext)

@@ -32,6 +32,8 @@ export default function SignUp() {
             bio: '自己紹介文を入力してください',
             team: team,
             icon: `cscscscscsbtnmmyjnhfgbdfvsdca`,
+            follow: [],
+            follower: [],
           },
         },
       })

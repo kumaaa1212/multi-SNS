@@ -8,6 +8,8 @@ interface AuthContextProps {
   team: string
   icon: any
   bio: string
+  follow: number
+  follower: number
 }
 
 export const AuthContext = createContext({
@@ -15,6 +17,8 @@ export const AuthContext = createContext({
   team: '',
   icon: '',
   bio: 'AAAAA',
+  follow: 0,
+  follower: 0,
 })
 
 export const AuthInfo = () => useContext(AuthContext)
@@ -25,6 +29,8 @@ export const AuthProvider = ({ children }: any) => {
     team: '',
     icon: '',
     bio: '',
+    follow: 0,
+    follower: 0,
   })
   useEffect(() => {
     supabase.auth.onAuthStateChange((event, session: any) => {
@@ -34,6 +40,8 @@ export const AuthProvider = ({ children }: any) => {
         team: session?.user.user_metadata.team,
         bio: session?.user.user_metadata.bio,
         icon: Icongenerate('xcfbgnhCJNsdvfbgnhgfsdcasxcxvcb'),
+        follow: session?.user.user_metadata.follow.length,
+        follower: session?.user.user_metadata.follower.length,
       })
     })
   }, [])

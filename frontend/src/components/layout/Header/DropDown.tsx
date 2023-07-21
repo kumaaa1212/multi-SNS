@@ -1,12 +1,11 @@
 import React from 'react'
-
 import PersonIcon from '@mui/icons-material/Person'
 import LogoutIcon from '@mui/icons-material/Logout'
 import PersonAddIcon from '@mui/icons-material/PersonAdd'
 import LoginIcon from '@mui/icons-material/Login'
 import Link from 'next/link'
-import { supabase } from '@/utils/supabaseClient'
 import { useRouter } from 'next/router'
+import { supabase } from '@/utils/supabaseClient'
 const DropDown = () => {
   const router = useRouter()
   const Logout = async (e: any) => {

@@ -49,8 +49,8 @@ const Profile = () => {
           <span>{auth.bio}</span>
         </div>
         <div className={styles.detail_number}>
-          <span>10 Following</span>
-          <span>20 Followers</span>
+          <span>{auth.follow}Following</span>
+          <span>{auth.follower}Followers</span>
           <span>6 games watched</span>
           <span>7 Rank</span>
         </div>

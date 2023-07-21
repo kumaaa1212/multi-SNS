@@ -1,7 +1,7 @@
-import Link from 'next/link'
-import React from 'react'
-import Logo from '../../../../public/logo.png'
 import Image from 'next/image'
+import Link from 'next/link'
+import Logo from '../../../../public/logo.png'
+// eslint-disable-next-line import/no-unresolved
 import BadgeAvatars from '@/components/parts/Account'
 const Header = () => {
   return (
