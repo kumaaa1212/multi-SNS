@@ -1,0 +1,31 @@
+.album_header{
+  margin: 0px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 60px;
+  border: 1px red solid;
+  .header_right{
+    display: flex;
+    border: 1px red solid;
+    svg{
+      cursor: pointer;
+    }
+  }
+}
+
+.keep_btn{
+  display: block;
+  width: 100px;
+  height: 40px;
+  margin-left:10px;
+  background-color: black;
+  color:white;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  cursor: pointer;
+  &:hover{
+    background-color: black;
+  }
+}

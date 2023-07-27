@@ -1,16 +1,16 @@
 import React from 'react'
-import styles from './Chat.module.scss'
+import style from '../Chat.module.scss'
 import Image from 'next/image'
 import Img from '../../../../public/testImg1.jpg'
 import ChatContent from '@/components/parts/Chat/ChatContent'
 import { AuthInfo } from '@/context/auth'
-const ChatRoom = () => {
+const ChatArea = () => {
   const auth = AuthInfo()
   return (
-    <div className={styles.chatroom}>
+    <div className={style.chat_area}>
       <ChatContent />
     </div>
   )
 }
 
-export default ChatRoom
+export default ChatArea

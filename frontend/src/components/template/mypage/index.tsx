@@ -1,14 +1,24 @@
-import React, { useState } from 'react'
-import BasicTabs from '@/components/parts/Tabs/TimelineTab'
-import { AuthInfo } from '@/context/auth'
+import { useState } from 'react'
 import Profile from './profile'
+import TimeLine from './timeline'
+import style from './Mypage.module.scss'
+import TweetModal from '@/components/wigets/Modal/Tweet'
+import PostBtn from '@/components/parts/Button/Post/addbtn'
 const Mapage = () => {
+  const [open, setOpen] = useState<boolean>(false)
+  console.log(open)
   return (
-    <div className='profile'>
-      <div className='profile_right'>
-        <Profile />
+    <div>
+      {open && <TweetModal open={open} setOpen={setOpen} />}
+      <div className={style.profile}>
+        <div className='profile_right'>
+          <Profile />
+        </div>
+        <TimeLine />
       </div>
-      <BasicTabs />
+      <div className='add_btn'>
+        <PostBtn setOpen={setOpen} />
+      </div>
     </div>
   )
 }

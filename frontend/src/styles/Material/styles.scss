@@ -66,11 +66,7 @@
   .MuiPaper-root{
     margin:0 auto
   }
-  .add_btn {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    z-index: 100;
+  .add_btn{
     .MuiSvgIcon-root {
       color: white;
       // font-size: 30px;
@@ -81,6 +77,7 @@
     }
   }
 }
+
 .timeline {
   .timeline_img {
     width: 100%;
@@ -160,12 +157,28 @@
     display: flex;
     justify-content: center;
   }
-  .MuiFormControl-root{
-    border: none;
-    outline: none;
+}
+
+.MuiButtonBase-root:active {
+  span{
+    background-color: transparent;
   }
-  .MuiFormControl-root:{
-    border: none;
-    outline: none;
-  }
+  // background-color: red;
+  // border: 1px red solid;
+}
+
+.MuiButtonBase-root:active{
+}
+
+.MuiStepLabel-root{
+  // background-color: black;
+  // color: black;
+}
+.MuiStep-root{
+  // background-color: black;
+  // color: black;
+}
+.MuiStepLabel-label{
+  // background-color: black;
+  // color: black;
 }

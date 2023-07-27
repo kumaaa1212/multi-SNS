@@ -1,15 +1,12 @@
-import { Skeleton } from '@mui/material'
+import { useState } from 'react'
 import Box from '@mui/material/Box'
 import Tab from '@mui/material/Tab'
 import Tabs from '@mui/material/Tabs'
-import Typography from '@mui/material/Typography'
-import * as React from 'react'
-import ControlledOpenSpeedDial from '../Button/addbtn'
-import RecipeReviewCard from '../Card'
-import TweetModal from '../Modal/TweetModal'
-import BasicPagination from '../Pagenation'
-import CustomizedInputBase from '../Search/PostSearch'
-import styles from './Tabs.module.scss'
+import PostBtn from '@/components/parts/Button/Post/addbtn'
+import TweetModal from '@/components/wigets/Modal/Tweet'
+import CustomizedInputBase from '@/components/parts/Search/PostSearch'
+import RecipeReviewCard from '@/components/parts/Card'
+import BasicPagination from '@/components/parts/Pagenation'
 
 interface TabPanelProps {
   children?: React.ReactNode
@@ -30,7 +27,7 @@ function CustomTabPanel(props: TabPanelProps) {
     >
       {value === index && (
         <Box sx={{ p: 3 }}>
-          <span>{children}</span>
+          <div>{children}</div>
         </Box>
       )}
     </div>
@@ -44,9 +41,9 @@ function a11yProps(index: number) {
   }
 }
 
-export default function BasicTabs() {
-  const [value, setValue] = React.useState(0)
-  const [open, setOpen] = React.useState(false)
+export default function TimeLine() {
+  const [value, setValue] = useState<number>(0)
+  const [open, setOpen] = useState<boolean>(false)
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue)
@@ -54,9 +51,8 @@ export default function BasicTabs() {
 
   return (
     <div className='timeline_tab'>
-      {open && <TweetModal open={open} setOpen={setOpen} />}
       <Box sx={{ width: '100%' }}>
-        <div className={styles.tab_header}>
+        <div>
           <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
             <Tabs value={value} onChange={handleChange} aria-label='basic tabs example' centered>
               <Tab label='Post' {...a11yProps(0)} disableRipple />
@@ -85,9 +81,6 @@ export default function BasicTabs() {
         </CustomTabPanel>
       </Box>
       <BasicPagination />
-      <div className='add_btn'>
-        <ControlledOpenSpeedDial setOpen={setOpen} />
-      </div>
     </div>
   )
 }

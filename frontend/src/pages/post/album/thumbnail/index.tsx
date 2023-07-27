@@ -1,4 +1,4 @@
-import Thumbnail from '@/components/template/post/Thumbnail'
+import Thumbnail from '@/components/template/post/album/thumbnail/Thumbnail'
 import React from 'react'
 
 const ThumbnailPage = () => {

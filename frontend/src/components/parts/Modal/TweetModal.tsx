@@ -1,6 +1,5 @@
 import * as React from 'react'
 import Box from '@mui/material/Box'
-import Typography from '@mui/material/Typography'
 import Modal from '@mui/material/Modal'
 import styles from './Modal.module.scss'
 import Image from 'next/image'
@@ -14,7 +13,7 @@ const style = {
   left: '50%',
   transform: 'translate(-50%, -50%)',
   // width: auto,
-  height: 220,
+  // height: 220,
   bgcolor: 'background.paper',
   boxShadow: 24,
   borderRadius: 10,

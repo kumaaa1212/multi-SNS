@@ -1,0 +1,18 @@
+.thumbnail{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .thumbnail_delail{
+    textarea{
+      min-width: 600px;
+      max-width: 600px;
+      min-height: 300px;
+      max-height: 300px;
+      font-size: 20px;
+      border: none;
+    }
+    textarea:focus{
+      outline: none;
+    }
+  }
+}

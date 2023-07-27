@@ -16,18 +16,16 @@ body{
 }
 
 // 各ページのcss
+
+// mypageのレイアウトのcss
 .profile{
   display: grid;
   grid-template-columns: 500px 1fr;
-  .profile_right{
-    width: 500px;
-  }
 }
 .chat{
   display: grid;
   grid-template-columns: 400px 1fr;
 }
-
 
 // アルバム
 .keepoff{
@@ -37,4 +35,9 @@ body{
 .EmojiPickerReact --epr-emoji-size{
     width: 100px;
     height: 100px;
+}
+
+.timeline_tab{
+  border: 1px red solid;
+  // width: 60%;
 }

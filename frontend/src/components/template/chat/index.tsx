@@ -1,7 +1,6 @@
-import React, { useState } from 'react'
-import SideBar from './SideBar'
-import ChatRoom from './ChatRoom'
-import apiClient from '@/libs/apiClient'
+import { useState } from 'react'
+import SideBar from './room/SideBar'
+import ChatArea from './chatArea/ChatArea'
 
 const Chat = ({rooms}:any) => {
   const [chatRoom, setChatRoom] = useState(false)
@@ -9,7 +8,7 @@ const Chat = ({rooms}:any) => {
     <div className='chat'>
       <SideBar chatRoom={chatRoom} setChatRoom={setChatRoom} rooms={rooms} />
       { chatRoom && (
-        <ChatRoom />
+        <ChatArea />
       )}
     </div>
   )
