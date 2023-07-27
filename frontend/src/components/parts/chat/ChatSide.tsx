@@ -2,10 +2,11 @@ import { AuthInfo } from '@/context/auth'
 import React from 'react'
 import styles from './ChatContent.module.scss'
 import Image from 'next/image'
-const ChatSide = () => {
+const ChatSide = (props :any) => {
+  const { setChatRoom } = props
   const auth = AuthInfo()
   return (
-    <div className={styles.person_area}>
+    <div className={styles.person_area} onClick={() =>setChatRoom(true) }>
       <div className={styles.pserson_detail}>
         <Image src={auth.icon} alt={''} width={40} height={40} className={styles.person_icon} />
         <span>{auth.username}</span>

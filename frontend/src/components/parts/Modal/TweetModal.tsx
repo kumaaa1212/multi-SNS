@@ -5,6 +5,8 @@ import Modal from '@mui/material/Modal'
 import styles from './Modal.module.scss'
 import Image from 'next/image'
 import profile_img from '../../../../public/profile_img.jpg'
+import apiClient from '@/libs/apiClient'
+import { AuthInfo } from '@/context/auth'
 
 const style = {
   position: 'absolute' as 'absolute',
@@ -21,6 +23,17 @@ const style = {
 
 export default function TweetModal(props: any) {
   const { open, setOpen } = props
+  const auth = AuthInfo()
+
+  const [tweetContents, setTweetContents] = React.useState('')
+
+  const handleTweet = async () => {
+    const res = await apiClient.post('/post/tweet', {
+      content: tweetContents,
+      authorId: auth.userId,
+    })
+    console.log(res)
+  }
   function openFileInput() {
     const fileInput = document.getElementById('addImg')
     fileInput?.click()
@@ -73,6 +86,7 @@ export default function TweetModal(props: any) {
               id=''
               placeholder='What is happening'
               className={styles.tweet_content}
+              onChange={(e) => setTweetContents(e.target.value)}
             ></textarea>
           </div>
           <div className={styles.handle_tweet}>
@@ -102,7 +116,7 @@ export default function TweetModal(props: any) {
               style={{ display: 'none' }}
               onChange={(e) => handleFileSelect(e)}
             />
-            <button className={styles.handle_btn}>Tweet</button>
+            <button className={styles.handle_btn} onClick={handleTweet}>Tweet</button>
           </div>
         </Box>
       </Modal>

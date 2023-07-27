@@ -5,6 +5,7 @@ import { createContext, useContext, useEffect, useState } from 'react'
 
 interface AuthContextProps {
   username: string
+  userId:string
   team: string
   icon: any
   bio: string
@@ -15,6 +16,7 @@ interface AuthContextProps {
 export const AuthContext = createContext({
   username: '',
   team: '',
+  userId : '',
   icon: '',
   bio: 'AAAAA',
   follow: 0,
@@ -26,6 +28,7 @@ export const AuthInfo = () => useContext(AuthContext)
 export const AuthProvider = ({ children }: any) => {
   const [currentUser, setcurrentUser] = useState<AuthContextProps>({
     username: '',
+    userId:'',
     team: '',
     icon: '',
     bio: '',
@@ -37,6 +40,7 @@ export const AuthProvider = ({ children }: any) => {
       console.log(session)
       setcurrentUser({
         username: session?.user.user_metadata.username,
+        userId:session?.user.id,
         team: session?.user.user_metadata.team,
         bio: session?.user.user_metadata.bio,
         icon: Icongenerate('xcfbgnhCJNsdvfbgnhgfsdcasxcxvcb'),

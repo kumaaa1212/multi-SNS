@@ -9,17 +9,33 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
-model User{
-  id Int @id @default(autoincrement())
-  username String
-  email String @unique
-  password String
-  posts Post[]
-}
+
 model Post{
   id Int @id @default(autoincrement())
   content String
   createdAt DateTime @default(now())
-  author User @relation(fields: [authorId], references: [id])
-  authorId Int
+  authorId String?
 }
+
+model Tweet{
+  id Int @id @default(autoincrement())
+  content String
+  createdAt DateTime @default(now())
+  authorId String?
+}
+
+
+model Room {
+  id String @id @default(uuid()) // UUIDなどの一意のIDを自動生成
+  user1Id String
+  user2Id  String
+  createdAt DateTime @default(now())
+}
+ model Message{
+  id Int @id @default(autoincrement())
+  content String
+  createdAt DateTime @default(now())
+  authorId String?
+  senderId String
+  roomId String?
+ }

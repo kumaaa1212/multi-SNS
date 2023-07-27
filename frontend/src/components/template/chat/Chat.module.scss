@@ -10,6 +10,7 @@
   justify-content: space-between;
   margin-bottom: 30px;
   height: 40px;
+  position: relative;
   .settingIcon {
     cursor: pointer;
     margin-right: 15px;
@@ -18,7 +19,17 @@
     margin-left: 15px;
     cursor: pointer;
   }
+  .new_chat{
+    position:absolute ;
+    top: 50px;
+    right: 0;
+    width: 300px;
+    background-color:white;
+    z-index: 100;
+    border-radius: 10px;
+  }
 }
 .chatroom {
   min-height: 100vh;
 }
+

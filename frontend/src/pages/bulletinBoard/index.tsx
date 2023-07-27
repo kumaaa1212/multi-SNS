@@ -1,7 +1,8 @@
+import Bulletinboard from '@/components/template/bulletinboard'
 import React from 'react'
 
-const Bulletinboard = () => {
-  return <div>Bulletinboard</div>
+const BulletinboardPage = () => {
+  return <Bulletinboard />
 }
 
-export default Bulletinboard
+export default BulletinboardPage

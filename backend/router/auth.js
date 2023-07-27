@@ -5,13 +5,12 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
 router.post("/register", async (req, res) => {
-    const { email, password, username } = req.body;
-    const hashedPassword = await bcrypt.hash(password, 10);
+    const { Icon, username, authId } = req.body;
     const user = await prisma.user.create({
       data: {
         username:username,
-        password:hashedPassword,
-        email:email,
+        authId:authId,
+        Icon:Icon,
       }})
       // ここではkeyを入れている。そして非同期処理を行う
       // username:usernameとしなくていい。省略しているだけ。

@@ -11,6 +11,7 @@ import { supabase } from '@/utils/supabaseClient'
 import { CircularProgress, FormControl, InputLabel, MenuItem, Select } from '@mui/material'
 import ModalWind from '@/components/parts/Modal/LoginModal'
 import Link from 'next/link'
+import { SupabaseClient } from '@supabase/supabase-js'
 const defaultTheme = createTheme()
 export default function SignUp() {
   const [username, setusername] = useState('')
@@ -37,6 +38,7 @@ export default function SignUp() {
           },
         },
       })
+
       setOpen(true)
     } catch (error) {
       alert('エラーが発生しました')
