@@ -7,20 +7,31 @@ import { useRouter } from 'next/router'
 // import ReturnIcon from '../../../../../public/svg/return_icon.svg'
 // import SettingMeter from '../../../../../public/svg/setting_meter.svg'
 const AlnumLayout = ({ children }: any) => {
-  const [keepPost, setKeepPost] = useState(false)
-  const [activeStep, setActiveStep] = useState(0)
+  const [keepPost, setKeepPost] = useState<boolean>(false)
+  const [activeStep, setActiveStep] = useState<number>(0)
+  const [relesed, setRelesed] = useState<boolean>(false)
   const router = useRouter()
-  console.log(activeStep)
+
   useEffect(() => {
     if (router.pathname === '/post/album/thumbnail') {
       setActiveStep(1)
+      setRelesed(!relesed)
     }
   }, [])
+
+  const handleReverse = () => {
+    console.log(router.pathname)
+    if (router.pathname === '/post/album/thumbnail') {
+      router.push('/post/album')
+    } else if (router.pathname === '/post/album') {
+      router.push('/mypage')
+    }
+  }
 
   return (
     <div>
       <div className={style.album_header}>
-        <Link href={'/mypage'}>
+        <button onClick={handleReverse} className={style.album_btn}>
           <svg
             xmlns='http://www.w3.org/2000/svg'
             className='icon icon-tabler icon-tabler-arrow-left'
@@ -38,7 +49,7 @@ const AlnumLayout = ({ children }: any) => {
             <path d='M5 12l6 6' />
             <path d='M5 12l6 -6' />
           </svg>
-        </Link>
+        </button>
         <HorizontalLinearStepper activeStep={activeStep} setActiveStep={setActiveStep} />
         <div className={style.header_right}>
           <svg
@@ -64,13 +75,35 @@ const AlnumLayout = ({ children }: any) => {
             <path d='M18 11l0 9' />
           </svg>
           <SwitchBtn keepPost={keepPost} setKeepPost={setKeepPost} />
-          {keepPost ? (
-            <button className={style.keep_btn} onClick={() => router.push('/post/album/thumbnail')}>
-              次へ進む
-            </button>
-          ) : (
-            <button className={style.keep_btn}>下書き保存</button>
-          )}
+          <div>
+            {keepPost ? (
+              <div>
+                {keepPost ? (
+                  <button
+                    className={style.keep_btn}
+                    onClick={() => router.push('/post/album/thumbnail')}
+                  >
+                    次へ進む
+                  </button>
+                ) : (
+                  <button className={style.keep_btn}>下書き保存</button>
+                )}
+              </div>
+            ) : (
+              <div>
+                {keepPost ? (
+                  <button
+                    className={style.keep_btn}
+                    onClick={() => router.push('/post/album/thumbnail')}
+                  >
+                    次へ進む
+                  </button>
+                ) : (
+                  <button className={style.keep_btn}>公開</button>
+                )}
+              </div>
+            )}
+          </div>
         </div>
       </div>
       <div className={style.album_main}>{children}</div>

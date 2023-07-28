@@ -21,6 +21,10 @@ import Link from 'next/link'
 interface ExpandMoreProps extends IconButtonProps {
   expand: boolean
 }
+interface Props {
+  thumbnailText: string
+  className: string
+}
 
 const ExpandMore = styled((props: ExpandMoreProps) => {
   const { expand, ...other } = props
@@ -33,7 +37,8 @@ const ExpandMore = styled((props: ExpandMoreProps) => {
   }),
 }))
 
-export default function RecipeReviewCard({ className }: any) {
+export default function RecipeReviewCard(props: any) {
+  const { className, thumbnailText } = props
   const [expanded, setExpanded] = React.useState(false)
 
   const handleExpandClick = () => {
@@ -59,10 +64,7 @@ export default function RecipeReviewCard({ className }: any) {
         />
         <Image src={bg_img} alt={''} className='timeline_img' />
         <CardContent>
-          <span>
-            This impressive paella is a perfect party dish and a fun meal to cook together with your
-            guests. Add 1 cup of frozen peas along with the mussels, if you like.
-          </span>
+        <span>{thumbnailText}</span>
         </CardContent>
         <CardActions disableSpacing>
           <IconButton aria-label='add to favorites'>
@@ -83,7 +85,7 @@ export default function RecipeReviewCard({ className }: any) {
         <Collapse in={expanded} timeout='auto' unmountOnExit>
           <CardContent>
             <div>
-              <span>あああああ</span>
+              <span>{thumbnailText}</span>
             </div>
             <div>
               <Link href={'/'}>Show more</Link>

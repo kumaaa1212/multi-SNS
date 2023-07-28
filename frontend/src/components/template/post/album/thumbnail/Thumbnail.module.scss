@@ -1,8 +1,10 @@
 .thumbnail{
+  border: 1px red solid;
   display: flex;
   justify-content: center;
-  align-items: center;
+  // align-items: center;
   .thumbnail_delail{
+    margin-top: 100px;
     textarea{
       min-width: 600px;
       max-width: 600px;

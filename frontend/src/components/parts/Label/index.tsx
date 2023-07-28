@@ -8,6 +8,10 @@ interface ChipData {
   key: number
   label: string
 }
+interface Props {
+  value: string
+  label: string
+}
 
 const ListItem = styled('li')(({ theme }) => ({
   margin: theme.spacing(0.5),
