@@ -12,7 +12,7 @@ const style = {
   bgcolor: 'background.paper',
   boxShadow: 24,
   borderRadius: 10,
-  p: 4,
+  p: 3,
 }
 
 interface Props {

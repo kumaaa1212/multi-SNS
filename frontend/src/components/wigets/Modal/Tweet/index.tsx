@@ -4,8 +4,6 @@ import Image from 'next/image'
 import profile_img from 'public/profile_img.jpg'
 import apiClient from '@/libs/apiClient'
 import { AuthInfo } from '@/context/auth'
-// import CloseIcon from 'public/svg/close_icon.svg'
-import addImgIcon from 'public/svg/addImgIcon.svg'
 import ModalBase from '@/components/parts/Modal'
 export default function TweetModal(props: any) {
   const { open, setOpen } = props

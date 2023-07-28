@@ -5,7 +5,7 @@ import bg_img from 'public/bg_img.jpg'
 import profile_img from 'public/profile_img.jpg'
 import styles from './Prolife.module.scss'
 import { AuthInfo } from '@/context/auth'
-import EditModal from '@/components/parts/Modal/editModal'
+import EditModal from '@/components/wigets/Modal/Edit'
 const Profile = () => {
   const [open, setOpen] = useState<boolean>(false)
   const auth = AuthInfo()

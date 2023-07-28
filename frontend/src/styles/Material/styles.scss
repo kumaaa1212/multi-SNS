@@ -94,25 +94,18 @@
 // プロフィールの編集画面
 .input_area {
   display: flex;
-  flex-direction: column; /* 要素を縦に並べるための指定 */
+  flex-direction: column;
   justify-content: center;
-  // border: 1px red solid;
   margin-top: 50px;
   .MuiInputBase-root {
     margin: 5px 0;
+    color: black;
   }
   .MuiInputBase-input {
     display: block;
     width: 500px;
     font-size: 20px;
-  }
-  textarea {
-    display: block;
-    resize: vertical;
-    width: 600px;
-    min-height: 200px;
-    max-height: 200px;
-    font-size: 20px;
+    border: 1px red 
   }
 }
 
@@ -165,20 +158,4 @@
   }
   // background-color: red;
   // border: 1px red solid;
-}
-
-.MuiButtonBase-root:active{
-}
-
-.MuiStepLabel-root{
-  // background-color: black;
-  // color: black;
-}
-.MuiStep-root{
-  // background-color: black;
-  // color: black;
-}
-.MuiStepLabel-label{
-  // background-color: black;
-  // color: black;
 }
