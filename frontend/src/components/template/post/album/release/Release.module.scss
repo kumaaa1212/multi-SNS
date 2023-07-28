@@ -1,0 +1,25 @@
+.release_contents{
+  margin: 0 auto;
+  width: 800px;
+  .release_title{
+    font-size: 50px;
+    text-align: center;
+  }
+
+  .check_btn{
+    cursor: pointer;
+    display: block;
+    margin: 0 auto;
+    width: 200px;
+    height: 50px;
+    background-color: #0470F2;
+    border:none;
+    border-radius: 5px;
+    span{
+      color: white;
+      font-size: 45px;
+      vertical-align: bottom;
+      margin-right: 10px;
+    }
+  }
+}

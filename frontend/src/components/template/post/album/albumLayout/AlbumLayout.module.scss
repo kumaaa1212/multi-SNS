@@ -4,10 +4,10 @@
   justify-content: space-between;
   align-items: center;
   height: 60px;
-  border: 1px red solid;
+  // border: 1px red solid;
   .header_right{
     display: flex;
-    border: 1px red solid;
+    // border: 1px red solid;
     svg{
       cursor: pointer;
     }
@@ -33,4 +33,7 @@
   &:hover{
     background-color: black;
   }
+}
+.album_main{
+  margin-top: 40px;
 }

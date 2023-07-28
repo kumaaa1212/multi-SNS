@@ -15,7 +15,7 @@ import ShareIcon from '@mui/icons-material/Share'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import MoreVertIcon from '@mui/icons-material/MoreVert'
 import Image from 'next/image'
-import bg_img from 'public/bg_img.jpg'
+import bg_img from '../../../../public/bg_img.jpg'
 import Link from 'next/link'
 
 interface ExpandMoreProps extends IconButtonProps {
@@ -37,7 +37,7 @@ const ExpandMore = styled((props: ExpandMoreProps) => {
   }),
 }))
 
-export default function RecipeReviewCard(props: any) {
+export default function ReleaseCard(props: any) {
   const { className, thumbnailText } = props
   const [expanded, setExpanded] = React.useState(false)
 

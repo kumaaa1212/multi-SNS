@@ -16,17 +16,20 @@
 
   .content{
     margin-top: 30px;
+    margin-left: 50px;
     display: flex;
     justify-content: center;
-
-    textarea{
-      padding: 10px;
+    .preview_area{
+      width: 800px;
+      height: 400px;
+    }
+    .album_text{
       display: block;
       min-width: 800px;
       max-width: 800px;
       min-height: 400px;
       max-height: 400px;
-      font-size: 30px;
+      font-size: 20px;
       outline: none;
       border: none;
     }
@@ -41,12 +44,9 @@
         background-color: gray;
         border-radius: 50%;
       }
-
       svg:hover{
         background-color: black;
       }
     }
   }
 }
-
-// アルバムのサムネイル

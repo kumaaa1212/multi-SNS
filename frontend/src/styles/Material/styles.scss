@@ -110,11 +110,12 @@
 }
 
 
-// アルバムの設定
-.album{
+// アルバムのheaderのデザイン
+.switch_btn{
   .css-5ryogn-MuiButtonBase-root-MuiSwitch-switchBase.Mui-checked+.MuiSwitch-track {
     background-color: black;
   }
+
   .css-5ryogn-MuiButtonBase-root-MuiSwitch-switchBase.Mui-checked{
     color: black;
   }
@@ -128,6 +129,15 @@
   }
 }
 
+.stepper{
+  .css-1u4zpwo-MuiSvgIcon-root-MuiStepIcon-root.Mui-active{
+    color: black;
+  }
+
+  .css-1u4zpwo-MuiSvgIcon-root-MuiStepIcon-root.Mui-completed{
+    color: black;
+  }
+}
 
 // サムネイル
 .thumbnail{
@@ -140,6 +150,12 @@
     margin-bottom: 30px;
   }
 }
+.labels{
+  .MuiFormControl-root{
+    margin-bottom: 40px;
+  }
+}
+
 // チャットの新しいトークの作成
 .chat_new_btn{
   .element {
