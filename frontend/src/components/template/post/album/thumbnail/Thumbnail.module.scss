@@ -1,17 +1,18 @@
 .thumbnail{
-  border: 1px red solid;
+  // border: 1px red solid;
   display: flex;
   justify-content: center;
   // align-items: center;
   .thumbnail_delail{
     margin-top: 100px;
-    textarea{
+    .thumbnail_textarea{
       min-width: 600px;
       max-width: 600px;
-      min-height: 300px;
-      max-height: 300px;
+      min-height: 100px;
+      max-height: 100px;
       font-size: 20px;
       border: none;
+      background-color:#F2F3F5;
     }
     textarea:focus{
       outline: none;

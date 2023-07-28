@@ -7,7 +7,7 @@ import TweetModal from '@/components/wigets/Modal/Tweet'
 import CustomizedInputBase from '@/components/parts/Search/PostSearch'
 import RecipeReviewCard from '@/components/parts/Card'
 import BasicPagination from '@/components/parts/Pagenation'
-
+import style from './TimeLine.module.scss'
 interface TabPanelProps {
   children?: React.ReactNode
   index: number
@@ -63,9 +63,11 @@ export default function TimeLine() {
           <CustomizedInputBase />
         </div>
         <CustomTabPanel value={value} index={0}>
+          <div className={style.tab_content}>
           <RecipeReviewCard />
           <RecipeReviewCard />
           <RecipeReviewCard />
+          </div>
         </CustomTabPanel>
         <CustomTabPanel value={value} index={1}>
           <p>jjjjjjjnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn</p>

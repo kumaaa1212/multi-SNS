@@ -15,9 +15,10 @@ import ShareIcon from '@mui/icons-material/Share'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import MoreVertIcon from '@mui/icons-material/MoreVert'
 import Image from 'next/image'
-import bg_img from '../../../../public/bg_img.jpg'
+import bg_img from 'public/bg_img.jpg'
 import Link from 'next/link'
-
+import { Chip } from '@mui/material'
+import style from '../Card.module.scss'
 interface ExpandMoreProps extends IconButtonProps {
   expand: boolean
 }
@@ -37,8 +38,8 @@ const ExpandMore = styled((props: ExpandMoreProps) => {
   }),
 }))
 
-export default function ReleaseCard(props: any) {
-  const { className, thumbnailText } = props
+export default function ThumbnailCard(props: any) {
+  const { className, thumbnailText,selectedLabel } = props
   const [expanded, setExpanded] = React.useState(false)
 
   const handleExpandClick = () => {
@@ -48,9 +49,19 @@ export default function ReleaseCard(props: any) {
   return (
     <div className='timeline'>
       <Card sx={{ width: Number(className) }}>
+        <CardHeader
+          action={
+            <IconButton aria-label='settings'>
+              <MoreVertIcon />
+            </IconButton>
+          }
+        />
         <Image src={bg_img} alt={''} className='timeline_img' />
         <CardContent>
         <span>{thumbnailText}</span>
+        <div className={style.labels}>{selectedLabel.map((label:any) => (
+          <Chip label={label.name} />
+        ))}</div>
         </CardContent>
         <CardActions disableSpacing>
           <IconButton aria-label='add to favorites'>
@@ -59,24 +70,8 @@ export default function ReleaseCard(props: any) {
           <IconButton aria-label='share'>
             <ShareIcon />
           </IconButton>
-          <ExpandMore
-            expand={expanded}
-            onClick={handleExpandClick}
-            aria-expanded={expanded}
-            aria-label='show more'
-          >
-            <ExpandMoreIcon />
-          </ExpandMore>
         </CardActions>
         <Collapse in={expanded} timeout='auto' unmountOnExit>
-          <CardContent>
-            <div>
-              <span>{thumbnailText}</span>
-            </div>
-            <div>
-              <Link href={'/'}>Show more</Link>
-            </div>
-          </CardContent>
         </Collapse>
       </Card>
     </div>

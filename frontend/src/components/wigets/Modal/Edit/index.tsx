@@ -21,7 +21,8 @@ export default function EditModal(props:Props) {
   const [editName, setEditName] = useState<string>(auth.username)
   const [editIntro, seteditIntro] = useState<string>(auth.bio)
   const [editIcon, seteditIcon] = useState<string>(auth.icon)
-  function openFileInput() {
+
+  const openFileInput = () =>{
     const fileInput = document.getElementById('fileInput')
     fileInput?.click()
   }

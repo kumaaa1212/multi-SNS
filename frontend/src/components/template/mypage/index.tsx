@@ -11,14 +11,12 @@ const Mapage = () => {
     <div>
       {open && <TweetModal open={open} setOpen={setOpen} />}
       <div className={style.profile}>
-        <div className='profile_right'>
+        <div className={style.pro}>
           <Profile />
         </div>
         <TimeLine />
       </div>
-      <div className='add_btn'>
         <PostBtn setOpen={setOpen} />
-      </div>
     </div>
   )
 }

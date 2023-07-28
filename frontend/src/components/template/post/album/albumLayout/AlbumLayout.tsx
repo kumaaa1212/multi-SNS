@@ -15,6 +15,8 @@ const AlnumLayout = (props: Props) => {
   const [keepPost, setKeepPost] = useState<boolean>(false)
   const [activeStep, setActiveStep] = useState<number>(0)
   const [relese, setRelese] = useState<boolean>(false)
+  // const [titleText, settitleText] = useState<string>('')
+  // const [contentText, setContentText] = useState<string>('')
 
   const router = useRouter()
 

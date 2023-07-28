@@ -2,28 +2,33 @@ import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
 import Stack from '@mui/material/Stack';
 
-export default function Labels() {
+export default function Labels(props: any) {
+  const { selectedLabel, setSelectedLabel } = props;
+
   return (
     <div className='labels'>
-    <Stack spacing={3} sx={{ width: 600 }}>
-      <Autocomplete
-        multiple
-        id="tags-standard"
-        options={jLeagueTeams}
-        getOptionLabel={(option) => option.name}
-        renderInput={(params) => (
-          <TextField
-          {...params}
-          variant="standard"
-          label="ラベル"
-          placeholder="ラベルを追加"
-          />
+      <Stack spacing={3} sx={{ width: 600 }}>
+        <Autocomplete
+          multiple
+          id="tags-standard"
+          options={jLeagueTeams}
+          getOptionLabel={(option) => option.name}
+          value={selectedLabel}
+          onChange={(event, newValue) => setSelectedLabel(newValue)}
+          renderInput={(params) => (
+            <TextField
+              {...params}
+              variant="standard"
+              label="ラベル"
+              placeholder="ラベルを追加"
+            />
           )}
-          />
-    </Stack>
-          </div>
+        />
+      </Stack>
+    </div>
   );
 }
+
 
 const jLeagueTeams = [
   { label: 'Cerezo Osaka', name: 'セレッソ大阪', league: 'J1リーグ' },
