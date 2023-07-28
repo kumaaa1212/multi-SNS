@@ -1,6 +1,68 @@
 .tweet_modal{
-  height: 600px;
+  height: 250px;
+}
+
+.handle_close{
+  margin-bottom: 10px;
+  .save_btn{
+    display: block;
+    background-color: black;
+    width: 90px;
+    height: 40px;
+    border-radius: 15px;
+    cursor: pointer;
+    border: none;
+    color: white;
+    font-size: 20px;
+  }
+
+  .close_btn{
+    cursor: pointer;
+  }
+}
+.handle_tweet{
+  margin-top: 10px;
   width: 600px;
+  display: flex;
+  justify-content: space-between;
+  svg{
+    cursor: pointer;
+  }
+
+  .handle_btn{
+    display: block;
+    width: 80px;
+    height: 40px;
+    border: none;
+    border-radius: 10px;
+    background-color: black;
+    color: white;
+    font-weight: 700;
+    font-size: 20px;
+  }
+}
+
+.tweet_content{
+  display: flex;
+  .profile_img{
+    object-fit: cover;
+    border-radius: 50%;
+  }
+
+  .tweet_textarea{
+    margin-left: 20px;
+    display: block;
+    width: 100%;
+    min-height: 150px;
+    max-height: 150px;
+    min-width:530px;
+    max-width: 530px;
+    border: none;
+    font-size: 20px;
+  }
+  .tweet_textarea:focus{
+    outline: none;
+  }
 }
 
 .handle_area{
@@ -18,68 +80,7 @@
     color: white;
     font-size: 20px;
   }
-  .close_btn{
-    cursor: pointer;
-  }
-}
-.handle_tweet{
-  margin-top: 10px;
-  width: 600px;
-  // border: 1px red solid;
-  display: flex;
-  justify-content: space-between;
-  svg{
-    cursor: pointer;
-  }
-  .handle_btn{
-    display: block;
-    width: 80px;
-    height: 40px;
-    border: none;
-    border-radius: 10px;
-    background-color: black;
-    color: white;
-    font-weight: 700;
-    font-size: 20px;
-    // border: 1px red solid;
-  }
-}
-.tweet_header{
-  display: flex;
-  .profile_img{
-    object-fit: cover;
-    border-radius: 50%;
-  }
-  .tweet_content{
-    margin-left: 20px;
-    display: block;
-    width: 100%;
-    min-height: 150px;
-    max-height: 150px;
-    min-width:530px;
-    max-width: 530px;
-    border: none;
-    font-size: 20px;
-  }
-  .tweet_content:focus{
-    outline: none;
-  }
-}
-.handle_area{
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 10px;
-  .save_btn{
-    display: block;
-    background-color: black;
-    width: 90px;
-    height: 40px;
-    border-radius: 15px;
-    cursor: pointer;
-    border: none;
-    color: white;
-    font-size: 20px;
-  }
+
   .close_btn{
     display: block;
     background-color: #fff;

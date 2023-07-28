@@ -8,13 +8,19 @@ const Thumbnail = () => {
   return (
     <div className='thumbnail'>
       <AlnumLayout>
-      <div className={style.thumbnail}>
-        <RecipeReviewCard className='600' thumbnailText={thumbnailText} />
-        <div className={style.thumbnail_delail}>
-          <Label />
-          <textarea placeholder='サムネイルの説明文を入力' value={thumbnailText} onChange={(e) => SetthumbnailText(e.target.value)} />
+        <div className={style.thumbnail}>
+          <RecipeReviewCard className='600' thumbnailText={thumbnailText} />
+          <div className={style.thumbnail_delail}>
+            <Label />
+            <textarea
+              placeholder='サムネイルの説明文を入力'
+              rows={5}
+              cols={10}
+              value={thumbnailText}
+              onChange={(e) => SetthumbnailText(e.target.value)}
+            />
+          </div>
         </div>
-      </div>
       </AlnumLayout>
     </div>
   )
