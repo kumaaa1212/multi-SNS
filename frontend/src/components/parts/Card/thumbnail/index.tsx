@@ -1,4 +1,4 @@
-import * as React from 'react'
+import { useEffect, useState } from 'react'
 import { styled } from '@mui/material/styles'
 import Card from '@mui/material/Card'
 import CardHeader from '@mui/material/CardHeader'
@@ -19,6 +19,7 @@ import bg_img from 'public/bg_img.jpg'
 import Link from 'next/link'
 import { Chip } from '@mui/material'
 import style from '../Card.module.scss'
+import { AuthInfo } from '@/context/auth'
 interface ExpandMoreProps extends IconButtonProps {
   expand: boolean
 }
@@ -40,21 +41,45 @@ const ExpandMore = styled((props: ExpandMoreProps) => {
 
 export default function ThumbnailCard(props: any) {
   const { className, thumbnailText,selectedLabel } = props
-  const [expanded, setExpanded] = React.useState(false)
+  const [expanded, setExpanded] = useState(false)
+  const [currentDate, setCurrentDate] = useState(new Date());
+  const auth = AuthInfo()
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentDate(new Date());
+    }, 1000); // 1秒ごとに日付を更新
+    return () => clearInterval(interval);
+  }, []);
+
+  const formatDate = (date:any) => {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}/${month}/${day}`;
+  };
 
   const handleExpandClick = () => {
     setExpanded(!expanded)
   }
 
+
   return (
     <div className='timeline'>
       <Card sx={{ width: Number(className) }}>
-        <CardHeader
+      <CardHeader
+          avatar={
+            <Avatar  aria-label='recipe'>
+             <Image src={auth.icon} alt={''} width={40} height={40} />
+            </Avatar>
+          }
           action={
             <IconButton aria-label='settings'>
               <MoreVertIcon />
             </IconButton>
           }
+          title='ここにタイトルが表示されます'
+          subheader={formatDate(currentDate)}
         />
         <Image src={bg_img} alt={''} className='timeline_img' />
         <CardContent>

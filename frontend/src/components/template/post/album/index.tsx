@@ -14,25 +14,26 @@ const Album = () => {
   const [preview, setPreview] = useState<boolean>(false)
   const [file, setFile] = useState<any>(null)
 
-  const openFileInput = () =>{
+  const openFileInput = () => {
     const fileInput = document.getElementById('markdown_file_input')
     fileInput?.click()
   }
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const imageURL = event.target.value;
-    setFile(imageURL);
-    console.log(file)
-    handleInsertImage();
-  };
-
-  const handleInsertImage = () => {
-    if (file) {
-      const imageMarkdown = `![](${file})`;
-      setContentText((prevText) => prevText + imageMarkdown);
+    const selectedFile = event.target.files?.[0]
+    if (selectedFile) {
+      const imageURL = URL.createObjectURL(selectedFile)
+      setFile(imageURL)
+      handleInsertImage(imageURL)
     }
-    console.log(contentText)
-  };
+  }
+
+  const handleInsertImage = (imageURL: string) => {
+    if (imageURL) {
+      const imageMarkdown = `![](${imageURL})`
+      setContentText((prevText) => prevText + imageMarkdown)
+    }
+  }
 
   return (
     <div className='album'>

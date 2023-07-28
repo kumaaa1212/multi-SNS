@@ -3,6 +3,7 @@ import style from './AlbumLayout.module.scss'
 import HorizontalLinearStepper from '@/components/parts/Stepper'
 import SwitchBtn from '@/components/parts/Button/SwitchBtn'
 import { useRouter } from 'next/router'
+import AbjustModal from '@/components/wigets/Modal/Abjustment'
 
 interface Props {
   children:  React.ReactNode
@@ -15,6 +16,7 @@ const AlnumLayout = (props: Props) => {
   const [keepPost, setKeepPost] = useState<boolean>(false)
   const [activeStep, setActiveStep] = useState<number>(0)
   const [relese, setRelese] = useState<boolean>(false)
+  const [open, setOpen] = useState<boolean>(false)
   // const [titleText, settitleText] = useState<string>('')
   // const [contentText, setContentText] = useState<string>('')
 
@@ -36,10 +38,12 @@ const AlnumLayout = (props: Props) => {
       router.push('/mypage')
     }
   }
+  
 
   return (
     <div>
       <div className={style.album_header}>
+        {open && <AbjustModal open={open} setOpen={setOpen} />}
         <button onClick={handleReverse} className={style.album_btn}>
           <svg
             xmlns='http://www.w3.org/2000/svg'
@@ -71,6 +75,7 @@ const AlnumLayout = (props: Props) => {
             fill='none'
             stroke-linecap='round'
             stroke-linejoin='round'
+            onClick={() => setOpen(!open)}
           >
             <path stroke='none' d='M0 0h24v24H0z' fill='none' />
             <path d='M4 6m0 1a1 1 0 0 1 1 -1h2a1 1 0 0 1 1 1v3a1 1 0 0 1 -1 1h-2a1 1 0 0 1 -1 -1z' />
