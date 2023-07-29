@@ -8,6 +8,7 @@ interface Props {
 
 const MarkDown = (props:Props) => {
   const { children } = props;
+  console.log(children);
 
   return (
     <div className={style.markdown}>

@@ -4,7 +4,9 @@ import style from './Thumbnail.module.scss'
 import AlnumLayout from '../albumLayout/AlbumLayout'
 import Labels from '@/components/parts/Label'
 import ThumbnailCard from '@/components/parts/Card/thumbnail'
+import { PostInfo } from '@/context/album'
 const Thumbnail = () => {
+  const { titleText, contentText, setTitleText, setContentText } = PostInfo();
   const [thumbnailText, SetthumbnailText] = React.useState('')
   const [selectedLabel, setSelectedLabel] = React.useState<any>([])
   console.log(selectedLabel)
@@ -16,7 +18,7 @@ const Thumbnail = () => {
           <div className={style.thumbnail_delail}>
             <Labels selectedLabel={selectedLabel} setSelectedLabel={setSelectedLabel}  />
             <textarea
-              placeholder='サムネイルの説明文を入力'
+              placeholder={titleText}
               rows={5}
               cols={10}
               value={thumbnailText}

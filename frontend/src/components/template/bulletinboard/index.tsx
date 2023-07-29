@@ -6,10 +6,8 @@ const Bulletinboard = () => {
   const [sideMessagrBar,setSideMessagrBar] = useState<boolean>(false)
   return (
     <div className={style.bulletinboard}>
-      <Timeline/>
-      <div>
+      <Timeline sideMessagrBar={sideMessagrBar} setSideMessagrBar={setSideMessagrBar}/>
       {sideMessagrBar ? (<MessageSidebar/>) : null}
-      </div>
     </div>
   )
 }

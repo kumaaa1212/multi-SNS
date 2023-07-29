@@ -17,8 +17,6 @@ const AlnumLayout = (props: Props) => {
   const [activeStep, setActiveStep] = useState<number>(0)
   const [relese, setRelese] = useState<boolean>(false)
   const [open, setOpen] = useState<boolean>(false)
-  // const [titleText, settitleText] = useState<string>('')
-  // const [contentText, setContentText] = useState<string>('')
 
   const router = useRouter()
 
@@ -39,7 +37,6 @@ const AlnumLayout = (props: Props) => {
     }
   }
   
-
   return (
     <div>
       <div className={style.album_header}>

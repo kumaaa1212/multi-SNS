@@ -1,0 +1,102 @@
+.home{
+  margin-bottom: 200px;
+  .swiper{
+    height: 400px;
+    width: 100%;
+    // border: 1px red solid;
+  }
+}
+// カテゴリーコンポーネントのcss
+.categories_title{
+  width: 70%;
+  height: 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 auto;
+}
+
+.home_categories{
+ padding: 30px 0px;
+  margin: 0 auto;
+  width: 70%;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 10px;
+  .team_card{
+    background-color: #F8F9FA;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    .team_img{
+      border-radius: 10px;
+      object-fit: cover;
+    }
+  }
+}
+
+.all_jleagu_team{
+  display: block;
+  width: 70%;
+  margin: 0 auto;
+  border-top: 1px gray solid;
+  border-bottom: 1px gray solid;
+  padding: 20px 0px;
+  border-left: none;
+  border-right: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.jleagu_team{
+
+}
+
+// 記事コンポーネントのcss
+.articles_area{
+  margin-top: 60px;
+}
+
+.articles_title{
+  width: 70%;
+  height: 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 auto;
+}
+
+.home_articles{
+ padding: 30px 0px;
+  margin: 0 auto;
+  width: 70%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 10px;
+}
+
+.all_articles{
+  display: block;
+  width: 70%;
+  margin: 0 auto;
+  border-top: 1px gray solid;
+  border-bottom: 1px gray solid;
+  padding: 20px 0px;
+  border-left: none;
+  border-right: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+// 共通のデザイン
+.show_all{
+  text-decoration: none;
+  color: #408ddb;
+}
+.show_all:hover{
+  text-decoration: dashed;
+}

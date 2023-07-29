@@ -30,7 +30,7 @@ export default function Labels(props: any) {
 }
 
 
-const jLeagueTeams = [
+export const jLeagueTeams = [
   { label: 'Cerezo Osaka', name: 'セレッソ大阪', league: 'J1リーグ' },
   { label: 'Kashima Antlers', name: '鹿島アントラーズ', league: 'J1リーグ' },
   { label: 'Urawa Red Diamonds', name: '浦和レッドダイヤモンズ', league: 'J1リーグ' },

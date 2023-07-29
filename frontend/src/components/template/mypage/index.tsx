@@ -1,23 +1,17 @@
-import { useState } from 'react'
-import Profile from './profile'
-import TimeLine from './timeline'
-import style from './Mypage.module.scss'
-import TweetModal from '@/components/wigets/Modal/Tweet'
-import PostBtn from '@/components/parts/Button/Post/addbtn'
+import RecipeReviewCard from '@/components/parts/Card'
+import MypageLayout from './layout'
 const Mapage = () => {
-  const [open, setOpen] = useState<boolean>(false)
-  console.log(open)
   return (
-    <div>
-      {open && <TweetModal open={open} setOpen={setOpen} />}
-      <div className={style.profile}>
-        <div className={style.pro}>
-          <Profile />
-        </div>
-        <TimeLine />
+    <MypageLayout>
+      <div>
+      <RecipeReviewCard />
+      <RecipeReviewCard />
+      <RecipeReviewCard />
+      <RecipeReviewCard />
+      <RecipeReviewCard />
+      <RecipeReviewCard />
       </div>
-        <PostBtn setOpen={setOpen} />
-    </div>
+    </MypageLayout>
   )
 }
 

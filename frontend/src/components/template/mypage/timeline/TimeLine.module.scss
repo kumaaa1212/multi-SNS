@@ -1,3 +1,25 @@
 .timeline_tab{
   margin: 0 auto;
+  width: 100%;
+  border: 1px red solid;
+
+}
+
+.timeline_header{
+  // border: 1px red solid;
+  position: relative;
+  right: 10px;
+  left: 500;
+  top: 54px;
+  width: 900px;
+  height: 100px;
+  background-color:#F2F3F5;
+  z-index: 100;
+}
+
+.tab_content{
+  margin-top: 150px;
+  display: flex;
+  justify-content: center;
+  flex-flow: column;
 }

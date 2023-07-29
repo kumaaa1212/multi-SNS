@@ -1,35 +1,20 @@
 .bulletinboard{
   display: grid;
   grid-template-columns: 3fr 1fr;
+  margin: 0px 30px;
 }
 .timeline{
-  border: 1px red solid;
-  min-height: 100vh;
-  margin: 10px 0 0 30px;
-  width: 100%;
-}
-.profile_img{
-  object-fit: cover;
-  border-radius: 10px;
-}
-.user_info{
-margin-left: 10px;
-.user_detail_info{
-  margin-left: 10px;
-  display: flex;
-  p{
-    margin-left: 5px;
+  // position: relative;
+  .timeline_main{
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid #cbcbcb;
+    min-height: 100vh;
+    width: 100%;
   }
-}
-.mention_user{
-  margin-left: 9px;
-  background-color:#dbf1fc;
-  color: #2C87C2;
-  padding: 4px 15px;
-  border-radius: 5px;
-}
-}
-
-.timeline{
-  display: flex;
+  .timeline_search{
+    position: fixed;
+    bottom: 0;
+    margin-bottom: 20px;
+  }
 }

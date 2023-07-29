@@ -93,7 +93,6 @@
   }
 }
 
-
 // プロフィールの編集画面
 .input_area {
   display: flex;
@@ -177,4 +176,20 @@
   }
   // background-color: red;
   // border: 1px red solid;
+}
+
+
+// ページネーション
+.MuiPagination-ul{
+  width: 400px;
+  margin: 0 auto;
+}
+
+.articleCard{
+  margin: 0 auto;
+  .MuiPaper-root{
+    width: 400px;
+    height: 450px;
+  }
+
 }

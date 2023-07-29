@@ -5,7 +5,7 @@ const nextConfig = {
     return [
       {
         source: '/', // リダイレクト元のURL
-        destination: '/mypage', // リダイレクト先のURL
+        destination: '/home', // リダイレクト先のURL
         permanent: true, // 永続的なリダイレクトかのフラグ
       },
     ]

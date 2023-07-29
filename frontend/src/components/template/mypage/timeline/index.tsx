@@ -52,7 +52,7 @@ export default function TimeLine() {
   return (
     <div className='timeline_tab'>
       <Box sx={{ width: '100%' }}>
-        <div>
+        <div className={style.timeline_header}>
           <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
             <Tabs value={value} onChange={handleChange} aria-label='basic tabs example' centered>
               <Tab label='Post' {...a11yProps(0)} disableRipple />
@@ -62,6 +62,7 @@ export default function TimeLine() {
           </Box>
           <CustomizedInputBase />
         </div>
+        <div className={style.timeline_}>
         <CustomTabPanel value={value} index={0}>
           <div className={style.tab_content}>
           <RecipeReviewCard />
@@ -81,6 +82,7 @@ export default function TimeLine() {
           <RecipeReviewCard />
           <RecipeReviewCard />
         </CustomTabPanel>
+        </div>
       </Box>
       <BasicPagination />
     </div>

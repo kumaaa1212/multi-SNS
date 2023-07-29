@@ -1,0 +1,39 @@
+.categories{
+  width: 100%;
+  border: 1px red solid;
+  display: flex;
+  justify-content: center;
+  flex-flow: column;
+}
+.categories_area{
+  width: 800px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
+  gap: 10px;
+  margin: 50px auto;
+  .jleagu_team{
+    width: 150px;
+    height: 150px;
+    background-color: #fff;
+    border-radius: 10px;
+  }
+}
+.team_card{
+  position: relative;
+  height:150px ;
+  width:150px ;
+}
+
+.team_img{
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+.team_card{
+  background-color: #F8F9FA;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+}

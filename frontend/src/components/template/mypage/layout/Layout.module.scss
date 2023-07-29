@@ -1,0 +1,14 @@
+.mypage{
+  display: grid;
+  grid-template-columns: 500px 1fr;
+}
+.mypage_timeline{
+  width: 100%;
+  margin-top: 30px;
+}
+.timeline_area{
+  width: 100%;
+  height: 700px;
+  overflow: scroll;
+  margin-bottom: 10px;
+}

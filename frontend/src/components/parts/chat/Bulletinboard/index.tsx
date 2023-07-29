@@ -1,13 +1,20 @@
-import React from 'react'
 import style from './bulletinboard.module.scss'
-const BulletinboardCard = ({children}:any) => {
+import Image from 'next/image'
+import ProfileImg from '../../../../../public/profile_img.jpg'
+const BulletinboardCard = (props: any) => {
+  const { children, sideMessagrBar, setSideMessagrBar } = props
   return (
-    <div className={style.bulletin_board_Card}>
-    <div className={style.card_conenys}>
-      {children}
-    </div>
-    <div>
-    </div>
+    <div className={style.bulletin_board_Card} onClick={() =>setSideMessagrBar(!sideMessagrBar)}>
+      <div className={style.timeline_user}>
+        <Image src={ProfileImg} alt={''} width={40} height={40} className={style.profile_img} />
+        <div className={style.card_info}>
+          <div className={style.user_detail_info}>
+            <span className={style.user_name}>KUMA</span>
+            <span className={style.publish_time}>20:00</span>
+          </div>
+          <div className={style.card_contents}>{children}</div>
+        </div>
+      </div>
     </div>
   )
 }

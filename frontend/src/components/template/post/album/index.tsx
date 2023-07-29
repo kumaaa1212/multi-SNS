@@ -4,13 +4,13 @@ import style from './Album.module.scss'
 import { FormControlLabel, Paper, Tooltip } from '@mui/material'
 import AlnumLayout from './albumLayout/AlbumLayout'
 import 'swiper/css'
-import MarkDown from '@/components/parts/MarkDown'
+import MarkDown from '@/components/template/MarkDown'
 import { MaterialUISwitch } from '@/components/parts/Button/Preview'
 import Link from 'next/link'
+import { PostInfo, usePostContext } from '@/context/album'
 
 const Album = () => {
-  const [titleText, settitleText] = useState<string>('')
-  const [contentText, setContentText] = useState<string>('')
+  const { titleText, contentText, setTitleText, setContentText } = PostInfo();
   const [preview, setPreview] = useState<boolean>(false)
   const [file, setFile] = useState<any>(null)
 
@@ -31,7 +31,7 @@ const Album = () => {
   const handleInsertImage = (imageURL: string) => {
     if (imageURL) {
       const imageMarkdown = `![](${imageURL})`
-      setContentText((prevText) => prevText + imageMarkdown)
+      setContentText(contentText + imageMarkdown);
     }
   }
 
@@ -43,7 +43,7 @@ const Album = () => {
             type='text'
             placeholder='title'
             value={titleText}
-            onChange={(e) => settitleText(e.target.value)}
+            onChange={(e) => setTitleText(e.target.value)}
           />
           <div className={style.content}>
             <div className={style.preview_area}>
@@ -55,6 +55,7 @@ const Album = () => {
                 <Paper elevation={3}>
                   <textarea
                     name=''
+                    placeholder='マークダウン形式で入力してください'
                     value={contentText}
                     className={style.album_text}
                     onChange={(e) => setContentText(e.target.value)}

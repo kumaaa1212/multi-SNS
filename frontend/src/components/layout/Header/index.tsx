@@ -30,6 +30,9 @@ const Header = () => {
               <path d="M20.2 20.2l1.8 1.8" />
             </svg> */}
           </Link>
+          <Link href={'/home'} className='nav_link link_style'>
+            HOME
+          </Link>
           <Link href={'/chat'} className='nav_link link_style'>
             チャット
           </Link>

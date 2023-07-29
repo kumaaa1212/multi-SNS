@@ -25,6 +25,7 @@
     }
     .album_text{
       display: block;
+      resize: none;
       min-width: 800px;
       max-width: 800px;
       min-height: 400px;
@@ -32,6 +33,7 @@
       font-size: 20px;
       outline: none;
       border: none;
+      padding: 5px 0px;
     }
 
     .content_btn{
