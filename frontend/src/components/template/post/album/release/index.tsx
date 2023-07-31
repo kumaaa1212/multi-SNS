@@ -3,9 +3,7 @@ import style from './Release.module.scss'
 import RecipeReviewCard from '@/components/parts/Card'
 import ReactConfetti from 'react-confetti'
 import useWindowSize from 'react-use/lib/useWindowSize'
-import { PostInfo } from '@/context/album'
 const Release = () => {
-  const { titleText, contentText, setTitleText, setContentText } = PostInfo();
   const [width, setWidth] = useState(0)
   const [height, setHeight] = useState(0)
 

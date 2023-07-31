@@ -20,7 +20,7 @@ const Album = () => {
     const selectedFile = event.target.files?.[0]
     if (selectedFile) {
       const imageURL = URL.createObjectURL(selectedFile)
-      setFile(imageURL)
+      setFile(selectedFile)
       handleInsertImage(imageURL)
     }
   }

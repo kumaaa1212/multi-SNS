@@ -18,7 +18,24 @@
     cursor: pointer;
   }
 }
-
+.abjust_area{
+  // border: 01px red solid;
+  position: relative;
+  .abjust_dropdown{
+    padding: 5px;
+    border-radius: 5px;
+    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.2);
+    // border: 01px red solid;
+    position: absolute;
+    width: 150px;
+    height: 70px;
+    .drowdown_list{
+      list-style: none;
+      cursor: pointer;
+      font-size: 25px;
+    }
+  }
+}
 .keep_btn{
   display: block;
   width: 100px;
