@@ -19,9 +19,7 @@ const Timeline = (props: any) => {
           <p>ssss</p>
         </BulletinboardCard>
       </div>
-      <div className={style.timeline_search}>
-      <CustomizedInputBase />
-      </div>
+      <input type="text"className={style.timeline_search} />
     </div>
   )
 }

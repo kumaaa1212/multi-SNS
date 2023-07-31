@@ -4,6 +4,17 @@
   display: flex;
   justify-content: center;
   flex-flow: column;
+  .categories_search{
+    display: block;
+    width: 600px;
+    margin: 50px auto;
+    padding: 15px 50px;
+    border-radius: 10px;
+    border: 1px solid #ced4da;
+  }
+  .categories_search:focus{
+    outline: none;
+  }
 }
 .categories_area{
   width: 800px;
@@ -23,6 +34,11 @@
   position: relative;
   height:150px ;
   width:150px ;
+  transition: box-shadow 0.3s ease;
+  cursor: pointer;
+}
+.team_card:hover{
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
 }
 
 .team_img{

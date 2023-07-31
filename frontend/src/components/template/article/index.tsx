@@ -4,6 +4,7 @@ import ArticleCard from '@/components/parts/Card/Articles/some'
 import { Chip } from '@mui/material'
 import { jLeagueTeams } from '@/TeamData'
 import BasicPagination from '@/components/parts/Pagenation'
+import LabelArea from '@/components/parts/Label/articles'
 const Article = () => {
   const [click, setClicked] = useState<boolean>(true)
   return (
@@ -41,32 +42,7 @@ const Article = () => {
           <BasicPagination />
         </div>
       </div>
-      <div className={style.label_areas}>
-        <div className={style.label_area}>
-          <h3 className={style.label_title}>J1リーグ</h3>
-          <div className={style.label_contents}>
-            {jLeagueTeams.map((label:any) =>(
-               <Chip label={`#${label.name}`} className={style.label}/>
-            ))}
-          </div>
-        </div>
-        <div className={style.label_area}>
-          <h3 className={style.label_title}>試合会場</h3>
-          <div className={style.label_contents}>
-            {jLeagueTeams.map((label:any) =>(
-               <Chip label={`#${label.name}`} className={style.label}/>
-            ))}
-          </div>
-        </div>
-        {/* <div className={style.label_area}>
-          <h3 className={style.label_title}>結果</h3>
-          <div className={style.label_contents}>
-            {jLeagueTeams.map((label:any) =>(
-               <Chip label={`#${label.name}`} className={style.label}/>
-            ))}
-          </div>
-        </div> */}
-      </div>
+      <LabelArea />
     </div>
   )
 }

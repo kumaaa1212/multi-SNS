@@ -2,30 +2,22 @@ import { useEffect, useState } from 'react'
 import { styled } from '@mui/material/styles'
 import Card from '@mui/material/Card'
 import CardHeader from '@mui/material/CardHeader'
-import CardMedia from '@mui/material/CardMedia'
 import CardContent from '@mui/material/CardContent'
 import CardActions from '@mui/material/CardActions'
 import Collapse from '@mui/material/Collapse'
 import Avatar from '@mui/material/Avatar'
 import IconButton, { IconButtonProps } from '@mui/material/IconButton'
-import Typography from '@mui/material/Typography'
-import { red } from '@mui/material/colors'
 import FavoriteIcon from '@mui/icons-material/Favorite'
 import ShareIcon from '@mui/icons-material/Share'
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import MoreVertIcon from '@mui/icons-material/MoreVert'
 import Image from 'next/image'
 import bg_img from 'public/bg_img.jpg'
-import Link from 'next/link'
 import { Chip } from '@mui/material'
 import style from '../Card.module.scss'
 import { AuthInfo } from '@/context/auth'
+
 interface ExpandMoreProps extends IconButtonProps {
   expand: boolean
-}
-interface Props {
-  thumbnailText: string
-  className: string
 }
 
 const ExpandMore = styled((props: ExpandMoreProps) => {
@@ -48,7 +40,7 @@ export default function ThumbnailCard(props: any) {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentDate(new Date());
-    }, 1000); // 1秒ごとに日付を更新
+    }, 1000); 
     return () => clearInterval(interval);
   }, []);
 
@@ -58,11 +50,6 @@ export default function ThumbnailCard(props: any) {
     const day = String(date.getDate()).padStart(2, '0');
     return `${year}/${month}/${day}`;
   };
-
-  const handleExpandClick = () => {
-    setExpanded(!expanded)
-  }
-
 
   return (
     <div className='timeline'>

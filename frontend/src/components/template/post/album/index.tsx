@@ -1,18 +1,15 @@
-import SwitchBtn from '@/components/parts/Button/SwitchBtn'
 import React, { useState } from 'react'
 import style from './Album.module.scss'
-import { FormControlLabel, Paper, Tooltip } from '@mui/material'
+import { Paper, Tooltip } from '@mui/material'
 import AlnumLayout from './albumLayout/AlbumLayout'
 import 'swiper/css'
 import MarkDown from '@/components/template/MarkDown'
-import { MaterialUISwitch } from '@/components/parts/Button/Preview'
-import Link from 'next/link'
-import { PostInfo, usePostContext } from '@/context/album'
 
 const Album = () => {
-  const { titleText, contentText, setTitleText, setContentText } = PostInfo();
   const [preview, setPreview] = useState<boolean>(false)
   const [file, setFile] = useState<any>(null)
+  const [titleText, setTitleText] = useState<string>('')
+  const [contentText, setContentText] = useState<string>('')
 
   const openFileInput = () => {
     const fileInput = document.getElementById('markdown_file_input')
