@@ -10,9 +10,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-
-
-
 model Post{
   id Int @id @default(autoincrement())
   content String
@@ -21,6 +18,8 @@ model Post{
   labels PostLabel[]
   authorId String?
   thumbnailText String
+  thumbnailImg String
+  likes Like[]
 }
 
 model PostLabel {
@@ -32,6 +31,15 @@ model PostLabel {
   postId Int
   post Post @relation(fields: [postId], references: [id])
 }
+
+model Like {
+  id     Int    @id @default(autoincrement())
+  postId Int
+  userId String
+  post   Post   @relation(fields: [postId], references: [id])
+  @@unique([postId, userId])
+}
+
 
 model Tweet{
   id Int @id @default(autoincrement())
