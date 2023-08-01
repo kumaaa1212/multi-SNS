@@ -39,12 +39,13 @@ export default function ThumbnailCard(props: any) {
   const [expanded, setExpanded] = useState(false)
   const [currentDate, setCurrentDate] = useState(new Date())
   const auth = AuthInfo()
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentDate(new Date())
-    }, 1000)
-    return () => clearInterval(interval)
-  }, [])
+  console.log(labels)
+  // useEffect(() => {
+  //   const interval = setInterval(() => {
+  //     setCurrentDate(new Date())
+  //   }, 1000)
+  //   return () => clearInterval(interval)
+  // }, [])
 
   const formatDate = (date: any) => {
     const year = date.getFullYear()
@@ -75,11 +76,11 @@ export default function ThumbnailCard(props: any) {
         </div>
         <CardContent>
           <span>{thumbnailText}</span>
-          {/* <div className={style.labels}>
+          <div className={style.labels}>
             {labels.map((label: any) => (
               <Chip label={label.name} key={label.label} />
             ))}
-          </div> */}
+          </div>
         </CardContent>
         <CardActions disableSpacing>
           <IconButton aria-label='add to favorites'>
