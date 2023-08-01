@@ -6,6 +6,8 @@ import { useRouter } from 'next/router'
 import AbjustModal from '@/components/wigets/Modal/Abjustment'
 import { RootState } from '@/store'
 import { useSelector } from 'react-redux'
+import apiClient from '@/libs/apiClient'
+import { AuthInfo } from '@/context/auth'
 
 interface Props {
   children: React.ReactNode
@@ -20,10 +22,11 @@ const AlnumLayout = (props: Props) => {
   const [relese, setRelese] = useState<boolean>(false)
   const [open, setOpen] = useState<boolean>(false)
   const [abjustOpen, setAbjustOpen] = useState<boolean>(false)
-  const {thumbnailText} = useSelector((state: RootState) => state.post)
-
+  const {thumbnailText, titleText, labels, contentText} = useSelector((state: RootState) => state.post)
+  const auth = AuthInfo()
+  console.log(auth.userId)
   const router = useRouter()
-
+  console.log(labels)
   useEffect(() => {
     if (router.pathname === '/post/album/thumbnail') {
       setActiveStep(1)
@@ -40,9 +43,21 @@ const AlnumLayout = (props: Props) => {
       router.push('/mypage')
     }
   }
-  const handleRelease = () => {
-
-    router.push('/post/album/release')
+  const handleRelease = async () => {
+    try{
+      const res =  await apiClient.post('/post/album', {
+        title: titleText,
+        content: contentText,
+        labels: labels,
+        thumbnailText: thumbnailText,
+        authorId:auth.userId
+      })
+      console.log(res)
+      // router.push('/post/album/release')
+    }
+    catch(e){
+      console.log(e)
+    }
   }
 
   return (

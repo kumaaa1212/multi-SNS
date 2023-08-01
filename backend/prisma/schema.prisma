@@ -10,11 +10,27 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+
+
+
 model Post{
   id Int @id @default(autoincrement())
   content String
+  title String
   createdAt DateTime @default(now())
+  labels PostLabel[]
   authorId String?
+  thumbnailText String
+}
+
+model PostLabel {
+  id Int @id @default(autoincrement())
+  label String
+  name String
+  league String
+  img String
+  postId Int
+  post Post @relation(fields: [postId], references: [id])
 }
 
 model Tweet{
@@ -23,7 +39,6 @@ model Tweet{
   createdAt DateTime @default(now())
   authorId String?
 }
-
 
 model Room {
   id String @id @default(uuid()) // UUIDなどの一意のIDを自動生成

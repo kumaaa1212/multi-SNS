@@ -11,7 +11,9 @@ router.post("/newroom", async (req, res) => {
       user2Id,
     },
   });
+  console.log(room);
   return res.json({ room });
+
 });
 
 // チャットルームの一覧を取得する
