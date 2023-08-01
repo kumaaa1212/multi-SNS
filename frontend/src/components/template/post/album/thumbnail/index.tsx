@@ -4,24 +4,26 @@ import style from './Thumbnail.module.scss'
 import AlnumLayout from '../albumLayout/AlbumLayout'
 import Labels from '@/components/parts/Label/thumbnail'
 import ThumbnailCard from '@/components/parts/Card/thumbnail'
+import { useDispatch, useSelector } from 'react-redux'
+import { AppDispatch, RootState } from '@/store'
+import { addThumbnail } from '@/features/postSlice'
 const Thumbnail = () => {
-  const [thumbnailText, SetthumbnailText] = React.useState('')
-  const [selectedLabel, setSelectedLabel] = React.useState<any>([])
-  console.log(selectedLabel)
+  const dispatch: AppDispatch = useDispatch();
+  const {thumbnailText} = useSelector((state: RootState) => state.post)
   return (
     <div className='thumbnail'>
       <AlnumLayout>
         <div className={style.thumbnail}>
-          <ThumbnailCard className='600' thumbnailText={thumbnailText} selectedLabel={selectedLabel} />
+          <ThumbnailCard className='600' />
           <div className={style.thumbnail_delail}>
-            <Labels selectedLabel={selectedLabel} setSelectedLabel={setSelectedLabel}  />
+            <Labels />
             <textarea
               placeholder='説明を入力してください'
               rows={5}
               cols={10}
               value={thumbnailText}
               className={style.thumbnail_textarea}
-              onChange={(e) => SetthumbnailText(e.target.value)}
+              onChange={(e) => dispatch(addThumbnail(e.target.value))}
             />
           </div>
         </div>

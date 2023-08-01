@@ -17,7 +17,7 @@ const AlnumLayout = (props: Props) => {
   const [activeStep, setActiveStep] = useState<number>(0)
   const [relese, setRelese] = useState<boolean>(false)
   const [open, setOpen] = useState<boolean>(false)
-  const [abjustOpen, setAbjustOpen] = useState<boolean>(true)
+  const [abjustOpen, setAbjustOpen] = useState<boolean>(false)
 
   const router = useRouter()
 

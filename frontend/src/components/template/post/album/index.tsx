@@ -4,13 +4,14 @@ import { Paper, Tooltip } from '@mui/material'
 import AlnumLayout from './albumLayout/AlbumLayout'
 import 'swiper/css'
 import MarkDown from '@/components/template/MarkDown'
+import { useDispatch, useSelector } from 'react-redux'
+import { addImgcontents, createContentText, createTitleText } from '@/features/postSlice'
+import { AppDispatch, RootState } from '@/store'
 
 const Album = () => {
   const [preview, setPreview] = useState<boolean>(false)
-  const [file, setFile] = useState<any>(null)
-  const [titleText, setTitleText] = useState<string>('')
-  const [contentText, setContentText] = useState<string>('')
-
+  const dispatch: AppDispatch = useDispatch();
+  const { titleText, contentText } = useSelector((state: RootState) => state.post)
   const openFileInput = () => {
     const fileInput = document.getElementById('markdown_file_input')
     fileInput?.click()
@@ -19,16 +20,8 @@ const Album = () => {
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = event.target.files?.[0]
     if (selectedFile) {
-      const imageURL = URL.createObjectURL(selectedFile)
-      setFile(selectedFile)
-      handleInsertImage(imageURL)
-    }
-  }
-
-  const handleInsertImage = (imageURL: string) => {
-    if (imageURL) {
-      const imageMarkdown = `![](${imageURL})`
-      setContentText(contentText + imageMarkdown);
+      const imageMarkdown = `![](${ URL.createObjectURL(selectedFile)})`
+      dispatch(addImgcontents(imageMarkdown))
     }
   }
 
@@ -40,7 +33,7 @@ const Album = () => {
             type='text'
             placeholder='title'
             value={titleText}
-            onChange={(e) => setTitleText(e.target.value)}
+            onChange={(e) => dispatch(createTitleText(e.target.value))}
           />
           <div className={style.content}>
             <div className={style.preview_area}>
@@ -55,7 +48,7 @@ const Album = () => {
                     placeholder='マークダウン形式で入力してください'
                     value={contentText}
                     className={style.album_text}
-                    onChange={(e) => setContentText(e.target.value)}
+                    onChange={(e) =>dispatch(createContentText(e.target.value))}
                   />
                 </Paper>
               )}

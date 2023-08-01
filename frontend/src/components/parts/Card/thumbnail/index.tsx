@@ -15,6 +15,8 @@ import bg_img from 'public/bg_img.jpg'
 import { Chip } from '@mui/material'
 import style from '../Card.module.scss'
 import { AuthInfo } from '@/context/auth'
+import { RootState } from '@/store'
+import { useSelector } from 'react-redux'
 
 interface ExpandMoreProps extends IconButtonProps {
   expand: boolean
@@ -32,32 +34,32 @@ const ExpandMore = styled((props: ExpandMoreProps) => {
 }))
 
 export default function ThumbnailCard(props: any) {
-  const { className, thumbnailText,selectedLabel } = props
+  const { className } = props
+  const { titleText, labels, thumbnailText } = useSelector((state: RootState) => state.post)
   const [expanded, setExpanded] = useState(false)
-  const [currentDate, setCurrentDate] = useState(new Date());
+  const [currentDate, setCurrentDate] = useState(new Date())
   const auth = AuthInfo()
-
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentDate(new Date());
-    }, 1000); 
-    return () => clearInterval(interval);
-  }, []);
+      setCurrentDate(new Date())
+    }, 1000)
+    return () => clearInterval(interval)
+  }, [])
 
-  const formatDate = (date:any) => {
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const day = String(date.getDate()).padStart(2, '0');
-    return `${year}/${month}/${day}`;
-  };
+  const formatDate = (date: any) => {
+    const year = date.getFullYear()
+    const month = String(date.getMonth() + 1).padStart(2, '0')
+    const day = String(date.getDate()).padStart(2, '0')
+    return `${year}/${month}/${day}`
+  }
 
   return (
     <div className='timeline'>
       <Card sx={{ width: Number(className) }}>
-      <CardHeader
+        <CardHeader
           avatar={
-            <Avatar  aria-label='recipe'>
-             <Image src={auth.icon} alt={''} width={40} height={40} />
+            <Avatar aria-label='recipe'>
+              <Image src={auth.icon} alt={''} width={40} height={40} />
             </Avatar>
           }
           action={
@@ -65,15 +67,17 @@ export default function ThumbnailCard(props: any) {
               <MoreVertIcon />
             </IconButton>
           }
-          title='ここにタイトルが表示されます'
+          title={titleText}
           subheader={formatDate(currentDate)}
         />
         <Image src={bg_img} alt={''} className='timeline_img' />
         <CardContent>
-        <span>{thumbnailText}</span>
-        <div className={style.labels}>{selectedLabel.map((label:any) => (
-          <Chip label={label.name} />
-        ))}</div>
+          <span>{thumbnailText}</span>
+          <div className={style.labels}>
+            {labels.map((label: any) => (
+              <Chip label={label.name} key={label.label} />
+            ))}
+          </div>
         </CardContent>
         <CardActions disableSpacing>
           <IconButton aria-label='add to favorites'>
@@ -83,8 +87,7 @@ export default function ThumbnailCard(props: any) {
             <ShareIcon />
           </IconButton>
         </CardActions>
-        <Collapse in={expanded} timeout='auto' unmountOnExit>
-        </Collapse>
+        <Collapse in={expanded} timeout='auto' unmountOnExit></Collapse>
       </Card>
     </div>
   )
