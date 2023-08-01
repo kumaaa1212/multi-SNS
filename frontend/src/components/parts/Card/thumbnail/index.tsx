@@ -70,14 +70,16 @@ export default function ThumbnailCard(props: any) {
           title={titleText}
           subheader={formatDate(currentDate)}
         />
-        <Image src={bg_img} alt={''} className='timeline_img' />
+        <div className={style.img_area}>
+          <Image src={bg_img} alt={''} className={style.timeline_img} />
+        </div>
         <CardContent>
           <span>{thumbnailText}</span>
-          <div className={style.labels}>
+          {/* <div className={style.labels}>
             {labels.map((label: any) => (
               <Chip label={label.name} key={label.label} />
             ))}
-          </div>
+          </div> */}
         </CardContent>
         <CardActions disableSpacing>
           <IconButton aria-label='add to favorites'>

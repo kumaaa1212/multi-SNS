@@ -1,64 +1,60 @@
 const router = require("express").Router();
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
-const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
-router.post("/register", async (req, res) => {
-    const { email, password, username } = req.body;
-    const hashedPassword = await bcrypt.hash(password, 10);
-    const user = await prisma.user.create({
-      data: {
-        username:username,
-        password:hashedPassword,
-        email:email,
-      }})
-      // ここではkeyを入れている。そして非同期処理を行う
-      // username:usernameとしなくていい。省略しているだけ。
-   return res.json({user});
-  })
-// ログインはpostで行う
-router.post('/login', async (req, res) => {
-    const { email, password } = req.body;
-    const user = await prisma.user.findUnique({
-      where: {
-        email,
-      },
-    });
-    const passwordValid = await bcrypt.compare(password, user.password);
-    if (!user) {
-      return res.json({ message: "user not found" });
-    }
-    if (!passwordValid) {
-      return res.json({ message: "password is wrong" });
-    }
-    const token = jwt.sign({ id: user.id }, process.env.SECRET_KEY, {
-      expiresIn: "1d",
-    });
-    return res.json({ token });
-})
 
+// チャットルームを作成する
+router.post("/temporarily_saved", async (req, res) => {
+  con
+});
 
-router.get("/tweet", async (req, res) => {
-  const tweet = await prisma.tweet.findMany({
-    include: {
-      user: true,
+// チャットルームの一覧を取得する
+router.get("/room/chat", async (req, res) => {
+  const { userId } = req.body;
+  const room = await prisma.room.findMany({
+    where: {
+      user1Id: userId,
     },
   });
-  return res.json({ tweet });
+  return res.json({ room });
+});
+
+// チャットルームを取得する
+router.get("/room/allroom", async (req, res) => {
+  const { partnerId } = req.body;
+  const rooms = await prisma.room.findMany({
+    where: {
+      user2Id: partnerId,
+    },
+  });
+  return res.json({ rooms });
+});
+
+// チャット内容を取得する
+router.get("/room/chat", async (req, res) => {
+  const { roomId } = req.body;
+  const messages = await prisma.message.findMany({
+    where: {
+      roomId,
+    },
+    orderBy: {
+      createdAt: 'asc',
+    },
+  });
+  return res.json({ messages });
 })
 
-router.post("/tweet", async (req, res) => {
-  const { content, authorId } = req.body;
-  const tweet = await prisma.tweet.create({
+// チャット内容を作成する
+router.post("/room/chat", async (req, res) => {
+  const { roomId, authorId, content } = req.body;
+  const message = await prisma.message.create({
     data: {
-      content,
+      roomId,
       authorId,
+      senderId,
+      content,
     },
   });
-  return res.json({ tweet });
+  return res.json({ message });
 })
-router.post('/message', async (req, res) => {
-  const { roomId } = req.query;
 
-})
-  module.exports = router;
+module.exports = router;

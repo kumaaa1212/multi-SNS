@@ -4,6 +4,8 @@ import HorizontalLinearStepper from '@/components/parts/Stepper'
 import SwitchBtn from '@/components/parts/Button/SwitchBtn'
 import { useRouter } from 'next/router'
 import AbjustModal from '@/components/wigets/Modal/Abjustment'
+import { RootState } from '@/store'
+import { useSelector } from 'react-redux'
 
 interface Props {
   children: React.ReactNode
@@ -12,12 +14,13 @@ interface Props {
 }
 
 const AlnumLayout = (props: Props) => {
-  const { children, titleText, contentText } = props
+  const { children } = props
   const [keepPost, setKeepPost] = useState<boolean>(false)
   const [activeStep, setActiveStep] = useState<number>(0)
   const [relese, setRelese] = useState<boolean>(false)
   const [open, setOpen] = useState<boolean>(false)
   const [abjustOpen, setAbjustOpen] = useState<boolean>(false)
+  const {thumbnailText} = useSelector((state: RootState) => state.post)
 
   const router = useRouter()
 
@@ -36,6 +39,10 @@ const AlnumLayout = (props: Props) => {
     } else if (router.pathname === '/post/album') {
       router.push('/mypage')
     }
+  }
+  const handleRelease = () => {
+
+    router.push('/post/album/release')
   }
 
   return (
@@ -107,7 +114,7 @@ const AlnumLayout = (props: Props) => {
                 {relese ? (
                   <button
                     className={style.keep_btn}
-                    onClick={() => router.push('/post/album/release')}
+                    onClick={handleRelease}
                   >
                     公開
                   </button>

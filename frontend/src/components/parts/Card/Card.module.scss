@@ -2,3 +2,20 @@
 .labels{
   margin-top: 10px;
 }
+.img_area{
+  position: relative;
+  .timeline_img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+  }
+  .timeline_img_cover{
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: black;
+    opacity: 0.3;
+  }
+}
