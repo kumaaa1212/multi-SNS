@@ -1,5 +1,6 @@
 .label_areas{
   margin: 60px auto;
+  border: 1px red solid;
 }
 .label_area{
   margin-bottom: 50px;
@@ -22,6 +23,8 @@
   min-height: 400px;
   .label{
     margin: 5px;
+    cursor: pointer;
+    user-select: none;
   }
 }
 .pagenation{

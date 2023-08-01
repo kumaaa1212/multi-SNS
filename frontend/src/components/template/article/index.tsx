@@ -1,12 +1,14 @@
-import React, { useState } from 'react'
+import React, { use, useEffect, useState } from 'react'
 import style from './Article.module.scss'
 import ArticleCard from '@/components/parts/Card/Articles/some'
 import { Chip } from '@mui/material'
 import { jLeagueTeams } from '@/TeamData'
 import BasicPagination from '@/components/parts/Pagenation'
 import LabelArea from '@/components/parts/Label/articles'
-const Article = () => {
+import apiClient from '@/libs/apiClient'
+const Article = ({articles}:any) => {
   const [click, setClicked] = useState<boolean>(true)
+  console.log(articles)
   return (
     <div className={style.article}>
       <div className={style.article_contents}>
@@ -26,16 +28,12 @@ const Article = () => {
         </div>
         {click ? (
           <div className={style.article_timeline}>
-            <ArticleCard />
-            <ArticleCard />
-            <ArticleCard />
+            {articles.posts.map((article:any) => (
+              <ArticleCard article={article} />
+            ))}
           </div>
         ) : (
           <div className={style.article_timeline}>
-            <ArticleCard />
-            <ArticleCard />
-            <ArticleCard />
-            <ArticleCard />
           </div>
         )}
         <div className={style.pagenation}>

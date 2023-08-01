@@ -18,6 +18,7 @@ import Image from 'next/image'
 import bg_img from 'public/bg_img.jpg'
 import Link from 'next/link'
 import style from '../ArticlesCard.module.scss'
+import apiClient from '@/libs/apiClient'
 interface ExpandMoreProps extends IconButtonProps {
   expand: boolean
 }

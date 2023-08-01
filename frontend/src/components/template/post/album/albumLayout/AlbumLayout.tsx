@@ -8,6 +8,8 @@ import { RootState } from '@/store'
 import { useSelector } from 'react-redux'
 import apiClient from '@/libs/apiClient'
 import { AuthInfo } from '@/context/auth'
+import { supabase } from '@/utils/supabaseClient'
+import { v4 as uuidv4 } from 'uuid'
 
 interface Props {
   children: React.ReactNode
@@ -22,7 +24,9 @@ const AlnumLayout = (props: Props) => {
   const [relese, setRelese] = useState<boolean>(false)
   const [open, setOpen] = useState<boolean>(false)
   const [abjustOpen, setAbjustOpen] = useState<boolean>(false)
-  const {thumbnailText, titleText, labels, contentText} = useSelector((state: RootState) => state.post)
+  const { thumbnailText, titleText, labels, contentText, thumbnailImg } = useSelector(
+    (state: RootState) => state.post,
+  )
   const auth = AuthInfo()
   console.log(auth.userId)
   const router = useRouter()
@@ -44,19 +48,42 @@ const AlnumLayout = (props: Props) => {
     }
   }
   const handleRelease = async () => {
-    try{
-      const res =  await apiClient.post('/post/album', {
-        title: titleText,
-        content: contentText,
-        labels: labels,
-        thumbnailText: thumbnailText,
-        authorId:auth.userId
-      })
-      console.log(res)
-      // router.push('/post/album/release')
-    }
-    catch(e){
-      console.log(e)
+    if (!(thumbnailText && titleText && labels && contentText)) {
+      alert('必要な情報が入力されていません')
+    } else {
+      try {
+        if (thumbnailImg === '') {
+          const res = await apiClient.post('/post/album', {
+            title: titleText,
+            content: contentText,
+            labels: labels,
+            thumbnailText: thumbnailText,
+            authorId: auth.userId,
+            thumbnailImg: '',
+          })
+        } else {
+          const { data: storageData, error: storegeError } = await supabase.storage
+            .from('thumbnail')
+            .upload(`${auth.userId}/${uuidv4()}`, thumbnailImg)
+          if (storegeError) {
+            throw storegeError
+          }
+          const { data: urlData } = supabase.storage
+            .from('thumbnail')
+            .getPublicUrl(storageData.path)
+          const res = await apiClient.post('/post/album', {
+            title: titleText,
+            content: contentText,
+            labels: labels,
+            thumbnailText: thumbnailText,
+            authorId: auth.userId,
+            thumbnailImg: urlData.publicUrl,
+          })
+        }
+        router.push('/post/album/release')
+      } catch {
+        alert('投稿に失敗しました')
+      }
     }
   }
 
@@ -127,10 +154,7 @@ const AlnumLayout = (props: Props) => {
             {keepPost || relese ? (
               <div>
                 {relese ? (
-                  <button
-                    className={style.keep_btn}
-                    onClick={handleRelease}
-                  >
+                  <button className={style.keep_btn} onClick={handleRelease}>
                     公開
                   </button>
                 ) : (

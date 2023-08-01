@@ -1,5 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  images: {
+    domains: ['rzdzcpquxmwuusgpppri.supabase.co'],
+  },
   reactStrictMode: true,
   async redirects() {
     return [
@@ -23,9 +26,6 @@ const nextConfig = {
       ],
     });
     return config;
-  },
-  images: {
-    disableStaticImages: false, // importした画像の型定義設定を無効にする
   },
 }
 

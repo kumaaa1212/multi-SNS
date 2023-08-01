@@ -1,0 +1,21 @@
+.articles_details{
+  display: flex;
+  border: 1px red solid;
+  .articles_details_show{
+    border: 1px blue solid;
+    width: 80%;
+  }
+  .articles_details_header{
+    margin-top: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .team_img{
+    margin-right: 30px;
+    border-radius: 10px;
+  }
+  .labels_area{
+    width: 20%;
+  }
+}

@@ -11,12 +11,12 @@ import FavoriteIcon from '@mui/icons-material/Favorite'
 import ShareIcon from '@mui/icons-material/Share'
 import MoreVertIcon from '@mui/icons-material/MoreVert'
 import Image from 'next/image'
-import bg_img from 'public/bg_img.jpg'
 import { Chip } from '@mui/material'
 import style from '../Card.module.scss'
 import { AuthInfo } from '@/context/auth'
-import { RootState } from '@/store'
-import { useSelector } from 'react-redux'
+import { AppDispatch, RootState } from '@/store'
+import { useDispatch, useSelector } from 'react-redux'
+import { addThumbnailImg, dispalyThumbnailImg } from '@/features/postSlice'
 
 interface ExpandMoreProps extends IconButtonProps {
   expand: boolean
@@ -35,11 +35,14 @@ const ExpandMore = styled((props: ExpandMoreProps) => {
 
 export default function ThumbnailCard(props: any) {
   const { className } = props
-  const { titleText, labels, thumbnailText } = useSelector((state: RootState) => state.post)
+  const dispatch: AppDispatch = useDispatch()
+  const { titleText, labels, thumbnailText, displayThumbnailImg } = useSelector(
+    (state: RootState) => state.post,
+  )
   const [expanded, setExpanded] = useState(false)
   const [currentDate, setCurrentDate] = useState(new Date())
+  const [file, setFile] = useState<File | null>(null)
   const auth = AuthInfo()
-  console.log(labels)
   // useEffect(() => {
   //   const interval = setInterval(() => {
   //     setCurrentDate(new Date())
@@ -53,9 +56,17 @@ export default function ThumbnailCard(props: any) {
     const day = String(date.getDate()).padStart(2, '0')
     return `${year}/${month}/${day}`
   }
+  const openFileInput = () => {
+    const fileInput = document.getElementById('fileInput')
+    fileInput?.click()
+  }
+  const handleImg = (e: any) => {
+    dispatch(addThumbnailImg(e.target.files[0]))
+    dispatch(dispalyThumbnailImg(e.target.files[0]))
+  }
 
   return (
-    <div className='timeline'>
+    <div className='thumbnail_card'>
       <Card sx={{ width: Number(className) }}>
         <CardHeader
           avatar={
@@ -72,7 +83,38 @@ export default function ThumbnailCard(props: any) {
           subheader={formatDate(currentDate)}
         />
         <div className={style.img_area}>
-          <Image src={bg_img} alt={''} className={style.timeline_img} />
+          <Image
+            src={displayThumbnailImg}
+            alt={''}
+            className={style.thumbnail_img}
+            width={300}
+            height={200}
+          />
+          <div className={style.thumbnail_img_cover}>
+            <svg
+              xmlns='http://www.w3.org/2000/svg'
+              className={style.thumbnail_img_cover_icon}
+              width='90'
+              height='90'
+              viewBox='0 0 24 24'
+              stroke-width='1.5'
+              stroke='#ffffff'
+              fill='none'
+              stroke-linecap='round'
+              stroke-linejoin='round'
+              onClick={openFileInput}
+            >
+              <path stroke='none' d='M0 0h24v24H0z' fill='none' />
+              <path d='M5 7h1a2 2 0 0 0 2 -2a1 1 0 0 1 1 -1h6a1 1 0 0 1 1 1a2 2 0 0 0 2 2h1a2 2 0 0 1 2 2v9a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-9a2 2 0 0 1 2 -2' />
+              <path d='M9 13a3 3 0 1 0 6 0a3 3 0 0 0 -6 0' />
+            </svg>
+            <input
+              type='file'
+              id='fileInput'
+              style={{ display: 'none' }}
+              onChange={(e) => handleImg(e)}
+            />
+          </div>
         </div>
         <CardContent>
           <span>{thumbnailText}</span>

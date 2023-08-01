@@ -10,7 +10,7 @@ import { AppDispatch, RootState } from '@/store'
 
 const Album = () => {
   const [preview, setPreview] = useState<boolean>(false)
-  const dispatch: AppDispatch = useDispatch();
+  const dispatch: AppDispatch = useDispatch()
   const { titleText, contentText } = useSelector((state: RootState) => state.post)
   const openFileInput = () => {
     const fileInput = document.getElementById('markdown_file_input')
@@ -20,7 +20,7 @@ const Album = () => {
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = event.target.files?.[0]
     if (selectedFile) {
-      const imageMarkdown = `![](${ URL.createObjectURL(selectedFile)})`
+      const imageMarkdown = `![](${URL.createObjectURL(selectedFile)})`
       dispatch(addImgcontents(imageMarkdown))
     }
   }
@@ -48,7 +48,7 @@ const Album = () => {
                     placeholder='マークダウン形式で入力してください'
                     value={contentText}
                     className={style.album_text}
-                    onChange={(e) =>dispatch(createContentText(e.target.value))}
+                    onChange={(e) => dispatch(createContentText(e.target.value))}
                   />
                 </Paper>
               )}

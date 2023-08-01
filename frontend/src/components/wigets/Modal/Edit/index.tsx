@@ -77,8 +77,8 @@ export default function EditModal(props:Props) {
           <Image src={bg_img} alt={''} className={style.bg_img} width={600} height={250} />
           <span className={style.edit_bgImg}>
             <svg
-              onClick={() => openFileInput()}
-              xmlns='http://www.w3.org/2000/svg'
+              onClick={openFileInput}
+              xmlns='http://wvscode-file://vscode-app/Users/ryoheiokuma/Downloads/Visual%20Studio%20Code.app/Contents/Resources/app/out/vs/code/electron-sandbox/workbench/workbench.htmlww.w3.org/2000/svg'
               className={style.icon}
               width='68'
               height='68'

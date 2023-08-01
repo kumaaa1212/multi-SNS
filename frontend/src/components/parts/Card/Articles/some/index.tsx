@@ -1,4 +1,4 @@
-import * as React from 'react'
+import { useEffect, useState } from 'react'
 import { styled } from '@mui/material/styles'
 import Card from '@mui/material/Card'
 import CardHeader from '@mui/material/CardHeader'
@@ -18,6 +18,8 @@ import Image from 'next/image'
 import bg_img from 'public/bg_img.jpg'
 import Link from 'next/link'
 import style from '../ArticlesCard.module.scss'
+import apiClient from '@/libs/apiClient'
+import { Chip } from '@mui/material'
 interface ExpandMoreProps extends IconButtonProps {
   expand: boolean
 }
@@ -38,15 +40,24 @@ const ExpandMore = styled((props: ExpandMoreProps) => {
 }))
 
 export default function ArticleCard(props: any) {
-  const { className, thumbnailText } = props
-  const [expanded, setExpanded] = React.useState(false)
+  const { className, article } = props
+  const [expanded, setExpanded] = useState(false)
+  const [labels, setLabels] = useState<any>([])
 
   const handleExpandClick = () => {
     setExpanded(!expanded)
   }
+  useEffect(() => {
+    const getLabels = async () => {
+      const labels = await apiClient.get(`/post/match/label/${article.id}`)
+      setLabels(labels.data)
+    }
+    getLabels()
+  }, [])
+  console.log(labels)
 
   return (
-    <div className="articleCard">
+    <div className='articleCard'>
       <Card sx={{ width: Number(className) }}>
         <CardHeader
           avatar={
@@ -59,12 +70,25 @@ export default function ArticleCard(props: any) {
               <MoreVertIcon />
             </IconButton>
           }
-          title='Shrimp and Chorizo Paella'
+          title={article.title}
           subheader='September 14, 2016'
         />
-        <Image src={bg_img} alt={''} className={style.main_img} />
+        <Image
+          src={article.thumbnailImg ? article.thumbnailImg : '/thumbnail.png'}
+          alt={''}
+          className={style.main_img}
+          width={400}
+          height={200}
+        />
         <CardContent>
-        <span>{thumbnailText}</span>
+          <span>{article.thumbnailText}</span>
+          <div>
+            <span>
+              {labels.map((label: any) => (
+                <Chip label={label.name} />
+              ))}
+            </span>
+          </div>
         </CardContent>
         <CardActions disableSpacing>
           <IconButton aria-label='add to favorites'>
@@ -84,9 +108,6 @@ export default function ArticleCard(props: any) {
         </CardActions>
         <Collapse in={expanded} timeout='auto' unmountOnExit>
           <CardContent>
-            <div>
-              <span>{thumbnailText}</span>
-            </div>
             <div>
               <Link href={'/'}>Show more</Link>
             </div>
