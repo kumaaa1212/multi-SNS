@@ -5,7 +5,6 @@ interface Props {
   children: any;
 }
 
-
 const MarkDown = (props:Props) => {
   const { children } = props;
   console.log(children);

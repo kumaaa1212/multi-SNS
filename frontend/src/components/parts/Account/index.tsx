@@ -1,4 +1,3 @@
-import * as React from 'react'
 import Badge from '@mui/material/Badge'
 import Avatar from '@mui/material/Avatar'
 import { styled } from '@mui/material/styles'
@@ -38,6 +37,7 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
 export default function BadgeAvatars() {
   const [open, setOpen] = useState<boolean>(false)
   const dropdownRef = useRef<HTMLDivElement>(null)
+
   useEffect(() => {
     function handleClickOutside(e: MouseEvent): void {
       if (
@@ -50,6 +50,7 @@ export default function BadgeAvatars() {
     }
     return document.addEventListener('mousedown', handleClickOutside)
   }, [dropdownRef])
+
   return (
     <Stack direction='row' spacing={2} className='account'>
       <StyledBadge
@@ -58,7 +59,7 @@ export default function BadgeAvatars() {
         variant='dot'
         onClick={() => setOpen(!open)}
       >
-        {/* <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" /> */}
+        <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
       </StyledBadge>
       <div ref={dropdownRef}>{open && <DropDown />}</div>
     </Stack>

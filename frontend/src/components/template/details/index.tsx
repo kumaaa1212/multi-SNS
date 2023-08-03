@@ -25,7 +25,7 @@ const Team = ({ data }: any) => {
         </div>
         <div>
           {data.map((article: any) => (
-            <div key={article.label}>
+            <div key={article.label} className={style.article_timeline}>
               <ArticleCard article={article} />
             </div>
           ))}

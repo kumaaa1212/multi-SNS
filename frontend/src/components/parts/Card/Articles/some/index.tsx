@@ -19,7 +19,9 @@ import bg_img from 'public/bg_img.jpg'
 import Link from 'next/link'
 import style from '../ArticlesCard.module.scss'
 import apiClient from '@/libs/apiClient'
-import { Chip } from '@mui/material'
+import { Chip, dividerClasses } from '@mui/material'
+import { AuthInfo } from '@/context/auth'
+import FollowBtn from '@/components/parts/Button/Follow'
 interface ExpandMoreProps extends IconButtonProps {
   expand: boolean
 }
@@ -43,6 +45,8 @@ export default function ArticleCard(props: any) {
   const { className, article } = props
   const [expanded, setExpanded] = useState(false)
   const [labels, setLabels] = useState<any>([])
+  const [moreover, setMoreover] = useState<any>(false)
+  const auth = AuthInfo()
 
   const handleExpandClick = () => {
     setExpanded(!expanded)
@@ -54,31 +58,30 @@ export default function ArticleCard(props: any) {
     }
     getLabels()
   }, [])
-  console.log(labels)
 
   return (
     <div className='articleCard'>
-      <Card sx={{ width: Number(className) }}>
+      <Card>
         <CardHeader
+        className={style.card_header}
           avatar={
             <Avatar sx={{ bgcolor: red[500] }} aria-label='recipe'>
               R
             </Avatar>
           }
           action={
-            <IconButton aria-label='settings'>
-              <MoreVertIcon />
-            </IconButton>
+              article.authorName === auth.username ?  ( <FollowBtn postId={article.authorId}>Follow</FollowBtn> ) : (<MoreVertIcon onClick={() => setMoreover(!moreover)} className={style.moreover_btn} /> ) 
           }
           title={article.title}
           subheader='September 14, 2016'
         />
+        {moreover && ( <div className={style.moreover_area}></div> )}
         <Image
           src={article.thumbnailImg ? article.thumbnailImg : '/thumbnail.png'}
           alt={''}
           className={style.main_img}
-          width={400}
-          height={200}
+          width={500}
+          height={250}
         />
         <CardContent>
           <span>{article.thumbnailText}</span>
@@ -109,7 +112,7 @@ export default function ArticleCard(props: any) {
         <Collapse in={expanded} timeout='auto' unmountOnExit>
           <CardContent>
             <div>
-              <Link href={'/'}>Show more</Link>
+              <Link href={`/home/albumDetails/${article.id}`}>Show more</Link>
             </div>
           </CardContent>
         </Collapse>

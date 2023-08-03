@@ -53,12 +53,13 @@ const AlnumLayout = (props: Props) => {
     } else {
       try {
         if (thumbnailImg === '') {
-          const res = await apiClient.post('/post/album', {
+          await apiClient.post('/post/album', {
             title: titleText,
             content: contentText,
             labels: labels,
             thumbnailText: thumbnailText,
             authorId: auth.userId,
+            authorName: auth.username,
             thumbnailImg: '',
           })
         } else {
@@ -71,12 +72,13 @@ const AlnumLayout = (props: Props) => {
           const { data: urlData } = supabase.storage
             .from('thumbnail')
             .getPublicUrl(storageData.path)
-          const res = await apiClient.post('/post/album', {
+          await apiClient.post('/post/album', {
             title: titleText,
             content: contentText,
             labels: labels,
             thumbnailText: thumbnailText,
             authorId: auth.userId,
+            authorName: auth.username,
             thumbnailImg: urlData.publicUrl,
           })
         }

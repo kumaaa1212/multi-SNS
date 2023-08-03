@@ -6,8 +6,11 @@ import LoginIcon from '@mui/icons-material/Login'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { supabase } from '@/utils/supabaseClient'
+import { AuthInfo } from '@/context/auth'
 const DropDown = () => {
   const router = useRouter()
+  const auth = AuthInfo()
+  console.log(auth)
   const Logout = async (e: any) => {
     e.preventDefault()
     console.log('logout')
@@ -23,30 +26,37 @@ const DropDown = () => {
   }
   return (
     <div className='header_dropdown'>
-      <Link href={'/profile'} className='link_style'>
-        <div className='dropdown_list'>
-          <PersonIcon />
-          account
+      {auth.userId ? (
+        <div>
+          <Link href={'/profile'} className='link_style'>
+            <div className='dropdown_list'>
+              <PersonIcon />
+              account
+            </div>
+          </Link>
+          <Link href={'/'} className='link_style' onClick={Logout}>
+            <div className='dropdown_list'>
+              <LogoutIcon />
+              logout
+            </div>
+          </Link>
         </div>
-      </Link>
-      <Link href={'/'} className='link_style' onClick={Logout}>
-        <div className='dropdown_list'>
-          <LogoutIcon />
-          logout
+      ) : (
+        <div>
+          <Link href={'/signup'} className='link_style'>
+            <div className='dropdown_list'>
+              <PersonAddIcon />
+              sighup
+            </div>
+          </Link>
+          <Link href={'/login'} className='link_style'>
+            <div className='dropdown_list'>
+              <LoginIcon />
+              login
+            </div>
+          </Link>
         </div>
-      </Link>
-      <Link href={'/signup'} className='link_style'>
-        <div className='dropdown_list'>
-          <PersonAddIcon />
-          sighup
-        </div>
-      </Link>
-      <Link href={'/login'} className='link_style'>
-        <div className='dropdown_list'>
-          <LoginIcon />
-          login
-        </div>
-      </Link>
+      )}
     </div>
   )
 }

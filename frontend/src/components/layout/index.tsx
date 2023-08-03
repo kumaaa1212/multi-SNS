@@ -8,7 +8,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
     <div className='layout'>
       <Header />
-      <main className='main_area'>{children}</main>
+      <div className='main_area'>{children}</div>
       <Footer />
     </div>
   )

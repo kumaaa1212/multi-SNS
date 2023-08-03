@@ -1,9 +1,8 @@
 .articles_details{
-  display: flex;
-  border: 1px red solid;
+  display: grid;
+  grid-template-columns: 1fr 300px;
   .articles_details_show{
     border: 1px blue solid;
-    width: 80%;
   }
   .articles_details_header{
     margin-top: 50px;
@@ -16,6 +15,10 @@
     border-radius: 10px;
   }
   .labels_area{
-    width: 20%;
+    width: 300px;
+  }
+  .article_timeline{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
   }
 }

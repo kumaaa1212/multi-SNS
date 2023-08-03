@@ -1,5 +1,5 @@
 import { jLeagueTeams } from '@/TeamData'
-import Team from '@/components/template/article/details'
+import Team from '@/components/template/details'
 import apiClient from '@/libs/apiClient'
 import { GetServerSideProps } from 'next'
 import React from 'react'

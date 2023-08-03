@@ -1,4 +1,14 @@
 .main_img{
-  width: 400px;
-  height: 200px;
+  object-fit: cover;
+}
+.card_header{
+  position: relative;
+}
+.moreover_area{
+  width: 100px;
+  height: 60px;
+  background-color: #f0f0f0;
+  position: absolute;
+  left: 500px;
+  // top: 10px;
 }
