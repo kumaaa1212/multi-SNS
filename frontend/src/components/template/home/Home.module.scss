@@ -1,3 +1,4 @@
+// home全体のcss
 .home{
   margin-bottom: 200px;
   .swiper{
@@ -6,6 +7,17 @@
     // border: 1px red solid;
   }
 }
+
+// 共通のデザイン
+.show_all{
+  text-decoration: none;
+  color: #408ddb;
+}
+
+.show_all:hover{
+  text-decoration: dashed;
+}
+
 // カテゴリーコンポーネントのcss
 .categories_title{
   width: 70%;
@@ -25,16 +37,23 @@
   grid-template-rows: 1fr 1fr;
   gap: 10px;
   .team_card{
+    padding-top: 10px;
     background-color: #F8F9FA;
     display: flex;
     flex-flow: column;
     justify-content: center;
     align-items: center;
     cursor: pointer;
+  
     .team_img{
       border-radius: 10px;
       object-fit: cover;
+      margin-bottom: 10px;
     }
+  }
+  
+  .team_card:hover{
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
   }
 }
 
@@ -86,13 +105,4 @@
   border-right: none;
   background-color: transparent;
   cursor: pointer;
-}
-
-// 共通のデザイン
-.show_all{
-  text-decoration: none;
-  color: #408ddb;
-}
-.show_all:hover{
-  text-decoration: dashed;
 }

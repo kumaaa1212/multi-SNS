@@ -11,7 +11,7 @@ const LabelArea = () => {
         <h3 className={style.label_title}>J1リーグ</h3>
         <div className={style.label_contents}>
           {jLeagueTeams.map((label: any) => (
-            <span onClick={() => router.push(`/articles/details/${label.label}`)}>
+            <span onClick={() => router.push(`/categories/details/${label.label}`)}>
               <Chip label={`#${label.name}`} className={style.label} />
             </span>
           ))}
@@ -21,20 +21,12 @@ const LabelArea = () => {
         <h3 className={style.label_title}>試合会場</h3>
         <div className={style.label_contents}>
           {jLeagueTeams.map((label: any) => (
-           <span onClick={() => router.push(`/${label.label}`)}>
+           <span onClick={() => router.push(`/categories/locate/${label.label}`)}>
               <Chip label={`#${label.name}`} className={style.label} />
             </span>
           ))}
         </div>
       </div>
-      {/* <div className={style.label_area}>
-      <h3 className={style.label_title}>結果</h3>
-      <div className={style.label_contents}>
-        {jLeagueTeams.map((label:any) =>(
-           <Chip label={`#${label.name}`} className={style.label}/>
-        ))}
-      </div>
-    </div> */}
     </div>
   )
 }

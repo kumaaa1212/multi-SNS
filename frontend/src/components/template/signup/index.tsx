@@ -20,11 +20,12 @@ export default function SignUp() {
   const [team, setteam] = useState<any>('')
   const [isLoading, setIsLoading] = useState(false)
   const [open, setOpen] = useState(false)
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setIsLoading(true)
     try {
-      await supabase.auth.signUp({
+      const { data, error } = await supabase.auth.signUp({
         email: email,
         password: password,
         options: {
@@ -50,7 +51,7 @@ export default function SignUp() {
           {open ? (
             <div>
               <p>
-              {email}
+                {/* {email} */}
                 に仮登録完了メールを送りました。メール内のリンクをクリックして登録を完了してください。
               </p>
               <Link href={'/login'}>閉じる</Link>

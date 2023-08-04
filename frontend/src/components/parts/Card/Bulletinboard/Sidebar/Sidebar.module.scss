@@ -1,0 +1,37 @@
+.bulletin_board_Card{
+  border-bottom: 1px solid #cbcbcb;
+  padding: 10px 0px;
+  width: 100%;
+  height: 70px;
+  position: relative;
+  cursor: pointer;
+  .timeline_user{
+    display: flex;
+    .profile_img{
+      object-fit: cover;
+      border-radius: 10px;
+    }
+    .card_info{
+      margin-left: 10px;
+      .publish_time{
+        margin-left: 5px;
+      }
+    }
+  }
+  .card_contents{
+    margin-top: 10px;
+    margin-left: 10px;
+    font-size: 20px;
+  }
+  .option_btn{
+    width: 200px;
+    position: absolute;
+    border-radius: 5px;
+    padding: 5px;
+    top: 50px;
+    right: 0px;
+    svg{
+      margin-right: 10px;
+    }
+  }
+}

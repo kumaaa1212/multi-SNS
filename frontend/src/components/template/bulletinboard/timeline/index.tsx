@@ -1,16 +1,13 @@
 import React from 'react'
 import style from '../bulletinboard.module.scss'
-import BulletinboardCard from '@/components/parts/Chat/Bulletinboard'
+import BulletinboardCard from '@/components/parts/Card/Bulletinboard'
 import Image from 'next/image'
 import ProfileImg from '../../../../../public/profile_img.jpg'
 import CustomizedInputBase from '@/components/parts/Search'
 const Timeline = (props: any) => {
   const { sideMessagrBar, setSideMessagrBar } = props
 
-const handleSedm = () => {
-  
-}
-
+  const handleSedm = () => {}
 
   return (
     <div className={style.timeline}>

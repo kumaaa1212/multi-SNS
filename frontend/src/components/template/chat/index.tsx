@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import SideBar from './room/SideBar'
-import ChatArea from './chatArea/ChatArea'
+import SideBar from './sidebar'
+import ChatArea from './main/ChatArea'
 
 const Chat = ({rooms}:any) => {
   const [chatRoom, setChatRoom] = useState(false)

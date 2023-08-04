@@ -28,7 +28,7 @@ const DropDown = () => {
     <div className='header_dropdown'>
       {auth.userId ? (
         <div>
-          <Link href={'/profile'} className='link_style'>
+          <Link href={'/account'} className='link_style'>
             <div className='dropdown_list'>
               <PersonIcon />
               account

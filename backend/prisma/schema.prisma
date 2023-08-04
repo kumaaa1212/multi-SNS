@@ -10,6 +10,40 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model User {
+  id String @id @default(uuid())
+  authorId String  @unique
+  name String
+  avatar String
+  followers Followers[]
+  following Following[]
+  likes Like[]
+}
+
+model Like {
+  id     Int    @id @default(autoincrement())
+  postId Int
+  authorId String
+  post   Post   @relation(fields: [postId], references: [id])
+  user   User   @relation(fields: [authorId], references: [authorId])
+  @@unique([postId, authorId])
+}
+
+
+model Followers {
+  id Int @id @default(autoincrement())
+  userId String
+  followerId String
+  user User @relation(fields: [userId], references: [authorId])
+}
+
+model Following {
+  id Int @id @default(autoincrement())
+  userId String
+  followingId String
+  user User @relation(fields: [userId], references: [authorId])
+}
+
 model Post{
   id Int @id @default(autoincrement())
   content String
@@ -17,6 +51,7 @@ model Post{
   createdAt DateTime @default(now())
   labels PostLabel[]
   authorId String?
+  authorName String
   thumbnailText String
   thumbnailImg String
   likes Like[]
@@ -32,15 +67,6 @@ model PostLabel {
   post Post @relation(fields: [postId], references: [id])
 }
 
-model Like {
-  id     Int    @id @default(autoincrement())
-  postId Int
-  userId String
-  post   Post   @relation(fields: [postId], references: [id])
-  @@unique([postId, userId])
-}
-
-
 model Tweet{
   id Int @id @default(autoincrement())
   content String
@@ -49,7 +75,7 @@ model Tweet{
 }
 
 model Room {
-  id String @id @default(uuid()) // UUIDなどの一意のIDを自動生成
+  id String @id @default(uuid())
   user1Id String
   user2Id  String
   createdAt DateTime @default(now())

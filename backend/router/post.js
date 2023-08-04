@@ -3,7 +3,15 @@ const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
 router.post("/album", async (req, res) => {
-  const { title, content, authorId, labels, thumbnailText,thumbnailImg } = req.body;
+  const {
+    title,
+    content,
+    authorId,
+    labels,
+    thumbnailText,
+    thumbnailImg,
+    authorName,
+  } = req.body;
   console.log(labels);
   try {
     const post = await prisma.post.create({
@@ -16,6 +24,7 @@ router.post("/album", async (req, res) => {
         thumbnailText,
         thumbnailImg,
         authorId,
+        authorName,
       },
     });
     return res.json({ post });
@@ -24,36 +33,54 @@ router.post("/album", async (req, res) => {
   }
 });
 
-
-// 投稿の取得
+// 投稿全の取得
 router.get("/all/album", async (req, res) => {
   try {
     const posts = await prisma.post.findMany({
       orderBy: {
         createdAt: "desc",
-      }
-    })
-    return res.json({ posts })
-}
-  catch (err) {
+      },
+    });
+    return res.json({ posts });
+  } catch (err) {
     res.json({ error: err.message });
   }
-})
+});
+
+// 投稿の取得
+router.get("/album/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const post = await prisma.post.findUnique({
+      where: {
+        id: parseInt(id, 10),
+      },
+      include: {
+        labels: true,
+        likes: true,
+      },
+    });
+    return res.json({ post });
+  } catch (err) {
+    res.json({ error: err.message });
+  }
+});
+
 // ラベルの取得
 router.get("/match/label/:id", async (req, res) => {
-  const { id } = req.params; 
+  const { id } = req.params;
   try {
     const postLabels = await prisma.postLabel.findMany({
       where: {
-        postId:parseInt(id, 10),
+        postId: parseInt(id, 10),
       },
     });
     res.json(postLabels);
   } catch (error) {
-    console.error('エラー:', error);
-    res.status(500).json({ error: 'PostLabelの取得に失敗しました' });
+    console.error("エラー:", error);
+    res.status(500).json({ error: "PostLabelの取得に失敗しました" });
   }
-})
+});
 
 // いいね機能
 router.post("/album/like", async (req, res) => {
@@ -108,24 +135,24 @@ router.post("/album/like", async (req, res) => {
 router.get("/album/:label", async (req, res) => {
   const { label } = req.params;
   try {
-    // Post データを取得
-    const post = await prisma.post.findMany({
+    // PostLabel データを取得
+    const postLabel = await prisma.postLabel.findFirst({
       where: {
-        labels: {
-          some: {
-            label: label, // Post の labels フィールドの中に name が一致するものがあるかチェック
-          },
-        },
+        label: parseInt(label)
       },
       include: {
-        labels: true,
-        likes: true,
+        post: {
+          include: {
+            labels: true,
+            likes: true,
+          },
+        },
       },
     });
 
     // Post データが見つかった場合の処理
-    if (post) {
-      return res.json({ post });
+    if (postLabel) {
+      return res.json({ post: postLabel.post });
     } else {
       // 該当の Post データが見つからなかった場合の処理
       return res.json({ message: "Post not found" });
@@ -134,6 +161,5 @@ router.get("/album/:label", async (req, res) => {
     res.json({ error: err.message });
   }
 });
-
 
 module.exports = router;

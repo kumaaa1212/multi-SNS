@@ -23,13 +23,17 @@ const Team = ({ data }: any) => {
           />
           <h2>{`"${teamfilter[0].name}"に関するまとめ`}</h2>
         </div>
-        <div>
-          {data.map((article: any) => (
-            <div key={article.label} className={style.article_timeline}>
-              <ArticleCard article={article} />
-            </div>
-          ))}
-        </div>
+        {data ? (
+          <div>
+            {data?.map((article: any) => (
+              <div key={article.label} className={style.article_timeline}>
+                <ArticleCard article={article} />
+              </div>
+            ))}
+          </div>
+        ) : (
+          <h1>まだ投稿がありません</h1>
+        )}
       </div>
       <div className={style.labels_area}>
         <LabelArea />

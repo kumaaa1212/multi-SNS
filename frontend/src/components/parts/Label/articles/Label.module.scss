@@ -1,7 +1,7 @@
 .label_areas{
   margin: 60px auto;
-  border: 1px red solid;
 }
+
 .label_area{
   margin-bottom: 50px;
   border: 1px #c8c8c8 solid;
@@ -10,15 +10,18 @@
   border-radius: 10px;
   padding: 5px;
 }
+
 .label_title{
   font-weight: 800;
   padding: 5px;
 }
+
 .article_timeline{
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 20px;
 }
+
 .label_contents{
   min-height: 400px;
   .label{
@@ -27,6 +30,7 @@
     user-select: none;
   }
 }
+
 .pagenation{
   margin-top: 100px;
 }

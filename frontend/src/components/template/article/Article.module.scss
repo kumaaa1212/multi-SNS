@@ -1,64 +1,87 @@
-.article{
+.article {
   display: grid;
   grid-template-columns: 1fr 300px;
-  .article_contents{
+  .article_contents {
     margin: 60px 0 0 50px;
   }
 }
-.search_btn_area{
-  // border: 1px red solid;
+.search_area {
   display: flex;
-  padding-bottom: 40px;
-  .search_btn_click{
-    margin: 0px 15px;
-    display: block;
-    border: 1px rgb(176, 176, 176) solid;
-    background-color: white;
-    color: black;
-    width: 100px;
-    height: 40px;
-    border-radius: 10px;
-    cursor: pointer;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 50px;
+  .search_btn_area {
+    display: flex;
+    .search_btn_click {
+      margin: 0px 15px;
+      display: block;
+      border: 1px rgb(176, 176, 176) solid;
+      background-color: white;
+      color: black;
+      width: 100px;
+      height: 40px;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+
+    .search_btn_clicked {
+      margin: 0px 15px;
+      display: block;
+      border: 1px rgb(176, 176, 176) solid;
+      background-color: #217dcd;
+      color: white;
+      width: 100px;
+      height: 40px;
+      border-radius: 10px;
+      cursor: pointer;
+    }
   }
-  .search_btn_clicked{
-    margin: 0px 15px;
+
+  .search_input_area {
     display: block;
+    height: 50px;
+    width: 500px;
     border: 1px rgb(176, 176, 176) solid;
-    background-color: #217dcd;
-    color: white;
-    width: 100px;
-    height: 40px;
-    border-radius: 10px;
-    cursor: pointer;
+  }
+
+  .search_input_area:focus {
+    outline: none;
   }
 }
 
-.label_areas{
-  margin: 60px auto;
-}
-.label_area{
-  margin-bottom: 50px;
-  border: 1px #c8c8c8 solid;
-  width: 250px;
-  min-height: 400px;
-  border-radius: 10px;
-  padding: 5px;
-}
-.label_title{
-  font-weight: 800;
-  padding: 5px;
-}
-.article_timeline{
+.article_timeline {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 20px;
 }
-.label_contents{
-  min-height: 400px;
-  .label{
-    margin: 5px;
-  }
-}
-.pagenation{
+
+.pagenation {
   margin-top: 100px;
+}
+
+// labelコンポーネント
+.label_areas {
+  margin: 60px auto;
+
+  .label_area {
+    margin-bottom: 50px;
+    border: 1px #c8c8c8 solid;
+    width: 250px;
+    min-height: 400px;
+    border-radius: 10px;
+    padding: 5px;
+    .label_title {
+      font-weight: 800;
+      padding: 5px;
+    }
+
+    .label_contents {
+      min-height: 400px;
+
+      .label {
+        margin: 5px;
+      }
+    }
+  }
 }

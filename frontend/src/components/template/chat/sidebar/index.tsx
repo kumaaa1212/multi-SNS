@@ -2,10 +2,10 @@ import React from 'react'
 import style from '../Chat.module.scss'
 import { AuthInfo } from '@/context/auth'
 import ChatSearch from '@/components/parts/Search/ChatSearch'
-import ChatSide from '@/components/parts/Chat/ChatSide'
 import NewChatIcon from 'public/svg/newChat.svg'
 import ChatSetting from 'public/svg/chat_setting.svg'
 import MultipleSelectNative from '@/components/parts/Select/Native'
+import ChatSide from '@/components/parts/chat/ChatSide'
 
 const SideBar = (props: any) => {
   const { chatRoom, setChatRoom, rooms } = props

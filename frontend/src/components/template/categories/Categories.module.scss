@@ -1,9 +1,10 @@
 .categories{
   width: 100%;
-  border: 1px red solid;
   display: flex;
   justify-content: center;
+  align-items: center;
   flex-flow: column;
+
   .categories_search{
     display: block;
     width: 600px;
@@ -12,44 +13,40 @@
     border-radius: 10px;
     border: 1px solid #ced4da;
   }
+
   .categories_search:focus{
     outline: none;
   }
-}
-.categories_area{
-  width: 800px;
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
-  gap: 10px;
-  margin: 50px auto;
-  .jleagu_team{
-    width: 150px;
-    height: 150px;
-    background-color: #fff;
-    border-radius: 10px;
+
+  .categories_area{
+    width: 800px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
+    row-gap: 20px;
+    column-gap: 20px;
+    place-items: center; 
+    .team_card{
+      position: relative;
+      height:150px ;
+      width:150px ;
+      transition: box-shadow 0.3s ease;
+      cursor: pointer;
+      background-color: #F8F9FA;
+      display: flex;
+      flex-flow: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .team_card:hover{
+      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+    }
+    
+    .team_img{
+      border-radius: 10px;
+      object-fit: cover;
+        margin-bottom: 10px;
+    }
   }
-}
-.team_card{
-  position: relative;
-  height:150px ;
-  width:150px ;
-  transition: box-shadow 0.3s ease;
-  cursor: pointer;
-}
-.team_card:hover{
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
-}
-
-.team_img{
-  border-radius: 10px;
-  object-fit: cover;
-}
-
-.team_card{
-  background-color: #F8F9FA;
-  display: flex;
-  flex-flow: column;
-  justify-content: center;
-  align-items: center;
 }
