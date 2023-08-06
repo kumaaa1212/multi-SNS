@@ -158,34 +158,36 @@ router.post("/album/like/check", async (req, res) => {
   }
 });
 
+
+// ラベルによるチーム別投稿の取得
+router.get("/album/:label", async (req, res) => {
+  const { label } = req.params;
+  try {
+    // PostLabel データを取得
+    const postLabel = await prisma.postLabel.findFirst({
+      where: {
+        label: parseInt(label),
+      },
+      include: {
+        post: {
+          include: {
+            labels: true,
+            likes: true,
+          },
+        },
+      },
+    });
+
+    if (postLabel) {
+      return res.json({ post: postLabel.post });
+    } else {
+      return res.json({ message: "Post not found" });
+    }
+  } catch (err) {
+    res.json({ error: err.message });
+  }
+});
+
+
 module.exports = router;
 
-// router.get("/album/:label", async (req, res) => {
-//   const { label } = req.params;
-//   try {
-//     // PostLabel データを取得
-//     const postLabel = await prisma.postLabel.findFirst({
-//       where: {
-//         label: parseInt(label)
-//       },
-//       include: {
-//         post: {
-//           include: {
-//             labels: true,
-//             likes: true,
-//           },
-//         },
-//       },
-//     });
-
-//     // Post データが見つかった場合の処理
-//     if (postLabel) {
-//       return res.json({ post: postLabel.post });
-//     } else {
-//       // 該当の Post データが見つからなかった場合の処理
-//       return res.json({ message: "Post not found" });
-//     }
-//   } catch (err) {
-//     res.json({ error: err.message });
-//   }
-// });
