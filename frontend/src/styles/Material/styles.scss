@@ -46,11 +46,11 @@
 .timeline_tab {
   width: 900px;
   margin: 0 auto;
-  .MuiBox-root{
+  .MuiBox-root {
     margin-bottom: 20px;
   }
 
-  .MuiPaper-root{
+  .MuiPaper-root {
     margin: 0 auto;
     width: 100%;
     // border: 1px red solid;
@@ -69,11 +69,11 @@
     background-color: rgb(80, 80, 80);
   }
 
-  .MuiPaper-root{
-    margin:0 auto
+  .MuiPaper-root {
+    margin: 0 auto;
   }
 
-  .add_btn{
+  .add_btn {
     .MuiSvgIcon-root {
       color: white;
       // font-size: 30px;
@@ -114,42 +114,41 @@
     display: block;
     width: 500px;
     font-size: 20px;
-    border: 1px red 
+    border: 1px red;
   }
 }
 
-
 // アルバムのheaderのデザイン
-.switch_btn{
-  .css-5ryogn-MuiButtonBase-root-MuiSwitch-switchBase.Mui-checked+.MuiSwitch-track {
+.switch_btn {
+  .css-5ryogn-MuiButtonBase-root-MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track {
     background-color: black;
   }
 
-  .css-5ryogn-MuiButtonBase-root-MuiSwitch-switchBase.Mui-checked{
+  .css-5ryogn-MuiButtonBase-root-MuiSwitch-switchBase.Mui-checked {
     color: black;
   }
 }
 
-.css-j204z7-MuiFormControlLabel-root{
+.css-j204z7-MuiFormControlLabel-root {
   width: 140px;
   margin: 0 auto;
-  span{
+  span {
     margin: 0 auto;
   }
 }
 
-.stepper{
-  .css-1u4zpwo-MuiSvgIcon-root-MuiStepIcon-root.Mui-active{
+.stepper {
+  .css-1u4zpwo-MuiSvgIcon-root-MuiStepIcon-root.Mui-active {
     color: black;
   }
 
-  .css-1u4zpwo-MuiSvgIcon-root-MuiStepIcon-root.Mui-completed{
+  .css-1u4zpwo-MuiSvgIcon-root-MuiStepIcon-root.Mui-completed {
     color: black;
   }
 }
 
 // サムネイル
-.thumbnail{
+.thumbnail {
   .MuiPaper-root {
     border-radius: 0;
     padding-bottom: 10px;
@@ -157,34 +156,41 @@
     margin-right: 40px;
   }
 }
-.labels{
-  .MuiFormControl-root{
+.labels {
+  .MuiFormControl-root {
     margin-bottom: 40px;
   }
 }
 
 .MuiButtonBase-root:active {
-  span{
+  span {
     background-color: transparent;
   }
 }
 
 // ページネーション
-.MuiPagination-ul{
+.MuiPagination-ul {
   width: 400px;
   margin: 0 auto;
 }
 
-.articleCard{
+.articleCard {
   margin: 0 auto;
-  .MuiPaper-root{
+  .MuiPaper-root {
     width: 100%;
   }
 }
 
 // リリースのカード
-.release_card{
-  .MuiPaper-root{
+.release_card {
+  .MuiPaper-root {
     margin: 20px auto;
+  }
+}
+.pagenation_area {
+  .MuiPagination-ul {
+    li {
+      margin: 0 auto;
+    }
   }
 }
