@@ -1,28 +1,28 @@
 import { useState } from 'react'
 import { TextField } from '@mui/material'
 import { supabase } from '@/utils/supabaseClient'
-import { AuthInfo } from '@/context/auth'
 import style from './EditModal.module.scss'
 import Image from 'next/image'
 import bg_img from 'public/bg_img.jpg'
 import profile_img from 'public/profile_img.jpg'
 import ModalBase from '@/components/parts/Modal'
+import { useSelector } from 'react-redux'
+import { RootState } from '@/store/store'
 
-interface Props{
+interface Props {
   open: boolean
   setOpen: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-export default function EditModal(props:Props) {
-  const {open, setOpen} = props
-  const auth = AuthInfo()
-  console.log(auth)
+export default function EditModal(props: Props) {
+  const { open, setOpen } = props
+  const { username, bio, icon } = useSelector((state: RootState) => state.user)
   const [file, setFile] = useState<any>(null)
-  const [editName, setEditName] = useState<string>(auth.username)
-  const [editIntro, seteditIntro] = useState<string>(auth.bio)
-  const [editIcon, seteditIcon] = useState<string>(auth.icon)
+  const [editName, setEditName] = useState<string>(username)
+  const [editIntro, seteditIntro] = useState<string>(bio)
+  const [editIcon, seteditIcon] = useState<string>(icon)
 
-  const openFileInput = () =>{
+  const openFileInput = () => {
     const fileInput = document.getElementById('fileInput')
     fileInput?.click()
   }
@@ -117,7 +117,7 @@ export default function EditModal(props:Props) {
             />
           </span>
           <Image
-            src={auth.username ? auth.icon : profile_img}
+            src={username ? icon : profile_img}
             alt={''}
             className={style.profile_img}
             width={150}

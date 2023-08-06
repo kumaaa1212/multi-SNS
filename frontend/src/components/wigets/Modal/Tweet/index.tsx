@@ -3,18 +3,19 @@ import style from './TweetModal.module.scss'
 import Image from 'next/image'
 import profile_img from 'public/profile_img.jpg'
 import apiClient from '@/libs/apiClient'
-import { AuthInfo } from '@/context/auth'
 import ModalBase from '@/components/parts/Modal'
+import { useSelector } from 'react-redux'
+import { RootState } from '@/store/store'
 export default function TweetModal(props: any) {
   const { open, setOpen } = props
-  const auth = AuthInfo()
+  const { userId } = useSelector((state: RootState) => state.user)
 
   const [tweetContents, setTweetContents] = useState<string>('')
 
   const handleTweet = async () => {
     const res = await apiClient.post('/post/tweet', {
       content: tweetContents,
-      authorId: auth.userId,
+      authorId: userId,
     })
     console.log(res)
   }

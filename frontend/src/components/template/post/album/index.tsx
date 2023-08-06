@@ -6,7 +6,7 @@ import 'swiper/css'
 import MarkDown from '@/components/template/MarkDown'
 import { useDispatch, useSelector } from 'react-redux'
 import { addImgcontents, createContentText, createTitleText } from '@/features/postSlice'
-import { AppDispatch, RootState } from '@/store'
+import { AppDispatch, RootState } from '@/store/store'
 
 const Album = () => {
   const [preview, setPreview] = useState<boolean>(false)

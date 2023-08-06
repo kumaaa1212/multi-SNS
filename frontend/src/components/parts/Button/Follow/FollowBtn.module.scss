@@ -1,7 +1,22 @@
 .follow_btn{
   display: block;
-  width: 70px;
+  margin: 10px;
+  width: 80px;
   padding: 5px;
-  background-color:transparent;
+  background-color: #227DCD;
+  color: #fff;
   cursor: pointer;
+  border: none;
+  border-radius: 5px;
+}
+.followed_btn{
+  display: block;
+  margin: 10px;
+  width: 80px;
+  padding: 5px;
+  background-color: white;
+  color: #c4c4c4;
+  cursor: pointer;
+  border:1px solid #c4c4c4;
+  border-radius: 5px;
 }

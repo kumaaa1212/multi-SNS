@@ -4,6 +4,11 @@ import { styled } from '@mui/material/styles'
 import { useState, useEffect, useRef } from 'react'
 import Stack from '@mui/material/Stack'
 import DropDown from '@/components/layout/Header/DropDown'
+import Image from 'next/image'
+import { RootState } from '@/store/store'
+import { useSelector } from 'react-redux'
+import style from './Account.module.scss'
+import Noavater from '/public/noavater.jpg'
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
   '& .MuiBadge-badge': {
@@ -37,6 +42,7 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
 export default function BadgeAvatars() {
   const [open, setOpen] = useState<boolean>(false)
   const dropdownRef = useRef<HTMLDivElement>(null)
+  const { icon } = useSelector((state: RootState) => state.user)
 
   useEffect(() => {
     function handleClickOutside(e: MouseEvent): void {
@@ -59,7 +65,7 @@ export default function BadgeAvatars() {
         variant='dot'
         onClick={() => setOpen(!open)}
       >
-        <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
+       <Image src={icon ? icon : Noavater } alt={''} width={40} height={40} className={style.header_icon}/>
       </StyledBadge>
       <div ref={dropdownRef}>{open && <DropDown />}</div>
     </Stack>

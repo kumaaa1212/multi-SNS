@@ -4,7 +4,7 @@ import Image from 'next/image'
 import { useRouter } from 'next/router'
 import React from 'react'
 import style from './ArticleDetail.module.scss'
-import ArticleCard from '@/components/parts/Card/Articles/some'
+import ArticleCard from '@/components/parts/Card/Articles'
 const Team = ({ data }: any) => {
   const router = useRouter()
   const teamfilter = jLeagueTeams.filter((team) => team.label === router.query.label)

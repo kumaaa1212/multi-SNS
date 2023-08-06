@@ -41,3 +41,10 @@ body{
 .timeline_tab{
   position: relative;
 }
+
+.release_card{
+  border: 1px red solid;
+  .MuiPaper-root{
+    margin: 0;
+  }
+}

@@ -1,27 +1,24 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { styled } from '@mui/material/styles'
 import Card from '@mui/material/Card'
 import CardHeader from '@mui/material/CardHeader'
-import CardMedia from '@mui/material/CardMedia'
 import CardContent from '@mui/material/CardContent'
 import CardActions from '@mui/material/CardActions'
 import Collapse from '@mui/material/Collapse'
 import Avatar from '@mui/material/Avatar'
 import IconButton, { IconButtonProps } from '@mui/material/IconButton'
-import Typography from '@mui/material/Typography'
-import { red } from '@mui/material/colors'
-import FavoriteIcon from '@mui/icons-material/Favorite'
 import ShareIcon from '@mui/icons-material/Share'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import MoreVertIcon from '@mui/icons-material/MoreVert'
 import Image from 'next/image'
-import bg_img from 'public/bg_img.jpg'
 import Link from 'next/link'
-import style from '../ArticlesCard.module.scss'
-import apiClient from '@/libs/apiClient'
-import { Chip, dividerClasses } from '@mui/material'
-import { AuthInfo } from '@/context/auth'
+import style from './ArticlesCard.module.scss'
+import { Chip } from '@mui/material'
 import FollowBtn from '@/components/parts/Button/Follow'
+import { useSelector } from 'react-redux'
+import { RootState } from '@/store/store'
+import Icongenerate from '../../Avater'
+import LikeBtn from '../../Button/Like'
 interface ExpandMoreProps extends IconButtonProps {
   expand: boolean
 }
@@ -42,40 +39,57 @@ const ExpandMore = styled((props: ExpandMoreProps) => {
 }))
 
 export default function ArticleCard(props: any) {
-  const { className, article } = props
-  const [expanded, setExpanded] = useState(false)
-  const [labels, setLabels] = useState<any>([])
-  const [moreover, setMoreover] = useState<any>(false)
-  const auth = AuthInfo()
+  const { article } = props
+
+  const [expanded, setExpanded] = useState<boolean>(false)
+  const [moreover, setMoreover] = useState<boolean>(false)
+  const { username, follow } = useSelector((state: RootState) => state.user)
+  console.log(follow)
 
   const handleExpandClick = () => {
     setExpanded(!expanded)
   }
-  useEffect(() => {
-    const getLabels = async () => {
-      const labels = await apiClient.get(`/post/match/label/${article.id}`)
-      setLabels(labels.data)
-    }
-    getLabels()
-  }, [])
 
   return (
     <div className='articleCard'>
-      <Card>
+      <Card className={style.article_card}>
         <CardHeader
-        className={style.card_header}
+          className={style.card_header}
           avatar={
-            <Avatar sx={{ bgcolor: red[500] }} aria-label='recipe'>
-              R
-            </Avatar>
+            <Image src={Icongenerate(article.authorAvatar)} alt={''} width={30} height={30} />
           }
           action={
-              article.authorName === auth.username ?  ( <FollowBtn postId={article.authorId}>Follow</FollowBtn> ) : (<MoreVertIcon onClick={() => setMoreover(!moreover)} className={style.moreover_btn} /> ) 
+            article.authorName === username ? (
+              <MoreVertIcon onClick={() => setMoreover(!moreover)} className={style.moreover_btn} />
+            ) : (
+              <FollowBtn article={article} className={style.follow_icon}>
+                Follow
+              </FollowBtn>
+            )
           }
           title={article.title}
           subheader='September 14, 2016'
         />
-        {moreover && ( <div className={style.moreover_area}></div> )}
+        {moreover && (
+          <div className={style.moreover_area}>
+            <p>削除</p>
+            <svg
+              xmlns='http://www.w3.org/2000/svg'
+              width='30'
+              height='30'
+              viewBox='0 0 24 24'
+              stroke-width='1.5'
+              stroke='black'
+              fill='none'
+              stroke-linecap='round'
+              stroke-linejoin='round'
+            >
+              <path stroke='none' d='M0 0h24v24H0z' fill='none' />
+              <path d='M20 6a1 1 0 0 1 1 1v10a1 1 0 0 1 -1 1h-11l-5 -5a1.5 1.5 0 0 1 0 -2l5 -5z' />
+              <path d='M12 10l4 4m0 -4l-4 4' />
+            </svg>
+          </div>
+        )}
         <Image
           src={article.thumbnailImg ? article.thumbnailImg : '/thumbnail.png'}
           alt={''}
@@ -84,18 +98,16 @@ export default function ArticleCard(props: any) {
           height={250}
         />
         <CardContent>
-          <span>{article.thumbnailText}</span>
-          <div>
-            <span>
-              {labels.map((label: any) => (
-                <Chip label={label.name} />
-              ))}
-            </span>
+          <span className={style.thumbnail_text}>{article.thumbnailText}</span>
+          <div className={style.label_area}>
+            {article.labels.map((label: any) => (
+              <Chip label={label.name} />
+            ))}
           </div>
         </CardContent>
         <CardActions disableSpacing>
           <IconButton aria-label='add to favorites'>
-            <FavoriteIcon />
+          <LikeBtn article={article}  />
           </IconButton>
           <IconButton aria-label='share'>
             <ShareIcon />

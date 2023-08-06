@@ -1,7 +1,4 @@
-import Image from 'next/image'
 import Link from 'next/link'
-import Logo from '../../../../public/logo.png'
-// eslint-disable-next-line import/no-unresolved
 import BadgeAvatars from '@/components/parts/Account'
 const Header = () => {
   return (
@@ -9,8 +6,7 @@ const Header = () => {
       <nav className='header_nav'>
         <Link href={''}></Link>
         <div className='header_nav_link'>
-          <Link href={'/'} className='nav_link'>
-          </Link>
+          <Link href={'/'} className='nav_link'></Link>
           <Link href={'/home'} className='nav_link link_style'>
             HOME
           </Link>
@@ -21,7 +17,7 @@ const Header = () => {
             MYPAGE
           </Link>
           <Link href={'/bulletinBoard'} className='nav_link link_style'>
-          BULLETIN BOARD
+            BOARD
           </Link>
           <BadgeAvatars />
         </div>

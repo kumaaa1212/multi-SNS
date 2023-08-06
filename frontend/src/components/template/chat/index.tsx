@@ -6,7 +6,7 @@ const Chat = ({rooms}:any) => {
   const [chatRoom, setChatRoom] = useState(false)
   return (
     <div className='chat'>
-      <SideBar chatRoom={chatRoom} setChatRoom={setChatRoom} rooms={rooms} />
+      <SideBar setChatRoom={setChatRoom} rooms={rooms} />
       { chatRoom && (
         <ChatArea />
       )}

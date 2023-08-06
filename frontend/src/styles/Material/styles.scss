@@ -8,39 +8,37 @@
   .MuiPaper-root {
     margin: 20px 0;
   }
+
   .MuiTabs-scroller {
     width: 250px;
   }
+
   .MuiButtonBase-root {
     display: block;
     width: 250px;
   }
+
   .MuiButtonBase-root {
     color: black;
   }
+
   .MuiTabs-indicator {
     background-color: rgb(80, 80, 80);
   }
+
   .rank_accordion {
     .MuiPaper-root {
       margin: 0;
     }
+
     .MuiButtonBase-root {
       display: flex;
       width: 400px;
     }
+
     .MuiTypography-root {
       width: 100%;
     }
-  }
-}
-.handle_btn {
-  .MuiButtonBase-root {
-    display: block;
-    background-color: rgb(80, 80, 80);
-  }
-  .MuiButtonBase-root:hover {
-    background-color: rgb(42, 42, 42);
   }
 }
 
@@ -51,29 +49,36 @@
   .MuiBox-root{
     margin-bottom: 20px;
   }
+
   .MuiPaper-root{
     margin: 0 auto;
     width: 100%;
     // border: 1px red solid;
   }
+
   .MuiTabs-scroller {
     border-bottom: 1px solid rgb(80, 80, 80);
     // position: fixed;
   }
+
   .MuiButtonBase-root {
     color: black;
   }
+
   .MuiTabs-indicator {
     background-color: rgb(80, 80, 80);
   }
+
   .MuiPaper-root{
     margin:0 auto
   }
+
   .add_btn{
     .MuiSvgIcon-root {
       color: white;
       // font-size: 30px;
     }
+
     .MuiButtonBase-root {
       // display: block;
       background-color: black;
@@ -87,6 +92,7 @@
     height: 300px;
     object-fit: cover;
   }
+
   .MuiPaper-root {
     margin: 40px;
     // width: 90%;
@@ -103,6 +109,7 @@
     margin: 5px 0;
     color: black;
   }
+
   .MuiInputBase-input {
     display: block;
     width: 500px;
@@ -144,12 +151,10 @@
 // サムネイル
 .thumbnail{
   .MuiPaper-root {
-    width: 600px;
-    box-shadow: none;
     border-radius: 0;
-    // border-bottom: 1px solid rgb(103, 103, 103);
     padding-bottom: 10px;
     margin-bottom: 30px;
+    margin-right: 40px;
   }
 }
 .labels{
@@ -158,26 +163,11 @@
   }
 }
 
-// チャットの新しいトークの作成
-.chat_new_btn{
-  .element {
-  border: 1px solid transparent;
-
-}
-  .MuiFormControl-root{
-    display: flex;
-    justify-content: center;
-  }
-}
-
 .MuiButtonBase-root:active {
   span{
     background-color: transparent;
   }
-  // background-color: red;
-  // border: 1px red solid;
 }
-
 
 // ページネーション
 .MuiPagination-ul{
@@ -189,5 +179,12 @@
   margin: 0 auto;
   .MuiPaper-root{
     width: 100%;
+  }
+}
+
+// リリースのカード
+.release_card{
+  .MuiPaper-root{
+    margin: 20px auto;
   }
 }

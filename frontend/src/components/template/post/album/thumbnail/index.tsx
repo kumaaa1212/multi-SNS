@@ -4,12 +4,12 @@ import style from './Thumbnail.module.scss'
 import AlnumLayout from '../albumLayout/AlbumLayout'
 import Labels from '@/components/parts/Label/thumbnail'
 import { useDispatch, useSelector } from 'react-redux'
-import { AppDispatch, RootState } from '@/store'
+import { AppDispatch, RootState } from '@/store/store'
 import { addThumbnail } from '@/features/postSlice'
 import ThumbnailCard from '@/components/parts/Card/thumbnail'
 const Thumbnail = () => {
-  const dispatch: AppDispatch = useDispatch();
-  const {thumbnailText} = useSelector((state: RootState) => state.post)
+  const dispatch: AppDispatch = useDispatch()
+  const { thumbnailText } = useSelector((state: RootState) => state.post)
   return (
     <div className='thumbnail'>
       <AlnumLayout>

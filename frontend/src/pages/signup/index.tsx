@@ -1,7 +1,6 @@
 import SignUp from '@/components/template/signup'
-import React from 'react'
 
-const SignupPage = async () => {
+const SignupPage =  () => {
   return (
       <SignUp />
   )

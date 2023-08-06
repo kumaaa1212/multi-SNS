@@ -2,17 +2,18 @@ const router = require("express").Router();
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
+// albumを追加する
 router.post("/album", async (req, res) => {
   const {
     title,
     content,
     authorId,
+    authorAvatar,
     labels,
     thumbnailText,
     thumbnailImg,
     authorName,
   } = req.body;
-  console.log(labels);
   try {
     const post = await prisma.post.create({
       data: {
@@ -25,6 +26,7 @@ router.post("/album", async (req, res) => {
         thumbnailImg,
         authorId,
         authorName,
+        authorAvatar,
       },
     });
     return res.json({ post });
@@ -40,6 +42,9 @@ router.get("/all/album", async (req, res) => {
       orderBy: {
         createdAt: "desc",
       },
+      include: {
+        labels: true,
+      },
     });
     return res.json({ posts });
   } catch (err) {
@@ -48,118 +53,139 @@ router.get("/all/album", async (req, res) => {
 });
 
 // 投稿の取得
-router.get("/album/:id", async (req, res) => {
-  try {
-    const { id } = req.params;
-    const post = await prisma.post.findUnique({
-      where: {
-        id: parseInt(id, 10),
-      },
-      include: {
-        labels: true,
-        likes: true,
-      },
-    });
-    return res.json({ post });
-  } catch (err) {
-    res.json({ error: err.message });
-  }
-});
+// router.get("/album/:id", async (req, res) => {
+//   try {
+//     const { id } = req.params;
+//     const post = await prisma.post.findUnique({
+//       where: {
+//         id: parseInt(id, 10),
+//       },
+//       include: {
+//         labels: true,
+//         likes: true,
+//       },
+//     });
+//     return res.json({ post });
+//   } catch (err) {
+//     res.json({ error: err.message });
+//   }
+// });
 
-// ラベルの取得
-router.get("/match/label/:id", async (req, res) => {
-  const { id } = req.params;
-  try {
-    const postLabels = await prisma.postLabel.findMany({
-      where: {
-        postId: parseInt(id, 10),
-      },
-    });
-    res.json(postLabels);
-  } catch (error) {
-    console.error("エラー:", error);
-    res.status(500).json({ error: "PostLabelの取得に失敗しました" });
-  }
-});
-
-// いいね機能
-router.post("/album/like", async (req, res) => {
-  const { postId, userId } = req.body;
-  // ここでユーザーIDなどの認証情報を取得するなどの処理を行うことが一般的です
+router.post("/album/like/add", async (req, res) => {
+  const { postId, authorId } = req.body;
 
   try {
-    // いいねが既に存在するかチェック
-    const existingLike = await prisma.like.findUnique({
-      where: {
+    const newLike = await prisma.like.create({
+      data: {
         postId,
-        userId,
+        authorId,
       },
     });
 
-    if (existingLike) {
-      // 既にいいねが存在する場合、いいねを削除
-      await prisma.like.delete({
-        where: {
-          id: existingLike.id,
-        },
-      });
-
-      // 更新されたPostのデータを取得
-      const updatedPost = await prisma.post.findUnique({
-        where: { id: postId },
-        include: { likes: true }, // like[]を含むように指定
-      });
-      res.json(updatedPost);
-    } else {
-      // いいねが存在しない場合、新たにいいねを追加
-      await prisma.like.create({
-        data: {
-          postId,
-          userId: "ユーザーID", // ユーザーIDを適切な値に置き換える
-        },
-      });
-      // 更新されたPostのデータを取得
-      const updatedPost = await prisma.post.findUnique({
-        where: { id: postId },
-        include: { likes: true }, // like[]を含むように指定
-      });
-
-      res.json(updatedPost);
-    }
-  } catch (error) {
-    console.error("エラー:", error);
-    res.status(500).json({ error: "いいねの処理に失敗しました" });
-  }
-});
-
-router.get("/album/:label", async (req, res) => {
-  const { label } = req.params;
-  try {
-    // PostLabel データを取得
-    const postLabel = await prisma.postLabel.findFirst({
+    const updatedPost = await prisma.post.update({
       where: {
-        label: parseInt(label)
+        id: postId,
       },
-      include: {
-        post: {
-          include: {
-            labels: true,
-            likes: true,
+      data: {
+        likes: {
+          connect: {
+            id: newLike.id,
           },
         },
       },
+      include: {
+        likes: true,
+      },
+    });
+    return res.json({ updatedPost });
+  } catch (error) {
+    res.status(500).json({ error: "Failed to add like." });
+  }
+});
+
+// いいねを取り除く
+router.post("/album/like/delete", async (req, res) => {
+  const { postId, authorId } = req.body;
+
+  try {
+    await prisma.like.deleteMany({
+      where: {
+        postId,
+        authorId,
+      },
     });
 
-    // Post データが見つかった場合の処理
-    if (postLabel) {
-      return res.json({ post: postLabel.post });
-    } else {
-      // 該当の Post データが見つからなかった場合の処理
-      return res.json({ message: "Post not found" });
-    }
-  } catch (err) {
-    res.json({ error: err.message });
+    const updatedPost = await prisma.post.update({
+      where: {
+        id: postId,
+      },
+      data: {
+        likes: {
+          disconnect: {
+            id: postId,
+          },
+        },
+      },
+      include: {
+        likes: true,
+      },
+    });
+
+    return res.json({ updatedPost });
+  } catch (error) {
+    res.status(500).json({ error: "Failed to remove like." });
+  }
+});
+
+// いいねをしているかを確認する
+router.post("/album/like/check", async (req, res) => {
+  const { postId, authorId } = req.body;
+
+  try {
+    // Likeテーブルから該当するデータを検索
+    const like = await prisma.like.findFirst({
+      where: {
+        postId,
+        authorId,
+      },
+    });
+
+    const hasLiked = like !== null; // もしlikeが見つかれば、いいねしていると判断
+
+    return res.json({ hasLiked });
+  } catch (error) {
+    res.status(500).json({ error: "Failed to check like status." });
   }
 });
 
 module.exports = router;
+
+// router.get("/album/:label", async (req, res) => {
+//   const { label } = req.params;
+//   try {
+//     // PostLabel データを取得
+//     const postLabel = await prisma.postLabel.findFirst({
+//       where: {
+//         label: parseInt(label)
+//       },
+//       include: {
+//         post: {
+//           include: {
+//             labels: true,
+//             likes: true,
+//           },
+//         },
+//       },
+//     });
+
+//     // Post データが見つかった場合の処理
+//     if (postLabel) {
+//       return res.json({ post: postLabel.post });
+//     } else {
+//       // 該当の Post データが見つからなかった場合の処理
+//       return res.json({ message: "Post not found" });
+//     }
+//   } catch (err) {
+//     res.json({ error: err.message });
+//   }
+// });

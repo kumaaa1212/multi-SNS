@@ -4,14 +4,16 @@ const prisma = new PrismaClient();
 
 // チャットルームを作成する
 router.post("/newroom", async (req, res) => {
-  const { user1Id, user2Id } = req.body;
+  const { user1Id, user2Id, user2Name,user2Icon } = req.body;
   const room = await prisma.room.create({
     data: {
       user1Id,
       user2Id,
+      user2Name,
+      user2Icon,
     },
   });
-  console.log(room);
+
   return res.json({ room });
 
 });
@@ -65,5 +67,19 @@ router.post("/room/chat", async (req, res) => {
   });
   return res.json({ message });
 })
+
+router.get('/rooms/:roomId/messages', async (req, res) => {
+  const { roomId } = req.params;
+  try {
+    const messages = await prisma.message.findMany({
+      where: {
+        roomId: roomId,
+      },
+    });
+    res.json(messages);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to fetch messages.' });
+  }
+});
 
 module.exports = router;

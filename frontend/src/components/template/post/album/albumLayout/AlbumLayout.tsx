@@ -4,10 +4,9 @@ import HorizontalLinearStepper from '@/components/parts/Stepper'
 import SwitchBtn from '@/components/parts/Button/SwitchBtn'
 import { useRouter } from 'next/router'
 import AbjustModal from '@/components/wigets/Modal/Abjustment'
-import { RootState } from '@/store'
+import { RootState } from '@/store/store'
 import { useSelector } from 'react-redux'
 import apiClient from '@/libs/apiClient'
-import { AuthInfo } from '@/context/auth'
 import { supabase } from '@/utils/supabaseClient'
 import { v4 as uuidv4 } from 'uuid'
 
@@ -19,18 +18,19 @@ interface Props {
 
 const AlnumLayout = (props: Props) => {
   const { children } = props
+
+  const router = useRouter()
+
   const [keepPost, setKeepPost] = useState<boolean>(false)
   const [activeStep, setActiveStep] = useState<number>(0)
   const [relese, setRelese] = useState<boolean>(false)
   const [open, setOpen] = useState<boolean>(false)
   const [abjustOpen, setAbjustOpen] = useState<boolean>(false)
+
   const { thumbnailText, titleText, labels, contentText, thumbnailImg } = useSelector(
     (state: RootState) => state.post,
   )
-  const auth = AuthInfo()
-  console.log(auth.userId)
-  const router = useRouter()
-  console.log(labels)
+  const { username, userId, iconPath } = useSelector((state: RootState) => state.user)
   useEffect(() => {
     if (router.pathname === '/post/album/thumbnail') {
       setActiveStep(1)
@@ -47,6 +47,7 @@ const AlnumLayout = (props: Props) => {
       router.push('/mypage')
     }
   }
+
   const handleRelease = async () => {
     if (!(thumbnailText && titleText && labels && contentText)) {
       alert('必要な情報が入力されていません')
@@ -58,14 +59,15 @@ const AlnumLayout = (props: Props) => {
             content: contentText,
             labels: labels,
             thumbnailText: thumbnailText,
-            authorId: auth.userId,
-            authorName: auth.username,
+            authorId: userId,
+            authorName: username,
+            authorAvatar: iconPath,
             thumbnailImg: '',
           })
         } else {
           const { data: storageData, error: storegeError } = await supabase.storage
             .from('thumbnail')
-            .upload(`${auth.userId}/${uuidv4()}`, thumbnailImg)
+            .upload(`${userId}/${uuidv4()}`, thumbnailImg)
           if (storegeError) {
             throw storegeError
           }
@@ -77,8 +79,9 @@ const AlnumLayout = (props: Props) => {
             content: contentText,
             labels: labels,
             thumbnailText: thumbnailText,
-            authorId: auth.userId,
-            authorName: auth.username,
+            authorId: userId,
+            authorName: username,
+            authorAvatar: iconPath,
             thumbnailImg: urlData.publicUrl,
           })
         }

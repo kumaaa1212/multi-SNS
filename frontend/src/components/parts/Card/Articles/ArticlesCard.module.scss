@@ -1,14 +1,38 @@
-.main_img{
+.main_img {
   object-fit: cover;
 }
-.card_header{
+.article_card {
   position: relative;
 }
-.moreover_area{
+.card_header {
+}
+.moreover_btn {
+  cursor: pointer;
+}
+
+.moreover_area {
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 100px;
-  height: 60px;
-  background-color: #f0f0f0;
+  height: 40px;
+  background-color: #fafbfb;
   position: absolute;
-  left: 500px;
-  // top: 10px;
+  right: 0;
+  top: 40px;
+  border-radius: 10px;
+  padding: 0px 5px;
+  p {
+    font-size: 20px;
+    font-weight: bold;
+    margin: 0;
+  }
+}
+
+.thumbnail_text {
+  font-weight: bold;
+}
+.label_area {
+  margin-top: 10px;
 }

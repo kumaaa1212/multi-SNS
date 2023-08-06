@@ -1,18 +1,17 @@
 import React, { useEffect, useState } from 'react'
 import style from './Release.module.scss'
-import RecipeReviewCard from '@/components/parts/Card'
 import ReactConfetti from 'react-confetti'
-import useWindowSize from 'react-use/lib/useWindowSize'
-import { AppDispatch, RootState } from '@/store'
-import { useDispatch, useSelector } from 'react-redux'
-import ThumbnailCard from '@/components/parts/Card/thumbnail'
+import { useDispatch } from 'react-redux'
 import { stateReset } from '@/features/postSlice'
 import { useRouter } from 'next/router'
+import ReleaseCard from '@/components/parts/Card/Release'
+import { AppDispatch } from '@/store/store'
 const Release = () => {
   const [width, setWidth] = useState(0)
   const [height, setHeight] = useState(0)
-  const dispatch: AppDispatch = useDispatch();
+  const dispatch: AppDispatch = useDispatch()
   const router = useRouter()
+
   useEffect(() => {
     setWidth(window.innerWidth)
     setHeight(window.innerHeight)
@@ -21,12 +20,13 @@ const Release = () => {
     dispatch(stateReset())
     router.push('/mypage')
   }
+
   return (
     <div>
       <ReactConfetti width={width} height={height} numberOfPieces={400} recycle={false} />
       <div className={style.release_contents}>
         <h1 className={style.release_title}>Congratulations!</h1>
-        <ThumbnailCard className='600' />
+        <ReleaseCard className='600' />
         <button className={style.check_btn} onClick={handleTransition}>
           <span>Visit</span>
           <svg

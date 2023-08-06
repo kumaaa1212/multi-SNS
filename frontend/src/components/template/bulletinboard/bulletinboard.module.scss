@@ -30,40 +30,39 @@
     .timeline_search:focus {
       outline: none;
     }
-    .imput_area_icon{
+    .imput_area_icon {
       padding: 5px;
       margin-left: 10px;
-      background-color:#1876D2;
+      background-color: #1876d2;
       border-radius: 50%;
       cursor: pointer;
     }
   }
 }
-.side{
+.side {
   margin-left: 10px;
-  padding-left:5px ;
+  padding-left: 5px;
   border-left: 1px black solid;
-  .sidebar_input_area{
+  .sidebar_input_area {
     position: fixed;
     bottom: 30px;
-    right: 100px;
+    right: 20px;
     display: flex;
     align-items: center;
     justify-content: center;
-    .sidebar_input{
+    .sidebar_input {
       display: block;
       width: 250px;
       height: 30px;
     }
-    .sidebar_search_icon{
+    .sidebar_search_icon {
       margin-left: 10px;
-      background-color: #1876D2;
+      background-color: #1876d2;
       border-radius: 50%;
       cursor: pointer;
     }
   }
 }
-
 
 .bottom_border {
   display: flex;
@@ -72,7 +71,7 @@
 
 .bottom_border:before,
 .bottom_border:after {
-  content: "";
+  content: '';
   height: 1px;
   flex-grow: 1;
   background-color: #666;

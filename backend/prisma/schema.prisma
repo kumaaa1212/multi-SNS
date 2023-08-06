@@ -15,9 +15,6 @@ model User {
   authorId String  @unique
   name String
   avatar String
-  followers Followers[]
-  following Following[]
-  likes Like[]
 }
 
 model Like {
@@ -25,24 +22,9 @@ model Like {
   postId Int
   authorId String
   post   Post   @relation(fields: [postId], references: [id])
-  user   User   @relation(fields: [authorId], references: [authorId])
   @@unique([postId, authorId])
 }
 
-
-model Followers {
-  id Int @id @default(autoincrement())
-  userId String
-  followerId String
-  user User @relation(fields: [userId], references: [authorId])
-}
-
-model Following {
-  id Int @id @default(autoincrement())
-  userId String
-  followingId String
-  user User @relation(fields: [userId], references: [authorId])
-}
 
 model Post{
   id Int @id @default(autoincrement())
@@ -52,6 +34,7 @@ model Post{
   labels PostLabel[]
   authorId String?
   authorName String
+  authorAvatar String
   thumbnailText String
   thumbnailImg String
   likes Like[]
@@ -78,13 +61,18 @@ model Room {
   id String @id @default(uuid())
   user1Id String
   user2Id  String
+  user2Icon String
+  user2Name String
   createdAt DateTime @default(now())
+  messages Message[] 
 }
- model Message{
+
+model Message {
   id Int @id @default(autoincrement())
   content String
   createdAt DateTime @default(now())
   authorId String?
   senderId String
   roomId String?
- }
+  room Room? @relation(fields: [roomId], references: [id])
+}

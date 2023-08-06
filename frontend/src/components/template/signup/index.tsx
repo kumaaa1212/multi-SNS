@@ -11,21 +11,28 @@ import { supabase } from '@/utils/supabaseClient'
 import { CircularProgress, FormControl, InputLabel, MenuItem, Select } from '@mui/material'
 import ModalWind from '@/components/parts/Modal/LoginModal'
 import Link from 'next/link'
+import { useDispatch } from 'react-redux'
+import { AppDispatch } from '@/store/store'
+import { jLeagueTeams } from '@/TeamData'
+import { v4 as uuidv4 } from 'uuid'
 
 const defaultTheme = createTheme()
+
 export default function SignUp() {
-  const [username, setusername] = useState('')
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
+  const [username, setusername] = useState<string>('')
+  const [email, setEmail] = useState<string>('')
+  const [password, setPassword] = useState<string>('')
   const [team, setteam] = useState<any>('')
-  const [isLoading, setIsLoading] = useState(false)
-  const [open, setOpen] = useState(false)
+  const [isLoading, setIsLoading] = useState<boolean>(false)
+  const [open, setOpen] = useState<boolean>(false)
+
+  const dispatch: AppDispatch = useDispatch()
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setIsLoading(true)
     try {
-      const { data, error } = await supabase.auth.signUp({
+      const { data } = await supabase.auth.signUp({
         email: email,
         password: password,
         options: {
@@ -33,7 +40,7 @@ export default function SignUp() {
             username: username,
             bio: '自己紹介文を入力してください',
             team: team,
-            icon: `cscscscscsbtnmmyjnhfgbdfvsdca`,
+            icon: String(uuidv4()),
             follow: [],
             follower: [],
           },
@@ -44,6 +51,7 @@ export default function SignUp() {
       alert('エラーが発生しました')
     }
   }
+
   return (
     <ThemeProvider theme={defaultTheme}>
       {isLoading && (
@@ -51,7 +59,7 @@ export default function SignUp() {
           {open ? (
             <div>
               <p>
-                {/* {email} */}
+                {email}
                 に仮登録完了メールを送りました。メール内のリンクをクリックして登録を完了してください。
               </p>
               <Link href={'/login'}>閉じる</Link>
@@ -98,9 +106,9 @@ export default function SignUp() {
                     label='Age'
                     onChange={(e) => setteam(e.target.value)}
                   >
-                    <MenuItem value={'FC東京'}>FC東京</MenuItem>
-                    <MenuItem value={'川崎フロンターレ'}>川崎フロンターレ</MenuItem>
-                    <MenuItem value={30}>Thirty</MenuItem>
+                    {jLeagueTeams.map((team) => (
+                      <MenuItem value={team.name}>{team.name}</MenuItem>
+                    ))}
                   </Select>
                 </FormControl>
               </Grid>
@@ -130,11 +138,9 @@ export default function SignUp() {
                 />
               </Grid>
             </Grid>
-            <div className='handle_btn'>
-              <Button type='submit' fullWidth variant='contained' sx={{ mt: 3, mb: 2 }}>
-                Sign Up
-              </Button>
-            </div>
+            <Button type='submit' fullWidth variant='contained' sx={{ mt: 3, mb: 2 }}>
+              Sign Up
+            </Button>
           </Box>
         </Box>
       </Container>

@@ -2,7 +2,7 @@ import Autocomplete from '@mui/material/Autocomplete'
 import TextField from '@mui/material/TextField'
 import Stack from '@mui/material/Stack'
 import { useDispatch, useSelector } from 'react-redux'
-import { AppDispatch, RootState } from '@/store'
+import { AppDispatch, RootState } from '@/store/store'
 import { addLabels } from '@/features/postSlice'
 import { jLeagueTeams } from '@/TeamData'
 
@@ -18,7 +18,7 @@ export default function Labels() {
           options={jLeagueTeams}
           getOptionLabel={(option) => option.name}
           value={labels}
-          onChange={(event,newValue) => {
+          onChange={(event, newValue) => {
             console.log(newValue)
             dispatch(addLabels(newValue))
           }}

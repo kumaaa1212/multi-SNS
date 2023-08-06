@@ -1,12 +1,10 @@
-import React, { use, useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import style from './Article.module.scss'
-import ArticleCard from '@/components/parts/Card/Articles/some'
-import { Chip } from '@mui/material'
-import { jLeagueTeams } from '@/TeamData'
+import ArticleCard from '@/components/parts/Card/Articles'
 import BasicPagination from '@/components/parts/Pagenation'
 import LabelArea from '@/components/parts/Label/articles'
-import apiClient from '@/libs/apiClient'
 const Article = ({ articles }: any) => {
+
   const [click, setClicked] = useState<boolean>(true)
   return (
     <div className={style.article}>

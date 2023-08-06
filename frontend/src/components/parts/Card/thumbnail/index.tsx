@@ -13,8 +13,7 @@ import MoreVertIcon from '@mui/icons-material/MoreVert'
 import Image from 'next/image'
 import { Chip } from '@mui/material'
 import style from '../Card.module.scss'
-import { AuthInfo } from '@/context/auth'
-import { AppDispatch, RootState } from '@/store'
+import { AppDispatch, RootState } from '@/store/store'
 import { useDispatch, useSelector } from 'react-redux'
 import { addThumbnailImg, dispalyThumbnailImg } from '@/features/postSlice'
 
@@ -42,13 +41,7 @@ export default function ThumbnailCard(props: any) {
   const [expanded, setExpanded] = useState(false)
   const [currentDate, setCurrentDate] = useState(new Date())
   const [file, setFile] = useState<File | null>(null)
-  const auth = AuthInfo()
-  // useEffect(() => {
-  //   const interval = setInterval(() => {
-  //     setCurrentDate(new Date())
-  //   }, 1000)
-  //   return () => clearInterval(interval)
-  // }, [])
+  const { icon } = useSelector((state: RootState) => state.user)
 
   const formatDate = (date: any) => {
     const year = date.getFullYear()
@@ -66,74 +59,72 @@ export default function ThumbnailCard(props: any) {
   }
 
   return (
-    <div className='thumbnail_card'>
-      <Card sx={{ width: Number(className) }}>
-        <CardHeader
-          avatar={
-            <Avatar aria-label='recipe'>
-              <Image src={auth.icon} alt={''} width={40} height={40} />
-            </Avatar>
-          }
-          action={
-            <IconButton aria-label='settings'>
-              <MoreVertIcon />
-            </IconButton>
-          }
-          title={titleText}
-          subheader={formatDate(currentDate)}
+    <Card sx={{ maxWidth: Number(className) }}>
+      <CardHeader
+        avatar={
+          <Avatar aria-label='recipe'>
+            <Image src={icon} alt={''} width={40} height={40} />
+          </Avatar>
+        }
+        action={
+          <IconButton aria-label='settings'>
+            <MoreVertIcon />
+          </IconButton>
+        }
+        title={titleText}
+        subheader={formatDate(currentDate)}
+      />
+      <div className={style.img_area}>
+        <Image
+          src={displayThumbnailImg}
+          alt={''}
+          className={style.thumbnail_img}
+          width={300}
+          height={200}
         />
-        <div className={style.img_area}>
-          <Image
-            src={displayThumbnailImg}
-            alt={''}
-            className={style.thumbnail_img}
-            width={300}
-            height={200}
+        <div className={style.thumbnail_img_cover}>
+          <svg
+            xmlns='http://www.w3.org/2000/svg'
+            className={style.thumbnail_img_cover_icon}
+            width='90'
+            height='90'
+            viewBox='0 0 24 24'
+            stroke-width='1.5'
+            stroke='#ffffff'
+            fill='none'
+            stroke-linecap='round'
+            stroke-linejoin='round'
+            onClick={openFileInput}
+          >
+            <path stroke='none' d='M0 0h24v24H0z' fill='none' />
+            <path d='M5 7h1a2 2 0 0 0 2 -2a1 1 0 0 1 1 -1h6a1 1 0 0 1 1 1a2 2 0 0 0 2 2h1a2 2 0 0 1 2 2v9a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-9a2 2 0 0 1 2 -2' />
+            <path d='M9 13a3 3 0 1 0 6 0a3 3 0 0 0 -6 0' />
+          </svg>
+          <input
+            type='file'
+            id='fileInput'
+            style={{ display: 'none' }}
+            onChange={(e) => handleImg(e)}
           />
-          <div className={style.thumbnail_img_cover}>
-            <svg
-              xmlns='http://www.w3.org/2000/svg'
-              className={style.thumbnail_img_cover_icon}
-              width='90'
-              height='90'
-              viewBox='0 0 24 24'
-              stroke-width='1.5'
-              stroke='#ffffff'
-              fill='none'
-              stroke-linecap='round'
-              stroke-linejoin='round'
-              onClick={openFileInput}
-            >
-              <path stroke='none' d='M0 0h24v24H0z' fill='none' />
-              <path d='M5 7h1a2 2 0 0 0 2 -2a1 1 0 0 1 1 -1h6a1 1 0 0 1 1 1a2 2 0 0 0 2 2h1a2 2 0 0 1 2 2v9a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-9a2 2 0 0 1 2 -2' />
-              <path d='M9 13a3 3 0 1 0 6 0a3 3 0 0 0 -6 0' />
-            </svg>
-            <input
-              type='file'
-              id='fileInput'
-              style={{ display: 'none' }}
-              onChange={(e) => handleImg(e)}
-            />
-          </div>
         </div>
-        <CardContent>
-          <span>{thumbnailText}</span>
-          <div className={style.labels}>
-            {labels.map((label: any) => (
-              <Chip label={label.name} key={label.label} />
-            ))}
-          </div>
-        </CardContent>
-        <CardActions disableSpacing>
-          <IconButton aria-label='add to favorites'>
-            <FavoriteIcon />
-          </IconButton>
-          <IconButton aria-label='share'>
-            <ShareIcon />
-          </IconButton>
-        </CardActions>
-        <Collapse in={expanded} timeout='auto' unmountOnExit></Collapse>
-      </Card>
-    </div>
+      </div>
+      <CardContent>
+        <span>{thumbnailText}</span>
+        <div className={style.labels}>
+          {labels.map((label: any) => (
+            <Chip label={label.name} key={label.label} />
+          ))}
+        </div>
+      </CardContent>
+      <CardActions disableSpacing>
+        <IconButton aria-label='add to favorites'>
+          <FavoriteIcon />
+        </IconButton>
+        <IconButton aria-label='share'>
+          <ShareIcon />
+        </IconButton>
+      </CardActions>
+      <Collapse in={expanded} timeout='auto' unmountOnExit></Collapse>
+    </Card>
   )
 }
