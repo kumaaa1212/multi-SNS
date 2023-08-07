@@ -1,12 +1,12 @@
 import Chat from '@/components/template/chat'
 import apiClient from '@/libs/apiClient'
 import { RootState } from '@/store/store'
-import { Room } from '@/types/global'
+import { RoomType } from '@/types/global'
 import { GetServerSideProps } from 'next'
 import { useSelector } from 'react-redux'
 
 interface Props {
-  rooms:Room[]
+  rooms:RoomType[]
 }
 
 const ChatPage = ({rooms}:Props) => {

@@ -13,21 +13,19 @@ const nextConfig = {
       },
     ]
   },
-  webpack: (config: {
-    module: { rules: { test: RegExp; use: { loader: string; options: { svgo: boolean } }[] }[] }
-  }) => {
+  webpack: (config) => {
     config.module.rules.push({
       test: /\.svg$/,
       use: [
         {
-          loader: '@svgr/webpack',
+          loader: "@svgr/webpack",
           options: {
             svgo: false, // 圧縮無効
           },
         },
       ],
-    })
-    return config
+    });
+    return config;
   },
 }
 

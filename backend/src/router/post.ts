@@ -6,6 +6,7 @@ const prisma = new PrismaClient();
 
 // albumを追加する
 router.post("/album", async (req: Request, res: Response) => {
+  console.log(req.body);
   const {
     title,
     content,
@@ -18,12 +19,18 @@ router.post("/album", async (req: Request, res: Response) => {
   } = req.body;
 
   try {
+    // この部分を修正
     const post = await prisma.post.create({
       data: {
         title,
         content,
         labels: {
-          create: labels,
+          create: labels.map((label: any) => ({
+            label: label.label,
+            name: label.name,
+            league: label.league,
+            img: label.img,
+          })),
         },
         thumbnailText,
         thumbnailImg,

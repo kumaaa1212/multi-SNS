@@ -12,21 +12,18 @@ import { useRouter } from 'next/router'
 const actions = [
   { icon: <PostAddIcon />, name: 'Tweet', href: 'Tweet' },
   { icon: <PhotoLibraryIcon />, name: 'Album', href: 'Album' },
-  { icon: <StackedBarChartIcon />, name: 'Record', href: 'Record' },
 ]
 
 export default function PostBtn(props: any) {
   const { setOpen } = props
-  
+
   const router = useRouter()
   const [addBtn, setaddBtn] = useState(false)
   const handleOpen = () => setaddBtn(true)
   const handleClose = () => setaddBtn(false)
   const handleAdd = (key: any) => {
-    if (key === 'Record') {
-      router.push('/post/tweet')
-    } else if (key === 'Album') {
-      router.push('/post/album')
+    if (key === 'Album') {
+      router.push('/post')
     } else if (key === 'Tweet') {
       setOpen(true)
     }

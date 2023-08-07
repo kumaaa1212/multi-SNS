@@ -10,9 +10,8 @@ interface Props {
   data: ArticlesType[] | undefined
 }
 
-const Team = (props:Props) => {
+const Locate = (props:Props) => {
   const { data } = props
-  console.log(data)
 
   const router = useRouter()
   const teamfilter = jLeagueTeams.filter((team:TeamType) => team.label === router.query.label)
@@ -49,4 +48,4 @@ const Team = (props:Props) => {
   )
 }
 
-export default Team
+export default Locate

@@ -9,7 +9,6 @@ interface Props {
 
 const Chat = (props: Props) => {
   const { rooms } = props
-  console.log(rooms)
 
   const [selectChatRoom, setSelectChatRoom] = useState<boolean>(true)
   const [selectRoom, setSelectRoom] = useState<RoomType[]>([])

@@ -28,21 +28,20 @@ const AlnumLayout = (props: Props) => {
   const [abjustOpen, setAbjustOpen] = useState<boolean>(false)
 
   const { thumbnailText, titleText, labels, contentText, thumbnailImg } = useSelector(
-    (state: RootState) => state.post,
-  )
+    (state: RootState) => state.post,)
   const { username, userId, iconPath } = useSelector((state: RootState) => state.user)
+
   useEffect(() => {
     if (router.pathname === '/post/album/thumbnail') {
       setActiveStep(1)
       setRelese(!relese)
-    } else if (router.pathname === '/post/album/thumbnail') {
     }
   }, [])
 
   const handleReverse = () => {
     if (router.pathname === '/post/album/thumbnail') {
-      router.push('/post/album')
-    } else if (router.pathname === '/post/album') {
+      router.push('/post')
+    } else if (router.pathname === '/post') {
       router.push('/mypage')
     }
   }

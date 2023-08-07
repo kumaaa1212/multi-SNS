@@ -4,7 +4,7 @@ import chatRoute from './router/chat';
 import cors from 'cors';
 
 const app = express();
-const port = 4001;
+const port = process.env.PORT;
 app.use(express.json());
 
 const corsOptions = {
