@@ -1,23 +1,30 @@
 import { Router, Request, Response } from "express";
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient } from '@prisma/client';
 
 const router: Router = Router();
 const prisma = new PrismaClient();
 
 // チャットルームを作成する
-// router.post("/newroom", async (req: Request, res: Response) => {
-//   const { user1Id, user2Id, user2Name, user2Icon } = req.body;
-//   const room = await prisma.room.create({
-//     data: {
-//       user1Id,
-//       user2Id,
-//       user2Name,
-//       user2Icon,
-//     },
-//   });
+router.post("/newroom", async (req: Request, res: Response) => {
+  const { user1Id, user2Id, user2Name, user2Icon } = req.body;
 
-//   return res.json({ room });
-// });
+  try {
+    const room: any = {
+      user1Id,
+      user2Id,
+      user2Name,
+      user2Icon,
+    };
+
+    const createdRoom = await prisma.room.create({
+      data: room,
+    });
+
+    return res.json({ room: createdRoom });
+  } catch (error) {
+    return res.status(500).json({ error: "Failed to create new room." });
+  }
+});
 
 // チャットルームの一覧を取得する
 router.get("/room/chat", async (req: Request, res: Response) => {

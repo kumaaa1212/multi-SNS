@@ -1,13 +1,20 @@
-import { jLeagueTeams } from '@/TeamData'
-import LabelArea from '@/components/parts/Label/articles'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
-import React from 'react'
-import style from './ArticleDetail.module.scss'
+import { jLeagueTeams } from '@/TeamData'
+import LabelArea from '@/components/parts/Label/articles'
 import ArticleCard from '@/components/parts/Card/Articles'
-const Team = ({ data }: any) => {
+import { ArticlesType, TeamType } from '@/types/global'
+import style from './ArticleDetail.module.scss'
+
+interface Props {
+  data: ArticlesType[] | undefined
+}
+
+const Team = (props:Props) => {
+  const { data } = props
+
   const router = useRouter()
-  const teamfilter = jLeagueTeams.filter((team) => team.label === router.query.label)
+  const teamfilter = jLeagueTeams.filter((team:TeamType) => team.label === router.query.label)
 
   return (
     <div className={style.articles_details}>
@@ -24,8 +31,8 @@ const Team = ({ data }: any) => {
         </div>
         {data ? (
           <div>
-            {data?.map((article: any) => (
-              <div key={article.label} className={style.article_timeline}>
+            {data?.map((article:ArticlesType) => (
+              <div key={article.id} className={style.article_timeline}>
                 <ArticleCard article={article} />
               </div>
             ))}

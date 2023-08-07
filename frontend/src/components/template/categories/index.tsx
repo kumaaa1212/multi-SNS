@@ -1,8 +1,9 @@
-import style from './Categories.module.scss'
-import { jLeagueTeams } from '@/TeamData'
 import { Paper } from '@mui/material'
-import Image from 'next/image'
 import { useRouter } from 'next/router'
+import Image from 'next/image'
+import { jLeagueTeams } from '@/TeamData'
+import { TeamType } from '@/types/global'
+import style from './Categories.module.scss'
 
 const Categories = () => {
   const router = useRouter()
@@ -11,7 +12,7 @@ const Categories = () => {
     <div className={style.categories}>
       <input type='text' className={style.categories_search} placeholder='キーワードを入力...' />
       <div className={style.categories_area}>
-        {jLeagueTeams.map((team) => (
+        {jLeagueTeams.map((team:TeamType) => (
           <Paper
             className={style.team_card}
             onClick={() => router.push(`/categories/deails/${team.label}`)}

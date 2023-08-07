@@ -4,7 +4,9 @@ import style from './Layout.module.scss'
 import PostBtn from '@/components/parts/Button/Post/addbtn'
 import Profile from '../profile'
 import TimeLineHeader from './header'
+
 const MypageLayout = ({ children }: any) => {
+
   const [open, setOpen] = useState<boolean>(false)
 
   return (

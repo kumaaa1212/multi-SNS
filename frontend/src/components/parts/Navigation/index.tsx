@@ -1,4 +1,3 @@
-import * as React from 'react'
 import Box from '@mui/material/Box'
 import CssBaseline from '@mui/material/CssBaseline'
 import BottomNavigation from '@mui/material/BottomNavigation'
@@ -12,6 +11,7 @@ import ListItem from '@mui/material/ListItem'
 import ListItemAvatar from '@mui/material/ListItemAvatar'
 import ListItemText from '@mui/material/ListItemText'
 import Avatar from '@mui/material/Avatar'
+import { useEffect, useRef, useState } from 'react'
 
 function refreshMessages(): MessageExample[] {
   const getRandomInt = (max: number) => Math.floor(Math.random() * Math.floor(max))
@@ -20,12 +20,12 @@ function refreshMessages(): MessageExample[] {
 }
 
 export default function FixedBottomNavigation() {
-  const [value, setValue] = React.useState(0)
-  const ref = React.useRef<HTMLDivElement>(null)
-  const [messages, setMessages] = React.useState(() => refreshMessages())
+  const [value, setValue] = useState<number>(0)
+  const ref = useRef<HTMLDivElement>(null)
+  const [messages, setMessages] = useState(() => refreshMessages())
 
-  React.useEffect(() => {
-    ;(ref.current as HTMLDivElement).ownerDocument.body.scrollTop = 0
+  useEffect(() => {
+    (ref.current as HTMLDivElement).ownerDocument.body.scrollTop = 0
     setMessages(refreshMessages())
   }, [value, setMessages])
 

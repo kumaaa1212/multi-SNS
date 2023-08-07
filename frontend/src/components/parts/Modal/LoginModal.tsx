@@ -1,6 +1,5 @@
-import React from 'react'
-import { Box, CircularProgress, Modal, Typography } from '@mui/material'
-import Link from 'next/link'
+import { Box, Modal } from '@mui/material'
+
 const style = {
   position: 'absolute' as 'absolute',
   top: '50%',
@@ -11,14 +10,18 @@ const style = {
   boxShadow: 24,
   p: 4,
 }
-type PropsChildren1Props = {
-  children: React.ReactNode
+
+type Props = {
+  children?: React.ReactNode
+  open: boolean
 }
 
-const ModalWind = ({ children }: PropsChildren1Props) => {
+const ModalWind = (props: Props) => {
+  const { children, open } = props
+
   return (
     <Modal
-      open={true}
+      open={open}
       aria-labelledby='modal-modal-title'
       aria-describedby='modal-modal-description'
     >

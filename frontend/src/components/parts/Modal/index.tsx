@@ -1,8 +1,6 @@
-import {useState} from 'react'
 import Box from '@mui/material/Box'
 import Modal from '@mui/material/Modal'
 import styles from './Modal.module.scss'
-import { ChidrenProps } from '@/types/global'
 
 const style = {
   position: 'absolute' as 'absolute',
@@ -24,6 +22,7 @@ interface Props {
 
 export default function ModalBase(props:Props) {
   const { open, setOpen, children } = props
+  
   return (
     <div className={styles.tweet_modal}>
       <Modal

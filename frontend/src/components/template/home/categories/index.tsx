@@ -1,4 +1,3 @@
-import React from 'react'
 import style from '../Home.module.scss'
 import Link from 'next/link'
 import { useRouter } from 'next/router'

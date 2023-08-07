@@ -9,6 +9,7 @@ import { jLeagueTeams } from '@/TeamData'
 export default function Labels() {
   const dispatch: AppDispatch = useDispatch()
   const { labels } = useSelector((state: RootState) => state.post)
+
   return (
     <div className='labels'>
       <Stack spacing={3} sx={{ width: 600 }}>

@@ -1,4 +1,3 @@
-import Link from 'next/link'
 import React from 'react'
 import style from './TimeLineHeader.module.scss'
 import CustomizedInputBase from '@/components/parts/Search/PostSearch'

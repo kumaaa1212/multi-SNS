@@ -2,7 +2,49 @@ export interface ChidrenProps {
   children: React.ReactNode
 }
 
-export interface Room {
+
+export interface MessageType {
+  id: string
+  content: string
+  createdAt: string
+  authorId: string
+  senderId: string
+  roomId: string
+}
+
+export interface ArticlesType {
+  authorAvatar: string
+  authorId: string
+  authorName: string
+  content: string
+  createdAt: string
+  id: number
+  labels: LabelType[]
+  thumbnailImg: string
+  thumbnailText: string
+  title: string
+}
+export interface ArticleProps {
+  posts: ArticlesType[]
+}
+export interface LabelType {
+  id: number
+  label: string
+  img: string
+  league: string
+  name: string
+  postId: number
+}
+
+export interface TeamType {
+  name: string
+  league: string
+  img: string
+  label: string
+  stadium: string
+}
+
+export interface RoomType {
   id: string
   user1Id: string
   user1Name: string
@@ -11,14 +53,5 @@ export interface Room {
   user2Icon: string
   user2Name: string
   createdAt: string
-  messages: any[]
-}
-
-export interface Message {
-  id: string
-  content: string
-  createdAt: string
-  authorId: string
-  senderId: string
-  roomId: string
+  messages: MessageType[]
 }

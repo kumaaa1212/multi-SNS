@@ -21,11 +21,11 @@ export default function Login() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     try {
-      const { data, error } = await supabase.auth.signInWithPassword({
+      await supabase.auth.signInWithPassword({
         email: email,
         password: password,
       })
-      await router.push("/mypage");
+      await router.push('/mypage')
     } catch {
       alert('エラーが発生しました')
     }

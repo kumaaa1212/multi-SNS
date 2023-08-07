@@ -1,4 +1,3 @@
-import React from 'react'
 import style from './Home.module.scss'
 import CategoriesPart from './categories'
 import ArticlesPart from './articles'

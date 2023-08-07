@@ -5,7 +5,6 @@ import CardHeader from '@mui/material/CardHeader'
 import CardContent from '@mui/material/CardContent'
 import CardActions from '@mui/material/CardActions'
 import Collapse from '@mui/material/Collapse'
-import Avatar from '@mui/material/Avatar'
 import IconButton, { IconButtonProps } from '@mui/material/IconButton'
 import ShareIcon from '@mui/icons-material/Share'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
@@ -19,12 +18,13 @@ import { useSelector } from 'react-redux'
 import { RootState } from '@/store/store'
 import Icongenerate from '../../Avater'
 import LikeBtn from '../../Button/Like'
+import { ArticlesType, LabelType } from '@/types/global'
+
 interface ExpandMoreProps extends IconButtonProps {
   expand: boolean
 }
 interface Props {
-  thumbnailText: string
-  className: string
+  article: ArticlesType
 }
 
 const ExpandMore = styled((props: ExpandMoreProps) => {
@@ -38,14 +38,14 @@ const ExpandMore = styled((props: ExpandMoreProps) => {
   }),
 }))
 
-export default function ArticleCard(props: any) {
+export default function ArticleCard(props: Props) {
   const { article } = props
 
   const [expanded, setExpanded] = useState<boolean>(false)
   const [moreover, setMoreover] = useState<boolean>(false)
-  const { username, follow } = useSelector((state: RootState) => state.user)
+  const { username } = useSelector((state: RootState) => state.user)
 
-  const handleExpandClick = () => {
+  const handleExpandClick = (): void => {
     setExpanded(!expanded)
   }
 
@@ -59,7 +59,7 @@ export default function ArticleCard(props: any) {
           }
           action={
             article.authorName === username ? (
-              <MoreVertIcon onClick={() => setMoreover(!moreover)} className={style.moreover_btn} />
+              <MoreVertIcon onClick={():void => setMoreover(!moreover)} className={style.moreover_btn} />
             ) : (
               <FollowBtn article={article} className={style.follow_icon}>
                 Follow
@@ -99,7 +99,7 @@ export default function ArticleCard(props: any) {
         <CardContent>
           <span className={style.thumbnail_text}>{article.thumbnailText}</span>
           <div className={style.label_area}>
-            {article.labels.map((label: any) => (
+            {article.labels.map((label: LabelType) => (
               <Chip label={label.name} />
             ))}
           </div>

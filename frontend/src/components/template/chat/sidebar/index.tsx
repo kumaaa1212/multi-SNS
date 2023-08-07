@@ -5,13 +5,13 @@ import ChatSetting from 'public/svg/chat_setting.svg'
 import MultipleSelectNative from '@/components/parts/Select/Native'
 import ChatSide from '@/components/parts/chat/ChatSide'
 import style from '../Chat.module.scss'
-import { Room } from '@/types/global'
+import { RoomType } from '@/types/global'
 
 interface Props {
-  rooms: Room[];
+  rooms: RoomType[];
   selectChatRoom: boolean;
   setSelectChatRoom:  Dispatch<SetStateAction<boolean>>;
-  setSelectRoom: Dispatch<SetStateAction<Room[]>>;
+  setSelectRoom: Dispatch<SetStateAction<RoomType[]>>;
 }
 
 const SideBar = (props: Props) => {
@@ -25,7 +25,7 @@ const SideBar = (props: Props) => {
         <ChatSetting className={style.settingIcon} />
         <ChatSearch />
         <div>
-          <NewChatIcon className={style.addIcon} onClick={() => setFollowList(!followListm)} />
+          <NewChatIcon className={style.addIcon} onClick={(): void => setFollowList(!followListm)} />
           {followListm && (
             <div className={style.new_chat}>
               <MultipleSelectNative rooms={rooms} />
@@ -34,7 +34,7 @@ const SideBar = (props: Props) => {
         </div>
       </div>
       <div className={style.chat_person}>
-        {rooms?.map((room: any) => (
+        {rooms?.map((room: RoomType) => (
           <ChatSide selectChatRoom={selectChatRoom} setSelectChatRoom={setSelectChatRoom}  rooms={rooms} room={room} setSelectRoom={setSelectRoom} />
         ))}
       </div>

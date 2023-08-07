@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react'
 import SideBar from './sidebar'
 import ChatArea from './main/ChatArea'
-import { Room } from '@/types/global'
+import { RoomType } from '@/types/global'
 
 interface Props {
-  rooms: Room[]
+  rooms: RoomType[]
 }
 
 const Chat = (props: Props) => {
@@ -12,7 +12,7 @@ const Chat = (props: Props) => {
   console.log(rooms)
 
   const [selectChatRoom, setSelectChatRoom] = useState<boolean>(true)
-  const [selectRoom, setSelectRoom] = useState<Room[]>([])
+  const [selectRoom, setSelectRoom] = useState<RoomType[]>([])
 
   return (
     <div className='chat'>

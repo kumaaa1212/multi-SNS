@@ -1,8 +1,17 @@
-import style from './Bulletinboard.module.scss'
 import Image from 'next/image'
 import ProfileImg from '../../../../../public/profile_img.jpg'
-const BulletinboardCard = (props: any) => {
+import { Dispatch, SetStateAction } from 'react'
+import style from './Bulletinboard.module.scss'
+
+interface Props {
+  children: React.ReactNode
+  sideMessagrBar: boolean
+  setSideMessagrBar: Dispatch<SetStateAction<boolean>>
+}
+
+const BulletinboardCard = (props: Props) => {
   const { children, sideMessagrBar, setSideMessagrBar } = props
+
   return (
     <div className={style.bulletin_board_Card}>
       <div className={style.timeline_user}>

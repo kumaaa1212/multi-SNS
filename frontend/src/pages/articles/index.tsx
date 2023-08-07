@@ -1,14 +1,15 @@
+import { GetServerSideProps } from 'next'
+import { ArticleProps } from '@/types/global'
 import Article from '@/components/template/article'
 import apiClient from '@/libs/apiClient'
-import React from 'react'
 
-const ArticlePage = ({ articles }: any) => {
+const ArticlePage = ({ articles }:{articles:ArticleProps}) => {
   return <Article articles={articles} />
 }
 
 export default ArticlePage
 
-export const getServerSideProps = async () => {
+export const getServerSideProps:GetServerSideProps = async () => {
   const res = await apiClient.get('/post/all/album')
   const articles = res.data
 

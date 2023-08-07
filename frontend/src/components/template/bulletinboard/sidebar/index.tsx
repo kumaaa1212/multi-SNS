@@ -1,7 +1,9 @@
 import React from 'react'
 import style from '../bulletinboard.module.scss'
 import SidebarChatCard from '@/components/parts/Card/Bulletinboard/Sidebar'
+
 const MessageSidebar = () => {
+  
   return (
     <div className={style.side}>
       <div className={style.side_main_chat}>

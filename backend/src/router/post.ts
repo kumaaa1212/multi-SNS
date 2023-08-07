@@ -16,6 +16,7 @@ router.post("/album", async (req: Request, res: Response) => {
     thumbnailImg,
     authorName,
   } = req.body;
+
   try {
     const post = await prisma.post.create({
       data: {
@@ -32,7 +33,7 @@ router.post("/album", async (req: Request, res: Response) => {
       },
     });
     return res.json({ post });
-  } catch (err:any) {
+  } catch (err: any) {
     res.json({ error: err.message });
   }
 });
@@ -49,7 +50,7 @@ router.get("/all/album", async (req: Request, res: Response) => {
       },
     });
     return res.json({ posts });
-  } catch (err:any) {
+  } catch (err: any) {
     res.json({ error: err.message });
   }
 });
@@ -126,7 +127,6 @@ router.post("/album/like/check", async (req: Request, res: Response) => {
   const { postId, authorId } = req.body;
 
   try {
-    // Likeテーブルから該当するデータを検索
     const like = await prisma.like.findFirst({
       where: {
         postId,
@@ -134,7 +134,7 @@ router.post("/album/like/check", async (req: Request, res: Response) => {
       },
     });
 
-    const hasLiked = like !== null; // もしlikeが見つかれば、いいねしていると判断
+    const hasLiked = like !== null;
 
     return res.json({ hasLiked });
   } catch (error) {
@@ -143,32 +143,32 @@ router.post("/album/like/check", async (req: Request, res: Response) => {
 });
 
 // ラベルによるチーム別投稿の取得
-// router.get("/album/:label", async (req: Request, res: Response) => {
-//   const { label } = req.params;
-//   try {
-//     // PostLabel データを取得
-//     const postLabel = await prisma.postLabel.findFirst({
-//       where: {
-//         label: parseInt(label),
-//       },
-//       include: {
-//         post: {
-//           include: {
-//             labels: true,
-//             likes: true,
-//           },
-//         },
-//       },
-//     });
+router.get("/album/:label", async (req: Request, res: Response) => {
+  const { label } = req.params;
 
-//     if (postLabel) {
-//       return res.json({ post: postLabel.post });
-//     } else {
-//       return res.json({ message: "Post not found" });
-//     }
-//   } catch (err:any) {
-//     res.json({ error: err.message });
-//   }
-// });
+  try {
+    const postLabel = await prisma.postLabel.findFirst({
+      where: {
+        label: label,
+      },
+      include: {
+        post: {
+          include: {
+            labels: true,
+            likes: true,
+          },
+        },
+      },
+    });
+
+    if (postLabel) {
+      return res.json({ post: postLabel.post });
+    } else {
+      return res.json({ message: "Post not found" });
+    }
+  } catch (err: any) {
+    res.json({ error: err.message });
+  }
+});
 
 export default router;

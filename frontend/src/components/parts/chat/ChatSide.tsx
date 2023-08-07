@@ -2,14 +2,14 @@ import { Dispatch, SetStateAction } from 'react'
 import styles from './ChatContent.module.scss'
 import Image from 'next/image'
 import Icongenerate from '../Avater'
-import { Room } from '@/types/global'
+import { RoomType } from '@/types/global'
 
 interface Props {
   selectChatRoom: boolean
   setSelectChatRoom: Dispatch<SetStateAction<boolean>>
-  rooms: Room[]
-  room: Room
-  setSelectRoom: Dispatch<SetStateAction<Room[]>>
+  rooms: RoomType[]
+  room: RoomType
+  setSelectRoom: Dispatch<SetStateAction<RoomType[]>>
 }
 
 const ChatSide = (props: Props) => {

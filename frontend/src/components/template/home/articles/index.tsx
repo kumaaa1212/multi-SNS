@@ -1,11 +1,11 @@
 import React from 'react'
-import style from '../Home.module.scss'
-import ThumbnailCard from '@/components/parts/Card/thumbnail'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
-import ArticleCard from '@/components/parts/Card/Articles'
+import style from '../Home.module.scss'
+
 const ArticlesPart = () => {
   const router = useRouter()
+  
   return (
     <div className={style.articles_area}>
       <div className={style.articles_title}>

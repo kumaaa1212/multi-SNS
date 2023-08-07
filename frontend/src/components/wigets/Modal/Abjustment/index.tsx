@@ -1,13 +1,7 @@
-import { useState } from 'react'
-import { TextField } from '@mui/material'
-import { supabase } from '@/utils/supabaseClient'
-import style from './AbjustModal.module.scss'
-import Image from 'next/image'
-import bg_img from 'public/bg_img.jpg'
-import profile_img from 'public/profile_img.jpg'
 import ModalBase from '@/components/parts/Modal'
 import { useSelector } from 'react-redux'
 import { RootState } from '@/store/store'
+import style from './AbjustModal.module.scss'
 
 interface Props {
   open: boolean
@@ -16,8 +10,6 @@ interface Props {
 
 export default function AbjustModal(props: Props) {
   const { open, setOpen } = props
-  const { userId } = useSelector((state: RootState) => state.user)
-
 
   return (
     <ModalBase open={open} setOpen={setOpen}>

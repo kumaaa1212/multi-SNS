@@ -1,15 +1,12 @@
-import * as React from 'react'
-import InputLabel from '@mui/material/InputLabel'
-import FormControl from '@mui/material/FormControl'
-import Select from '@mui/material/Select'
+import { useEffect, useState } from 'react'
 import apiClient from '@/libs/apiClient'
 import { useSelector } from 'react-redux'
 import { RootState } from '@/store/store'
 import Image from 'next/image'
-import style from './Native.module.scss'
 import Icongenerate from '../../Avater'
 import { useRouter } from 'next/router'
-import { Room } from '@/types/global'
+import { RoomType } from '@/types/global'
+import style from './Native.module.scss'
 
 interface FrendInfo {
   icon: string
@@ -18,16 +15,17 @@ interface FrendInfo {
 }
 
 interface Props {
-  rooms: Room[]
+  rooms: RoomType[]
 }
 
 export default function MultipleSelectNative(props: Props) {
   const { rooms } = props
+
   const { userId, iconPath, username, follow } = useSelector((state: RootState) => state.user)
+  const [filterSelectRoom, setFilterSelectRoom] = useState<RoomType[]>([])
   const router = useRouter()
-  const [youcreateroom, setYoucreateroom] = React.useState<any[]>([])
   const addPerson = follow?.filter(
-    (person) => rooms?.every((room: Room) => room.user2Id !== person.authorId)
+    (person) => rooms?.every((room: RoomType) => room.user2Id !== person.authorId)
   )
 
   const handleAddNewPerson = async (info: FrendInfo) => {
@@ -42,10 +40,11 @@ export default function MultipleSelectNative(props: Props) {
     router.reload()
   }
   const fliterRooms = () => {
-    const nre = rooms?.filter((room: any) => room.user2Id === userId)
-    setYoucreateroom(nre)
+    const fillterRoom = rooms?.filter((room: RoomType) => room.user2Id === userId)
+    setFilterSelectRoom(fillterRoom)
   }
-  React.useEffect(() => {
+
+  useEffect(() => {
     fliterRooms()
   }, [rooms])
 
@@ -73,19 +72,18 @@ export default function MultipleSelectNative(props: Props) {
             ))}
           </div>
           <div>
-            {youcreateroom.map((person) => (
+            {filterSelectRoom.map((person) => (
               <div
                 className={style.new_chat_person}
-                onDoubleClick={() => handleAddNewPerson(person)}
               >
                 <Image
-                  src={Icongenerate(person.icon)}
+                  src={Icongenerate(person.user2Icon)}
                   alt={''}
                   width={40}
                   height={40}
                   className={style.new_chat_person_img}
                 />
-                <span>{person.username}</span>
+                <span>{person.user2Name}</span>
               </div>
             ))}
           </div>

@@ -26,7 +26,6 @@ export default function SignUp() {
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [open, setOpen] = useState<boolean>(false)
 
-  const dispatch: AppDispatch = useDispatch()
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -55,7 +54,7 @@ export default function SignUp() {
   return (
     <ThemeProvider theme={defaultTheme}>
       {isLoading && (
-        <ModalWind>
+        <ModalWind open={open}>
           {open ? (
             <div>
               <p>

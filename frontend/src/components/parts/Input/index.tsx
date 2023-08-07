@@ -1,9 +1,14 @@
+import { Dispatch, SetStateAction } from 'react'
 import style from './Input.module.scss'
-import { useRouter } from 'next/router'
 
-const SendInput = (props: any) => {
-  const { input, setInput,handleSend } = props
+interface Props {
+  input: string
+  setInput: Dispatch<SetStateAction<string>>
+  handleSend: () => void
+}
 
+const SendInput = (props: Props) => {
+  const { input, setInput, handleSend } = props
 
   return (
     <div className={style.input_area}>

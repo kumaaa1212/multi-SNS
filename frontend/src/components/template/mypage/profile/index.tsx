@@ -10,8 +10,11 @@ import { RootState } from '@/store/store'
 import Noavater from '/public/noavater.jpg'
 
 const Profile = () => {
+
   const [open, setOpen] = useState<boolean>(false)
+
   const { username, icon, bio, follow, follower } = useSelector((state: RootState) => state.user)
+  
   return (
     <Paper elevation={2} className={styles.container}>
       {open && <EditModal open={open} setOpen={setOpen} />}

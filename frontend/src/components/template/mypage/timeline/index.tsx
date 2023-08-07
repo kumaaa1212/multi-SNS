@@ -8,6 +8,7 @@ import CustomizedInputBase from '@/components/parts/Search/PostSearch'
 import RecipeReviewCard from '@/components/parts/Card'
 import BasicPagination from '@/components/parts/Pagenation'
 import style from './TimeLine.module.scss'
+
 interface TabPanelProps {
   children?: React.ReactNode
   index: number
