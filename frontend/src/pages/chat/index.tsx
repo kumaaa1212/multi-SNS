@@ -6,10 +6,10 @@ import { GetServerSideProps } from 'next'
 import { useSelector } from 'react-redux'
 
 interface Props {
-  rooms:RoomType[]
+  rooms: RoomType[]
 }
 
-const ChatPage = ({rooms}:Props) => {
+const ChatPage = ({ rooms }: Props) => {
   console.log(rooms)
   const { userId } = useSelector((state: RootState) => state.user)
 
@@ -22,12 +22,11 @@ export default ChatPage
 
 export const getServerSideProps: GetServerSideProps = async () => {
   try {
-    const res = await apiClient.get('/chat/room/allrooms')
+    const res = await apiClient.get('/chat/allrooms')
     const rooms = res.data.rooms
-    console.log(rooms)
     return {
       props: {
-        rooms: rooms
+        rooms: rooms,
       },
     }
   } catch (error) {

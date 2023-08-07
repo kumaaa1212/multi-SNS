@@ -6,22 +6,23 @@ const prisma = new PrismaClient();
 
 // チャットルームを作成する
 router.post("/newroom", async (req: Request, res: Response) => {
-  const { user1Id, user2Id, user2Name, user2Icon } = req.body;
+  const { user1Id, user1Name, user1Icon, user2Id, user2Name, user2Icon } = req.body;
 
   try {
-    const room: any = {
-      user1Id,
-      user2Id,
-      user2Name,
-      user2Icon,
-    };
-
-    const createdRoom = await prisma.room.create({
-      data: room,
+    const room = await prisma.room.create({
+      data: {
+        user1Id,
+        user1Name,
+        user1Icon,
+        user2Id,
+        user2Name,
+        user2Icon,
+      },
     });
 
-    return res.json({ room: createdRoom });
+    return res.json({ room });
   } catch (error) {
+    console.error(error);
     return res.status(500).json({ error: "Failed to create new room." });
   }
 });
@@ -38,17 +39,23 @@ router.get("/room/chat", async (req: Request, res: Response) => {
 });
 
 // チャットルームを取得する
-router.get("/room/allroom", async (req: Request, res: Response) => {
-  const { partnerId } = req.body;
-  const rooms = await prisma.room.findMany({
-    where: {
-      user2Id: partnerId,
-    },
-    include: {
-      messages: true,
-    },
-  });
-  return res.json({ rooms });
+router.get("/allrooms", async (_req: Request, res: Response) => {
+  try {
+    const rooms = await prisma.room.findMany({
+      include: {
+        messages: {
+          orderBy: {
+            createdAt: 'asc', // メッセージを古い順に並べ替える
+          },
+        },
+      },
+    });
+
+    return res.json({ rooms });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: "Failed to fetch rooms and messages." });
+  }
 });
 
 // チャット内容を取得する
@@ -70,7 +77,6 @@ router.post("/room/add/message", async (req: Request, res: Response) => {
   const { roomId, content, authorId, senderId } = req.body;
 
   try {
-    // まず、新しいMessageを作成します
     const newMessage = await prisma.message.create({
       data: {
         content,
@@ -80,7 +86,6 @@ router.post("/room/add/message", async (req: Request, res: Response) => {
       },
     });
 
-    // 新しいMessageをRoomに追加します
     const updatedRoom = await prisma.room.update({
       where: {
         id: roomId,

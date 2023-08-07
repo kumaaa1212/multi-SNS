@@ -1,10 +1,24 @@
 import Home from '@/components/template/home'
-import React from 'react'
+import apiClient from '@/libs/apiClient'
+import { ArticleProps } from '@/types/global'
+import { GetServerSideProps } from 'next'
 
-const HomePage = () => {
+const HomePage = ({ articles }:{articles:ArticleProps}) => {
   return (
-   <Home />
+   <Home articles={articles} />
   )
 }
 
 export default HomePage
+
+
+export const getServerSideProps:GetServerSideProps = async () => {
+  const res = await apiClient.get('/post/all/album')
+  const articles = res.data
+
+  return {
+    props: {
+      articles,
+    },
+  }
+}

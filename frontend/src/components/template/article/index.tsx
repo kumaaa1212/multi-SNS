@@ -22,7 +22,7 @@ const Article = (props:Props) => {
     const end: number = start + 6
     return articles.posts.slice(start, end)
   }, [articles.posts, currentPage])
-
+  
   const handleRemove = (albumserch: string) => {
     const filteredData = paginatedData.filter((album: ArticlesType): boolean => {
       return (

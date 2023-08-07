@@ -39,6 +39,7 @@ export default function MultipleSelectNative(props: Props) {
     })
     router.reload()
   }
+  
   const fliterRooms = () => {
     const fillterRoom = rooms?.filter((room: RoomType) => room.user2Id === userId)
     setFilterSelectRoom(fillterRoom)
