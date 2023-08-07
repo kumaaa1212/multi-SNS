@@ -35,6 +35,17 @@
 }
 // mainのcss
 .chat_area {
-  min-height: 100vh;
+  height: 700px;
+  .chat_area_scroll{
+    margin: 0px 20px;
+    height: 100%;
+    overflow-y: scroll;
+    .input_area{
+      border: 1px red solid;
+      position: fixed;
+      bottom: 20px;
+      right: 0;
+    }
+  }
 }
 

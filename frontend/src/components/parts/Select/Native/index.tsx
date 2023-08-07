@@ -9,6 +9,7 @@ import Image from 'next/image'
 import style from './Native.module.scss'
 import Icongenerate from '../../Avater'
 import { useRouter } from 'next/router'
+import { Room } from '@/types/global'
 
 interface FrendInfo {
   icon: string
@@ -16,39 +17,80 @@ interface FrendInfo {
   authorId: string
 }
 
-export default function MultipleSelectNative(props:any) {
+interface Props {
+  rooms: Room[]
+}
+
+export default function MultipleSelectNative(props: Props) {
   const { rooms } = props
-  console.log(rooms)
-  const { userId, follow } = useSelector((state: RootState) => state.user)
-  console.log(follow)
-  const addPerson = follow?.filter((person) => rooms.every((room: any) => room.user2Id !== person.authorId))
+  const { userId, iconPath, username, follow } = useSelector((state: RootState) => state.user)
   const router = useRouter()
+  const [youcreateroom, setYoucreateroom] = React.useState<any[]>([])
+  const addPerson = follow?.filter(
+    (person) => rooms?.every((room: Room) => room.user2Id !== person.authorId)
+  )
 
   const handleAddNewPerson = async (info: FrendInfo) => {
-    const { icon, username, authorId } = info
     await apiClient.post('/chat/newroom', {
       user1Id: userId,
-      user2Id: authorId,
-      user2Name: username,
-      user2Icon: icon,
+      user1Name: username,
+      user1Icon: iconPath,
+      user2Id: info.authorId,
+      user2Name: info.username,
+      user2Icon: info.icon,
     })
     router.reload()
   }
+  const fliterRooms = () => {
+    const nre = rooms?.filter((room: any) => room.user2Id === userId)
+    setYoucreateroom(nre)
+  }
+  React.useEffect(() => {
+    fliterRooms()
+  }, [rooms])
 
   return (
     <div className={style.chat_new_area}>
-      {addPerson.map((person) => (
-        <div className={style.new_chat_person} onDoubleClick={() => handleAddNewPerson(person)}>
-          <Image
-            src={Icongenerate(person.icon)}
-            alt={''}
-            width={40}
-            height={40}
-            className={style.new_chat_person_img}
-          />
-          <span>{person.username}</span>
+      {addPerson.length === 0 ? (
+        <p className={style.chat_noadd}>追加できるユーザーがいません</p>
+      ) : (
+        <div>
+          <div>
+            {addPerson.map((person) => (
+              <div
+                className={style.new_chat_person}
+                onDoubleClick={() => handleAddNewPerson(person)}
+              >
+                <Image
+                  src={Icongenerate(person.icon)}
+                  alt={''}
+                  width={40}
+                  height={40}
+                  className={style.new_chat_person_img}
+                />
+                <span>{person.username}</span>
+              </div>
+            ))}
+          </div>
+          <div>
+            {youcreateroom.map((person) => (
+              <div
+                className={style.new_chat_person}
+                onDoubleClick={() => handleAddNewPerson(person)}
+              >
+                <Image
+                  src={Icongenerate(person.icon)}
+                  alt={''}
+                  width={40}
+                  height={40}
+                  className={style.new_chat_person_img}
+                />
+                <span>{person.username}</span>
+              </div>
+            ))}
+          </div>
         </div>
-      ))}
+      )}
     </div>
   )
 }

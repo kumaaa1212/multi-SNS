@@ -1,17 +1,24 @@
-import React from 'react'
+import { Dispatch, SetStateAction } from 'react'
 import styles from './ChatContent.module.scss'
 import Image from 'next/image'
 import Icongenerate from '../Avater'
-import apiClient from '@/libs/apiClient'
-const ChatSide = (props: any) => {
-  const { setChatRoom, room } = props
-  console.log(room)
+import { Room } from '@/types/global'
+
+interface Props {
+  selectChatRoom: boolean
+  setSelectChatRoom: Dispatch<SetStateAction<boolean>>
+  rooms: Room[]
+  room: Room
+  setSelectRoom: Dispatch<SetStateAction<Room[]>>
+}
+
+const ChatSide = (props: Props) => {
+  const { selectChatRoom, setSelectChatRoom, rooms, room, setSelectRoom } = props
 
   const handleShowChatRoom = async (id: string) => {
-    setChatRoom(true)
-    try {
-      await apiClient.post(`/rooms/${id}/messages`)
-    } catch (e) {}
+    const selecredRoom = rooms?.filter((room: any) => room.id === id)
+    setSelectRoom(selecredRoom)
+    setSelectChatRoom(!selectChatRoom)
   }
 
   return (

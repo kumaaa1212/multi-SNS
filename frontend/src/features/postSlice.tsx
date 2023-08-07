@@ -32,7 +32,6 @@ const modalSlice = createSlice({
       state.contentText += action.payload
     },
     addLabels: (state, action) => {
-      console.log(action.payload)
       return {
         ...state,
         labels: action.payload,
@@ -42,7 +41,6 @@ const modalSlice = createSlice({
       state.thumbnailText = action.payload
     },
     addThumbnailImg: (state, action) => {
-      console.log(action.payload)
       state.thumbnailImg = action.payload
     },
     dispalyThumbnailImg: (state, action) => {

@@ -25,7 +25,6 @@ export default function Login() {
         email: email,
         password: password,
       })
-      console.log(data)
       await router.push("/mypage");
     } catch {
       alert('エラーが発生しました')

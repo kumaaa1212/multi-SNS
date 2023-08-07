@@ -1,9 +1,6 @@
 .articles_details{
   display: grid;
   grid-template-columns: 1fr 300px;
-  .articles_details_show{
-    border: 1px blue solid;
-  }
   .articles_details_header{
     margin-top: 50px;
     display: flex;
@@ -16,6 +13,8 @@
   }
   .labels_area{
     width: 300px;
+    display: flex;
+    justify-content: center;
   }
   .article_timeline{
     display: grid;

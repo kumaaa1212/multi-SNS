@@ -13,7 +13,6 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
     if(supabase.auth){
       supabase.auth.onAuthStateChange((event, session: any) => {
         if(session?.user?.user_metadata){
-          console.log(session.user.user_metadata)
           dispatch(loginUser(session.user))
         }
       })

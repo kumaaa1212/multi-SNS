@@ -1,9 +1,13 @@
-import React, { use, useEffect, useState } from 'react'
+import React, { use, useEffect, useMemo, useState } from 'react'
 import apiClient from '@/libs/apiClient'
 import FavoriteIcon from '@mui/icons-material/Favorite'
+import { useSelector } from 'react-redux'
+import { RootState } from '@/store/store'
 const LikeBtn = (props: any) => {
+  const { userId } = useSelector((state: RootState) => state.user)
+
   const { article } = props
-  const { authorId, id } = article
+  const { id } = article
 
   const [likeBtn, setLikeBtn] = useState<boolean>(false)
 
@@ -11,7 +15,7 @@ const LikeBtn = (props: any) => {
     const fetchLike = async () => {
       const res = await apiClient.post('/post/album/like/check', {
         postId: id,
-        authorId,
+        authorId: userId,
       })
       setLikeBtn(res.data.hasLiked)
     }
@@ -20,25 +24,34 @@ const LikeBtn = (props: any) => {
   }, [])
 
   const handleLike = async () => {
-    if (likeBtn) {
-      await apiClient.post('/post/album/like/delete', {
-        postId: id,
-        authorId,
-      })
-    } else {
-      await apiClient.post('/post/album/like/add', {
-        postId: id,
-        authorId,
-      })
+    try {
+      if (likeBtn) {
+        await apiClient.post('/post/album/like/delete', {
+          postId: id,
+          authorId: userId,
+        })
+        setLikeBtn(false)
+      } else {
+        await apiClient.post('/post/album/like/add', {
+          postId: id,
+          authorId: userId,
+        })
+        setLikeBtn(true)
+      }
+    } catch (error) {
+      console.error('Error while handling like:', error)
     }
-    setLikeBtn(!likeBtn)
   }
 
-  const LikeBtnComponent = (): JSX.Element => {
-    return <FavoriteIcon color={likeBtn ? 'error' : 'inherit'} onClick={handleLike} />
-  }
+  const LikeBtnComponent = useMemo(() => {
+    if (likeBtn) {
+      return <FavoriteIcon color={'error'} onClick={handleLike} />
+    } else {
+      return <FavoriteIcon onClick={handleLike} />
+    }
+  }, [handleLike])
 
-  return <>{LikeBtnComponent()}</>
+  return <>{LikeBtnComponent}</>
 }
 
 export default LikeBtn

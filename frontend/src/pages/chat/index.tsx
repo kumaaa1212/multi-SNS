@@ -1,14 +1,19 @@
 import Chat from '@/components/template/chat'
 import apiClient from '@/libs/apiClient'
 import { RootState } from '@/store/store'
+import { Room } from '@/types/global'
 import { GetServerSideProps } from 'next'
-import React from 'react'
 import { useSelector } from 'react-redux'
 
-const ChatPage = ({ rooms }: any) => {
+interface Props {
+  rooms:Room[]
+}
+
+const ChatPage = ({rooms}:Props) => {
   console.log(rooms)
   const { userId } = useSelector((state: RootState) => state.user)
-  const filterRooms = rooms.rooms.filter((room: any) => room.user1Id === userId)
+
+  const filterRooms = rooms?.filter((room: any) => room.user1Id || room.user2Id === userId)
 
   return <Chat rooms={filterRooms} />
 }
@@ -16,13 +21,13 @@ const ChatPage = ({ rooms }: any) => {
 export default ChatPage
 
 export const getServerSideProps: GetServerSideProps = async () => {
-
   try {
-    const res = await apiClient.get('/chat/room/allroom')
-    const rooms = res.data
+    const res = await apiClient.get('/chat/room/allrooms')
+    const rooms = res.data.rooms
+    console.log(rooms)
     return {
       props: {
-        rooms
+        rooms: rooms
       },
     }
   } catch (error) {

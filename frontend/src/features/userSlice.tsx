@@ -35,7 +35,6 @@ const userSlice = createSlice({
   initialState,
   reducers: {
     loginUser: (state, action) => {
-      console.log(action.payload)
       state.username = action.payload.user_metadata.username
       state.userId = action.payload.id
       state.team = action.payload.user_metadata.team

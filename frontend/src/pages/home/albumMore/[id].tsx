@@ -3,7 +3,6 @@ import apiClient from '@/libs/apiClient'
 import React from 'react'
 
 const AlbumDetails = ({ articles }: any) => {
-  console.log(articles)
   return (
     <div>
       <h1>{articles.title}</h1>

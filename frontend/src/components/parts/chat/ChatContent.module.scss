@@ -27,8 +27,16 @@
 .person_area:hover {
   background-color: #d5d5d5;
 }
-.chatContent {
+.chatContent_mychat{
+  display: flex;
+  justify-content: end;
   margin-top: 20px;
+}
+.chatContent_senderchat{
+  display: flex;
+  justify-content: start;
+  margin-top: 20px;
+}
   .chat_person {
     display: flex;
     align-items: center;
@@ -52,4 +60,4 @@
     width: 500px;
     word-break: break-all;
   }
-}
+

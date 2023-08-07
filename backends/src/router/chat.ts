@@ -1,24 +1,26 @@
-const router = require("express").Router();
-const { PrismaClient } = require("@prisma/client");
+import { Router, Request, Response } from "express";
+import { PrismaClient } from "@prisma/client";
+
+const router: Router = Router();
 const prisma = new PrismaClient();
 
 // チャットルームを作成する
-router.post("/newroom", async (req, res) => {
-  const { user1Id, user2Id, user2Name, user2Icon } = req.body;
-  const room = await prisma.room.create({
-    data: {
-      user1Id,
-      user2Id,
-      user2Name,
-      user2Icon,
-    },
-  });
+// router.post("/newroom", async (req: Request, res: Response) => {
+//   const { user1Id, user2Id, user2Name, user2Icon } = req.body;
+//   const room = await prisma.room.create({
+//     data: {
+//       user1Id,
+//       user2Id,
+//       user2Name,
+//       user2Icon,
+//     },
+//   });
 
-  return res.json({ room });
-});
+//   return res.json({ room });
+// });
 
 // チャットルームの一覧を取得する
-router.get("/room/chat", async (req, res) => {
+router.get("/room/chat", async (req: Request, res: Response) => {
   const { userId } = req.body;
   const room = await prisma.room.findMany({
     where: {
@@ -29,7 +31,7 @@ router.get("/room/chat", async (req, res) => {
 });
 
 // チャットルームを取得する
-router.get("/room/allroom", async (req, res) => {
+router.get("/room/allroom", async (req: Request, res: Response) => {
   const { partnerId } = req.body;
   const rooms = await prisma.room.findMany({
     where: {
@@ -43,8 +45,8 @@ router.get("/room/allroom", async (req, res) => {
 });
 
 // チャット内容を取得する
-router.get("/room/chat", async (req, res) => {
-  const { roomId } = req.body;
+router.get("/room/chat/:roomId", async (req: Request, res: Response) => {
+  const { roomId } = req.params;
   const messages = await prisma.message.findMany({
     where: {
       roomId,
@@ -57,7 +59,7 @@ router.get("/room/chat", async (req, res) => {
 });
 
 // チャット内容を作成する
-router.post("/room/add/message", async (req, res) => {
+router.post("/room/add/message", async (req: Request, res: Response) => {
   const { roomId, content, authorId, senderId } = req.body;
 
   try {
@@ -92,7 +94,7 @@ router.post("/room/add/message", async (req, res) => {
 });
 
 // クリックしたchatroomを取得する
-router.get("/rooms/:id/selected", async (req, res) => {
+router.get("/rooms/:id/selected", async (req: Request, res: Response) => {
   const roomId = req.params.id;
 
   try {
@@ -114,4 +116,4 @@ router.get("/rooms/:id/selected", async (req, res) => {
   }
 });
 
-module.exports = router;
+export default router;

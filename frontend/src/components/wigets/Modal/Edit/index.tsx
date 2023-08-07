@@ -37,7 +37,6 @@ export default function EditModal(props: Props) {
   //     });
   //   seteditIcon(selectedFile.name);
   // }
-  console.log(editIcon)
   const handleSubmit = async (e: any) => {
     e.preventDefault()
     supabase.storage.from('avatars').getPublicUrl(`avatars/${editIcon}`)

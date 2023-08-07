@@ -3,6 +3,13 @@
   width: 300px;
   overflow: scroll;
   border: 1px solid #ccc;
+  .chat_noadd{
+    text-align: center;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
   .new_chat_person{
     display: flex;
     align-items: center;

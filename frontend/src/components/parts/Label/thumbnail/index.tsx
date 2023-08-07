@@ -19,7 +19,6 @@ export default function Labels() {
           getOptionLabel={(option) => option.name}
           value={labels}
           onChange={(event, newValue) => {
-            console.log(newValue)
             dispatch(addLabels(newValue))
           }}
           renderInput={(params) => (

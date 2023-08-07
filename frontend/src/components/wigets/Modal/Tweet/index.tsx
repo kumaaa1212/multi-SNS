@@ -17,7 +17,6 @@ export default function TweetModal(props: any) {
       content: tweetContents,
       authorId: userId,
     })
-    console.log(res)
   }
 
   function openFileInput() {
@@ -27,7 +26,6 @@ export default function TweetModal(props: any) {
 
   function handleFileSelect(e: any) {
     const selectedFile = e.target.files![0]
-    console.log(selectedFile)
   }
 
   return (

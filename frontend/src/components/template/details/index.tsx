@@ -8,8 +8,7 @@ import ArticleCard from '@/components/parts/Card/Articles'
 const Team = ({ data }: any) => {
   const router = useRouter()
   const teamfilter = jLeagueTeams.filter((team) => team.label === router.query.label)
-  console.log(teamfilter)
-  console.log(data)
+
   return (
     <div className={style.articles_details}>
       <div className={style.articles_details_show}>

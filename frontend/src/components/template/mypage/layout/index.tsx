@@ -3,12 +3,8 @@ import React, { useState } from 'react'
 import style from './Layout.module.scss'
 import PostBtn from '@/components/parts/Button/Post/addbtn'
 import Profile from '../profile'
-import { Box, Tab, Tabs } from '@mui/material'
-import CustomizedInputBase from '@/components/parts/Search/PostSearch'
-import BasicPagination from '@/components/parts/Pagenation'
 import TimeLineHeader from './header'
 const MypageLayout = ({ children }: any) => {
-  const [value, setValue] = useState<number>(0)
   const [open, setOpen] = useState<boolean>(false)
 
   return (

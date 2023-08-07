@@ -40,7 +40,6 @@ const AlnumLayout = (props: Props) => {
   }, [])
 
   const handleReverse = () => {
-    console.log(router.pathname)
     if (router.pathname === '/post/album/thumbnail') {
       router.push('/post/album')
     } else if (router.pathname === '/post/album') {

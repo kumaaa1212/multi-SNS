@@ -59,8 +59,10 @@ model Tweet{
 
 model Room {
   id String @id @default(uuid())
-  user1Id String
-  user2Id  String
+  user1Id   String
+  user1Name String
+  user1Icon String
+  user2Id   String
   user2Icon String
   user2Name String
   createdAt DateTime @default(now())
@@ -75,4 +77,34 @@ model Message {
   senderId String
   roomId String?
   room Room? @relation(fields: [roomId], references: [id])
+}
+
+model Board{
+  id Int @id @default(autoincrement())
+  content String
+  createdAt DateTime @default(now())
+  authorId String?
+  authorName String
+  authorAvatar String
+  likes BoardLike[]
+  messages BoardMessage[]
+}
+
+model BoardLike{
+  id Int @id @default(autoincrement())
+  boardId Int
+  authorId String
+  board Board @relation(fields: [boardId], references: [id])
+  @@unique([boardId, authorId])
+}
+
+model BoardMessage{
+  id Int @id @default(autoincrement())
+  content String
+  createdAt DateTime @default(now())
+  authorId String?
+  authorName String
+  authorAvatar String
+  boardId Int
+  board Board @relation(fields: [boardId], references: [id])
 }

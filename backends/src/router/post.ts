@@ -1,9 +1,11 @@
-const router = require("express").Router();
-const { PrismaClient } = require("@prisma/client");
+import { Router, Request, Response } from "express";
+import { PrismaClient } from "@prisma/client";
+
+const router: Router = Router();
 const prisma = new PrismaClient();
 
 // albumを追加する
-router.post("/album", async (req, res) => {
+router.post("/album", async (req: Request, res: Response) => {
   const {
     title,
     content,
@@ -30,13 +32,13 @@ router.post("/album", async (req, res) => {
       },
     });
     return res.json({ post });
-  } catch (err) {
+  } catch (err:any) {
     res.json({ error: err.message });
   }
 });
 
 // 投稿全の取得
-router.get("/all/album", async (req, res) => {
+router.get("/all/album", async (req: Request, res: Response) => {
   try {
     const posts = await prisma.post.findMany({
       orderBy: {
@@ -47,31 +49,13 @@ router.get("/all/album", async (req, res) => {
       },
     });
     return res.json({ posts });
-  } catch (err) {
+  } catch (err:any) {
     res.json({ error: err.message });
   }
 });
 
-// 投稿の取得
-// router.get("/album/:id", async (req, res) => {
-//   try {
-//     const { id } = req.params;
-//     const post = await prisma.post.findUnique({
-//       where: {
-//         id: parseInt(id, 10),
-//       },
-//       include: {
-//         labels: true,
-//         likes: true,
-//       },
-//     });
-//     return res.json({ post });
-//   } catch (err) {
-//     res.json({ error: err.message });
-//   }
-// });
-
-router.post("/album/like/add", async (req, res) => {
+// いいねを追加する
+router.post("/album/like/add", async (req: Request, res: Response) => {
   const { postId, authorId } = req.body;
 
   try {
@@ -104,7 +88,7 @@ router.post("/album/like/add", async (req, res) => {
 });
 
 // いいねを取り除く
-router.post("/album/like/delete", async (req, res) => {
+router.post("/album/like/delete", async (req: Request, res: Response) => {
   const { postId, authorId } = req.body;
 
   try {
@@ -138,7 +122,7 @@ router.post("/album/like/delete", async (req, res) => {
 });
 
 // いいねをしているかを確認する
-router.post("/album/like/check", async (req, res) => {
+router.post("/album/like/check", async (req: Request, res: Response) => {
   const { postId, authorId } = req.body;
 
   try {
@@ -158,36 +142,33 @@ router.post("/album/like/check", async (req, res) => {
   }
 });
 
-
 // ラベルによるチーム別投稿の取得
-router.get("/album/:label", async (req, res) => {
-  const { label } = req.params;
-  try {
-    // PostLabel データを取得
-    const postLabel = await prisma.postLabel.findFirst({
-      where: {
-        label: parseInt(label),
-      },
-      include: {
-        post: {
-          include: {
-            labels: true,
-            likes: true,
-          },
-        },
-      },
-    });
+// router.get("/album/:label", async (req: Request, res: Response) => {
+//   const { label } = req.params;
+//   try {
+//     // PostLabel データを取得
+//     const postLabel = await prisma.postLabel.findFirst({
+//       where: {
+//         label: parseInt(label),
+//       },
+//       include: {
+//         post: {
+//           include: {
+//             labels: true,
+//             likes: true,
+//           },
+//         },
+//       },
+//     });
 
-    if (postLabel) {
-      return res.json({ post: postLabel.post });
-    } else {
-      return res.json({ message: "Post not found" });
-    }
-  } catch (err) {
-    res.json({ error: err.message });
-  }
-});
+//     if (postLabel) {
+//       return res.json({ post: postLabel.post });
+//     } else {
+//       return res.json({ message: "Post not found" });
+//     }
+//   } catch (err:any) {
+//     res.json({ error: err.message });
+//   }
+// });
 
-
-module.exports = router;
-
+export default router;

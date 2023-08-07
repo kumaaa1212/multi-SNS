@@ -44,7 +44,6 @@ export default function ArticleCard(props: any) {
   const [expanded, setExpanded] = useState<boolean>(false)
   const [moreover, setMoreover] = useState<boolean>(false)
   const { username, follow } = useSelector((state: RootState) => state.user)
-  console.log(follow)
 
   const handleExpandClick = () => {
     setExpanded(!expanded)
@@ -107,7 +106,7 @@ export default function ArticleCard(props: any) {
         </CardContent>
         <CardActions disableSpacing>
           <IconButton aria-label='add to favorites'>
-          <LikeBtn article={article}  />
+            <LikeBtn article={article} />
           </IconButton>
           <IconButton aria-label='share'>
             <ShareIcon />
