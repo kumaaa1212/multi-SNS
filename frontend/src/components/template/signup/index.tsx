@@ -26,7 +26,6 @@ export default function SignUp() {
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [open, setOpen] = useState<boolean>(false)
 
-
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setIsLoading(true)

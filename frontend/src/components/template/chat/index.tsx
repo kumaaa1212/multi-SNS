@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import SideBar from './sidebar'
 import ChatArea from './main/ChatArea'
 import { RoomType } from '@/types/global'
@@ -21,7 +21,7 @@ const Chat = (props: Props) => {
         rooms={rooms}
         setSelectRoom={setSelectRoom}
       />
-      <ChatArea selectRoom={selectRoom[0]} />
+      <ChatArea selectRoom={selectRoom[0]} setSelectRoom={setSelectRoom} selectChatRoom={selectChatRoom} />
     </div>
   )
 }
