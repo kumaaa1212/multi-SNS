@@ -11,7 +11,7 @@ const Chat = (props: Props) => {
   const { rooms } = props
 
   const [selectChatRoom, setSelectChatRoom] = useState<boolean>(true)
-  const [selectRoom, setSelectRoom] = useState<RoomType[]>([])
+  const [selectRoom, setSelectRoom] = useState<RoomType[]>(rooms)
 
   return (
     <div className='chat'>

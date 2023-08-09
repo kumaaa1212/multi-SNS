@@ -24,8 +24,9 @@ export default function MultipleSelectNative(props: Props) {
   const { userId, iconPath, username, follow } = useSelector((state: RootState) => state.user)
   const [filterSelectRoom, setFilterSelectRoom] = useState<RoomType[]>([])
   const router = useRouter()
+
   const addPerson = follow?.filter(
-    (person) => rooms?.every((room: RoomType) => room.user2Id !== person.authorId)
+    (person) => rooms?.some((room) => room.user2Id === person.authorId || room.user1Id === person.authorId),
   )
 
   const handleAddNewPerson = async (info: FrendInfo) => {
@@ -39,15 +40,15 @@ export default function MultipleSelectNative(props: Props) {
     })
     router.reload()
   }
-  
-  const fliterRooms = () => {
-    const fillterRoom = rooms?.filter((room: RoomType) => room.user2Id === userId)
-    setFilterSelectRoom(fillterRoom)
-  }
+
+  // const fliterRooms = () => {
+  //   const fillterRoom = rooms?.filter((room: RoomType) => room.user2Id === userId || room.user1Id === userId)
+  //   setFilterSelectRoom(fillterRoom)
+  // }
 
   useEffect(() => {
-    fliterRooms()
-  }, [rooms])
+    // fliterRooms()
+  }, [])
 
   return (
     <div className={style.chat_new_area}>
@@ -74,9 +75,7 @@ export default function MultipleSelectNative(props: Props) {
           </div>
           <div>
             {filterSelectRoom.map((person) => (
-              <div
-                className={style.new_chat_person}
-              >
+              <div className={style.new_chat_person}>
                 <Image
                   src={Icongenerate(person.user2Icon)}
                   alt={''}

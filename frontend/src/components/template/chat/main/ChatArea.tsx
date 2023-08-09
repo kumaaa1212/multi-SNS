@@ -16,7 +16,7 @@ interface Props {
 
 const ChatArea = (props: Props) => {
   const { selectRoom, setSelectRoom, selectChatRoom } = props
-  const [newMessage, setNewMessage] = useState<RoomType>(selectRoom)
+  const [newMessage, setNewMessage] = useState<RoomType>()
   console.log(selectRoom)
   console.log(newMessage)
 
@@ -40,11 +40,22 @@ const ChatArea = (props: Props) => {
   return (
     <div className={style.chat_area}>
       {selectChatRoom && (
-        <div className={style.chat_area_scroll}>
-          {newMessage?.messages.map((message: MessageType) => (
-            <ChatContent message={message} selectRoom={selectRoom} />
-          ))}
-          <SendInput input={input} setInput={setInput} handleSend={handleSend} />
+        <div>
+          {newMessage ? (
+            <div className={style.chat_area_scroll}>
+              {newMessage?.messages.map((message: MessageType) => (
+                <ChatContent message={message} selectRoom={selectRoom} />
+              ))}
+              <SendInput input={input} setInput={setInput} handleSend={handleSend} />
+            </div>
+          ) : (
+            <div className={style.chat_area_scroll}>
+              {selectRoom?.messages.map((message: MessageType) => (
+                <ChatContent message={message} selectRoom={selectRoom} />
+              ))}
+              <SendInput input={input} setInput={setInput} handleSend={handleSend} />
+            </div>
+          )}
         </div>
       )}
     </div>

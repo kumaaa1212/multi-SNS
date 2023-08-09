@@ -8,10 +8,10 @@ import style from '../Chat.module.scss'
 import { RoomType } from '@/types/global'
 
 interface Props {
-  rooms: RoomType[];
-  selectChatRoom: boolean;
-  setSelectChatRoom:  Dispatch<SetStateAction<boolean>>;
-  setSelectRoom: Dispatch<SetStateAction<RoomType[]>>;
+  rooms: RoomType[]
+  selectChatRoom: boolean
+  setSelectChatRoom: Dispatch<SetStateAction<boolean>>
+  setSelectRoom: Dispatch<SetStateAction<RoomType[]>>
 }
 
 const SideBar = (props: Props) => {
@@ -25,7 +25,10 @@ const SideBar = (props: Props) => {
         <ChatSetting className={style.settingIcon} />
         <ChatSearch />
         <div>
-          <NewChatIcon className={style.addIcon} onClick={(): void => setFollowList(!followListm)} />
+          <NewChatIcon
+            className={style.addIcon}
+            onClick={(): void => setFollowList(!followListm)}
+          />
           {followListm && (
             <div className={style.new_chat}>
               <MultipleSelectNative rooms={rooms} />
@@ -35,7 +38,13 @@ const SideBar = (props: Props) => {
       </div>
       <div className={style.chat_person}>
         {rooms?.map((room: RoomType) => (
-          <ChatSide selectChatRoom={selectChatRoom} setSelectChatRoom={setSelectChatRoom}  rooms={rooms} room={room} setSelectRoom={setSelectRoom} />
+          <ChatSide
+            selectChatRoom={selectChatRoom}
+            setSelectChatRoom={setSelectChatRoom}
+            rooms={rooms}
+            room={room}
+            setSelectRoom={setSelectRoom}
+          />
         ))}
       </div>
     </div>

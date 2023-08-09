@@ -9,7 +9,7 @@ app.use(express.json());
 
 const corsOptions = {
   origin: 'http://localhost:3002',
-  methods:['GET','POST'],
+  methods:['GET','POST','DELETE'],
   optionsSuccessStatus: 200
 }
 

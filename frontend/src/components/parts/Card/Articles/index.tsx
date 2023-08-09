@@ -19,12 +19,14 @@ import { RootState } from '@/store/store'
 import Icongenerate from '../../Avater'
 import LikeBtn from '../../Button/Like'
 import { ArticlesType, LabelType } from '@/types/global'
+import apiClient from '@/libs/apiClient'
 
 interface ExpandMoreProps extends IconButtonProps {
   expand: boolean
 }
 interface Props {
   article: ArticlesType
+  setAlbumData: React.Dispatch<React.SetStateAction<ArticlesType[]>>
 }
 
 const ExpandMore = styled((props: ExpandMoreProps) => {
@@ -39,7 +41,7 @@ const ExpandMore = styled((props: ExpandMoreProps) => {
 }))
 
 export default function ArticleCard(props: Props) {
-  const { article } = props
+  const { article, setAlbumData } = props
 
   const [expanded, setExpanded] = useState<boolean>(false)
   const [moreover, setMoreover] = useState<boolean>(false)
@@ -47,6 +49,11 @@ export default function ArticleCard(props: Props) {
 
   const handleExpandClick = (): void => {
     setExpanded(!expanded)
+  }
+
+  const handleDelete = async () => {
+    const updatedPost = await apiClient.delete(`/post/album/delete/${article.id}`)
+    setAlbumData(updatedPost.data.remainingPosts)
   }
 
   return (
@@ -59,7 +66,10 @@ export default function ArticleCard(props: Props) {
           }
           action={
             article.authorName === username ? (
-              <MoreVertIcon onClick={():void => setMoreover(!moreover)} className={style.moreover_btn} />
+              <MoreVertIcon
+                onClick={(): void => setMoreover(!moreover)}
+                className={style.moreover_btn}
+              />
             ) : (
               <FollowBtn article={article} className={style.follow_icon}>
                 Follow
@@ -70,7 +80,7 @@ export default function ArticleCard(props: Props) {
           subheader='September 14, 2016'
         />
         {moreover && (
-          <div className={style.moreover_area}>
+          <div className={style.moreover_area} onClick={handleDelete}>
             <p>削除</p>
             <svg
               xmlns='http://www.w3.org/2000/svg'
@@ -99,7 +109,7 @@ export default function ArticleCard(props: Props) {
         <CardContent>
           <span className={style.thumbnail_text}>{article.thumbnailText}</span>
           <div className={style.label_area}>
-            {article.labels.map((label: LabelType) => (
+            {article.labels?.map((label: LabelType) => (
               <Chip label={label.name} />
             ))}
           </div>

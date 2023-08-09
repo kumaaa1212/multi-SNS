@@ -45,6 +45,79 @@ router.post("/album", async (req: Request, res: Response) => {
   }
 });
 
+router.delete("/album/delete/:postId", async (req, res) => {
+  const { postId } = req.params;
+
+  try {
+    // 削除する前に削除対象の投稿を取得
+    const deletedPost = await prisma.post.findUnique({
+      where: {
+        id: parseInt(postId),
+      },
+    });
+
+    if (!deletedPost) {
+      return res.status(404).json({ error: "Post not found." });
+    }
+
+    // Postに紐づくLabelを削除
+    await prisma.postLabel.deleteMany({
+      where: {
+        postId: parseInt(postId),
+      },
+    });
+
+    // Postに紐づくLikeを削除
+    await prisma.like.deleteMany({
+      where: {
+        postId: parseInt(postId),
+      },
+    });
+
+    // Postを削除
+    await prisma.post.delete({
+      where: {
+        id: parseInt(postId),
+      },
+    });
+
+    // 削除されなかった投稿を取得
+    const remainingPosts = await prisma.post.findMany();
+
+    // 取得した投稿に対して likes と postLabels をリレーションとして読み込む
+    const remainingPostsWithRelations = await Promise.all(
+      remainingPosts.map(async (post) => {
+        const likes = await prisma.like.findMany({
+          where: {
+            postId: post.id,
+          },
+        });
+
+        const postLabels = await prisma.postLabel.findMany({
+          where: {
+            postId: post.id,
+          },
+        });
+
+        return {
+          ...post,
+          likes,
+          postLabels,
+        };
+      })
+    );
+
+    return res.json({
+      remainingPosts: remainingPostsWithRelations,
+    });
+  } catch (err) {
+    console.error(err);
+    return res
+      .status(500)
+      .json({ error: "An error occurred while deleting the post." });
+  }
+});
+
 // 投稿全の取得
 router.get("/all/album", async (req: Request, res: Response) => {
   try {

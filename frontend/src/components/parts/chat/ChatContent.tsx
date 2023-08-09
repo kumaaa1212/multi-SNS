@@ -37,7 +37,6 @@ const ChatContent = (props: Props) => {
     >
       <div>
         <div className={styles.chat_person}>
-          <p>ssss</p>
           <Image
             src={userIcon ? Icongenerate(userIcon) : noavater}
             alt={''}

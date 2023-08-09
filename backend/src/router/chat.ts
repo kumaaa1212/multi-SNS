@@ -1,12 +1,13 @@
 import { Router, Request, Response } from "express";
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient } from "@prisma/client";
 
 const router: Router = Router();
 const prisma = new PrismaClient();
 
 // チャットルームを作成する
 router.post("/newroom", async (req: Request, res: Response) => {
-  const { user1Id, user1Name, user1Icon, user2Id, user2Name, user2Icon } = req.body;
+  const { user1Id, user1Name, user1Icon, user2Id, user2Name, user2Icon } =
+    req.body;
 
   try {
     const room = await prisma.room.create({
@@ -45,7 +46,7 @@ router.get("/allrooms", async (_req: Request, res: Response) => {
       include: {
         messages: {
           orderBy: {
-            createdAt: 'asc', // メッセージを古い順に並べ替える
+            createdAt: "asc", // メッセージを古い順に並べ替える
           },
         },
       },
@@ -54,7 +55,9 @@ router.get("/allrooms", async (_req: Request, res: Response) => {
     return res.json({ rooms });
   } catch (error) {
     console.error(error);
-    return res.status(500).json({ error: "Failed to fetch rooms and messages." });
+    return res
+      .status(500)
+      .json({ error: "Failed to fetch rooms and messages." });
   }
 });
 

@@ -3,6 +3,9 @@ import styles from './ChatContent.module.scss'
 import Image from 'next/image'
 import Icongenerate from '../Avater'
 import { RoomType } from '@/types/global'
+import { useSelector } from 'react-redux'
+import { RootState } from '@/store/store'
+import noavater from '/public/noavater.jpg'
 
 interface Props {
   selectChatRoom: boolean
@@ -14,24 +17,31 @@ interface Props {
 
 const ChatSide = (props: Props) => {
   const { selectChatRoom, setSelectChatRoom, rooms, room, setSelectRoom } = props
+  const { userId } = useSelector((state: RootState) => state.user)
 
   const handleShowChatRoom = async (id: string) => {
-    const selecredRoom = rooms?.filter((room: any) => room.id === id)
+    const selecredRoom: RoomType[] = rooms?.filter((room: RoomType) => room.id === id)
     setSelectRoom(selecredRoom)
     setSelectChatRoom(!selectChatRoom)
   }
+
+  const userIcon: string | null =
+    userId === room.user1Id ? room.user2Icon : userId === room.user2Id ? room.user1Icon : null
+
+  const userName: string | null =
+    userId === room.user1Id ? room.user2Name : userId === room.user2Id ? room.user1Name : null
 
   return (
     <div className={styles.person_area} onClick={() => handleShowChatRoom(room.id)}>
       <div className={styles.pserson_detail}>
         <Image
-          src={Icongenerate(room.user2Icon)}
+          src={userIcon ? Icongenerate(userIcon) : noavater}
           alt={''}
           width={40}
           height={40}
           className={styles.person_icon}
         />
-        <span>{room.user2Name}</span>
+        <span>{userName}</span>
       </div>
       <div className={styles.pserson_subDetail}>
         <span className={styles.chat_time}>2023.11.3</span>
