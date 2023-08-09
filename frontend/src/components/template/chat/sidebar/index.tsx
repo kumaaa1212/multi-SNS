@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useState } from 'react'
+import { Dispatch, SetStateAction, use, useEffect, useState } from 'react'
 import ChatSearch from '@/components/parts/Search/ChatSearch'
 import NewChatIcon from 'public/svg/newChat.svg'
 import ChatSetting from 'public/svg/chat_setting.svg'
@@ -6,6 +6,8 @@ import MultipleSelectNative from '@/components/parts/Select/Native'
 import ChatSide from '@/components/parts/chat/ChatSide'
 import style from '../Chat.module.scss'
 import { RoomType } from '@/types/global'
+import { useSelector } from 'react-redux'
+import { RootState } from '@/store/store'
 
 interface Props {
   rooms: RoomType[]
@@ -16,9 +18,27 @@ interface Props {
 
 const SideBar = (props: Props) => {
   const { setSelectChatRoom, setSelectRoom, rooms, selectChatRoom } = props
+  const { userId } = useSelector((state: RootState) => state.user)
+
 
   const [followListm, setFollowList] = useState<boolean>(false)
+  const [myRooms, setMyRooms] = useState<RoomType[]>([])
 
+  useEffect(() => {
+    addPerson()
+  },[])
+
+  const addPerson = () => {
+    if (!rooms) {
+      return; // followかroomsが未定義の場合は処理しない
+    }
+    const filteredPeople = rooms.filter((room) => {
+      return room.user1Id === userId || room.user2Id === userId
+
+    });
+  
+    setMyRooms(filteredPeople);
+  };
   return (
     <div className={style.sidebar}>
       <div className={style.sidebar_header}>
@@ -37,7 +57,7 @@ const SideBar = (props: Props) => {
         </div>
       </div>
       <div className={style.chat_person}>
-        {rooms?.map((room: RoomType) => (
+        {myRooms?.map((room: RoomType) => (
           <ChatSide
             selectChatRoom={selectChatRoom}
             setSelectChatRoom={setSelectChatRoom}

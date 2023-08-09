@@ -10,22 +10,20 @@ const FollowBtn = (props: any) => {
   const { children, article } = props
   const { authorId, authorName, authorAvatar } = article
   const { follow } = useSelector((state: RootState) => state.user)
-  const [followBtn, setFollowBtn] = useState<boolean>(false)
+  const [followBtn, setFollowBtn] = useState<boolean>()
+  console.log(follow)
 
   useEffect(() => {
-    const checkFollow = () => {
-      if (follow.some((item: any) => item.authorId === authorId)) {
+      if (follow.some((item: any) => item.authorId === article.authorId)) {
         setFollowBtn(true)
       } else {
         setFollowBtn(false)
-      }
     }
-    checkFollow()
-  }, [follow,authorId])
+  }, [follow])
 
   const handleFrends = () => {
     setFollowBtn(!followBtn)
-    if (!follow.some((item: any) => item.authorId === authorId)) {
+    if (!follow.some((user: any) => user.authorId === authorId)) {
       followUser(follow, authorId, authorName, authorAvatar)
     } else {
       unFollowUser(follow, authorId)

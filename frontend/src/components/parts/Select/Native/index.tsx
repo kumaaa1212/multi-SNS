@@ -23,11 +23,30 @@ export default function MultipleSelectNative(props: Props) {
 
   const { userId, iconPath, username, follow } = useSelector((state: RootState) => state.user)
   const [filterSelectRoom, setFilterSelectRoom] = useState<RoomType[]>([])
+  const [selectFrend, setSelectFrend] = useState<FrendInfo[]>([])
   const router = useRouter()
 
-  const addPerson = follow?.filter(
-    (person) => rooms?.some((room) => room.user2Id === person.authorId || room.user1Id === person.authorId),
-  )
+  useEffect(() => {
+    addPerson()
+  },[follow])
+
+  const addPerson = () => {
+    if (!follow || !rooms) {
+      return; // followかroomsが未定義の場合は処理しない
+    }
+  
+    const filteredPeople = follow.filter((person) => {
+      return !rooms.some(
+        (room) =>
+          room.user2Id === person.authorId || room.user1Id === person.authorId
+      );
+    });
+  
+    setSelectFrend(filteredPeople);
+  };
+  
+  console.log(rooms)
+  console.log(follow)
 
   const handleAddNewPerson = async (info: FrendInfo) => {
     await apiClient.post('/chat/newroom', {
@@ -41,23 +60,14 @@ export default function MultipleSelectNative(props: Props) {
     router.reload()
   }
 
-  // const fliterRooms = () => {
-  //   const fillterRoom = rooms?.filter((room: RoomType) => room.user2Id === userId || room.user1Id === userId)
-  //   setFilterSelectRoom(fillterRoom)
-  // }
-
-  useEffect(() => {
-    // fliterRooms()
-  }, [])
-
   return (
     <div className={style.chat_new_area}>
-      {addPerson.length === 0 ? (
+      {selectFrend.length === 0 ? (
         <p className={style.chat_noadd}>追加できるユーザーがいません</p>
       ) : (
         <div>
           <div>
-            {addPerson.map((person) => (
+            {selectFrend.map((person) => (
               <div
                 className={style.new_chat_person}
                 onDoubleClick={() => handleAddNewPerson(person)}
@@ -74,18 +84,6 @@ export default function MultipleSelectNative(props: Props) {
             ))}
           </div>
           <div>
-            {filterSelectRoom.map((person) => (
-              <div className={style.new_chat_person}>
-                <Image
-                  src={Icongenerate(person.user2Icon)}
-                  alt={''}
-                  width={40}
-                  height={40}
-                  className={style.new_chat_person_img}
-                />
-                <span>{person.user2Name}</span>
-              </div>
-            ))}
           </div>
         </div>
       )}

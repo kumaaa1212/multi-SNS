@@ -2,12 +2,13 @@ import { useEffect } from 'react'
 import Footer from './Footer'
 import Header from './Header'
 import { supabase } from '@/utils/supabaseClient'
-import { AppDispatch } from '@/store/store'
-import { useDispatch } from 'react-redux'
+import { AppDispatch, RootState } from '@/store/store'
+import { useDispatch, useSelector } from 'react-redux'
 import { loginUser } from '@/features/userSlice'
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   const dispatch: AppDispatch = useDispatch()
+  const { userId } = useSelector((state: RootState) => state.user)
 
   useEffect(() => {
     if (supabase.auth) {
