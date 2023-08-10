@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import apiClient from '@/libs/apiClient'
 import { useSelector } from 'react-redux'
 import { RootState } from '@/store/store'
@@ -16,40 +16,42 @@ interface FrendInfo {
 
 interface Props {
   rooms: RoomType[]
+  setMyRooms: Dispatch<SetStateAction<RoomType[]>>
 }
 
 export default function MultipleSelectNative(props: Props) {
-  const { rooms } = props
+  const { rooms, setMyRooms } = props
 
   const { userId, iconPath, username, follow } = useSelector((state: RootState) => state.user)
   const [filterSelectRoom, setFilterSelectRoom] = useState<RoomType[]>([])
   const [selectFrend, setSelectFrend] = useState<FrendInfo[]>([])
   const router = useRouter()
+  console.log(follow)
 
   useEffect(() => {
     addPerson()
-  },[follow])
+  }, [follow])
 
   const addPerson = () => {
     if (!follow || !rooms) {
-      return; // followかroomsが未定義の場合は処理しない
+      return // followかroomsが未定義の場合は処理しない
     }
-  
+
     const filteredPeople = follow.filter((person) => {
       return !rooms.some(
         (room) =>
-          room.user2Id === person.authorId || room.user1Id === person.authorId
-      );
-    });
-  
-    setSelectFrend(filteredPeople);
-  };
-  
-  console.log(rooms)
-  console.log(follow)
+          (room.user2Id === person.authorId && room.user1Id === userId) ||
+          (room.user1Id === person.authorId && room.user2Id === userId),
+      )
+    })
+
+    setSelectFrend(filteredPeople)
+  }
+  console.log(selectFrend)
 
   const handleAddNewPerson = async (info: FrendInfo) => {
-    await apiClient.post('/chat/newroom', {
+    console.log(info)
+    const newChatRoom = await apiClient.post('/chat/newroom', {
       user1Id: userId,
       user1Name: username,
       user1Icon: iconPath,
@@ -57,7 +59,8 @@ export default function MultipleSelectNative(props: Props) {
       user2Name: info.username,
       user2Icon: info.icon,
     })
-    router.reload()
+    console.log(newChatRoom.data)
+    setMyRooms((prev) => [...prev, newChatRoom.data])
   }
 
   return (
@@ -70,7 +73,7 @@ export default function MultipleSelectNative(props: Props) {
             {selectFrend.map((person) => (
               <div
                 className={style.new_chat_person}
-                onDoubleClick={() => handleAddNewPerson(person)}
+                onClick={() => handleAddNewPerson(person)}
               >
                 <Image
                   src={Icongenerate(person.icon)}
@@ -83,8 +86,7 @@ export default function MultipleSelectNative(props: Props) {
               </div>
             ))}
           </div>
-          <div>
-          </div>
+          <div></div>
         </div>
       )}
     </div>

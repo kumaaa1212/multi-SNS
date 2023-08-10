@@ -20,25 +20,24 @@ const SideBar = (props: Props) => {
   const { setSelectChatRoom, setSelectRoom, rooms, selectChatRoom } = props
   const { userId } = useSelector((state: RootState) => state.user)
 
-
   const [followListm, setFollowList] = useState<boolean>(false)
   const [myRooms, setMyRooms] = useState<RoomType[]>([])
-
+  console.log(myRooms)
   useEffect(() => {
     addPerson()
-  },[])
+  }, [])
 
   const addPerson = () => {
     if (!rooms) {
-      return; // followかroomsが未定義の場合は処理しない
+      return
     }
     const filteredPeople = rooms.filter((room) => {
       return room.user1Id === userId || room.user2Id === userId
+    })
 
-    });
-  
-    setMyRooms(filteredPeople);
-  };
+    setMyRooms(filteredPeople)
+  }
+
   return (
     <div className={style.sidebar}>
       <div className={style.sidebar_header}>
@@ -51,7 +50,7 @@ const SideBar = (props: Props) => {
           />
           {followListm && (
             <div className={style.new_chat}>
-              <MultipleSelectNative rooms={rooms} />
+              <MultipleSelectNative rooms={rooms} setMyRooms={setMyRooms} />
             </div>
           )}
         </div>
