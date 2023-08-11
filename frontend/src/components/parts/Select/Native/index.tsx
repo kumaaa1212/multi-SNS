@@ -23,13 +23,26 @@ export default function MultipleSelectNative(props: Props) {
   const { filterMyRooms, setMyRooms } = props
 
   const { userId, iconPath, username, follow } = useSelector((state: RootState) => state.user)
-  const [filterSelectRoom, setFilterSelectRoom] = useState<RoomType[]>([])
   const [selectFrend, setSelectFrend] = useState<FrendInfo[]>([])
   const router = useRouter()
-  console.log(follow)
+
+  const handleSelectFrend = () => {
+    const filterFrend = follow.filter(
+      (person) =>
+        !filterMyRooms.some(
+          (room) =>
+            (room.user1Id === person.authorId && room.user2Id === userId) ||
+            (room.user2Id === person.authorId && room.user1Id === userId),
+        ),
+    )
+    setSelectFrend(filterFrend)
+  }
+
+  useEffect(() => {
+    handleSelectFrend()
+  }, [])
 
   const handleAddNewPerson = async (info: FrendInfo) => {
-    console.log(info)
     const newChatRoom = await apiClient.post('/chat/newroom', {
       user1Id: userId,
       user1Name: username,
@@ -38,10 +51,9 @@ export default function MultipleSelectNative(props: Props) {
       user2Name: info.username,
       user2Icon: info.icon,
     })
-    console.log(newChatRoom.data)
+    handleSelectFrend()
     setMyRooms((prev) => [...prev, newChatRoom.data])
   }
-
   return (
     <div className={style.chat_new_area}>
       {selectFrend.length === 0 ? (
@@ -62,7 +74,6 @@ export default function MultipleSelectNative(props: Props) {
               </div>
             ))}
           </div>
-          <div></div>
         </div>
       )}
     </div>

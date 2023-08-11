@@ -11,10 +11,20 @@
     margin-bottom: 30px;
     height: 40px;
     position: relative;
-
     .settingIcon {
       cursor: pointer;
       margin-right: 15px;
+    }
+    .setting_area{
+      border: 1px solid #ccc;
+      position: absolute;
+      top: 50px;
+      left: 20px;
+      min-height: 300px;
+      background-color:white;
+      z-index: 100;
+      border-radius: 10px;
+      width: 300px;
     }
 
     .addIcon {
