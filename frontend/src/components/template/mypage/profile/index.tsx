@@ -40,7 +40,7 @@ const Profile = () => {
             <button>
               <span>{follow.length}Follow</span>
             </button>
-            <button>
+            <button >
               <span>{follower.length}Follower</span>
             </button>
           </div>
@@ -64,6 +64,7 @@ const Profile = () => {
               />
             </svg>
             <svg
+            className={style.icon_team}
               xmlns='http://www.w3.org/2000/svg'
               width='30'
               height='30'

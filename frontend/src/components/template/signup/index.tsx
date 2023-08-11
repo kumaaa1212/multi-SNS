@@ -39,6 +39,7 @@ export default function SignUp() {
             bio: '自己紹介文を入力してください',
             team: team,
             icon: 'HYGTYUBHNIJMK<LKOMJINHUBGYVFTCDRFVGYBHUNIJMKO<OMJINHUBGYVFTCDFVGBHNJMNHUBGVYF',
+            bgIcon:'HYGTYUBHNIJMK<LKOMJINHUBGYVFTCDRFVGYBHUNIJMKO<OMJINHUBGYVFTCDFVGBHNJMNHUBGVYF',
             follow: [],
             follower: [],
           },
