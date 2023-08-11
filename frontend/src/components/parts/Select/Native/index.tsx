@@ -15,39 +15,18 @@ interface FrendInfo {
 }
 
 interface Props {
-  rooms: RoomType[]
+  filterMyRooms: RoomType[]
   setMyRooms: Dispatch<SetStateAction<RoomType[]>>
 }
 
 export default function MultipleSelectNative(props: Props) {
-  const { rooms, setMyRooms } = props
+  const { filterMyRooms, setMyRooms } = props
 
   const { userId, iconPath, username, follow } = useSelector((state: RootState) => state.user)
   const [filterSelectRoom, setFilterSelectRoom] = useState<RoomType[]>([])
   const [selectFrend, setSelectFrend] = useState<FrendInfo[]>([])
   const router = useRouter()
   console.log(follow)
-
-  useEffect(() => {
-    addPerson()
-  }, [follow])
-
-  const addPerson = () => {
-    if (!follow || !rooms) {
-      return // followかroomsが未定義の場合は処理しない
-    }
-
-    const filteredPeople = follow.filter((person) => {
-      return !rooms.some(
-        (room) =>
-          (room.user2Id === person.authorId && room.user1Id === userId) ||
-          (room.user1Id === person.authorId && room.user2Id === userId),
-      )
-    })
-
-    setSelectFrend(filteredPeople)
-  }
-  console.log(selectFrend)
 
   const handleAddNewPerson = async (info: FrendInfo) => {
     console.log(info)
@@ -71,10 +50,7 @@ export default function MultipleSelectNative(props: Props) {
         <div>
           <div>
             {selectFrend.map((person) => (
-              <div
-                className={style.new_chat_person}
-                onClick={() => handleAddNewPerson(person)}
-              >
+              <div className={style.new_chat_person} onClick={() => handleAddNewPerson(person)}>
                 <Image
                   src={Icongenerate(person.icon)}
                   alt={''}

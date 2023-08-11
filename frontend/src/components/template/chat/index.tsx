@@ -4,21 +4,21 @@ import ChatArea from './main/ChatArea'
 import { RoomType } from '@/types/global'
 
 interface Props {
-  rooms: RoomType[]
+  filterMyRooms: RoomType[]
 }
 
 const Chat = (props: Props) => {
-  const { rooms } = props
+  const { filterMyRooms } = props
 
   const [selectChatRoom, setSelectChatRoom] = useState<boolean>(true)
-  const [selectRoom, setSelectRoom] = useState<RoomType[]>(rooms)
+  const [selectRoom, setSelectRoom] = useState<RoomType[]>([])
 
   return (
     <div className='chat'>
       <SideBar
         selectChatRoom={selectChatRoom}
         setSelectChatRoom={setSelectChatRoom}
-        rooms={rooms}
+        filterMyRooms={filterMyRooms}
         setSelectRoom={setSelectRoom}
       />
       <ChatArea selectRoom={selectRoom[0]} setSelectRoom={setSelectRoom} selectChatRoom={selectChatRoom} />

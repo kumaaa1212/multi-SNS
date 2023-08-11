@@ -10,17 +10,17 @@ import noavater from '/public/noavater.jpg'
 interface Props {
   selectChatRoom: boolean
   setSelectChatRoom: Dispatch<SetStateAction<boolean>>
-  rooms: RoomType[]
+  filterMyRooms: RoomType[]
   room: RoomType
   setSelectRoom: Dispatch<SetStateAction<RoomType[]>>
 }
 
-const ChatSide = (props: Props) => {
-  const { selectChatRoom, setSelectChatRoom, rooms, room, setSelectRoom } = props
+const Chatlist = (props: Props) => {
+  const { selectChatRoom, setSelectChatRoom, filterMyRooms, room, setSelectRoom } = props
   const { userId } = useSelector((state: RootState) => state.user)
 
   const handleShowChatRoom = async (id: string) => {
-    const selecredRoom: RoomType[] = rooms?.filter((room: RoomType) => room.id === id)
+    const selecredRoom: RoomType[] = filterMyRooms?.filter((room: RoomType) => room.id === id)
     setSelectRoom(selecredRoom)
     setSelectChatRoom(!selectChatRoom)
   }
@@ -51,4 +51,4 @@ const ChatSide = (props: Props) => {
   )
 }
 
-export default ChatSide
+export default Chatlist

@@ -46,7 +46,7 @@ router.get("/allrooms", async (_req: Request, res: Response) => {
       include: {
         messages: {
           orderBy: {
-            createdAt: "asc", // メッセージを古い順に並べ替える
+            createdAt: "asc", 
           },
         },
       },
