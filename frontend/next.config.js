@@ -1,8 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ['rzdzcpquxmwuusgpppri.supabase.co'],
+    domains: ['rzdzcpquxmwuusgpppri.supabase.co', 'adoraxymvctdnwofvyep.supabase.co'],
   },
+  // 画像のドメインを許可する
   reactStrictMode: true,
   async redirects() {
     return [

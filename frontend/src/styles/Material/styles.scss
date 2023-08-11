@@ -191,3 +191,14 @@
     }
   }
 }
+
+
+
+.mypage{
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  .MuiBox-root{
+    margin: 0px 40px;
+  }
+}

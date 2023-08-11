@@ -8,6 +8,9 @@ import profile_img from 'public/profile_img.jpg'
 import ModalBase from '@/components/parts/Modal'
 import { useSelector } from 'react-redux'
 import { RootState } from '@/store/store'
+import Icongenerate from '@/components/parts/Avater'
+import noavater from 'public/noavater.jpg'
+import { v4 as uuid4 } from 'uuid'
 
 interface Props {
   open: boolean
@@ -16,34 +19,42 @@ interface Props {
 
 export default function EditModal(props: Props) {
   const { open, setOpen } = props
-  const { username, bio, icon } = useSelector((state: RootState) => state.user)
+  const { username, bio, icon, userId } = useSelector((state: RootState) => state.user)
+
   const [file, setFile] = useState<any>(null)
   const [editName, setEditName] = useState<string>(username)
   const [editIntro, seteditIntro] = useState<string>(bio)
-  const [editIcon, seteditIcon] = useState<string>(icon)
+  const [displayFile, setDisplayFile] = useState<any>(null)
 
   const openFileInput = () => {
     const fileInput = document.getElementById('fileInput')
     fileInput?.click()
   }
 
-  // async function handleFileSelect(e: any) {
-  //   const selectedFile = e.target.files![0];
-  //   await supabase.storage
-  //     .from("avatars")
-  //     .upload(`avatars/${selectedFile.name}`, selectedFile, {
-  //       cacheControl: "3600",
-  //       upsert: false,
-  //     });
-  //   seteditIcon(selectedFile.name);
-  // }
-  
-  const handleSubmit = async (e: any) => {
-    e.preventDefault()
-    supabase.storage.from('avatars').getPublicUrl(`avatars/${editIcon}`)
-    await supabase.auth.updateUser({
-      data: { username: editName, bio: editIntro, icon: 'mhnfgbdrvsfeadwserdgfnscd' },
-    })
+  function handleFileSelect(e: any) {
+    setDisplayFile(URL.createObjectURL(e.target.files![0]))
+    setFile(e.target.files![0])
+  }
+
+  const handleSubmit = async () => {
+    if (!file) {
+      const { data: storageData, error: storegeError } = await supabase.storage
+        .from('avatars')
+        .upload(`${userId}/${uuid4()}`, file)
+
+      if (storegeError) {
+        throw storegeError
+      } else {
+        const { data: urlData } = supabase.storage.from('avatars').getPublicUrl(storageData.path)
+        await supabase.auth.updateUser({
+          data: { username: editName, bio: editIntro, icon: urlData.publicUrl },
+        })
+      }
+    } else {
+      await supabase.auth.updateUser({
+        data: { username: editName, bio: editIntro },
+      })
+    }
     setOpen(!open)
   }
 
@@ -117,7 +128,7 @@ export default function EditModal(props: Props) {
             />
           </span>
           <Image
-            src={username ? icon : profile_img}
+            src={displayFile ? displayFile : Icongenerate(icon)}
             alt={''}
             className={style.profile_img}
             width={150}
@@ -145,7 +156,7 @@ export default function EditModal(props: Props) {
               type='file'
               id='fileInput'
               style={{ display: 'none' }}
-              // onChange={(e) => handleFileSelect(e)}
+              onChange={(e) => handleFileSelect(e)}
             />
           </span>
         </div>

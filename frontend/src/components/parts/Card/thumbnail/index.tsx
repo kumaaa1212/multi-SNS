@@ -49,10 +49,12 @@ export default function ThumbnailCard(props: any) {
     const day = String(date.getDate()).padStart(2, '0')
     return `${year}/${month}/${day}`
   }
+  
   const openFileInput = () => {
     const fileInput = document.getElementById('fileInput')
     fileInput?.click()
   }
+
   const handleImg = (e: any) => {
     dispatch(addThumbnailImg(e.target.files[0]))
     dispatch(dispalyThumbnailImg(e.target.files[0]))

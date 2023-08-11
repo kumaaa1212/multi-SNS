@@ -1,18 +1,12 @@
-import RecipeReviewCard from '@/components/parts/Card'
-import MypageLayout from './layout'
+import Profile from "./profile"
+import BasicTabs from "./timeline"
 
 const Mapage = () => {
   return (
-    <MypageLayout>
-      <div>
-      <RecipeReviewCard />
-      <RecipeReviewCard />
-      <RecipeReviewCard />
-      <RecipeReviewCard />
-      <RecipeReviewCard />
-      <RecipeReviewCard />
-      </div>
-    </MypageLayout>
+    <div className="mypage">
+      <Profile />
+      <BasicTabs />
+    </div>
   )
 }
 

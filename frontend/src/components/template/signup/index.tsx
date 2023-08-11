@@ -30,7 +30,7 @@ export default function SignUp() {
     e.preventDefault()
     setIsLoading(true)
     try {
-      const { data } = await supabase.auth.signUp({
+      const { data,error } = await supabase.auth.signUp({
         email: email,
         password: password,
         options: {
@@ -38,12 +38,13 @@ export default function SignUp() {
             username: username,
             bio: '自己紹介文を入力してください',
             team: team,
-            icon: String(uuidv4()),
+            icon: 'HYGTYUBHNIJMK<LKOMJINHUBGYVFTCDRFVGYBHUNIJMKO<OMJINHUBGYVFTCDFVGBHNJMNHUBGVYF',
             follow: [],
             follower: [],
           },
         },
       })
+      console.log(error)
       setOpen(true)
     } catch (error) {
       alert('エラーが発生しました')

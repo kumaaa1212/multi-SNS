@@ -10,15 +10,11 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
   const dispatch: AppDispatch = useDispatch()
   const { userId } = useSelector((state: RootState) => state.user)
 
-  useEffect(() => {
-    if (supabase.auth) {
-      supabase.auth.onAuthStateChange((event, session: any) => {
-        if (session?.user?.user_metadata) {
-          dispatch(loginUser(session.user))
-        }
-      })
+  supabase.auth.onAuthStateChange((event, session: any) => {
+    if (session?.user?.user_metadata) {
+      dispatch(loginUser(session?.user))
     }
-  }, [])
+  })
 
   return (
     <div className='layout'>
