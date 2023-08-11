@@ -9,6 +9,7 @@ import { useSelector } from 'react-redux'
 import { RootState } from '@/store/store'
 import Noavater from '/public/noavater.jpg'
 import Icongenerate from '@/components/parts/Avater'
+import PostBtn from '@/components/parts/Button/Post/addbtn'
 
 const Profile = () => {
   const [open, setOpen] = useState<boolean>(false)
@@ -83,6 +84,7 @@ const Profile = () => {
           </div>
         </div>
       </div>
+      <PostBtn />
     </div>
   )
 }

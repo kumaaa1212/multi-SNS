@@ -37,7 +37,7 @@ export default function EditModal(props: Props) {
   }
 
   const handleSubmit = async () => {
-    if (!file) {
+    if (file) {
       const { data: storageData, error: storegeError } = await supabase.storage
         .from('avatars')
         .upload(`${userId}/${uuid4()}`, file)
