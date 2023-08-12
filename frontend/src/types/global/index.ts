@@ -55,3 +55,9 @@ export interface RoomType {
   createdAt: string
   messages: MessageType[]
 }
+
+export interface followType {
+  authorId: string,
+  username: string,
+  icon: string,
+}
