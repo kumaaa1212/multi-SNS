@@ -19,7 +19,6 @@ router.post("/album", async (req: Request, res: Response) => {
   } = req.body;
 
   try {
-    // この部分を修正
     const post = await prisma.post.create({
       data: {
         title,
@@ -45,11 +44,11 @@ router.post("/album", async (req: Request, res: Response) => {
   }
 });
 
+// アルバムを削除し、削除後のアルバム一覧を返す
 router.delete("/album/delete/:postId", async (req, res) => {
   const { postId } = req.params;
 
   try {
-    // 削除する前に削除対象の投稿を取得
     const deletedPost = await prisma.post.findUnique({
       where: {
         id: parseInt(postId),
@@ -59,32 +58,26 @@ router.delete("/album/delete/:postId", async (req, res) => {
     if (!deletedPost) {
       return res.status(404).json({ error: "Post not found." });
     }
+    await Promise.all([
+      prisma.postLabel.deleteMany({
+        where: {
+          postId: parseInt(postId),
+        },
+      }),
+      prisma.like.deleteMany({
+        where: {
+          postId: parseInt(postId),
+        },
+      }),
+      prisma.post.delete({
+        where: {
+          id: parseInt(postId),
+        },
+      }),
+    ]);
 
-    // Postに紐づくLabelを削除
-    await prisma.postLabel.deleteMany({
-      where: {
-        postId: parseInt(postId),
-      },
-    });
-
-    // Postに紐づくLikeを削除
-    await prisma.like.deleteMany({
-      where: {
-        postId: parseInt(postId),
-      },
-    });
-
-    // Postを削除
-    await prisma.post.delete({
-      where: {
-        id: parseInt(postId),
-      },
-    });
-
-    // 削除されなかった投稿を取得
     const remainingPosts = await prisma.post.findMany();
 
-    // 取得した投稿に対して likes と postLabels をリレーションとして読み込む
     const remainingPostsWithRelations = await Promise.all(
       remainingPosts.map(async (post) => {
         const likes = await prisma.like.findMany({
@@ -127,6 +120,29 @@ router.get("/all/album", async (req: Request, res: Response) => {
       },
       include: {
         labels: true,
+      },
+    });
+    return res.json({ posts });
+  } catch (err: any) {
+    res.json({ error: err.message });
+  }
+});
+
+// 特定のユーザーの投稿を取得する
+router.get("/all/album/:userId", async (req: Request, res: Response) => {
+  const { userId } = req.params;
+
+  try {
+    const posts = await prisma.post.findMany({
+      where: {
+        authorId: userId,
+      },
+      orderBy: {
+        createdAt: "desc",
+      },
+      include: {
+        labels: true,
+        likes: true,
       },
     });
     return res.json({ posts });
@@ -219,6 +235,83 @@ router.post("/album/like/check", async (req: Request, res: Response) => {
     return res.json({ hasLiked });
   } catch (error) {
     res.status(500).json({ error: "Failed to check like status." });
+  }
+});
+
+// 自分のいいねの一覧を取得する
+router.get("/album/likes/:userId", async (req, res) => {
+  const { userId } = req.params;
+
+  try {
+    const likes = await prisma.like.findMany({
+      where: {
+        authorId: userId,
+      },
+    });
+
+    return res.json({ likes: likes || [] });
+  } catch (error) {
+    console.error("Failed to retrieve likes:", error);
+    return res.status(500).json({ error: "Failed to retrieve likes." });
+  }
+});
+
+// ブックマークを追加する
+router.post("/album/bookmarks/add", async (req, res) => {
+  const { postId, authorId } = req.body;
+
+  try {
+    const newBookmark = await prisma.bookmark.create({
+      data: {
+        postId,
+        authorId,
+      },
+    });
+
+    await prisma.post.update({
+      where: {
+        id: postId,
+      },
+      data: {
+        bookmarks: {
+          connect: {
+            id: newBookmark.id,
+          },
+        },
+      },
+    });
+
+    return res.json({ bookmark: newBookmark });
+  } catch (error) {
+    console.error("Failed to add bookmark:", error);
+    return res.status(500).json({ error: "Failed to add bookmark." });
+  }
+});
+
+// 自分がbookmarkした投稿の取得
+router.get("/album/posts/bookmarked/:userId", async (req, res) => {
+  const { userId } = req.params;
+
+  try {
+    const bookmarkedPosts = await prisma.post.findMany({
+      where: {
+        bookmarks: {
+          some: {
+            authorId: userId,
+          },
+        },
+      },
+      include: {
+        bookmarks: true,
+      },
+    });
+
+    return res.json({ bookmarkedPosts });
+  } catch (error) {
+    console.error("Failed to retrieve bookmarked posts:", error);
+    return res
+      .status(500)
+      .json({ error: "Failed to retrieve bookmarked posts." });
   }
 });
 

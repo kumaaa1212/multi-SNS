@@ -21,7 +21,7 @@ router.post("/newroom", async (req: Request, res: Response) => {
       },
     });
 
- return res.json({ room });
+    return res.json({ room });
   } catch (error) {
     console.error(error);
     return res.status(500).json({ error: "Failed to create new room." });
@@ -46,7 +46,7 @@ router.get("/allrooms", async (_req: Request, res: Response) => {
       include: {
         messages: {
           orderBy: {
-            createdAt: "asc", 
+            createdAt: "asc",
           },
         },
       },
