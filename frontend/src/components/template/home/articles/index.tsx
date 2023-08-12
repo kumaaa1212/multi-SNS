@@ -2,8 +2,14 @@ import React from 'react'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
 import style from '../Home.module.scss'
+import { ArticleProps } from '@/types/global'
 
-const ArticlesPart = () => {
+interface Props {
+  articles: ArticleProps
+}
+
+const ArticlesPart = (props:Props) => {
+  const { articles } = props
   const router = useRouter()
   
   return (

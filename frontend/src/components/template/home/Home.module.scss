@@ -4,7 +4,12 @@
   .swiper{
     height: 400px;
     width: 100%;
-    // border: 1px red solid;
+    margin-bottom: 100px;
+  }
+  .login_alert{
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
   }
 }
 
