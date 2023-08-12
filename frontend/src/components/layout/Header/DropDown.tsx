@@ -11,7 +11,7 @@ import { RootState } from '@/store/store'
 const DropDown = () => {
   const router = useRouter()
   const { userId } = useSelector((state: RootState) => state.user)
-  
+
   const Logout = async (e: any) => {
     e.preventDefault()
     try {
@@ -29,32 +29,24 @@ const DropDown = () => {
     <div className='header_dropdown'>
       {userId ? (
         <div>
-          <Link href={'/account'} className='link_style'>
-            <div className='dropdown_list'>
-              <PersonIcon />
-              account
-            </div>
+          <Link href={'/account'} className='link_style dropdown_list'>
+            <PersonIcon />
+            <p>account</p>
           </Link>
-          <Link href={'/'} className='link_style' onClick={Logout}>
-            <div className='dropdown_list'>
-              <LogoutIcon />
-              logout
-            </div>
+          <Link href={'/'} className='link_style dropdown_list' onClick={Logout}>
+            <LogoutIcon />
+            <p>logout</p>
           </Link>
         </div>
       ) : (
         <div>
-          <Link href={'/signup'} className='link_style'>
-            <div className='dropdown_list'>
-              <PersonAddIcon />
-              sighup
-            </div>
+          <Link href={'/signup'} className='link_style dropdown_list'>
+            <PersonAddIcon />
+            <p>sighup</p>
           </Link>
-          <Link href={'/login'} className='link_style'>
-            <div className='dropdown_list'>
-              <LoginIcon />
-              login
-            </div>
+          <Link href={'/login'} className='link_style dropdown_list'>
+            <LoginIcon />
+            <p>login</p>
           </Link>
         </div>
       )}

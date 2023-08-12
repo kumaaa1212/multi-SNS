@@ -8,7 +8,7 @@ import profile_img from 'public/profile_img.jpg'
 import ModalBase from '@/components/parts/Modal'
 import { useSelector } from 'react-redux'
 import { RootState } from '@/store/store'
-import Icongenerate from '@/components/parts/Avater'
+import Icongenerate from '@/utils/functions/Avater'
 import noavater from 'public/noavater.jpg'
 import { v4 as uuid4 } from 'uuid'
 

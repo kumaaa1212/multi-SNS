@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux'
-import { supabase } from '../supabaseClient'
+import { supabase } from '../../supabaseClient'
 import { RootState } from '@/store/store'
 import { followType } from '@/types/global'
 

@@ -1,5 +1,4 @@
 import Badge from '@mui/material/Badge'
-import Avatar from '@mui/material/Avatar'
 import { styled } from '@mui/material/styles'
 import { useState, useEffect, useRef } from 'react'
 import Stack from '@mui/material/Stack'
@@ -65,7 +64,13 @@ export default function BadgeAvatars() {
         variant='dot'
         onClick={() => setOpen(!open)}
       >
-       <Image src={icon ? icon : Noavater } alt={''} width={40} height={40} className={style.header_icon}/>
+        <Image
+          src={icon ? icon : Noavater}
+          alt={''}
+          width={40}
+          height={40}
+          className={style.header_icon}
+        />
       </StyledBadge>
       <div ref={dropdownRef}>{open && <DropDown />}</div>
     </Stack>

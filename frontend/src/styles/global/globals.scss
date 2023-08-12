@@ -1,50 +1,54 @@
 // 共通のcss
-*{
+* {
   margin: 0;
   padding: 0;
+
 }
-body{
+*, *::before, *::after {
+  box-sizing: inherit;
+}
+
+body {
   background-color: white;
 }
-.link_style{
+
+.link_style {
   text-decoration: none;
   color: black;
   // border: 1px solid red;
 }
-.main_area{
+
+.main_area {
   margin-top: 50px;
 }
 
-// 各ページのcss
-
 // mypageのレイアウトのcss
-.profile{
+.profile {
   display: grid;
   grid-template-columns: 500px 1fr;
 }
-.chat{
+.chat {
   display: grid;
   grid-template-columns: 400px 1fr;
 }
 
 // アルバム
-.keepoff{
+.keepoff {
   opacity: 0.5;
 }
 
-.EmojiPickerReact --epr-emoji-size{
-    width: 100px;
-    height: 100px;
+.EmojiPickerReact --epr-emoji-size {
+  width: 100px;
+  height: 100px;
 }
 
-
-.timeline_tab{
+.timeline_tab {
   position: relative;
 }
 
-.release_card{
+.release_card {
   // border: 1px red solid;
-  .MuiPaper-root{
+  .MuiPaper-root {
     margin: 0;
   }
 }

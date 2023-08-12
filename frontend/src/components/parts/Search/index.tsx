@@ -4,14 +4,14 @@ import Divider from '@mui/material/Divider'
 import IconButton from '@mui/material/IconButton'
 import SearchIcon from '@mui/icons-material/Search'
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth'
-import ModalWind from '../Modal/LoginModal'
 import { useState } from 'react'
+import ModalBase from '../Modal'
 
 export default function CustomizedInputBase() {
   const [open, setOpen] = useState<boolean>(false)
   return (
     <div>
-      {open && <ModalWind open={open}  />}
+      {open && <ModalBase open={open} />}
       <Paper
         component='form'
         sx={{

@@ -16,7 +16,7 @@ import { Chip } from '@mui/material'
 import FollowBtn from '@/components/parts/Button/Follow'
 import { useSelector } from 'react-redux'
 import { RootState } from '@/store/store'
-import Icongenerate from '../../Avater'
+import Icongenerate from '../../../../utils/functions/Avater'
 import LikeBtn from '../../Button/Like'
 import { ArticlesType, LabelType } from '@/types/global'
 import apiClient from '@/libs/apiClient'
@@ -110,9 +110,7 @@ export default function ArticleCard(props: Props) {
         <CardContent>
           <span className={style.thumbnail_text}>{article.thumbnailText}</span>
           <div className={style.label_area}>
-            {article.labels?.map((label: LabelType) => (
-              <Chip label={label.name} />
-            ))}
+            {article.labels?.map((label: LabelType) => <Chip label={label.name} />)}
           </div>
         </CardContent>
         <CardActions disableSpacing>

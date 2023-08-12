@@ -14,9 +14,9 @@ const style = {
 }
 
 interface Props {
-  open: boolean
-  setOpen: any
-  children: any
+  open?: boolean
+  setOpen?: any
+  children?: any
 }
 
 

@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction } from 'react'
 import styles from './ChatContent.module.scss'
 import Image from 'next/image'
-import Icongenerate from '../Avater'
+import Icongenerate from '../../../utils/functions/Avater'
 import { RoomType } from '@/types/global'
 import { useSelector } from 'react-redux'
 import { RootState } from '@/store/store'

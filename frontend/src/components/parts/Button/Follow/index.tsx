@@ -4,8 +4,8 @@ import apiClient from '@/libs/apiClient'
 import { RootState } from '@/store/store'
 import { useSelector } from 'react-redux'
 import { supabase } from '@/utils/supabaseClient'
-import { followUser } from '@/utils/functions/follow'
-import { unFollowUser } from '@/utils/functions/unfollow'
+import { followUser } from '@/utils/functions/follow/follow'
+import { unFollowUser } from '@/utils/functions/follow/unfollow'
 const FollowBtn = (props: any) => {
   const { children, article } = props
   const { authorId, authorName, authorAvatar } = article
@@ -14,10 +14,10 @@ const FollowBtn = (props: any) => {
   console.log(follow)
 
   useEffect(() => {
-      if (follow.some((item: any) => item.authorId === article.authorId)) {
-        setFollowBtn(true)
-      } else {
-        setFollowBtn(false)
+    if (follow.some((item: any) => item.authorId === article.authorId)) {
+      setFollowBtn(true)
+    } else {
+      setFollowBtn(false)
     }
   }, [follow])
 

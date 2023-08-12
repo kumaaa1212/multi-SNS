@@ -17,12 +17,12 @@ import {
   MenuItem,
   Select,
 } from '@mui/material'
-import ModalWind from '@/components/parts/Modal/LoginModal'
 import Link from 'next/link'
 import { jLeagueTeams } from '@/TeamData'
 import { useForm, SubmitHandler, Controller } from 'react-hook-form'
 import { AccountType } from '@/types/internal'
 import style from './SignUp.module.scss'
+import ModalBase from '@/components/parts/Modal'
 
 const defaultTheme = createTheme()
 
@@ -72,7 +72,7 @@ export default function SignUp() {
     <div className='sginup'>
       <ThemeProvider theme={defaultTheme}>
         {isLoading && (
-          <ModalWind open={open}>
+          <ModalBase open={open} setOpen={undefined}>
             {open ? (
               <div>
                 <p>
@@ -83,7 +83,7 @@ export default function SignUp() {
             ) : (
               <CircularProgress color='inherit' />
             )}
-          </ModalWind>
+          </ModalBase>
         )}
         <Container component='main' maxWidth='xs'>
           <CssBaseline />

@@ -2,7 +2,7 @@ import { useSelector } from 'react-redux'
 import { RootState } from '@/store/store'
 import { MessageType, RoomType } from '@/types/global'
 import styles from './ChatContent.module.scss'
-import Icongenerate from '../Avater'
+import Icongenerate from '../../../utils/functions/Avater'
 import noavater from '/public/noavater.jpg'
 import Image from 'next/image'
 

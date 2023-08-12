@@ -8,7 +8,7 @@ import EditModal from '@/components/wigets/Modal/Edit'
 import { useSelector } from 'react-redux'
 import { RootState } from '@/store/store'
 import Noavater from '/public/noavater.jpg'
-import Icongenerate from '@/components/parts/Avater'
+import Icongenerate from '@/utils/functions/Avater'
 import PostBtn from '@/components/parts/Button/Post/addbtn'
 
 const Profile = () => {
@@ -30,7 +30,9 @@ const Profile = () => {
         <div className={style.profile_details}>
           <div className={style.profile_header}>
             <h1>{username}</h1>
-            <button className={style.profile_header_btn} onClick={() => setOpen(!open)}>編集</button>
+            <button className={style.profile_header_btn} onClick={() => setOpen(!open)}>
+              編集
+            </button>
           </div>
           <div className={style.profile_bio}>{bio}</div>
           <div className={style.profile_info}>
@@ -40,7 +42,7 @@ const Profile = () => {
             <button>
               <span>{follow.length}Follow</span>
             </button>
-            <button >
+            <button>
               <span>{follower.length}Follower</span>
             </button>
           </div>
@@ -64,7 +66,7 @@ const Profile = () => {
               />
             </svg>
             <svg
-            className={style.icon_team}
+              className={style.icon_team}
               xmlns='http://www.w3.org/2000/svg'
               width='30'
               height='30'
