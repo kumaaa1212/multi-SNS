@@ -208,12 +208,10 @@ router.post("/album/like/delete", async (req: Request, res: Response) => {
     });
 
     if (relatedPost) {
-      // 関連するLikeを手動で削除
       const updatedLikes = relatedPost.likes.filter(
         (like) => like.authorId !== authorId
       );
 
-      // Postを更新して、関連するLikeを削除
       const updatedPost = await prisma.post.update({
         where: {
           id: postId,
@@ -233,6 +231,7 @@ router.post("/album/like/delete", async (req: Request, res: Response) => {
     res.status(500).json({ error: "Failed to remove like." });
   }
 });
+// 配列としてfindUniqueして、その値をsetする。からの配列をsetしている
 
 // いいねをしているかを確認する
 router.post("/album/like/check", async (req: Request, res: Response) => {
@@ -272,8 +271,29 @@ router.get("/album/likes/:userId", async (req, res) => {
   }
 });
 
+// 自分が保存しているかを確認する
+router.post("/album/bookmark/check", async (req: Request, res: Response) => {
+  const { postId, authorId } = req.body;
+
+  try {
+    const bookmark = await prisma.bookmark.findFirst({
+      where: {
+        postId,
+        authorId,
+      },
+    });
+
+    const hasbookmark = !!bookmark;
+
+    return res.json({ hasbookmark });
+  } catch (error) {
+    res.status(500).json({ error: "Failed to check like status." });
+  }
+});
+
+
 // ブックマークを追加する
-router.post("/album/bookmarks/add", async (req, res) => {
+router.post("/album/bookmark/add", async (req, res) => {
   const { postId, authorId } = req.body;
 
   try {
@@ -301,6 +321,75 @@ router.post("/album/bookmarks/add", async (req, res) => {
   } catch (error) {
     console.error("Failed to add bookmark:", error);
     return res.status(500).json({ error: "Failed to add bookmark." });
+  }
+});
+
+// bookmarkを削除する
+router.post("/album/bookmark/delete", async (req: Request, res: Response) => {
+  const { postId, authorId } = req.body;
+
+  try {
+    // まずはいいねを削除
+    await prisma.bookmark.deleteMany({
+      where: {
+        postId,
+        authorId,
+      },
+    });
+
+    // 削除されたいいねに関連するPostを取得
+    const relatedPost = await prisma.post.findUnique({
+      where: {
+        id: postId,
+      },
+      include: {
+        bookmarks: true,
+      },
+    });
+
+    if (relatedPost) {
+      const updatedBookmark = relatedPost.bookmarks.filter(
+        (bookmark) => bookmark.authorId !== authorId
+      );
+
+      const updatedPost = await prisma.post.update({
+        where: {
+          id: postId,
+        },
+        data: {
+          likes: {
+            set: updatedBookmark,
+          },
+        },
+      });
+
+      return res.json({ updatedPost });
+    }
+
+    return res.status(404).json({ error: "Post not found." });
+  } catch (error) {
+    res.status(500).json({ error: "Failed to remove like." });
+  }
+});
+// 配列としてfindUniqueして、その値をsetする。からの配列をsetしている
+
+// いいねをしているかを確認する
+router.post("/album/like/check", async (req: Request, res: Response) => {
+  const { postId, authorId } = req.body;
+
+  try {
+    const like = await prisma.like.findFirst({
+      where: {
+        postId,
+        authorId,
+      },
+    });
+
+    const hasLiked = !!like;
+
+    return res.json({ hasLiked });
+  } catch (error) {
+    res.status(500).json({ error: "Failed to check like status." });
   }
 });
 

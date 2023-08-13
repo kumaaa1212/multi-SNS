@@ -20,6 +20,7 @@ import Icongenerate from '../../../../utils/functions/Avater'
 import LikeBtn from '../../Button/Like'
 import { ArticlesType, LabelType } from '@/types/global'
 import apiClient from '@/libs/apiClient'
+import BookMarkBtn from '../../Button/BookMark'
 
 interface ExpandMoreProps extends IconButtonProps {
   expand: boolean
@@ -118,7 +119,7 @@ export default function ArticleCard(props: Props) {
             <LikeBtn article={article} />
           </IconButton>
           <IconButton aria-label='share'>
-            <ShareIcon />
+            <BookMarkBtn article={article} />
           </IconButton>
           <ExpandMore
             expand={expanded}

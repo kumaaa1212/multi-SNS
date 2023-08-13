@@ -16,7 +16,7 @@ const Header = () => {
           <Link href={'/mypage'} className='nav_link link_style'>
             MYPAGE
           </Link>
-          <Link href={'/bulletinBoard'} className='nav_link link_style'>
+          <Link href={'/board'} className='nav_link link_style'>
             BOARD
           </Link>
           <BadgeAvatars />

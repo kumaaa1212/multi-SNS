@@ -43,15 +43,15 @@ const LikeBtn = (props: any) => {
     }
   }
 
-  const LikeBtnComponent = useMemo(() => {
-    if (likeBtn) {
-      return <FavoriteIcon color={'error'} onClick={handleLike} />
-    } else {
-      return <FavoriteIcon onClick={handleLike} />
-    }
-  }, [handleLike])
-
-  return <>{LikeBtnComponent}</>
+  return (
+    <>
+      {likeBtn ? (
+        <FavoriteIcon color={'error'} onClick={handleLike} />
+      ) : (
+        <FavoriteIcon onClick={handleLike} />
+      )}
+    </>
+  )
 }
 
 export default LikeBtn

@@ -1,12 +1,12 @@
 import style from './Bulletinboard.module.scss'
 import Image from 'next/image'
-import ProfileImg from '../../../../../public/profile_img.jpg'
+import noavater from 'public/noavater.jpg'
 const BulletinboardCard = (props: any) => {
   const { children, sideMessagrBar, setSideMessagrBar } = props
   return (
     <div className={style.bulletin_board_Card}>
       <div className={style.timeline_user}>
-        <Image src={ProfileImg} alt={''} width={40} height={40} className={style.profile_img} />
+        <Image src={noavater} alt={''} width={40} height={40} className={style.profile_img} />
         <div className={style.card_info}>
           <div className={style.user_detail_info}>
             <span className={style.user_name}>KUMA</span>

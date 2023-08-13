@@ -1,13 +1,16 @@
-import React from 'react'
+import React, { useState } from 'react'
 import style from '../bulletinboard.module.scss'
 import BulletinboardCard from '@/components/parts/Card/Bulletinboard'
-import Image from 'next/image'
-import ProfileImg from '../../../../../public/profile_img.jpg'
-import CustomizedInputBase from '@/components/parts/Search'
 import SendInput from '@/components/parts/Input'
+import apiClient from '@/libs/apiClient'
+
 const Timeline = (props: any) => {
   const { sideMessagrBar, setSideMessagrBar } = props
-  const [input, setInput] = React.useState('')
+  const [input, setInput] = useState<string>('')
+
+  const handleSend = async () => {
+    await apiClient.post('/api/v1/timeline', { content: input })
+  }
 
   return (
     <div className={style.timeline}>
@@ -15,48 +18,9 @@ const Timeline = (props: any) => {
         <BulletinboardCard sideMessagrBar={sideMessagrBar} setSideMessagrBar={setSideMessagrBar}>
           <p>ssss</p>
         </BulletinboardCard>
-        <BulletinboardCard sideMessagrBar={sideMessagrBar} setSideMessagrBar={setSideMessagrBar}>
-          <p>ssss</p>
-        </BulletinboardCard>
-        <BulletinboardCard sideMessagrBar={sideMessagrBar} setSideMessagrBar={setSideMessagrBar}>
-          <p>ssss</p>
-        </BulletinboardCard>
-        <BulletinboardCard sideMessagrBar={sideMessagrBar} setSideMessagrBar={setSideMessagrBar}>
-          <p>ssss</p>
-        </BulletinboardCard>
-        <BulletinboardCard sideMessagrBar={sideMessagrBar} setSideMessagrBar={setSideMessagrBar}>
-          <p>ssss</p>
-        </BulletinboardCard>
-        <BulletinboardCard sideMessagrBar={sideMessagrBar} setSideMessagrBar={setSideMessagrBar}>
-          <p>ssss</p>
-        </BulletinboardCard>
-        <BulletinboardCard sideMessagrBar={sideMessagrBar} setSideMessagrBar={setSideMessagrBar}>
-          <p>ssss</p>
-        </BulletinboardCard>
-        <BulletinboardCard sideMessagrBar={sideMessagrBar} setSideMessagrBar={setSideMessagrBar}>
-          <p>ssss</p>
-        </BulletinboardCard>
-        <BulletinboardCard sideMessagrBar={sideMessagrBar} setSideMessagrBar={setSideMessagrBar}>
-          <p>ssss</p>
-        </BulletinboardCard>
-        <BulletinboardCard sideMessagrBar={sideMessagrBar} setSideMessagrBar={setSideMessagrBar}>
-          <p>ssss</p>
-        </BulletinboardCard>
-        <BulletinboardCard sideMessagrBar={sideMessagrBar} setSideMessagrBar={setSideMessagrBar}>
-          <p>ssss</p>
-        </BulletinboardCard>
-        <BulletinboardCard sideMessagrBar={sideMessagrBar} setSideMessagrBar={setSideMessagrBar}>
-          <p>ssss</p>
-        </BulletinboardCard>
-        <BulletinboardCard sideMessagrBar={sideMessagrBar} setSideMessagrBar={setSideMessagrBar}>
-          <p>ssss</p>
-        </BulletinboardCard>
-        <BulletinboardCard sideMessagrBar={sideMessagrBar} setSideMessagrBar={setSideMessagrBar}>
-          <p>ssss</p>
-        </BulletinboardCard>
       </div>
       <div className={style.input_area}>
-      <SendInput input={input} setInput={setInput} />
+        <SendInput input={input} setInput={setInput} handleSend={handleSend} />
       </div>
     </div>
   )

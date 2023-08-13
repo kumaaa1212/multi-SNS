@@ -4,6 +4,7 @@
   margin: 0px 10px;
 }
 .timeline {
+  border-right: 1px black solid;
   .timeline_main {
     display: flex;
     flex-direction: column;
@@ -21,7 +22,7 @@
   }
 }
 .side {
-  margin-left: 10px;
+  // margin-left: 10px;
   padding-left: 5px;
   border-left: 1px black solid;
   .sidebar_input_area {

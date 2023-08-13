@@ -1,8 +1,5 @@
-import { Button, Paper } from '@mui/material'
 import Image from 'next/image'
-import React, { useState } from 'react'
-import bg_img from 'public/bg_img.jpg'
-import profile_img from 'public/profile_img.jpg'
+import React, { useEffect, useState } from 'react'
 import style from './Prolife.module.scss'
 import EditModal from '@/components/wigets/Modal/Edit'
 import { useSelector } from 'react-redux'
@@ -10,12 +7,24 @@ import { RootState } from '@/store/store'
 import Noavater from '/public/noavater.jpg'
 import Icongenerate from '@/utils/functions/Avater'
 import PostBtn from '@/components/parts/Button/Post/addbtn'
+import apiClient from '@/libs/apiClient'
 
 const Profile = () => {
-  const [open, setOpen] = useState<boolean>(false)
+  const { username, icon, bio, follow, follower, userId } = useSelector(
+    (state: RootState) => state.user,
+  )
 
-  const { username, icon, bio, follow, follower } = useSelector((state: RootState) => state.user)
-  console.log(icon)
+  const [open, setOpen] = useState<boolean>(false)
+  const [like, setLike] = useState<any>()
+
+  useEffect(() => {
+    const llikeDeta = async () => {
+      const likeArry = await apiClient.get(`/post/album/likes/${userId}`)
+      setLike(likeArry.data.likes)
+    }
+    llikeDeta()
+  }, [])
+
   return (
     <div>
       {open && <EditModal open={open} setOpen={setOpen} />}
@@ -37,7 +46,7 @@ const Profile = () => {
           <div className={style.profile_bio}>{bio}</div>
           <div className={style.profile_info}>
             <button>
-              <span>100Likes</span>
+              <span>{like ? like.length : 0}Likes</span>
             </button>
             <button>
               <span>{follow.length}Follow</span>
