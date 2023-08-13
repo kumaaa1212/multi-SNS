@@ -189,6 +189,7 @@ router.post("/album/like/delete", async (req: Request, res: Response) => {
   const { postId, authorId } = req.body;
 
   try {
+    // まずはいいねを削除
     await prisma.like.deleteMany({
       where: {
         postId,
@@ -196,23 +197,38 @@ router.post("/album/like/delete", async (req: Request, res: Response) => {
       },
     });
 
-    const updatedPost = await prisma.post.update({
+    // 削除されたいいねに関連するPostを取得
+    const relatedPost = await prisma.post.findUnique({
       where: {
         id: postId,
-      },
-      data: {
-        likes: {
-          disconnect: {
-            id: postId,
-          },
-        },
       },
       include: {
         likes: true,
       },
     });
 
-    return res.json({ updatedPost });
+    if (relatedPost) {
+      // 関連するLikeを手動で削除
+      const updatedLikes = relatedPost.likes.filter(
+        (like) => like.authorId !== authorId
+      );
+
+      // Postを更新して、関連するLikeを削除
+      const updatedPost = await prisma.post.update({
+        where: {
+          id: postId,
+        },
+        data: {
+          likes: {
+            set: updatedLikes,
+          },
+        },
+      });
+
+      return res.json({ updatedPost });
+    }
+
+    return res.status(404).json({ error: "Post not found." });
   } catch (error) {
     res.status(500).json({ error: "Failed to remove like." });
   }
@@ -230,7 +246,7 @@ router.post("/album/like/check", async (req: Request, res: Response) => {
       },
     });
 
-    const hasLiked = like !== null;
+    const hasLiked = !!like;
 
     return res.json({ hasLiked });
   } catch (error) {
