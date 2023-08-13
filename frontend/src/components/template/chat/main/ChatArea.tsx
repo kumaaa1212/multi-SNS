@@ -17,8 +17,6 @@ interface Props {
 const ChatArea = (props: Props) => {
   const { selectRoom, setSelectRoom, selectChatRoom } = props
   const [newMessage, setNewMessage] = useState<RoomType>()
-  console.log(selectRoom)
-  console.log(newMessage)
 
   const { userId } = useSelector((state: RootState) => state.user)
   const [input, setInput] = useState<string>('')

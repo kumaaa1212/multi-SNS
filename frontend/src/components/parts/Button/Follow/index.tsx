@@ -11,7 +11,6 @@ const FollowBtn = (props: any) => {
   const { authorId, authorName, authorAvatar } = article
   const { follow } = useSelector((state: RootState) => state.user)
   const [followBtn, setFollowBtn] = useState<boolean>()
-  console.log(follow)
 
   useEffect(() => {
     if (follow.some((item: any) => item.authorId === article.authorId)) {

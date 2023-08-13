@@ -1,7 +1,6 @@
 import Identicon from 'identicon.js'
 
 const Icongenerate = (token: string) => {
-  console.log(token)
   if(token.includes('http')) {
     return token
   }else{

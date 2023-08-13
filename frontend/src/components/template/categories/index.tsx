@@ -12,7 +12,7 @@ const Categories = () => {
     <div className={style.categories}>
       <input type='text' className={style.categories_search} placeholder='キーワードを入力...' />
       <div className={style.categories_area}>
-        {jLeagueTeams.map((team:TeamType) => (
+        {jLeagueTeams.map((team: TeamType) => (
           <Paper
             className={style.team_card}
             onClick={() => router.push(`/categories/deails/${team.label}`)}

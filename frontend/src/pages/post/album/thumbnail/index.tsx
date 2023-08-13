@@ -6,5 +6,3 @@ const ThumbnailPage = () => {
 }
 
 export default ThumbnailPage
-
-// RecipeReviewCard

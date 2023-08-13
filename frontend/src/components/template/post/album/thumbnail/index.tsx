@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { AppDispatch, RootState } from '@/store/store'
 import { addThumbnail } from '@/features/postSlice'
 import ThumbnailCard from '@/components/parts/Card/thumbnail'
+import { jLeagueTeams, studiumsData } from '@/TeamData'
 const Thumbnail = () => {
   const dispatch: AppDispatch = useDispatch()
   const { thumbnailText } = useSelector((state: RootState) => state.post)
@@ -16,7 +17,8 @@ const Thumbnail = () => {
         <div className={style.thumbnail}>
           <ThumbnailCard className='600' />
           <div className={style.thumbnail_delail}>
-            <Labels />
+            <Labels labelName='スタジアムを選択' data={studiumsData} />
+            <Labels labelName='チームを選択' data={jLeagueTeams} />
             <textarea
               placeholder='説明を入力してください'
               rows={5}

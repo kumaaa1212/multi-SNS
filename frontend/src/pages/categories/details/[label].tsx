@@ -9,7 +9,6 @@ interface Props {
 }
 
 const TeamPage = ({ data }: { data: Props }) => {
-  console.log(data)
   return <Team data={data.post} />
 }
 

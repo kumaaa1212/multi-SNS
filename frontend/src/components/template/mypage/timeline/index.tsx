@@ -3,6 +3,9 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
+import MypageAlbum from './Album';
+import MypageLikes from './Like';
+import MypageBooKMark from './BookMark';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -23,7 +26,7 @@ function CustomTabPanel(props: TabPanelProps) {
     >
       {value === index && (
         <Box sx={{ p: 3 }}>
-          <Typography>{children}</Typography>
+          <div>{children}</div>
         </Box>
       )}
     </div>
@@ -54,13 +57,13 @@ export default function BasicTabs() {
         </Tabs>
       </Box>
       <CustomTabPanel value={value} index={0}>
-        MyAlbum
+        <MypageAlbum />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
-        Like
+        <MypageLikes />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={2}>
-        BookMark
+        <MypageBooKMark />
       </CustomTabPanel>
     </Box>
   );

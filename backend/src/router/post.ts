@@ -6,7 +6,6 @@ const prisma = new PrismaClient();
 
 // albumを追加する
 router.post("/album", async (req: Request, res: Response) => {
-  console.log(req.body);
   const {
     title,
     content,
@@ -143,6 +142,7 @@ router.get("/all/album/:userId", async (req: Request, res: Response) => {
       include: {
         labels: true,
         likes: true,
+        bookmarks: true,
       },
     });
     return res.json({ posts });
@@ -272,25 +272,30 @@ router.get("/album/likes/:userId", async (req, res) => {
 });
 
 // 自分が保存しているかを確認する
-router.post("/album/bookmark/check", async (req: Request, res: Response) => {
-  const { postId, authorId } = req.body;
+router.get("/album/like/:authorId", async (req: Request, res: Response) => {
+  const { authorId } = req.params;
 
   try {
-    const bookmark = await prisma.bookmark.findFirst({
+    const likedPosts = await prisma.post.findMany({
       where: {
-        postId,
-        authorId,
+        likes: {
+          some: {
+            authorId: authorId,
+          },
+        },
+      },
+      include: {
+        labels: true,
+        likes: true,
+        bookmarks: true,
       },
     });
 
-    const hasbookmark = !!bookmark;
-
-    return res.json({ hasbookmark });
+    return res.json({ likedPosts });
   } catch (error) {
     res.status(500).json({ error: "Failed to check like status." });
   }
 });
-
 
 // ブックマークを追加する
 router.post("/album/bookmark/add", async (req, res) => {
@@ -317,7 +322,7 @@ router.post("/album/bookmark/add", async (req, res) => {
       },
     });
 
-    return res.json({ bookmark: newBookmark });
+    return res.json({ newBookmark });
   } catch (error) {
     console.error("Failed to add bookmark:", error);
     return res.status(500).json({ error: "Failed to add bookmark." });
@@ -393,8 +398,28 @@ router.post("/album/like/check", async (req: Request, res: Response) => {
   }
 });
 
+// ブックマークの状態を確認する
+router.post("/album/bookmark/check", async (req: Request, res: Response) => {
+  const { postId, authorId } = req.body;
+
+  try {
+    const bookmark = await prisma.bookmark.findFirst({
+      where: {
+        postId,
+        authorId,
+      },
+    });
+
+    const hasLiked = !!bookmark;
+
+    return res.json({ hasLiked });
+  } catch (error) {
+    res.status(500).json({ error: "Failed to check like status." });
+  }
+});
+
 // 自分がbookmarkした投稿の取得
-router.get("/album/posts/bookmarked/:userId", async (req, res) => {
+router.get("/album/bookmarked/:userId", async (req, res) => {
   const { userId } = req.params;
 
   try {
@@ -407,6 +432,8 @@ router.get("/album/posts/bookmarked/:userId", async (req, res) => {
         },
       },
       include: {
+        labels: true,
+        likes: true,
         bookmarks: true,
       },
     });
@@ -425,25 +452,21 @@ router.get("/album/:label", async (req: Request, res: Response) => {
   const { label } = req.params;
 
   try {
-    const postLabel = await prisma.postLabel.findFirst({
+    const postsWithLabel = await prisma.post.findMany({
       where: {
-        label: label,
-      },
-      include: {
-        post: {
-          include: {
-            labels: true,
-            likes: true,
+        labels: {
+          some: {
+            label: label,
           },
         },
       },
+      include: {
+        labels: true,
+        likes: true,
+      },
     });
 
-    if (postLabel) {
-      return res.json({ post: postLabel.post });
-    } else {
-      return res.json({ message: "Post not found" });
-    }
+    return res.json({ post: postsWithLabel }); // 配列で返す
   } catch (err: any) {
     res.json({ error: err.message });
   }
