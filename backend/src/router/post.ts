@@ -446,33 +446,36 @@ router.post("/album/bookmark/check", async (req: Request, res: Response) => {
 });
 
 // 自分がbookmarkした投稿の取得
-router.get("/album/bookmarked/:authorId", async (req:Request, res:Response) => {
-  const { authorId } = req.params;
+router.get(
+  "/album/bookmarked/:authorId",
+  async (req: Request, res: Response) => {
+    const { authorId } = req.params;
 
-  try {
-    const bookmarkedPosts = await prisma.post.findMany({
-      where: {
-        bookmarks: {
-          some: {
-            authorId: authorId,
+    try {
+      const bookmarkedPosts = await prisma.post.findMany({
+        where: {
+          bookmarks: {
+            some: {
+              authorId: authorId,
+            },
           },
         },
-      },
-      include: {
-        labels: true,
-        likes: true,
-        bookmarks: true,
-      },
-    });
+        include: {
+          labels: true,
+          likes: true,
+          bookmarks: true,
+        },
+      });
 
-    return res.json({ bookmarkedPosts });
-  } catch (error) {
-    console.error("Failed to retrieve bookmarked posts:", error);
-    return res
-      .status(500)
-      .json({ error: "Failed to retrieve bookmarked posts." });
+      return res.json({ bookmarkedPosts });
+    } catch (error) {
+      console.error("Failed to retrieve bookmarked posts:", error);
+      return res
+        .status(500)
+        .json({ error: "Failed to retrieve bookmarked posts." });
+    }
   }
-});
+);
 
 // ラベルによるチーム別投稿の取得
 router.get("/album/team/:label", async (req: Request, res: Response) => {
@@ -681,6 +684,90 @@ router.post("/boards/:boardId/messages", async (req, res) => {
   } catch (error) {
     console.error("Failed to add message to board:", error);
     return res.status(500).json({ error: "Failed to add message to board." });
+  }
+});
+
+router.post("/board/like/add", async (req: Request, res: Response) => {
+  const { boardId, authorId } = req.body;
+
+  try {
+    const newLike = await prisma.boardLike.create({
+      data: {
+        boardId,
+        authorId,
+      },
+    });
+
+    const updatedBoard = await prisma.board.update({
+      where: {
+        id: boardId,
+      },
+      data: {
+        likes: {
+          connect: {
+            id: newLike.id,
+          },
+        },
+      },
+      include: {
+        likes: true,
+      },
+    });
+    return res.json({ updatedBoard });
+  } catch (error) {
+    res.status(500).json({ error: "Failed to add like." });
+  }
+});
+
+router.post("/board/like/delete", async (req: Request, res: Response) => {
+  const { boardId, authorId } = req.body;
+
+  try {
+    // まずはいいねを削除
+    await prisma.boardLike.deleteMany({
+      where: {
+        boardId,
+        authorId,
+      },
+    });
+
+    // 削除されたいいねに関連するBoardを取得
+    const relatedBoard = await prisma.board.findUnique({
+      where: {
+        id: boardId,
+      },
+      include: {
+        likes: true,
+        messages: true,
+      },
+    });
+
+    if (relatedBoard) {
+      const updatedLikes = relatedBoard.likes.filter(
+        (like) => like.authorId !== authorId
+      );
+
+      const updatedBoard = await prisma.board.update({
+        where: {
+          id: boardId,
+        },
+        data: {
+          likes: {
+            set: updatedLikes,
+          },
+        },
+        include: {
+          likes: true,
+          messages: true,
+        },
+      });
+
+      return res.json({ updatedBoard });
+    }
+
+    return res.status(404).json({ error: "Board not found." });
+  } catch (error) {
+    res.status(500).json({ error: "Failed to remove like." });
   }
 });
 

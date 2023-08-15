@@ -3,22 +3,51 @@ import style from './Bulletinboard.module.scss'
 import Image from 'next/image'
 import noavater from 'public/noavater.jpg'
 import { useState } from 'react'
+import apiClient from '@/libs/apiClient'
 const BulletinboardCard = (props: any) => {
   const { children, sideMessagrBar, setSideMessagrBar, board, setSelectBoard } = props
 
-  const [like, setLike] = useState<boolean>(false)
+  const [like, setLike] = useState<boolean>(
+    board.likes.map((like: any) => like.authorId).includes(board.authorId),
+  )
+
+  const [likeCount, setLikeCount] = useState<number>(board.likes.length)
 
   const handleSelectBoard = () => {
     setSelectBoard(board)
     setSideMessagrBar(!sideMessagrBar)
   }
-  console.log(board.messages.length)
+
+  const handleAddLike = async () => {
+    try {
+      const likePost = await apiClient.post('/post/board/like/add', {
+        boardId: board.id,
+        authorId: board.authorId,
+      })
+      setLikeCount(likePost.data.updatedBoard.likes.length)
+      setLike(!like)
+    } catch {
+      alert('エラーが発生しました')
+    }
+  }
+  const handleDelateLike = async () => {
+    try {
+      const likePost = await apiClient.post('/post/board/like/delete', {
+        boardId: board.id,
+        authorId: board.authorId,
+      })
+      setLikeCount(likePost.data.updatedBoard.likes.length)
+      setLike(!like)
+    } catch {
+      alert('エラーが発生しました')
+    }
+  }
 
   return (
     <div className={style.bulletin_board_Card}>
       <div className={style.timeline_user}>
         <Image
-          src={board.authorAvatar ? board.authorAvatar : noavater}
+          src={board.authorAvatar ? board?.authorAvatar : noavater}
           alt={''}
           width={40}
           height={40}
@@ -52,7 +81,7 @@ const BulletinboardCard = (props: any) => {
             <path d='M9 18h-3a3 3 0 0 1 -3 -3v-8a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v8a3 3 0 0 1 -3 3h-3l-3 3l-3 -3z' />
           </svg>
         </Badge>
-        <Badge badgeContent={board.messages.length} color='error' className={style.like_btn}>
+        <Badge badgeContent={likeCount} color='error' className={style.like_btn}>
           {like ? (
             <svg
               xmlns='http://www.w3.org/2000/svg'
@@ -64,7 +93,7 @@ const BulletinboardCard = (props: any) => {
               fill='none'
               stroke-linecap='round'
               stroke-linejoin='round'
-              onClick={() => setLike(!like)}
+              onClick={handleDelateLike}
             >
               <path stroke='none' d='M0 0h24v24H0z' fill='none' />
               <path d='M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572' />
@@ -80,7 +109,7 @@ const BulletinboardCard = (props: any) => {
               fill='none'
               stroke-linecap='round'
               stroke-linejoin='round'
-              onClick={() => setLike(!like)}
+              onClick={handleAddLike}
             >
               <path stroke='none' d='M0 0h24v24H0z' fill='none' />
               <path d='M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572' />

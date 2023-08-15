@@ -44,8 +44,8 @@ const MessageSidebar = (props: Props) => {
         <p className={style.bottom_border}>その他の返信</p>
       </div>
       <div>
-        {selectBoard.messages.map((message: any) => (
-          <SidebarChatCard message={message}>{message.content}</SidebarChatCard>
+        {selectBoard.messages.map((sideChat: any) => (
+          <SidebarChatCard sideChat={sideChat}>{sideChat.content}</SidebarChatCard>
         ))}
       </div>
       <div className={style.sidebar_input_area}>

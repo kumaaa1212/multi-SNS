@@ -56,8 +56,6 @@ export default function ArticleCard(props: Props) {
     setExpanded(!expanded)
   }
 
-  console.log(article)
-
   const handleDelete = async () => {
     try {
       const updatedPost = await apiClient.delete(`/post/album/delete/${article.id}`)

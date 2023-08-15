@@ -13,7 +13,7 @@ const Bulletinboard = (props: Props) => {
   const { boardRooms, setBoardRooms } = props
 
   const [sideMessagrBar, setSideMessagrBar] = useState<boolean>(false)
-  const [selectBoard, setSelectBoard] = useState<any>([])
+  const [selectBoard, setSelectBoard] = useState<BoardRoomType>()
   return (
     <div className={style.bulletinboard}>
       <Timeline

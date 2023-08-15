@@ -13,10 +13,9 @@ const BulletinboardPage = () => {
     const fetch = async () => {
       const res = await apiClient.get(`/post/boardRooms/${team}`)
       setBoardRooms(res.data.boardRooms[0].board)
-      console.log(res.data)
     }
     fetch()
-  }, [])
+  }, [team])
   return <Bulletinboard boardRooms={boardRooms} setBoardRooms={setBoardRooms} />
 }
 
