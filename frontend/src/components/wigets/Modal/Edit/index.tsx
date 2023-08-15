@@ -4,21 +4,20 @@ import { supabase } from '@/utils/supabaseClient'
 import style from './EditModal.module.scss'
 import Image from 'next/image'
 import bg_img from 'public/bg_img.jpg'
-import profile_img from 'public/profile_img.jpg'
 import ModalBase from '@/components/parts/Modal'
 import { useSelector } from 'react-redux'
 import { RootState } from '@/store/store'
 import Icongenerate from '@/utils/functions/Avater'
-import noavater from 'public/noavater.jpg'
 import { v4 as uuid4 } from 'uuid'
 
 interface Props {
-  open: boolean
-  setOpen: React.Dispatch<React.SetStateAction<boolean>>
+  openEdit: boolean
+  setOpenEdit: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 export default function EditModal(props: Props) {
-  const { open, setOpen } = props
+  const { openEdit, setOpenEdit } = props
+
   const { username, bio, icon, userId } = useSelector((state: RootState) => state.user)
 
   const [file, setFile] = useState<any>(null)
@@ -38,34 +37,37 @@ export default function EditModal(props: Props) {
 
   const handleSubmit = async () => {
     if (file) {
-      const { data: storageData, error: storegeError } = await supabase.storage
-        .from('avatars')
-        .upload(`${userId}/${uuid4()}`, file)
-
-      if (storegeError) {
-        throw storegeError
-      } else {
-        const { data: urlData } = supabase.storage.from('avatars').getPublicUrl(storageData.path)
-        await supabase.auth.updateUser({
-          data: { username: editName, bio: editIntro, icon: urlData.publicUrl },
-        })
+      try {
+        const { data: storageData, error: storegeError } = await supabase.storage
+          .from('avatars')
+          .upload(`${userId}/${uuid4()}`, file)
+        if (storegeError) {
+          throw storegeError
+        } else {
+          const { data: urlData } = supabase.storage.from('avatars').getPublicUrl(storageData.path)
+          supabase.auth.updateUser({
+            data: { username: editName, bio: editIntro, icon: urlData.publicUrl },
+          })
+        }
+      } catch {
+        alert('画像のアップロードに失敗しました。')
       }
     } else {
-      await supabase.auth.updateUser({
+      supabase.auth.updateUser({
         data: { username: editName, bio: editIntro },
       })
     }
-    setOpen(!open)
+    setOpenEdit(!openEdit)
   }
 
   return (
-    <ModalBase open={open} setOpen={setOpen}>
+    <ModalBase open={openEdit} setOpen={setOpenEdit}>
       <div className={style.edit_modal}>
         <div className={style.handle_area}>
           <button onClick={handleSubmit} className={style.save_btn}>
             保存
           </button>
-          <button onClick={() => setOpen(!open)} className={style.close_btn}>
+          <button onClick={() => setOpenEdit(false)} className={style.close_btn}>
             <svg
               xmlns='http://www.w3.org/2000/svg'
               className='icon icon-tabler icon-tabler-x'

@@ -1,28 +1,23 @@
 import Bulletinboard from '@/components/template/bulletinboard'
 import apiClient from '@/libs/apiClient'
-import { GetServerSideProps } from 'next'
+import { RootState } from '@/store/store'
+import { BoardRoomType } from '@/types/global'
+import { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux'
 
 const BulletinboardPage = () => {
-  return <Bulletinboard />
+  const { team } = useSelector((state: RootState) => state.user)
+  const [boardRooms, setBoardRooms] = useState<BoardRoomType[]>([])
+
+  useEffect(() => {
+    const fetch = async () => {
+      const res = await apiClient.get(`/post/boardRooms/${team}`)
+      setBoardRooms(res.data.boardRooms[0].board)
+      console.log(res.data)
+    }
+    fetch()
+  }, [])
+  return <Bulletinboard boardRooms={boardRooms} setBoardRooms={setBoardRooms} />
 }
 
 export default BulletinboardPage
-
-export const getServerSideProps: GetServerSideProps = async () => {
-  try {
-    const res = await apiClient.get('/chat/allrooms/')
-    const rooms = res.data.rooms
-    return {
-      props: {
-        rooms: rooms,
-      },
-    }
-  } catch (error) {
-    console.error('Error while fetching data:', error)
-    return {
-      props: {
-        rooms: [],
-      },
-    }
-  }
-}

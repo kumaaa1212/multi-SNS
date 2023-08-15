@@ -10,15 +10,18 @@ const MypageLikes = () => {
   const [albumData, setAlbumData] = React.useState<ArticlesType[]>([])
 
   useEffect(() => {
+    console.log('VGBHJKNLM<+<KMLJNHBYGUTVYFRTCgh')
+    const myAlbum = async () => {
+      try{
+        const albumdata = await apiClient.get(`/post/album/like/${userId}`)
+        setAlbumData(albumdata.data.likedPosts)
+      }
+      catch{
+        alert('情報の取得に失敗しました')
+      }
+    }
     myAlbum()
-  }, [])
-
-  const myAlbum = async () => {
-    const albumdata = await apiClient.get(`/post/album/like/${userId}`)
-    setAlbumData(albumdata.data.likedPosts)
-    console.log(albumdata.data)
-    console.log(albumdata.data.likedPosts)
-  }
+  }, [userId])
 
   return (
     <div className={style.album}>

@@ -1,12 +1,9 @@
 .timeline_tab{
   margin: 0 auto;
   width: 100%;
-  border: 1px red solid;
-
 }
 
 .timeline_header{
-  // border: 1px red solid;
   position: relative;
   right: 10px;
   left: 500;
@@ -26,7 +23,6 @@
 
 // albumのcss
 .album{
-  border: 1px red solid;
   display:grid ;
-  grid-template-columns:1fr 1fr 1fr;
+  grid-template-columns:1fr 1fr;
 }

@@ -1,6 +1,5 @@
 import React, { use, useEffect, useState } from 'react'
 import style from './FollowBtn.module.scss'
-import apiClient from '@/libs/apiClient'
 import { RootState } from '@/store/store'
 import { useSelector } from 'react-redux'
 import { supabase } from '@/utils/supabaseClient'

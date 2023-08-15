@@ -1,11 +1,16 @@
-import Profile from "./profile"
-import BasicTabs from "./timeline"
+import { useState } from 'react'
+import Profile from './profile'
+import BasicTabs from './timeline'
+import TweetModal from '@/components/wigets/Modal/Tweet'
 
 const Mapage = () => {
+  const [open, setOpen] = useState<boolean>(false)
+
   return (
-    <div className="mypage">
-      <Profile />
+    <div className='mypage'>
+      <Profile setOpen={setOpen} />
       <BasicTabs />
+      {open && <TweetModal open={open} setOpen={setOpen} />}
     </div>
   )
 }

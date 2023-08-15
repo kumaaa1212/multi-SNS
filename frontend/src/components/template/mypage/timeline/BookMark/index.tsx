@@ -10,14 +10,20 @@ const MypageBooKMark = () => {
   const [albumData, setAlbumData] = React.useState<ArticlesType[]>([])
 
   useEffect(() => {
-    myAlbum()
-  }, [])
-
-  const myAlbum = async () => {
-    const albumdata = await apiClient.get(`/post/album/bookmarked/${userId}`)
-    setAlbumData(albumdata.data.bookmarkedPosts)
-    console.log(albumdata.data)
-  }
+    const BookMarkFerch = async () => {
+      console.log('hnjkml,')
+      console.log(userId)
+      try{
+        const albumdata = await apiClient.get(`/post/album/bookmarked/${userId}`)
+        setAlbumData(albumdata.data.bookmarkedPosts)
+        console.log(albumdata.data)
+      }
+      catch{
+        alert('情報の取得に失敗しました')
+      }
+    }
+    BookMarkFerch()
+  }, [userId])
 
   return (
     <div className={style.album}>

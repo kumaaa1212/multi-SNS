@@ -61,3 +61,11 @@ export interface followType {
   username: string,
   icon: string,
 }
+
+
+export interface BoardRoomType {
+  content : string
+  authorId : string
+  authorName : string
+  authorAvatar : string
+}

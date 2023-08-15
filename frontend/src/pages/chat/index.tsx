@@ -27,7 +27,7 @@ export default ChatPage
 
 export const getServerSideProps: GetServerSideProps = async () => {
   try {
-    const res = await apiClient.get('/chat/allrooms/')
+    const res = await apiClient.get('/chat/allrooms')
     const rooms = res.data.rooms
     return {
       props: {

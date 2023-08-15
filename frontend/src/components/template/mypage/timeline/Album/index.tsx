@@ -8,21 +8,30 @@ import { useSelector } from 'react-redux'
 const MypageAlbum = () => {
   const { userId } = useSelector((state: RootState) => state.user)
   const [albumData, setAlbumData] = React.useState<ArticlesType[]>([])
+  console.log(userId)
 
   useEffect(() => {
+    console.log('AAAA')
+    console.log(userId)
+    const myAlbum = async () => {
+      try{
+        const albumdata = await apiClient.get(`/post/album/myalbum/${userId}`)
+        setAlbumData(albumdata.data.posts)
+      }
+      catch{
+        alert('情報の取得に失敗しました')
+      }
+    }
     myAlbum()
-  }, [])
+  }, [userId])
 
-  const myAlbum = async () => {
-    const albumdata = await apiClient.get(`/post/all/album/${userId}`)
-    setAlbumData(albumdata.data.posts)
-  }
+  console.log(albumData)
+
 
   return (
     <div className={style.album}>
-      {albumData.map((article) => (
-        <ArticleCard article={article} setAlbumData={setAlbumData} />
-      ))}
+      {albumData &&
+        albumData.map((article) => <ArticleCard article={article} setAlbumData={setAlbumData} />)}
     </div>
   )
 }

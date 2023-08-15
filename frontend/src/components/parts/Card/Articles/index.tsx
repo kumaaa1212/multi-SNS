@@ -21,10 +21,12 @@ import LikeBtn from '../../Button/Like'
 import { ArticlesType, LabelType } from '@/types/global'
 import apiClient from '@/libs/apiClient'
 import BookMarkBtn from '../../Button/BookMark'
+import { useRouter } from 'next/router'
 
 interface ExpandMoreProps extends IconButtonProps {
   expand: boolean
 }
+
 interface Props {
   article: ArticlesType
   setAlbumData: React.Dispatch<React.SetStateAction<ArticlesType[]>>
@@ -43,19 +45,34 @@ const ExpandMore = styled((props: ExpandMoreProps) => {
 
 export default function ArticleCard(props: Props) {
   const { article, setAlbumData } = props
+  const { username, userId } = useSelector((state: RootState) => state.user)
 
   const [expanded, setExpanded] = useState<boolean>(false)
   const [moreover, setMoreover] = useState<boolean>(false)
-  const { username } = useSelector((state: RootState) => state.user)
+
+  const router = useRouter()
 
   const handleExpandClick = (): void => {
     setExpanded(!expanded)
   }
 
+  console.log(article)
+
   const handleDelete = async () => {
-    const updatedPost = await apiClient.delete(`/post/album/delete/${article.id}`)
-    setAlbumData(updatedPost.data.remainingPosts)
-    setMoreover(false)
+    try {
+      const updatedPost = await apiClient.delete(`/post/album/delete/${article.id}`)
+
+      if (router.asPath === '/mypage') {
+        setAlbumData(
+          updatedPost.data.remainingPosts.filter(
+            (album: ArticlesType) => album.authorId === userId,
+          ),
+        )
+      }
+      setMoreover(false)
+    } catch {
+      alert('削除に失敗しました')
+    }
   }
 
   return (
@@ -64,7 +81,13 @@ export default function ArticleCard(props: Props) {
         <CardHeader
           className={style.card_header}
           avatar={
-            <Image src={Icongenerate(article.authorAvatar)} alt={''} width={30} height={30} />
+            <Image
+              src={Icongenerate(article.authorAvatar)}
+              alt={''}
+              width={30}
+              height={30}
+              className={style.icon_img}
+            />
           }
           action={
             article.authorName === username ? (
@@ -133,7 +156,7 @@ export default function ArticleCard(props: Props) {
         <Collapse in={expanded} timeout='auto' unmountOnExit>
           <CardContent>
             <div>
-              <Link href={`/home/albumDetails/${article.id}`}>Show more</Link>
+              <Link href={`/home/albumMore/${article.id}`}>Show more</Link>
             </div>
           </CardContent>
         </Collapse>

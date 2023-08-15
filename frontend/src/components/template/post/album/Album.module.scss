@@ -1,6 +1,7 @@
 // アルバムのmain画面
 .album_main{
   width: 100%;
+
   input{
     display: block;
     width: 600px;
@@ -19,10 +20,12 @@
     margin-left: 50px;
     display: flex;
     justify-content: center;
+
     .preview_area{
       width: 800px;
       height: 400px;
     }
+
     .album_text{
       display: block;
       resize: none;
@@ -40,12 +43,14 @@
       margin-left: 20px;
       display: flex;
       flex-direction: column;
+
       svg{
         cursor: pointer;
         margin-top: 30px;
         background-color: gray;
         border-radius: 50%;
       }
+      
       svg:hover{
         background-color: black;
       }

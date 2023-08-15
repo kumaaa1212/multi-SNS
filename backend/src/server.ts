@@ -1,7 +1,7 @@
 import express from "express";
 import postRoute from './router/post';
 import chatRoute from './router/chat';
-import boardsRoute from './router/boards';
+// import boardsRoute from './router/boards';
 import cors from 'cors';
 
 const app = express();
@@ -17,6 +17,6 @@ const corsOptions = {
 app.use(cors(corsOptions))
 app.use('/api/post',postRoute)
 app.use('/api/chat',chatRoute)
-app.use('/api/boards',boardsRoute)
+// app.use('/api/boards',boardsRoute)
 
 app.listen(port, () => console.log(`Listening on port ${port}`));

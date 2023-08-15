@@ -34,7 +34,7 @@ export default function Login() {
         email: data.email,
         password: data.password,
       })
-      await router.push('/home')
+      router.push('/home')
     } catch {
       alert('エラーが発生しました')
     }

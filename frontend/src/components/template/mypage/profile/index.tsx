@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import React, { useEffect, useState } from 'react'
+import React, { Dispatch, useEffect, useState } from 'react'
 import style from './Prolife.module.scss'
 import EditModal from '@/components/wigets/Modal/Edit'
 import { useSelector } from 'react-redux'
@@ -9,25 +9,35 @@ import Icongenerate from '@/utils/functions/Avater'
 import PostBtn from '@/components/parts/Button/Post/addbtn'
 import apiClient from '@/libs/apiClient'
 
-const Profile = () => {
+interface Props {
+  setOpen: Dispatch<boolean>
+}
+
+const Profile = (props: Props) => {
+  const { setOpen } = props
   const { username, icon, bio, follow, follower, userId } = useSelector(
     (state: RootState) => state.user,
   )
 
-  const [open, setOpen] = useState<boolean>(false)
+  const [openEdit, setOpenEdit] = useState<boolean>(false)
   const [like, setLike] = useState<any>()
 
   useEffect(() => {
     const llikeDeta = async () => {
-      const likeArry = await apiClient.get(`/post/album/likes/${userId}`)
-      setLike(likeArry.data.likes)
+      try{
+        const likeArry = await apiClient.get(`/post/album/likes/${userId}`)
+        setLike(likeArry.data.likes)
+      }
+      catch{
+        alert('情報の更新に失敗しました。')
+      }
     }
     llikeDeta()
   }, [])
 
   return (
     <div>
-      {open && <EditModal open={open} setOpen={setOpen} />}
+      {openEdit && <EditModal openEdit={openEdit} setOpenEdit={setOpenEdit} />}
       <div className={style.profile_area}>
         <Image
           src={icon ? Icongenerate(icon) : Noavater}
@@ -39,7 +49,7 @@ const Profile = () => {
         <div className={style.profile_details}>
           <div className={style.profile_header}>
             <h1>{username}</h1>
-            <button className={style.profile_header_btn} onClick={() => setOpen(!open)}>
+            <button className={style.profile_header_btn} onClick={() => setOpenEdit(true)}>
               編集
             </button>
           </div>
@@ -96,7 +106,7 @@ const Profile = () => {
           </div>
         </div>
       </div>
-      <PostBtn />
+      <PostBtn setOpen={setOpen} />
     </div>
   )
 }

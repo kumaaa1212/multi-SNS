@@ -43,16 +43,21 @@ export default function MultipleSelectNative(props: Props) {
   }, [])
 
   const handleAddNewPerson = async (info: FrendInfo) => {
-    const newChatRoom = await apiClient.post('/chat/newroom', {
-      user1Id: userId,
-      user1Name: username,
-      user1Icon: iconPath,
-      user2Id: info.authorId,
-      user2Name: info.username,
-      user2Icon: info.icon,
-    })
-    handleSelectFrend()
-    setMyRooms((prev) => [...prev, newChatRoom.data])
+    try{
+      const newChatRoom = await apiClient.post('/chat/newroom', {
+        user1Id: userId,
+        user1Name: username,
+        user1Icon: iconPath,
+        user2Id: info.authorId,
+        user2Name: info.username,
+        user2Icon: info.icon,
+      })
+      handleSelectFrend()
+      setMyRooms((prev) => [...prev, newChatRoom.data])
+    }
+    catch{
+      alert('チャットルームの作成に失敗しました')
+    }
   }
   return (
     <div className={style.chat_new_area}>

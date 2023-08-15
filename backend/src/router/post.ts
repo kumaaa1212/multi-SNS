@@ -119,6 +119,8 @@ router.get("/all/album", async (req: Request, res: Response) => {
       },
       include: {
         labels: true,
+        likes: true,
+        bookmarks: true,
       },
     });
     return res.json({ posts });
@@ -127,8 +129,34 @@ router.get("/all/album", async (req: Request, res: Response) => {
   }
 });
 
+// 特定の投稿を取得する
+router.get("/album/:postId", async (req: Request, res: Response) => {
+  const { postId } = req.params;
+
+  try {
+    const post = await prisma.post.findUnique({
+      where: {
+        id: parseInt(postId),
+      },
+      include: {
+        labels: true,
+        likes: true,
+        bookmarks: true,
+      },
+    });
+
+    if (post) {
+      return res.json({ post });
+    } else {
+      return res.json({ message: "Post not found" });
+    }
+  } catch (err: any) {
+    res.json({ error: err.message });
+  }
+});
+
 // 特定のユーザーの投稿を取得する
-router.get("/all/album/:userId", async (req: Request, res: Response) => {
+router.get("/album/myalbum/:userId", async (req: Request, res: Response) => {
   const { userId } = req.params;
 
   try {
@@ -332,7 +360,6 @@ router.post("/album/bookmark/add", async (req, res) => {
 // bookmarkを削除する
 router.post("/album/bookmark/delete", async (req: Request, res: Response) => {
   const { postId, authorId } = req.body;
-
   try {
     // まずはいいねを削除
     await prisma.bookmark.deleteMany({
@@ -353,7 +380,7 @@ router.post("/album/bookmark/delete", async (req: Request, res: Response) => {
     });
 
     if (relatedPost) {
-      const updatedBookmark = relatedPost.bookmarks.filter(
+      const updatedBookmarks = relatedPost.bookmarks.filter(
         (bookmark) => bookmark.authorId !== authorId
       );
 
@@ -362,8 +389,8 @@ router.post("/album/bookmark/delete", async (req: Request, res: Response) => {
           id: postId,
         },
         data: {
-          likes: {
-            set: updatedBookmark,
+          bookmarks: {
+            set: updatedBookmarks,
           },
         },
       });
@@ -419,15 +446,15 @@ router.post("/album/bookmark/check", async (req: Request, res: Response) => {
 });
 
 // 自分がbookmarkした投稿の取得
-router.get("/album/bookmarked/:userId", async (req, res) => {
-  const { userId } = req.params;
+router.get("/album/bookmarked/:authorId", async (req:Request, res:Response) => {
+  const { authorId } = req.params;
 
   try {
     const bookmarkedPosts = await prisma.post.findMany({
       where: {
         bookmarks: {
           some: {
-            authorId: userId,
+            authorId: authorId,
           },
         },
       },
@@ -448,7 +475,7 @@ router.get("/album/bookmarked/:userId", async (req, res) => {
 });
 
 // ラベルによるチーム別投稿の取得
-router.get("/album/:label", async (req: Request, res: Response) => {
+router.get("/album/team/:label", async (req: Request, res: Response) => {
   const { label } = req.params;
 
   try {
@@ -469,6 +496,191 @@ router.get("/album/:label", async (req: Request, res: Response) => {
     return res.json({ post: postsWithLabel }); // 配列で返す
   } catch (err: any) {
     res.json({ error: err.message });
+  }
+});
+
+router.get("/boardRooms/:team", async (req, res) => {
+  const team = req.params.team;
+
+  try {
+    const boardRooms = await prisma.boardRoom.findMany({
+      where: {
+        team: team,
+      },
+      include: {
+        board: {
+          include: {
+            messages: {
+              orderBy: {
+                createdAt: "desc", // 新しい順に並べ替える
+              },
+            },
+            likes: true,
+          },
+        },
+      },
+    });
+
+    return res.json({ boardRooms });
+  } catch (error) {
+    console.error("Failed to retrieve board rooms:", error);
+    return res.status(500).json({ error: "Failed to retrieve board rooms." });
+  }
+});
+
+// 掲示板を追加する
+
+router.post("/boards", async (req, res) => {
+  const { content, authorId, authorName, authorAvatar, team } = req.body;
+
+  try {
+    const room = await prisma.boardRoom.findFirst({
+      where: {
+        team: team,
+      },
+    });
+
+    if (!room) {
+      return res
+        .status(404)
+        .json({ error: "Room not found for the specified team." });
+    }
+
+    await prisma.board.create({
+      data: {
+        content,
+        authorId,
+        authorName,
+        authorAvatar,
+        roomId: room.roomId,
+      },
+      include: {
+        likes: true,
+        messages: {
+          orderBy: {
+            createdAt: "asc", // 古い順に並べ替える
+          },
+        },
+      },
+    });
+
+    const updatedRoom = await prisma.boardRoom.findUnique({
+      where: {
+        roomId: room.roomId,
+      },
+      include: {
+        board: {
+          include: {
+            likes: true,
+            messages: {
+              orderBy: {
+                createdAt: "asc", // 古い順に並べ替える
+              },
+            },
+          },
+        },
+      },
+    });
+
+    return res.json({ updatedRoom });
+  } catch (error) {
+    console.error("Failed to create board:", error);
+    return res.status(500).json({ error: "Failed to create board." });
+  }
+});
+
+// 特定の掲示板を取得する
+router.get("/boards/:id", async (req, res) => {
+  const boardId = parseInt(req.params.id);
+
+  try {
+    const board = await prisma.board.findUnique({
+      where: {
+        id: boardId,
+      },
+      include: {
+        room: true,
+        likes: true,
+        messages: true,
+      },
+    });
+
+    if (!board) {
+      return res.status(404).json({ error: "Board not found." });
+    }
+
+    return res.json({ board });
+  } catch (error) {
+    console.error("Failed to retrieve board:", error);
+    return res.status(500).json({ error: "Failed to retrieve board." });
+  }
+});
+
+// 掲示板一覧にいいねを追加する
+router.post("/boards/:boardId/likes", async (req, res) => {
+  const { boardId } = req.params;
+  const { authorId } = req.body;
+
+  try {
+    const updatedBoard = await prisma.board.update({
+      where: {
+        id: parseInt(boardId),
+      },
+      data: {
+        likes: {
+          create: {
+            authorId: authorId,
+          },
+        },
+      },
+    });
+
+    return res.json({ board: updatedBoard });
+  } catch (error) {
+    console.error("Failed to add like to board:", error);
+    return res.status(500).json({ error: "Failed to add like to board." });
+  }
+});
+
+// 掲示板にメッセージを追加する
+router.post("/boards/:boardId/messages", async (req, res) => {
+  const { boardId } = req.params;
+  const { content, authorId, authorName, authorAvatar } = req.body;
+
+  try {
+    await prisma.boardMessage.create({
+      data: {
+        content,
+        authorId,
+        authorName,
+        authorAvatar,
+        board: {
+          connect: {
+            id: parseInt(boardId),
+          },
+        },
+      },
+    });
+
+    // 更新された board を取得
+    const updatedBoard = await prisma.board.findUnique({
+      where: {
+        id: parseInt(boardId),
+      },
+      include: {
+        likes: true,
+        messages: {
+          orderBy: {
+            createdAt: "asc", // 古い順に並べ替える
+          },
+        },
+      },
+    });
+
+    return res.json({ board: updatedBoard });
+  } catch (error) {
+    console.error("Failed to add message to board:", error);
+    return res.status(500).json({ error: "Failed to add message to board." });
   }
 });
 

@@ -26,7 +26,7 @@ export default function ModalBase(props:Props) {
   return (
     <div className={styles.tweet_modal}>
       <Modal
-        open={open}
+         open={open || false} 
         onClose={() => setOpen(!open)}
       >
         <Box sx={style}>

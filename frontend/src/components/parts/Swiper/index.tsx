@@ -15,7 +15,7 @@ const SwiperArea = () => {
         {images.map((src: string, index: number) => {
           return (
             <SwiperSlide key={`${index}`}>
-              <Image className={style.img} src={src} width={1000} height={400} alt='sample' />
+              <Image className={style.img} src={src} width={1000} height={350} alt='sample' />
             </SwiperSlide>
           )
         })}

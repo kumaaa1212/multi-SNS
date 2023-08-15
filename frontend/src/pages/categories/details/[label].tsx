@@ -9,14 +9,23 @@ interface Props {
 }
 
 const TeamPage = ({ data }: { data: Props }) => {
+  console.log(data)
   return <Team data={data.post} />
 }
 
 export default TeamPage
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const { label } = context.query
-  const res = await apiClient.get(`/post/album/${label}`)
-  const data = res.data
-  return { props: { data } }
+  try {
+    const { label } = context.query
+    const res = await apiClient.get(`/post/album/team/${label}`)
+    const data = res.data
+    return { props: { data } }
+  } catch {
+    return {
+      props: {
+        data: null,
+      },
+    }
+  }
 }

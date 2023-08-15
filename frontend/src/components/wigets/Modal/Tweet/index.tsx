@@ -6,6 +6,7 @@ import apiClient from '@/libs/apiClient'
 import ModalBase from '@/components/parts/Modal'
 import { useSelector } from 'react-redux'
 import { RootState } from '@/store/store'
+
 export default function TweetModal(props: any) {
   const { open, setOpen } = props
   const { userId } = useSelector((state: RootState) => state.user)
@@ -13,10 +14,15 @@ export default function TweetModal(props: any) {
   const [tweetContents, setTweetContents] = useState<string>('')
 
   const handleTweet = async () => {
-    const res = await apiClient.post('/post/tweet', {
-      content: tweetContents,
-      authorId: userId,
-    })
+    try{
+      const res = await apiClient.post('/post/tweet', {
+        content: tweetContents,
+        authorId: userId,
+      })
+    }
+    catch{
+      alert('ツイートに失敗しました')
+    }
   }
 
   function openFileInput() {

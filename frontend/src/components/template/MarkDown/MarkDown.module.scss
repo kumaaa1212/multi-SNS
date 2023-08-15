@@ -8,6 +8,7 @@
 }
 
 .markdown img {
-  max-width: 200px;
+  max-width: 400px;
   height: 200px;
+  object-fit: cover;
 }

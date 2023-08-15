@@ -23,16 +23,20 @@ const ChatArea = (props: Props) => {
   const router = useRouter()
 
   const handleSend = async () => {
-    await apiClient.post('/chat/room/add/message', {
-      roomId: selectRoom.id,
-      content: input,
-      authorId: userId,
-      senderId: selectRoom.user2Id,
-    })
-
-    const deta = await apiClient.get(`/chat/room/chat/${selectRoom.id}`)
-    setNewMessage(deta.data)
-    setInput('')
+    if (!input) return
+    try {
+      await apiClient.post('/chat/room/add/message', {
+        roomId: selectRoom.id,
+        content: input,
+        authorId: userId,
+        senderId: selectRoom.user2Id,
+      })
+      const deta = await apiClient.get(`/chat/room/chat/${selectRoom.id}`)
+      setNewMessage(deta.data)
+      setInput('')
+    } catch {
+      alert('メッセージの送信に失敗しました')
+    }
   }
 
   return (

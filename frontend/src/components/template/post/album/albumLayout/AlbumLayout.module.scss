@@ -4,14 +4,15 @@
   justify-content: space-between;
   align-items: center;
   height: 60px;
-  // border: 1px red solid;
+
   .header_right{
     display: flex;
-    // border: 1px red solid;
+
     svg{
       cursor: pointer;
     }
   }
+
   .album_btn{
     border: none;
     background-color: transparent;
@@ -20,16 +21,16 @@
 }
 
 .abjust_area{
-  // border: 01px red solid;
   position: relative;
+
   .abjust_dropdown{
     padding: 5px;
     border-radius: 5px;
     box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.2);
-    // border: 01px red solid;
     position: absolute;
     width: 150px;
     height: 70px;
+
     .drowdown_list{
       list-style: none;
       cursor: pointer;
@@ -48,6 +49,7 @@
   border-radius: 5px;
   padding: 5px 10px;
   cursor: pointer;
+  
   &:hover{
     background-color: black;
   }

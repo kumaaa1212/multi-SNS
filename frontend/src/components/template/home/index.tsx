@@ -14,7 +14,7 @@ interface Props {
 
 const Home = (props: Props) => {
   const { articles } = props
-  const { userId } = useSelector((state: RootState) => state.user)
+  const { userId, username } = useSelector((state: RootState) => state.user)
   const [showAlert, setShowAlert] = useState<boolean>(false)
 
   useEffect(() => {

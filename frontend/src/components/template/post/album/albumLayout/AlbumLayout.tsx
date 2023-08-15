@@ -4,11 +4,12 @@ import HorizontalLinearStepper from '@/components/parts/Stepper'
 import SwitchBtn from '@/components/parts/Button/SwitchBtn'
 import { useRouter } from 'next/router'
 import AbjustModal from '@/components/wigets/Modal/Abjustment'
-import { RootState } from '@/store/store'
-import { useSelector } from 'react-redux'
+import { AppDispatch, RootState } from '@/store/store'
+import { useDispatch, useSelector } from 'react-redux'
 import apiClient from '@/libs/apiClient'
 import { supabase } from '@/utils/supabaseClient'
 import { v4 as uuidv4 } from 'uuid'
+import { stateReset } from '@/features/postSlice'
 
 interface Props {
   children: React.ReactNode
@@ -20,6 +21,7 @@ const AlnumLayout = (props: Props) => {
   const { children } = props
 
   const router = useRouter()
+  const dispatch: AppDispatch = useDispatch()
 
   const [keepPost, setKeepPost] = useState<boolean>(false)
   const [activeStep, setActiveStep] = useState<number>(0)
@@ -28,7 +30,8 @@ const AlnumLayout = (props: Props) => {
   const [abjustOpen, setAbjustOpen] = useState<boolean>(false)
 
   const { thumbnailText, titleText, labels, contentText, thumbnailImg } = useSelector(
-    (state: RootState) => state.post,)
+    (state: RootState) => state.post,
+  )
   const { username, userId, iconPath } = useSelector((state: RootState) => state.user)
 
   useEffect(() => {
@@ -52,36 +55,46 @@ const AlnumLayout = (props: Props) => {
     } else {
       try {
         if (thumbnailImg === '') {
-          await apiClient.post('/post/album', {
-            title: titleText,
-            content: contentText,
-            labels: labels,
-            thumbnailText: thumbnailText,
-            authorId: userId,
-            authorName: username,
-            authorAvatar: iconPath,
-            thumbnailImg: '',
-          })
-        } else {
-          const { data: storageData, error: storegeError } = await supabase.storage
-            .from('thumbnail')
-            .upload(`${userId}/${uuidv4()}`, thumbnailImg)
-          if (storegeError) {
-            throw storegeError
+          try {
+            await apiClient.post('/post/album', {
+              title: titleText,
+              content: contentText,
+              labels: labels,
+              thumbnailText: thumbnailText,
+              authorId: userId,
+              authorName: username,
+              authorAvatar: iconPath,
+              thumbnailImg: '',
+            })
+            dispatch(stateReset())
+          } catch {
+            alert('投稿に失敗しました')
           }
-          const { data: urlData } = supabase.storage
-            .from('thumbnail')
-            .getPublicUrl(storageData.path)
-          await apiClient.post('/post/album', {
-            title: titleText,
-            content: contentText,
-            labels: labels,
-            thumbnailText: thumbnailText,
-            authorId: userId,
-            authorName: username,
-            authorAvatar: iconPath,
-            thumbnailImg: urlData.publicUrl,
-          })
+        } else {
+          try {
+            const { data: storageData, error: storegeError } = await supabase.storage
+              .from('thumbnail')
+              .upload(`${userId}/${uuidv4()}`, thumbnailImg)
+            if (storegeError) {
+              throw storegeError
+            }
+            const { data: urlData } = supabase.storage
+              .from('thumbnail')
+              .getPublicUrl(storageData.path)
+            await apiClient.post('/post/album', {
+              title: titleText,
+              content: contentText,
+              labels: labels,
+              thumbnailText: thumbnailText,
+              authorId: userId,
+              authorName: username,
+              authorAvatar: iconPath,
+              thumbnailImg: urlData.publicUrl,
+            })
+            dispatch(stateReset())
+          } catch {
+            alert('投稿に失敗しました')
+          }
         }
         router.push('/post/album/release')
       } catch {

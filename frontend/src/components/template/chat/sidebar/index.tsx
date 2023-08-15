@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, use, useEffect, useState } from 'react'
+import { Dispatch, SetStateAction, useState } from 'react'
 import ChatSearch from '@/components/parts/Search/ChatSearch'
 import NewChatIcon from 'public/svg/newChat.svg'
 import ChatSetting from 'public/svg/chat_setting.svg'
@@ -23,8 +23,6 @@ const SideBar = (props: Props) => {
   const [followListm, setFollowList] = useState<boolean>(false)
   const [settingArea, setSettingArea] = useState<boolean>(false)
   const [myRooms, setMyRooms] = useState<RoomType[]>(filterMyRooms)
-  const { userId, follow } = useSelector((state: RootState) => state.user)
-  const [noMutualRooms, setNoMutualRooms] = useState<RoomType[]>([])
 
   return (
     <div className='chat_sidebar'>

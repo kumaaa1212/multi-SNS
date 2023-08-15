@@ -13,11 +13,15 @@ const LikeBtn = (props: any) => {
 
   useEffect(() => {
     const fetchLike = async () => {
-      const res = await apiClient.post('/post/album/like/check', {
-        postId: id,
-        authorId: userId,
-      })
-      setLikeBtn(res.data.hasLiked)
+      try {
+        const res = await apiClient.post('/post/album/like/check', {
+          postId: id,
+          authorId: userId,
+        })
+        setLikeBtn(res.data.hasLiked)
+      } catch {
+        alert('情報の取得に失敗しました')
+      }
     }
 
     fetchLike()
@@ -38,8 +42,8 @@ const LikeBtn = (props: any) => {
         })
         setLikeBtn(true)
       }
-    } catch (error) {
-      console.error('Error while handling like:', error)
+    } catch {
+      alert('エラーが発生しました')
     }
   }
 

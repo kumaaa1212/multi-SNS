@@ -20,11 +20,16 @@ const BookMarkBtn = (props: Props) => {
 
   useEffect(() => {
     const fetchLike = async () => {
-      const res = await apiClient.post('/post/album/bookmark/check', {
-        postId: id,
-        authorId: userId,
-      })
-      setBookmark(res.data.hasLiked)
+      try{
+        const res = await apiClient.post('/post/album/bookmark/check', {
+          postId: id,
+          authorId: userId,
+        })
+        setBookmark(res.data.hasLiked)
+      }
+      catch{
+        alert('情報の取得に失敗しました')
+      }
     }
 
     fetchLike()
@@ -45,8 +50,8 @@ const BookMarkBtn = (props: Props) => {
         })
         setBookmark(true)
       }
-    } catch (error) {
-      console.error('Error while handling like:', error)
+    } catch {
+      alert('情報の取得に失敗しました')
     }
   }
 

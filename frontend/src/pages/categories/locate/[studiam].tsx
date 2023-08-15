@@ -12,8 +12,17 @@ const TeamPage= ({data}:any) => {
 export default TeamPage
 
 export const getServerSideProps:GetServerSideProps = async (context) => {
-  const { label } = context.query;
-  const res = await apiClient.get(`/post/album/${label}`);
-  const data = res.data;
-  return { props: { data } };
+  try{
+    const { label } = context.query;
+    const res = await apiClient.get(`/post/album/${label}`);
+    const data = res.data;
+    return { props: { data } };
+  }
+  catch{
+    return {
+      props: {
+        data: null,
+      },
+    }
+  }
 }

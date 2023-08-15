@@ -10,7 +10,7 @@ import { AppDispatch, RootState } from '@/store/store'
 
 const Album = () => {
   const [preview, setPreview] = useState<boolean>(false)
-  
+
   const dispatch: AppDispatch = useDispatch()
   const { titleText, contentText } = useSelector((state: RootState) => state.post)
 
