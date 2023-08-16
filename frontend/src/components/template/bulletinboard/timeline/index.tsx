@@ -5,13 +5,15 @@ import SendInput from '@/components/parts/Input'
 import apiClient from '@/libs/apiClient'
 import { RootState } from '@/store/store'
 import { useSelector } from 'react-redux'
+import { Pagination } from '@mui/material'
 
 const Timeline = (props: any) => {
-  const { sideMessagrBar, setSideMessagrBar, boardRooms, setBoardRooms, setSelectBoard } = props
-  const { team, userId, username, iconPath } = useSelector((state: RootState) => state.user)
+  const { boardRooms, setBoardRooms, sideMessagrBar, setSideMessagrBar, setSelectBoard } = props
 
+  const { team, userId, username, iconPath } = useSelector((state: RootState) => state.user)
   const [input, setInput] = useState<string>('')
-  // えぐいレンダリング起きている
+  const [page, setPage] = useState(1)
+
   const handleSend = async () => {
     try {
       if (input.length === 0) throw new Error('入力してください')
@@ -45,7 +47,17 @@ const Timeline = (props: any) => {
         ))}
       </div>
       <div className={style.input_area}>
-        <SendInput input={input} setInput={setInput} handleSend={handleSend} />
+        <div className={style.input}>
+          <SendInput input={input} setInput={setInput} handleSend={handleSend} />
+        </div>
+        <div className={style.pagenation}>
+          <Pagination
+            count={10}
+            color='primary'
+            onChange={(e, page) => setPage(page)}
+            page={page}
+          />
+        </div>
       </div>
     </div>
   )

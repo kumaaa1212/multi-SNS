@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import React, { Dispatch, useEffect, useState } from 'react'
 import style from './Prolife.module.scss'
-import EditModal from '@/components/wigets/Modal/Edit'
+import EditModal from '@/components/widgets/Modal/Edit'
 import { useSelector } from 'react-redux'
 import { RootState } from '@/store/store'
 import Noavater from '/public/noavater.jpg'
@@ -24,11 +24,10 @@ const Profile = (props: Props) => {
 
   useEffect(() => {
     const llikeDeta = async () => {
-      try{
+      try {
         const likeArry = await apiClient.get(`/post/album/likes/${userId}`)
         setLike(likeArry.data.likes)
-      }
-      catch{
+      } catch {
         alert('情報の更新に失敗しました。')
       }
     }

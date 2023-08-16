@@ -5,12 +5,14 @@ import LoginIcon from '@mui/icons-material/Login'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { supabase } from '@/utils/supabaseClient'
-import { useSelector } from 'react-redux'
-import { RootState } from '@/store/store'
+import { useDispatch, useSelector } from 'react-redux'
+import { AppDispatch, RootState } from '@/store/store'
+import { logoutUser } from '@/features/userSlice'
 
 const DropDown = () => {
   const router = useRouter()
   const { userId } = useSelector((state: RootState) => state.user)
+  const dispatch: AppDispatch = useDispatch()
 
   const Logout = async (e: any) => {
     e.preventDefault()
@@ -19,6 +21,7 @@ const DropDown = () => {
       if (logoutError) {
         throw logoutError
       }
+      dispatch(logoutUser())
       await router.push('/')
     } catch {
       alert('エラーが発生しました')

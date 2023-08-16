@@ -1,22 +1,27 @@
-import Bulletinboard from '@/components/template/bulletinboard'
+import Board from '@/components/template/bulletinboard'
 import apiClient from '@/libs/apiClient'
 import { RootState } from '@/store/store'
 import { BoardRoomType } from '@/types/global'
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 
-const BulletinboardPage = () => {
-  const { team } = useSelector((state: RootState) => state.user)
+const BoardPage = () => {
+  const { team, userId } = useSelector((state: RootState) => state.user)
   const [boardRooms, setBoardRooms] = useState<BoardRoomType[]>([])
 
   useEffect(() => {
-    const fetch = async () => {
-      const res = await apiClient.get(`/post/boardRooms/${team}`)
-      setBoardRooms(res.data.boardRooms[0].board)
+    if (userId) {
+      const fetch = async () => {
+        const res = await apiClient.get(`/post/boardRooms/${team}`)
+        setBoardRooms(res.data.boardRooms[0].board)
+      }
+      fetch()
+    } else {
+      setBoardRooms([])
     }
-    fetch()
-  }, [team])
-  return <Bulletinboard boardRooms={boardRooms} setBoardRooms={setBoardRooms} />
+  }, [userId])
+  
+  return <Board boardRooms={boardRooms} setBoardRooms={setBoardRooms} />
 }
 
-export default BulletinboardPage
+export default BoardPage

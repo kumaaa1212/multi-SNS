@@ -23,11 +23,11 @@ const ArticlesPart = (props: Props) => {
           全ての記事を見る
         </Link>
       </div>
-      <div className={style.home_articles}>
+      {/* <div className={style.home_articles}>
         {albumData.slice(0, 4).map((article: ArticlesType) => (
           <ArticleCard article={article} setAlbumData={setAlbumData} />
         ))}
-      </div>
+      </div> */}
       <button className={style.all_articles} onClick={() => router.push('/articles')}>
         全ての記事を見る
       </button>

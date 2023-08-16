@@ -7,12 +7,15 @@ import { RootState } from '@/store/store'
 
 interface Props {
   selectBoard: any
+  boardRooms: any
+  setBoardRooms: any
 }
 
 const MessageSidebar = (props: Props) => {
-  const [sideMessagrBar, setSideMessagrBar] = useState<any>([])
-  const {  userId, username, iconPath } = useSelector((state: RootState) => state.user)
-  const { selectBoard } = props
+  const { selectBoard, boardRooms, setBoardRooms } = props
+
+  const [sideMessagrBar, setSideMessagrBar] = useState<any>(selectBoard.messages)
+  const { userId, username, iconPath } = useSelector((state: RootState) => state.user)
 
   const [input, setInput] = useState<string>('')
 
@@ -26,26 +29,32 @@ const MessageSidebar = (props: Props) => {
         authorAvatar: iconPath,
       })
       setSideMessagrBar(newRoom.data.board.messages)
+      console.log(newRoom.data.board)
+      setBoardRooms(
+        boardRooms.map((obj: { id: any }) =>
+          obj.id === newRoom.data.board.id ? newRoom.data.board : obj,
+        ),
+      )
+      setInput('')
     } catch {
       alert('投稿に失敗しました')
       setInput('')
     }
   }
 
-  console.log(sideMessagrBar)
-  console.log(selectBoard.messages)
-
   return (
     <div className={style.side}>
-      <div className={style.side_main_chat}>
-        <SidebarChatCard selectBoard={selectBoard}>
-          <p>{selectBoard.content}</p>
+      <div className={style.side_header}>
+        <SidebarChatCard selectBoard={selectBoard} avater={selectBoard.authorAvatar}>
+          {selectBoard.content}
         </SidebarChatCard>
         <p className={style.bottom_border}>その他の返信</p>
       </div>
       <div>
-        {selectBoard.messages.map((sideChat: any) => (
-          <SidebarChatCard sideChat={sideChat}>{sideChat.content}</SidebarChatCard>
+        {sideMessagrBar.map((sideChat: any) => (
+          <SidebarChatCard sideChat={sideChat} avater={sideChat.authorAvatar}>
+            {sideChat.content}
+          </SidebarChatCard>
         ))}
       </div>
       <div className={style.sidebar_input_area}>

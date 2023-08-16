@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import Profile from './profile'
 import BasicTabs from './timeline'
-import TweetModal from '@/components/wigets/Modal/Tweet'
+import TweetModal from '@/components/widgets/Modal/Tweet'
 
 const Mapage = () => {
   const [open, setOpen] = useState<boolean>(false)

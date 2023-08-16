@@ -9,23 +9,32 @@ interface Props {
   setBoardRooms: React.Dispatch<React.SetStateAction<BoardRoomType[]>>
 }
 
-const Bulletinboard = (props: Props) => {
+const Board = (props: Props) => {
   const { boardRooms, setBoardRooms } = props
 
   const [sideMessagrBar, setSideMessagrBar] = useState<boolean>(false)
   const [selectBoard, setSelectBoard] = useState<BoardRoomType>()
+
   return (
-    <div className={style.bulletinboard}>
+    <div className={style.board}>
       <Timeline
-        sideMessagrBar={sideMessagrBar}
-        setSideMessagrBar={setSideMessagrBar}
         boardRooms={boardRooms}
         setBoardRooms={setBoardRooms}
+        sideMessagrBar={sideMessagrBar}
+        setSideMessagrBar={setSideMessagrBar}
         setSelectBoard={setSelectBoard}
       />
-      <div>{sideMessagrBar ? <MessageSidebar selectBoard={selectBoard} /> : null}</div>
+      <div>
+        {sideMessagrBar && (
+          <MessageSidebar
+            boardRooms={boardRooms}
+            setBoardRooms={setBoardRooms}
+            selectBoard={selectBoard}
+          />
+        )}
+      </div>
     </div>
   )
 }
 
-export default Bulletinboard
+export default Board

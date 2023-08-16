@@ -224,12 +224,15 @@
   }
 }
 
-
-
-
 // bookmarrk
-.bookmark_icon{
+.bookmark_icon {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+// board
+.MuiPaper-root {
+  margin: 10px 0;
+  padding: 5px;
 }

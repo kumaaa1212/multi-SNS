@@ -44,9 +44,19 @@ const userSlice = createSlice({
       state.follow = action.payload.user_metadata.follow
       state.follower = action.payload.user_metadata.follower
     },
+    logoutUser: (state) => {
+      state.username = ''
+      state.userId = ''
+      state.team = ''
+      state.icon = ''
+      state.iconPath = ''
+      state.bio = ''
+      state.follow = []
+      state.follower = []
+    }
   },
 })
 
-export const { loginUser } = userSlice.actions
+export const { loginUser,logoutUser } = userSlice.actions
 
 export default userSlice.reducer
