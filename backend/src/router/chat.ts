@@ -40,9 +40,21 @@ router.get("/room/chat", async (req: Request, res: Response) => {
 });
 
 // チャットルームを取得する
-router.get("/allrooms", async (_req: Request, res: Response) => {
+router.get("/allrooms/:authorId", async (req: Request, res: Response) => {
   try {
+    const { authorId } = req.params;
+
     const rooms = await prisma.room.findMany({
+      where: {
+        OR: [
+          {
+            user1Id: authorId,
+          },
+          {
+            user2Id: authorId,
+          },
+        ],
+      },
       include: {
         messages: {
           orderBy: {

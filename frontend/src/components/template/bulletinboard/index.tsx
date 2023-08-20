@@ -22,6 +22,7 @@ const Board = (props: Props) => {
         setBoardRooms={setBoardRooms}
         sideMessagrBar={sideMessagrBar}
         setSideMessagrBar={setSideMessagrBar}
+        selectBoard={selectBoard}
         setSelectBoard={setSelectBoard}
       />
       <div>

@@ -11,7 +11,7 @@ export default HomePage
 
 export const getServerSideProps: GetServerSideProps = async () => {
   try {
-    const res = await apiClient.get('/post/all/album')
+    const res = await apiClient.get('/post/all/content')
     const articles = res.data
     return {
       props: {

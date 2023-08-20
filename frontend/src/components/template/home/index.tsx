@@ -9,7 +9,7 @@ import { useEffect, useState } from 'react'
 import SwiperArea from '@/components/parts/Swiper'
 
 interface Props {
-  articles: ArticleProps
+  articles: any
 }
 
 const Home = (props: Props) => {

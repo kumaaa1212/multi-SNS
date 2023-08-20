@@ -1,7 +1,11 @@
-.tweet_modal{
-  height: 250px;
+.tweet_img_area{
+  margin: 15px 0;
+  display: flex;
+  justify-content: center;
+  .tweet_img{
+    object-fit: cover;
+  }
 }
-
 .handle_close{
   margin-bottom: 10px;
   .save_btn{
@@ -39,6 +43,7 @@
     color: white;
     font-weight: 700;
     font-size: 20px;
+    cursor: pointer;
   }
 }
 
@@ -50,6 +55,7 @@
   }
 
   .tweet_textarea{
+    resize: none;
     margin-left: 20px;
     display: block;
     width: 100%;

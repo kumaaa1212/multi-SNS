@@ -6,21 +6,38 @@ import apiClient from '@/libs/apiClient'
 import ModalBase from '@/components/parts/Modal'
 import { useSelector } from 'react-redux'
 import { RootState } from '@/store/store'
+import { supabase } from '@/utils/supabaseClient'
+import { v4 as uuidv4 } from 'uuid'
 
 export default function TweetModal(props: any) {
   const { open, setOpen } = props
-  const { userId } = useSelector((state: RootState) => state.user)
+  const { username, userId, iconPath } = useSelector((state: RootState) => state.user)
 
   const [tweetContents, setTweetContents] = useState<string>('')
-
+  const [dispalayImg, setDisplayImg] = useState<string>('')
+  const [file, setFile] = useState<string>('')
   const handleTweet = async () => {
-    try{
-      const res = await apiClient.post('/post/tweet', {
-        content: tweetContents,
-        authorId: userId,
-      })
-    }
-    catch{
+    try {
+      if (tweetContents) {
+        const { data: storageData, error: storegeError } = await supabase.storage
+          .from('thumbnail')
+          .upload(`${userId}/${uuidv4()}`, file)
+        if (storegeError) {
+          throw storegeError
+        }
+        const { data: urlData } = supabase.storage.from('thumbnail').getPublicUrl(storageData.path)
+        await apiClient.post('/post/tweet', {
+          content: tweetContents,
+          authorId: userId,
+          authorName: username,
+          authorAvatar: iconPath,
+          img: urlData.publicUrl,
+        })
+        setTweetContents('')
+        setDisplayImg('')
+        setFile('')
+      }
+    } catch {
       alert('ツイートに失敗しました')
     }
   }
@@ -32,6 +49,8 @@ export default function TweetModal(props: any) {
 
   function handleFileSelect(e: any) {
     const selectedFile = e.target.files![0]
+    setDisplayImg(URL.createObjectURL(selectedFile))
+    setFile(selectedFile)
   }
 
   return (
@@ -65,6 +84,9 @@ export default function TweetModal(props: any) {
             className={style.tweet_textarea}
             onChange={(e) => setTweetContents(e.target.value)}
           ></textarea>
+        </div>
+        <div className={style.tweet_img_area}>
+          {dispalayImg && <Image src={dispalayImg} alt={''} width={500} height={300} className={style.tweet_img} />}
         </div>
         <div className={style.handle_tweet}>
           <svg

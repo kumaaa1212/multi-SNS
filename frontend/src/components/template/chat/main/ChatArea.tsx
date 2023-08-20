@@ -40,7 +40,7 @@ const ChatArea = (props: Props) => {
   }
 
   return (
-    <div className={style.chat_area}>
+    <div>
       {selectChatRoom && (
         <div>
           {newMessage ? (
@@ -48,14 +48,18 @@ const ChatArea = (props: Props) => {
               {newMessage?.messages.map((message: MessageType) => (
                 <ChatContent message={message} selectRoom={selectRoom} />
               ))}
-              <SendInput input={input} setInput={setInput} handleSend={handleSend} />
+              <div className={style.input_area}>
+                <SendInput input={input} setInput={setInput} handleSend={handleSend} />
+              </div>
             </div>
           ) : (
             <div className={style.chat_area_scroll}>
               {selectRoom?.messages.map((message: MessageType) => (
                 <ChatContent message={message} selectRoom={selectRoom} />
               ))}
-              <SendInput input={input} setInput={setInput} handleSend={handleSend} />
+              <div className={style.input_area}>
+                <SendInput input={input} setInput={setInput} handleSend={handleSend} />
+              </div>
             </div>
           )}
         </div>

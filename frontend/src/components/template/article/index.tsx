@@ -15,7 +15,7 @@ const Article = (props: Props) => {
   const [click, setClicked] = useState<boolean>(true)
   const [currentPage, setCurrentPage] = useState<number>(1)
   const [albumserch, setAlbumserch] = useState<string>('')
-  const [albumData, setAlbumData] = useState<ArticlesType[]>(articles.posts)
+  const [albumData, setAlbumData] = useState<ArticlesType[]>(articles?.posts)
 
   useEffect(() => {
     splitPage(albumData)
@@ -24,7 +24,7 @@ const Article = (props: Props) => {
   const splitPage = (data: ArticlesType[]) => {
     const start: number = (currentPage - 1) * 6
     const end: number = start + 6
-    setAlbumData(data.slice(start, end))
+    setAlbumData(data?.slice(start, end))
   }
 
   const handleRemove = (albumserch: string) => {
@@ -71,7 +71,7 @@ const Article = (props: Props) => {
         </div>
         {click ? (
           <div className={style.article_timeline}>
-            {albumData.map((article: ArticlesType) => (
+            {albumData?.map((article: ArticlesType) => (
               <ArticleCard article={article} setAlbumData={setAlbumData} />
             ))}
           </div>
@@ -82,7 +82,7 @@ const Article = (props: Props) => {
           <BasicPagination
             currentPage={currentPage}
             setCurrentPage={setCurrentPage}
-            pagelenght={articles.posts.length}
+            pagelenght={articles?.posts.length}
           />
         </div>
       </div>

@@ -1,18 +1,38 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import style from '../bulletinboard.module.scss'
 import BulletinboardCard from '@/components/parts/Card/Bulletinboard'
 import SendInput from '@/components/parts/Input'
 import apiClient from '@/libs/apiClient'
 import { RootState } from '@/store/store'
 import { useSelector } from 'react-redux'
-import { Pagination } from '@mui/material'
+import BasicPagination from '@/components/parts/Pagenation'
 
 const Timeline = (props: any) => {
-  const { boardRooms, setBoardRooms, sideMessagrBar, setSideMessagrBar, setSelectBoard } = props
+  const {
+    boardRooms,
+    setBoardRooms,
+    sideMessagrBar,
+    setSideMessagrBar,
+    selectBoard,
+    setSelectBoard,
+  } = props
 
   const { team, userId, username, iconPath } = useSelector((state: RootState) => state.user)
   const [input, setInput] = useState<string>('')
-  const [page, setPage] = useState(1)
+  const [currentPage, setCurrentPage] = useState(1)
+
+  useEffect(() => {
+    const splitPage = (data: any[]) => {
+      const start: number = currentPage * 6
+      const end: number = start + 6
+      console.log(start, end)
+      console.log(data?.slice(start, end))
+      setBoardRooms(data?.slice(start, end))
+    }
+    splitPage(boardRooms)
+  }, [currentPage])
+
+  console.log(boardRooms)
 
   const handleSend = async () => {
     try {
@@ -35,11 +55,12 @@ const Timeline = (props: any) => {
   return (
     <div className={style.timeline}>
       <div className={style.timeline_main}>
-        {boardRooms.map((board: any) => (
+        {boardRooms?.slice(0, 6).map((board: any) => (
           <BulletinboardCard
             sideMessagrBar={sideMessagrBar}
             setSideMessagrBar={setSideMessagrBar}
             board={board}
+            selectBoard={selectBoard}
             setSelectBoard={setSelectBoard}
           >
             {board.content}
@@ -51,11 +72,10 @@ const Timeline = (props: any) => {
           <SendInput input={input} setInput={setInput} handleSend={handleSend} />
         </div>
         <div className={style.pagenation}>
-          <Pagination
-            count={10}
-            color='primary'
-            onChange={(e, page) => setPage(page)}
-            page={page}
+          <BasicPagination
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
+            pagelenght={boardRooms?.length}
           />
         </div>
       </div>

@@ -17,6 +17,8 @@ interface UserState {
   bio: string
   follow: FrendInfo[]
   follower: FrendInfo[]
+  twitterURL?: string
+  teamURL?: string
 }
 
 const initialState: UserState = {
@@ -28,6 +30,8 @@ const initialState: UserState = {
   bio: '',
   follow: [],
   follower: [],
+  twitterURL: '',
+  teamURL: '',
 }
 
 const userSlice = createSlice({
@@ -43,6 +47,8 @@ const userSlice = createSlice({
       state.bio = action.payload.user_metadata.bio
       state.follow = action.payload.user_metadata.follow
       state.follower = action.payload.user_metadata.follower
+      state.twitterURL = action.payload.user_metadata.twitterURL
+      state.teamURL = action.payload.user_metadata.teamURL
     },
     logoutUser: (state) => {
       state.username = ''

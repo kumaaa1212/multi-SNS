@@ -6,8 +6,9 @@ import { useEffect, useState } from 'react'
 import apiClient from '@/libs/apiClient'
 import { RootState } from '@/store/store'
 import { useSelector } from 'react-redux'
+import Icongenerate from '@/utils/functions/Avater'
 const BulletinboardCard = (props: any) => {
-  const { children, sideMessagrBar, setSideMessagrBar, board, setSelectBoard } = props
+  const { children, sideMessagrBar, setSideMessagrBar, board, selectBoard, setSelectBoard } = props
   const { team, userId, username, iconPath } = useSelector((state: RootState) => state.user)
 
   const [like, setLike] = useState<boolean>(
@@ -15,6 +16,8 @@ const BulletinboardCard = (props: any) => {
   )
 
   const [likeCount, setLikeCount] = useState<number>(board.likes.length)
+
+  const [sideBar, setSideBar] = useState<boolean>(false)
 
   useEffect(() => {
     const fetchLike = async () => {
@@ -33,8 +36,13 @@ const BulletinboardCard = (props: any) => {
   }, [])
 
   const handleSelectBoard = () => {
-    setSelectBoard(board)
-    setSideMessagrBar(!sideMessagrBar)
+    if (!sideMessagrBar) {
+      setSelectBoard(board)
+      setSideMessagrBar(true)
+    } else {
+      setSelectBoard()
+      setSideMessagrBar(false)
+    }
   }
 
   const handleAddLike = async () => {
@@ -63,13 +71,14 @@ const BulletinboardCard = (props: any) => {
       alert('エラーが発生しました')
     }
   }
+  console.log(sideMessagrBar)
 
   return (
-    <Card>
+    <Card className={`${board.id === selectBoard?.id ? `${style.click}` : ''}`}>
       <div className={style.bulletin_board_Card}>
         <div className={style.timeline_user}>
           <Image
-            src={board.authorAvatar ? board?.authorAvatar : noavater}
+            src={board.authorAvatar ? Icongenerate(board?.authorAvatar) : noavater}
             alt={''}
             width={40}
             height={40}
@@ -91,7 +100,7 @@ const BulletinboardCard = (props: any) => {
               height='35'
               viewBox='0 0 24 24'
               stroke-width='1.5'
-              stroke='#000000'
+              stroke={board.id === selectBoard?.id ? '#ffffff' : '#000000'}
               fill='none'
               stroke-linecap='round'
               stroke-linejoin='round'
@@ -127,7 +136,7 @@ const BulletinboardCard = (props: any) => {
                 height='35'
                 viewBox='0 0 24 24'
                 stroke-width='1.5'
-                stroke='#000000'
+                stroke={board.id === selectBoard?.id ? '#ffffff' : '#000000'}
                 fill='none'
                 stroke-linecap='round'
                 stroke-linejoin='round'

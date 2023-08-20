@@ -2,26 +2,32 @@ import { useState } from 'react'
 import SideBar from './sidebar'
 import ChatArea from './main/ChatArea'
 import { RoomType } from '@/types/global'
+import style from './Chat.module.scss'
 
 interface Props {
-  filterMyRooms: RoomType[]
+  rooms: RoomType[]
 }
 
 const Chat = (props: Props) => {
-  const { filterMyRooms } = props
+  const { rooms } = props
+
 
   const [selectChatRoom, setSelectChatRoom] = useState<boolean>(true)
   const [selectRoom, setSelectRoom] = useState<RoomType[]>([])
 
   return (
-    <div className='chat'>
+    <div className={style.chat}>
       <SideBar
+      rooms={rooms}
         selectChatRoom={selectChatRoom}
         setSelectChatRoom={setSelectChatRoom}
-        filterMyRooms={filterMyRooms}
         setSelectRoom={setSelectRoom}
       />
-      <ChatArea selectRoom={selectRoom[0]} setSelectRoom={setSelectRoom} selectChatRoom={selectChatRoom} />
+      <ChatArea
+        selectRoom={selectRoom[0]}
+        setSelectRoom={setSelectRoom}
+        selectChatRoom={selectChatRoom}
+      />
     </div>
   )
 }

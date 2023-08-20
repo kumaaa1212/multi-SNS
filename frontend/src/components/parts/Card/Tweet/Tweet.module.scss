@@ -1,0 +1,43 @@
+.tweet_card{
+  height: 400px;
+  .tweet{
+    padding: 5px;
+  }
+
+  .tweet_header{
+    display: flex;
+    align-items: center;
+
+    .profile_img{
+      border-radius: 10px;
+    }
+
+    .tweet_header_details{
+      width: 100%;
+      margin-left: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+  }
+
+  .tweet_contents{
+    margin-top: 10px;
+
+    .tweet_img{
+      display: block;
+      object-fit: cover;
+      border-radius: 10px;
+      margin: 0 auto;
+    }
+
+    .tweet_content{
+      margin-top: 30px;
+      font-size: 20px;
+      width: 400px;
+      height: 40px;
+      overflow: scroll;
+      overflow-y: scroll
+    }
+  }
+}

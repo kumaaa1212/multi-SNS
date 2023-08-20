@@ -27,22 +27,28 @@
 }
 
 .side {
-  border: 1px red solid;
   width: 400px;
   min-height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  .side_header{
+  .side_header {
     width: 400px;
-    .side_header_title_content{
+    border: 1px rgb(44, 0, 148) solid;
+    .card_title{
+      border: 1px rgb(44, 0, 148) solid;
+      width: 100px;
+      height: 100px;
+      overflow-wrap:normal;  
+    }
+    .side_header_title_content {
       border: 1px rgb(44, 0, 148) solid;
       width: 100%;
     }
   }
 
   .sidebar_input_area {
-    border: 1px red solid;
+    // border: 1px red solid;
     display: flex;
     align-items: center;
     justify-content: center;

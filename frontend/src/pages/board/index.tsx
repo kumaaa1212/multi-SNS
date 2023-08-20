@@ -13,14 +13,14 @@ const BoardPage = () => {
     if (userId) {
       const fetch = async () => {
         const res = await apiClient.get(`/post/boardRooms/${team}`)
-        setBoardRooms(res.data.boardRooms[0].board)
+        setBoardRooms(res.data.boardRooms[0]?.board)
       }
       fetch()
     } else {
       setBoardRooms([])
     }
   }, [userId])
-  
+
   return <Board boardRooms={boardRooms} setBoardRooms={setBoardRooms} />
 }
 

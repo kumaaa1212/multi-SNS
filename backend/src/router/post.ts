@@ -5,6 +5,31 @@ const router: Router = Router();
 const prisma = new PrismaClient();
 
 // albumを追加する
+router.post("/tweet", async (req: Request, res: Response) => {
+  const {
+    content,
+    authorId,
+    authorName,
+    authorAvatar,
+    img,
+  } = req.body;
+
+  try {
+    const tweet = await prisma.tweet.create({
+      data: {
+        content,
+        img,
+        authorId,
+        authorName,
+        authorAvatar,
+      },
+    });
+    return res.json({ tweet });
+  } catch (err: any) {
+    res.json({ error: err.message });
+  }
+});
+
 router.post("/album", async (req: Request, res: Response) => {
   const {
     title,
@@ -111,7 +136,7 @@ router.delete("/album/delete/:postId", async (req, res) => {
 });
 
 // 投稿全の取得
-router.get("/all/album", async (req: Request, res: Response) => {
+router.get("/all/content", async (req: Request, res: Response) => {
   try {
     const posts = await prisma.post.findMany({
       orderBy: {
@@ -123,7 +148,10 @@ router.get("/all/album", async (req: Request, res: Response) => {
         bookmarks: true,
       },
     });
-    return res.json({ posts });
+
+    const tweets = await prisma.tweet.findMany();
+
+    return res.json({ posts, tweets });
   } catch (err: any) {
     res.json({ error: err.message });
   }
@@ -698,26 +726,59 @@ router.post("/board/like/add", async (req: Request, res: Response) => {
       },
     });
 
-    const updatedBoard = await prisma.board.update({
+    // 既存のボードを取得
+    const existingBoard = await prisma.board.findUnique({
       where: {
         id: boardId,
       },
-      data: {
-        likes: {
-          connect: {
-            id: newLike.id,
+    });
+
+    // 既存のボードに新しい「いいね」を追加
+    if (existingBoard) {
+      const updatedBoard = await prisma.board.update({
+        where: {
+          id: boardId,
+        },
+        data: {
+          likes: {
+            connect: {
+              id: newLike.id,
+            },
           },
         },
-      },
-      include: {
-        likes: true,
-      },
-    });
-    return res.json({ updatedBoard });
+        include: {
+          likes: true,
+        },
+      });
+
+      return res.json({ updatedBoard });
+    } else {
+      return res.status(404).json({ error: "Board not found." });
+    }
   } catch (error) {
     res.status(500).json({ error: "Failed to add like." });
   }
 });
+
+router.post("/board/like/check", async (req: Request, res: Response) => {
+  const { boardId, authorId } = req.body;
+
+  try {
+    const like = await prisma.boardLike.findFirst({
+      where: {
+        boardId,
+        authorId,
+      },
+    });
+
+    const hasLiked = !!like;
+
+    return res.json({ hasLiked });
+  } catch (error) {
+    res.status(500).json({ error: "Failed to check like status." });
+  }
+});
+
 
 router.post("/board/like/delete", async (req: Request, res: Response) => {
   const { boardId, authorId } = req.body;

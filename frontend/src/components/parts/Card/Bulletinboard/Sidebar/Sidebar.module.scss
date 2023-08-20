@@ -5,35 +5,29 @@
   height: 70px;
   position: relative;
   cursor: pointer;
-  .timeline_user{
-    display: flex;
-    .profile_img{
-      border: 1px rgb(73, 0, 0) solid;
-      object-fit: cover;
-      border-radius: 10px;
-    }
-    .card_info{
-      margin-left: 10px;
-      .publish_time{
-        margin-left: 5px;
-      }
-    }
+}
+.timeline_user{
+  display: flex;
+  .profile_img{
+    border: 1px rgb(73, 0, 0) solid;
+    object-fit: cover;
+    border-radius: 10px;
   }
-  .card_contents{
-    margin-top: 10px;
+  .card_info{
     margin-left: 10px;
-    font-size: 20px;
-    border: 1px red solid;
-  }
-  .option_btn{
-    width: 200px;
-    position: absolute;
-    border-radius: 5px;
-    padding: 5px;
-    top: 50px;
-    right: 0px;
-    svg{
-      margin-right: 10px;
+    .publish_time{
+      margin-left: 5px;
     }
+  }
+}
+.option_btn{
+  width: 200px;
+  position: absolute;
+  border-radius: 5px;
+  padding: 5px;
+  top: 50px;
+  right: 0px;
+  svg{
+    margin-right: 10px;
   }
 }

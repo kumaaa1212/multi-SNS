@@ -14,8 +14,8 @@ const initialState: PostState = {
   contentText: '',
   labels: [],
   thumbnailText: '',
-  thumbnailImg: "",
-  displayThumbnailImg: '/thumbnail.png'
+  thumbnailImg: '',
+  displayThumbnailImg: '/thumbnail.png',
 }
 
 const modalSlice = createSlice({
@@ -44,7 +44,7 @@ const modalSlice = createSlice({
       state.thumbnailImg = action.payload
     },
     dispalyThumbnailImg: (state, action) => {
-      state.displayThumbnailImg = URL.createObjectURL(action.payload);
+      state.displayThumbnailImg = URL.createObjectURL(action.payload)
     },
     stateReset: (state) => {
       state.titleText = ''
@@ -63,7 +63,7 @@ export const {
   addThumbnail,
   addThumbnailImg,
   stateReset,
-  dispalyThumbnailImg
+  dispalyThumbnailImg,
 } = modalSlice.actions
 
 export default modalSlice.reducer

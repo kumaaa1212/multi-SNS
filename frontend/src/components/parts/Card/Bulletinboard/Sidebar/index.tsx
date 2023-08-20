@@ -18,7 +18,7 @@ const SidebarChatCard = (props: any) => {
           <span className={style.user_name}>{sideChat?.authorName}</span>
           <span className={style.publish_time}>{sideChat?.createdAt}</span>
         </div>
-        <div className={style.card_contents}>{children}</div>
+        <div>{children}</div>
       </div>
     </div>
   )

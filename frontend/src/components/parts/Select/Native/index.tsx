@@ -15,12 +15,12 @@ interface FrendInfo {
 }
 
 interface Props {
-  filterMyRooms: RoomType[]
+  myRooms: RoomType[]
   setMyRooms: Dispatch<SetStateAction<RoomType[]>>
 }
 
 export default function MultipleSelectNative(props: Props) {
-  const { filterMyRooms, setMyRooms } = props
+  const { myRooms, setMyRooms } = props
 
   const { userId, iconPath, username, follow } = useSelector((state: RootState) => state.user)
   const [selectFrend, setSelectFrend] = useState<FrendInfo[]>([])
@@ -29,7 +29,7 @@ export default function MultipleSelectNative(props: Props) {
   const handleSelectFrend = () => {
     const filterFrend = follow.filter(
       (person) =>
-        !filterMyRooms.some(
+        !myRooms?.some(
           (room) =>
             (room.user1Id === person.authorId && room.user2Id === userId) ||
             (room.user2Id === person.authorId && room.user1Id === userId),
@@ -43,7 +43,7 @@ export default function MultipleSelectNative(props: Props) {
   }, [])
 
   const handleAddNewPerson = async (info: FrendInfo) => {
-    try{
+    try {
       const newChatRoom = await apiClient.post('/chat/newroom', {
         user1Id: userId,
         user1Name: username,
@@ -53,9 +53,10 @@ export default function MultipleSelectNative(props: Props) {
         user2Icon: info.icon,
       })
       handleSelectFrend()
-      setMyRooms((prev) => [...prev, newChatRoom.data])
-    }
-    catch{
+      console.log(newChatRoom.data)
+      setMyRooms(newChatRoom.data.room)
+      // setMyRooms((prev) => [...prev, newChatRoom.data.room])
+    } catch {
       alert('チャットルームの作成に失敗しました')
     }
   }
