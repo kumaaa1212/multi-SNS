@@ -24,7 +24,7 @@ const LabelArea = () => {
         <h3 className={style.label_title}>試合会場</h3>
         <div className={style.label_contents}>
           {jLeagueTeams.map((team: TeamType) => (
-           <span onClick={() => router.push(`/categories/locate/${team.label}`)}>
+            <span onClick={() => router.push(`/categories/locate/${team.label}`)}>
               <Chip label={`#${team.stadium}`} className={style.label} />
             </span>
           ))}

@@ -20,6 +20,8 @@ const Profile = (props: Props) => {
     (state: RootState) => state.user,
   )
 
+  console.log(twitterURL)
+
   const router = useRouter()
 
   const [openEdit, setOpenEdit] = useState<boolean>(false)

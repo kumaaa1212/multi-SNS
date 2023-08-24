@@ -34,11 +34,12 @@
   align-items: center;
   .side_header {
     width: 400px;
+    height: 150px;
     border: 1px rgb(44, 0, 148) solid;
     .card_title{
       border: 1px rgb(44, 0, 148) solid;
       width: 100px;
-      height: 100px;
+      height: 150px;
       overflow-wrap:normal;  
     }
     .side_header_title_content {

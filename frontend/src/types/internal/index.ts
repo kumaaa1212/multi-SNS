@@ -10,4 +10,6 @@ export interface AccountType {
   bio: string
   follow: followType[]
   follower: followType[]
+  twitterURL: string
+  teamURL: string
 }

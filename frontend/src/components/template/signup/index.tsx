@@ -41,6 +41,8 @@ export default function SignUp() {
       bio: '',
       follow: [],
       follower: [],
+      twitterURL: '',
+      teamURL: '',
     },
   })
 
@@ -54,10 +56,12 @@ export default function SignUp() {
             username: data.name,
             bio: '自己紹介文を入力してください',
             team: data.team,
-            icon: 'HYGTYUBHNIJMK<LKOMJINHUBGYVFTCDRFVGYBHUNIJMKO<OMJINHUBGYVFTCDFVGBHNJMNHUBGVYF',
+            icon: String(Math.floor(Math.random() * 10) + 1),
             bgIcon: 'HYGTYUBHNIJMK<LKOMJINHUBGYVFTCDRFVGYBHUNIJMKO<OMJINHUBGYVFTCDFVGBHNJMNHUBGVYF',
             follow: [],
             follower: [],
+            twitterURL: '',
+            teamURL: '',
           },
         },
       })

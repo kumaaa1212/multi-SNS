@@ -19,7 +19,7 @@ const BoardPage = () => {
     } else {
       setBoardRooms([])
     }
-  }, [userId])
+  }, [])
 
   return <Board boardRooms={boardRooms} setBoardRooms={setBoardRooms} />
 }

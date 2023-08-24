@@ -19,20 +19,19 @@ const Timeline = (props: any) => {
 
   const { team, userId, username, iconPath } = useSelector((state: RootState) => state.user)
   const [input, setInput] = useState<string>('')
-  const [currentPage, setCurrentPage] = useState(1)
+  const [currentPage, setCurrentPage] = useState<number>(1)
+  const [fliteredBoardRooms, setFliteredBoardRooms] = useState<any[]>(boardRooms.slice(0, 6))
 
   useEffect(() => {
     const splitPage = (data: any[]) => {
       const start: number = currentPage * 6
       const end: number = start + 6
-      console.log(start, end)
-      console.log(data?.slice(start, end))
-      setBoardRooms(data?.slice(start, end))
+      setFliteredBoardRooms(data?.slice(start, end))
     }
     splitPage(boardRooms)
-  }, [currentPage])
+  }, [currentPage, boardRooms])
 
-  console.log(boardRooms)
+  console.log(currentPage)
 
   const handleSend = async () => {
     try {
@@ -55,7 +54,7 @@ const Timeline = (props: any) => {
   return (
     <div className={style.timeline}>
       <div className={style.timeline_main}>
-        {boardRooms?.slice(0, 6).map((board: any) => (
+        {fliteredBoardRooms?.map((board: any) => (
           <BulletinboardCard
             sideMessagrBar={sideMessagrBar}
             setSideMessagrBar={setSideMessagrBar}

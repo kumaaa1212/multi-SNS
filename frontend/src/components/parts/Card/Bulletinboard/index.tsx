@@ -65,13 +65,11 @@ const BulletinboardCard = (props: any) => {
         authorId: userId,
       })
       setLikeCount(likePost.data.updatedBoard.likes.length)
-      console.log(likePost.data.updatedBoard)
       setLike(!like)
     } catch {
       alert('エラーが発生しました')
     }
   }
-  console.log(sideMessagrBar)
 
   return (
     <Card className={`${board.id === selectBoard?.id ? `${style.click}` : ''}`}>

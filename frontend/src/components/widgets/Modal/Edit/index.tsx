@@ -17,14 +17,17 @@ interface Props {
 export default function EditModal(props: Props) {
   const { openEdit, setOpenEdit } = props
 
-  const { username, bio, icon, userId } = useSelector((state: RootState) => state.user)
+  const { username, bio, icon, userId, twitterURL, teamURL } = useSelector(
+    (state: RootState) => state.user,
+  )
 
   const [file, setFile] = useState<any>(null)
-  const [twitterURL, setTwitterURL] = useState<string>('')
-  const [teamURL, setTeamURL] = useState<string>('')
+  const [twitterURLData, setTwitterURLData] = useState<string>(twitterURL)
+  const [teamURLData, setTeamURLData] = useState<string>(teamURL)
   const [editName, setEditName] = useState<string>(username)
   const [editIntro, seteditIntro] = useState<string>(bio)
   const [displayFile, setDisplayFile] = useState<any>(null)
+
 
   const openFileInput = () => {
     const fileInput = document.getElementById('fileInput')
@@ -51,8 +54,8 @@ export default function EditModal(props: Props) {
               username: editName,
               bio: editIntro,
               icon: urlData.publicUrl,
-              twitterURL,
-              teamURL,
+              twitterURL: twitterURLData,
+              teamURL: teamURL,
             },
           })
         }
@@ -150,8 +153,8 @@ export default function EditModal(props: Props) {
               </svg>
               <input
                 type='text'
-                value={twitterURL}
-                onChange={(e) => setTwitterURL(e.target.value)}
+                value={twitterURLData}
+                onChange={(e) => setTwitterURLData(e.target.value)}
               />
             </div>
             <div className={style.team_icon}>
@@ -174,7 +177,7 @@ export default function EditModal(props: Props) {
                 <path d='M3 5m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z' />
                 <path d='M12 5l0 14' />
               </svg>
-              <input type='text' value={teamURL} onChange={(e) => setTeamURL(e.target.value)} />
+              <input type='text' value={teamURLData} onChange={(e) => setTeamURLData(e.target.value)} />
             </div>
           </div>
         </div>

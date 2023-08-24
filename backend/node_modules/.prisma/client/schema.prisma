@@ -59,6 +59,7 @@ model Tweet{
   authorId String?
   authorName String
   authorAvatar String
+  likes TweetLike[]
 }
 
 model Room {
@@ -81,6 +82,14 @@ model Message {
   senderId String
   roomId String?
   room Room? @relation(fields: [roomId], references: [id])
+}
+
+model TweetLike{
+  id Int @id @default(autoincrement())
+  tweetId Int
+  authorId String
+  tweet Tweet @relation(fields: [tweetId], references: [id])
+  @@unique([tweetId, authorId])
 }
 
 model BoardRoom{
