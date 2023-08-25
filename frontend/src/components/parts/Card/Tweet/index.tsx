@@ -32,59 +32,59 @@ const TweetCard = (props: any) => {
 
   return (
     <Card className={style.tweet_card}>
-      <div className={style.tweet}>
-        <div className={style.tweet_header}>
-          <Image
-            src={tweet.authorAvatar}
-            alt=''
-            width={40}
-            height={40}
-            className={style.profile_img}
-          />
-          <div className={style.tweet_header_details}>
-            <div>
-              <p>{tweet.authorName}</p>
-              <p>{tweet.createdAt}</p>
-            </div>
-            {tweet.authorId === userId ? (
-              <MoreVertIcon
-                onClick={(): void => setMoreover(!moreover)}
-                className={style.moreover_btn}
-              />
-            ) : (
-              <FollowBtn article={tweet} className={style.follow_icon}>
-                Follow
-              </FollowBtn>
-            )}
-            {moreover && (
-              <div className={style.moreover_area}>
-                <p>削除</p>
-                <svg
-                  xmlns='http://www.w3.org/2000/svg'
-                  width='30'
-                  height='30'
-                  viewBox='0 0 24 24'
-                  stroke-width='1.5'
-                  stroke='black'
-                  fill='none'
-                  stroke-linecap='round'
-                  stroke-linejoin='round'
-                >
-                  <path stroke='none' d='M0 0h24v24H0z' fill='none' />
-                  <path d='M20 6a1 1 0 0 1 1 1v10a1 1 0 0 1 -1 1h-11l-5 -5a1.5 1.5 0 0 1 0 -2l5 -5z' />
-                  <path d='M12 10l4 4m0 -4l-4 4' />
-                </svg>
-              </div>
-            )}
+      <div className={style.tweet_header}>
+        <Image
+          src={tweet.authorAvatar}
+          alt=''
+          width={40}
+          height={40}
+          className={style.profile_img}
+        />
+        <div className={style.tweet_header_details}>
+          <div>
+            <p>{tweet.authorName}</p>
+            <p>{tweet.createdAt}</p>
           </div>
+          {tweet.authorId === userId ? (
+            <MoreVertIcon
+              onClick={(): void => setMoreover(!moreover)}
+              className={style.moreover_btn}
+            />
+          ) : (
+            <FollowBtn article={tweet} className={style.follow_icon}>
+              Follow
+            </FollowBtn>
+          )}
+          {moreover && (
+            <div className={style.moreover_area}>
+              <p>削除</p>
+              <svg
+                xmlns='http://www.w3.org/2000/svg'
+                width='30'
+                height='30'
+                viewBox='0 0 24 24'
+                stroke-width='1.5'
+                stroke='black'
+                fill='none'
+                stroke-linecap='round'
+                stroke-linejoin='round'
+              >
+                <path stroke='none' d='M0 0h24v24H0z' fill='none' />
+                <path d='M20 6a1 1 0 0 1 1 1v10a1 1 0 0 1 -1 1h-11l-5 -5a1.5 1.5 0 0 1 0 -2l5 -5z' />
+                <path d='M12 10l4 4m0 -4l-4 4' />
+              </svg>
+            </div>
+          )}
         </div>
-        <div className={style.tweet_contents}>
-          <Image src={tweet.img} alt='' width={450} height={250} className={style.tweet_img} />
-          <div className={style.tweet_content}>{tweet.content}</div>
-        </div>
-        <IconButton aria-label='add to favorites'>
-          <LikeBtn article={tweet} />
-        </IconButton>
+      </div>
+      <div className={style.tweet_contents}>
+        <Image src={tweet.img} alt='' width={450} height={250} className={style.tweet_img} />
+        <div className={style.tweet_content}>{tweet.content}</div>
+      </div>
+      <div className={style.footer}>
+      <IconButton aria-label='add to favorites'>
+        <LikeBtn article={tweet} />
+      </IconButton>
       </div>
     </Card>
   )

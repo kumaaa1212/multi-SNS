@@ -19,7 +19,7 @@ const ArticlesPart = (props: Props) => {
   const router = useRouter()
 
   const ablusData = () => {
-    const arry = albumData.map((item: any) => {
+    const arry = albumData?.map((item: any) => {
       if ('thumbnailImg' in item) {
         return <ArticleCard key={item.id} setAlbumData={setAlbumData} article={item} />
       } else {
