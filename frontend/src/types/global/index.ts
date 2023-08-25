@@ -2,7 +2,6 @@ export interface ChidrenProps {
   children: React.ReactNode
 }
 
-
 export interface MessageType {
   id: string
   content: string
@@ -24,9 +23,28 @@ export interface ArticlesType {
   thumbnailText: string
   title: string
 }
+
+export interface TweetsType {
+  id: number
+  authorAvatar: string
+  authorId: string
+  authorName: string
+  content: string
+  createdAt: string
+  img: string
+  likes?: TweetLikeType[]
+}
+
+export interface TweetLikeType {
+  id: number
+  tweetId: number
+  authorId: string
+}
+
 export interface ArticleProps {
   posts: ArticlesType[]
 }
+
 export interface LabelType {
   id: number
   label: string
@@ -57,15 +75,14 @@ export interface RoomType {
 }
 
 export interface followType {
-  authorId: string,
-  username: string,
-  icon: string,
+  authorId: string
+  username: string
+  icon: string
 }
 
-
 export interface BoardRoomType {
-  content : string
-  authorId : string
-  authorName : string
-  authorAvatar : string
+  content: string
+  authorId: string
+  authorName: string
+  authorAvatar: string
 }

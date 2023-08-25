@@ -1,20 +1,24 @@
 import style from './Home.module.scss'
 import CategoriesPart from './categories'
 import ArticlesPart from './articles'
-import { ArticleProps } from '@/types/global'
 import BasicAlerts from '@/components/parts/Alart'
 import { useSelector } from 'react-redux'
 import { RootState } from '@/store/store'
 import { useEffect, useState } from 'react'
-import SwiperArea from '@/components/parts/Swiper'
+import SwiperArea from '@/components/widgets/Swiper'
+import { ArticlesType, TweetsType } from '@/types/global'
 
 interface Props {
-  articles: any
+  articles: {
+    articles: ArticlesType[]
+    tweets: TweetsType[]
+  }
 }
 
 const Home = (props: Props) => {
   const { articles } = props
-  const { userId, username } = useSelector((state: RootState) => state.user)
+
+  const { userId } = useSelector((state: RootState) => state.user)
   const [showAlert, setShowAlert] = useState<boolean>(false)
 
   useEffect(() => {

@@ -3,12 +3,13 @@ import SwiperCore from 'swiper'
 import { Navigation, Autoplay } from 'swiper/modules'
 import Image from 'next/image'
 import style from './Swiper.module.scss'
+
 SwiperCore.use([Navigation, Autoplay])
 
-// カルーセル用の画像
 const images = ['/swiper1.jpg', '/swiper2.jpg', '/swiper3.jpg']
 
 const SwiperArea = () => {
+
   return (
     <>
       <Swiper slidesPerView={1} className='mySwiper' loop={true} autoplay={{ delay: 5000 }}>
