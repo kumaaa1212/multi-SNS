@@ -16,11 +16,11 @@ import FollowBtn from '@/components/parts/Button/Follow'
 import { useSelector } from 'react-redux'
 import { RootState } from '@/store/store'
 import Icongenerate from '../../../../utils/functions/Avater'
-import LikeBtn from '../../Button/Like'
 import { ArticlesType, LabelType } from '@/types/global'
 import apiClient from '@/libs/apiClient'
 import BookMarkBtn from '../../Button/BookMark'
 import { useRouter } from 'next/router'
+import AlbumLikeBtn from '../../Button/Like/Album'
 
 interface ExpandMoreProps extends IconButtonProps {
   expand: boolean
@@ -136,7 +136,7 @@ export default function ArticleCard(props: Props) {
         </CardContent>
         <CardActions disableSpacing>
           <IconButton aria-label='add to favorites'>
-            <LikeBtn article={article} />
+            <AlbumLikeBtn article={article} />
           </IconButton>
           <IconButton aria-label='share'>
             <BookMarkBtn article={article} />

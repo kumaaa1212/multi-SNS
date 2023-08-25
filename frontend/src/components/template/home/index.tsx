@@ -9,14 +9,12 @@ import SwiperArea from '@/components/widgets/Swiper'
 import { ArticlesType, TweetsType } from '@/types/global'
 
 interface Props {
-  articles: {
-    articles: ArticlesType[]
-    tweets: TweetsType[]
-  }
+  articles: ArticlesType[] | TweetsType[]
 }
 
 const Home = (props: Props) => {
   const { articles } = props
+
 
   const { userId } = useSelector((state: RootState) => state.user)
   const [showAlert, setShowAlert] = useState<boolean>(false)
@@ -38,7 +36,7 @@ const Home = (props: Props) => {
       <div className={style.swiper}>
         <SwiperArea />
       </div>
-      <CategoriesPart />
+      <CategoriesPart articles={articles} />
       <ArticlesPart articles={articles} />
       <div className={style.login_alert}>
         {showAlert && <BasicAlerts contents='This is a success alert — ログインに成功しました' />}

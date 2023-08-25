@@ -6,13 +6,7 @@ const prisma = new PrismaClient();
 
 // albumを追加する
 router.post("/tweet", async (req: Request, res: Response) => {
-  const {
-    content,
-    authorId,
-    authorName,
-    authorAvatar,
-    img,
-  } = req.body;
+  const { content, authorId, authorName, authorAvatar, img } = req.body;
 
   try {
     const tweet = await prisma.tweet.create({
@@ -149,9 +143,24 @@ router.get("/all/content", async (req: Request, res: Response) => {
       },
     });
 
-    const tweets = await prisma.tweet.findMany();
+    const tweets = await prisma.tweet.findMany({
+      orderBy: {
+        createdAt: "desc",
+      },
+      include: {
+        likes: true,
+      },
+    });
 
-    return res.json({ posts, tweets });
+    // postsとtweetsを結合して1つの配列にする
+    const allContent = [...posts, ...tweets];
+
+    // likesの長さでソートして上位6つを選択
+    const topLikedContent = allContent
+      .sort((a, b) => b.likes.length - a.likes.length)
+      .slice(0, 6);
+
+    return res.json(topLikedContent);
   } catch (err: any) {
     res.json({ error: err.message });
   }
@@ -778,7 +787,6 @@ router.post("/board/like/check", async (req: Request, res: Response) => {
     res.status(500).json({ error: "Failed to check like status." });
   }
 });
-
 
 router.post("/board/like/delete", async (req: Request, res: Response) => {
   const { boardId, authorId } = req.body;

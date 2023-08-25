@@ -3,7 +3,7 @@ import apiClient from '@/libs/apiClient'
 import FavoriteIcon from '@mui/icons-material/Favorite'
 import { useSelector } from 'react-redux'
 import { RootState } from '@/store/store'
-const LikeBtn = (props: any) => {
+const AlbumLikeBtn = (props: any) => {
   const { userId } = useSelector((state: RootState) => state.user)
 
   const { article } = props
@@ -86,4 +86,4 @@ const LikeBtn = (props: any) => {
   )
 }
 
-export default LikeBtn
+export default AlbumLikeBtn

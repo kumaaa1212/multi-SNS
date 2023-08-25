@@ -15,11 +15,19 @@ interface Props {
 const ArticlesPart = (props: Props) => {
   const { articles } = props
 
-  const [albumData, setAlbumData] = useState<ArticlesType[]>(articles?.posts)
-  const [tweetData, setTweetData] = useState<any[]>(articles?.tweets)
+  const [albumData, setAlbumData] = useState<ArticlesType[]>(articles)
   const router = useRouter()
 
-  console.log(tweetData)
+  const ablusData = () => {
+    const arry = albumData.map((item: any) => {
+      if ('thumbnailImg' in item) {
+        return <ArticleCard key={item.id} setAlbumData={setAlbumData} article={item} />
+      } else {
+        return <TweetCard key={item.id} tweet={item} setAlbumData={setAlbumData} />
+      }
+    })
+    return arry
+  }
 
   return (
     <div className={style.articles_area}>
@@ -30,12 +38,7 @@ const ArticlesPart = (props: Props) => {
         </Link>
       </div>
       <div className={style.home_articles}>
-        {albumData
-          ?.slice(0, 4)
-          .map((article: ArticlesType) => (
-            <ArticleCard article={article} setAlbumData={setAlbumData} />
-          ))}
-        {tweetData?.map((tweet: any) => <TweetCard tweet={tweet} />)}
+        {articles && ablusData()}
       </div>
       <button className={style.all_articles} onClick={() => router.push('/articles')}>
         全ての記事を見る

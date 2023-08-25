@@ -4,9 +4,13 @@ import { useRouter } from 'next/router'
 import { Paper } from '@mui/material'
 import Image from 'next/image'
 import { jLeagueTeams } from '@/TeamData'
+import { useEffect } from 'react'
 
-const CategoriesPart = () => {
+const CategoriesPart = (props:any) => {
+  const { articles } = props
+
   const router = useRouter()
+
   return (
     <div className='CategoriesPart'>
       <div className={style.categories_title}>
