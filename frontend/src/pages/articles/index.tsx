@@ -1,21 +1,29 @@
 import { GetServerSideProps } from 'next'
-import { ArticleProps } from '@/types/global'
+import { ArticleProps, ArticlesType, TweetsType } from '@/types/global'
 import Article from '@/components/template/article'
 import apiClient from '@/libs/apiClient'
 
-const ArticlePage = ({ articles }: { articles: ArticleProps }) => {
-  return <Article articles={articles} />
+interface Props {
+  articlesLike: ArticlesType[] | TweetsType[]
+  articlesNew: ArticlesType[] | TweetsType[]
+}
+
+const ArticlePage = ({ articlesLike, articlesNew }: Props) => {
+  return <Article articlesLike={articlesLike} articlesNew={articlesNew} />
 }
 
 export default ArticlePage
 
 export const getServerSideProps: GetServerSideProps = async () => {
   try {
-    const res = await apiClient.get('/post/all/album')
-    const articles = res.data
+    const resLike = await apiClient.get('/post/all/content')
+    const resnew = await apiClient.get('/post/all/content/new')
+    const articlesLike = resLike.data
+    const articlesNew = resnew.data
     return {
       props: {
-        articles,
+        articlesLike,
+        articlesNew,
       },
     }
   } catch {

@@ -2,28 +2,26 @@ import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
 import style from '../Home.module.scss'
-import { ArticleProps, ArticlesType } from '@/types/global'
+import { ArticlesType, TweetsType } from '@/types/global'
 import ArticleCard from '@/components/parts/Card/Articles'
-import { AnyARecord } from 'dns'
-import Image from 'next/image'
 import TweetCard from '@/components/parts/Card/Tweet'
 
 interface Props {
-  articles: any
+  articles: ArticlesType[] | TweetsType[]
 }
 
 const ArticlesPart = (props: Props) => {
   const { articles } = props
 
-  const [albumData, setAlbumData] = useState<ArticlesType[]>(articles)
+  const [albumData, setAlbumData] = useState<ArticlesType[] | TweetsType[]>(articles)
   const router = useRouter()
 
   const ablusData = () => {
     const arry = albumData?.map((item: any) => {
       if ('thumbnailImg' in item) {
-        return <ArticleCard key={item.id} setAlbumData={setAlbumData} article={item} />
+        return <ArticleCard key={item.id} article={item} />
       } else {
-        return <TweetCard key={item.id} tweet={item} setAlbumData={setAlbumData} />
+        return <TweetCard key={item.id} tweet={item} />
       }
     })
     return arry
@@ -37,9 +35,7 @@ const ArticlesPart = (props: Props) => {
           全ての記事を見る
         </Link>
       </div>
-      <div className={style.home_articles}>
-        {articles && ablusData()}
-      </div>
+      <div className={style.home_articles}>{articles && ablusData()}</div>
       <button className={style.all_articles} onClick={() => router.push('/articles')}>
         全ての記事を見る
       </button>

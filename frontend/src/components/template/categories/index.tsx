@@ -7,7 +7,6 @@ import style from './Categories.module.scss'
 import { useState } from 'react'
 
 const Categories = () => {
-  const [team, setTeam] = useState<string>('')
   const [teamData, setTeamData] = useState<TeamType[]>(jLeagueTeams)
 
   const router = useRouter()

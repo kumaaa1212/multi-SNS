@@ -4,6 +4,16 @@ import { PrismaClient } from "@prisma/client";
 const router: Router = Router();
 const prisma = new PrismaClient();
 
+// labelを取得する
+router.get('/post-labels', async (req, res) => {
+  try {
+    const postLabels = await prisma.postLabel.findMany();
+    res.json(postLabels);
+  } catch (error) {
+    res.status(500).json({ error: 'An error occurred while fetching data.' });
+  }
+});
+
 // albumを保存する
 router.post("/keep-post/save", async (req: Request, res: Response) => {
   const { title, content, authorId } = req.body;
@@ -163,8 +173,8 @@ router.delete("/album/delete/:postId", async (req, res) => {
   }
 });
 
-// 投稿全の取得
-router.get("/all/content", async (req: Request, res: Response) => {
+// 投稿全の取得(いいね順上位6個)
+router.get("/all/content/top", async (req: Request, res: Response) => {
   try {
     const posts = await prisma.post.findMany({
       orderBy: {
@@ -199,6 +209,77 @@ router.get("/all/content", async (req: Request, res: Response) => {
     res.json({ error: err.message });
   }
 });
+// 投稿全の取得(いいね順)
+router.get("/all/content", async (req: Request, res: Response) => {
+  try {
+    const posts = await prisma.post.findMany({
+      orderBy: {
+        createdAt: "desc",
+      },
+      include: {
+        labels: true,
+        likes: true,
+        bookmarks: true,
+      },
+    });
+
+    const tweets = await prisma.tweet.findMany({
+      orderBy: {
+        createdAt: "desc",
+      },
+      include: {
+        likes: true,
+      },
+    });
+
+    // postsとtweetsを結合して1つの配列にする
+    const allContent = [...posts, ...tweets];
+
+    // likesの長さでソートして上位6つを選択
+    const topLikedContent = allContent
+      .sort((a, b) => b.likes.length - a.likes.length)
+
+    return res.json(topLikedContent);
+  } catch (err: any) {
+    res.json({ error: err.message });
+  }
+});
+// 投稿全の取得(投稿順)
+router.get("/all/content/new", async (req: Request, res: Response) => {
+  try {
+    const posts = await prisma.post.findMany({
+      orderBy: {
+        createdAt: "desc",
+      },
+      include: {
+        labels: true,
+        likes: true,
+        bookmarks: true,
+      },
+    });
+
+    const tweets = await prisma.tweet.findMany({
+      orderBy: {
+        createdAt: "desc",
+      },
+      include: {
+        likes: true,
+      },
+    });
+
+    // postsとtweetsを結合して1つの配列にする
+    const allContent = [...posts, ...tweets];
+
+    // 投稿順に並べ替えてから、上位6つを選択
+    const topContent = allContent
+      .sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime())
+
+    return res.json(topContent);
+  } catch (err: any) {
+    res.json({ error: err.message });
+  }
+});
+
 
 // 特定の投稿を取得する
 router.get("/album/:postId", async (req: Request, res: Response) => {
@@ -1000,7 +1081,6 @@ router.get("/tweet/like/:authorId", async (req: Request, res: Response) => {
     res.status(500).json({ error: "Failed to check like status." });
   }
 });
-
 
 export default router;
 

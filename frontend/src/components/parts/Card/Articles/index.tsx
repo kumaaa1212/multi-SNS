@@ -16,7 +16,7 @@ import FollowBtn from '@/components/parts/Button/Follow'
 import { useSelector } from 'react-redux'
 import { RootState } from '@/store/store'
 import Icongenerate from '../../../../utils/functions/Avater'
-import { ArticlesType, LabelType } from '@/types/global'
+import { ArticlesType, LabelType, TweetsType } from '@/types/global'
 import apiClient from '@/libs/apiClient'
 import BookMarkBtn from '../../Button/BookMark'
 import { useRouter } from 'next/router'
@@ -28,7 +28,6 @@ interface ExpandMoreProps extends IconButtonProps {
 
 interface Props {
   article: ArticlesType
-  setAlbumData: React.Dispatch<React.SetStateAction<ArticlesType[]>>
 }
 
 const ExpandMore = styled((props: ExpandMoreProps) => {
@@ -43,7 +42,7 @@ const ExpandMore = styled((props: ExpandMoreProps) => {
 }))
 
 export default function ArticleCard(props: Props) {
-  const { article, setAlbumData } = props
+  const { article,  } = props
   const { username, userId } = useSelector((state: RootState) => state.user)
 
   const [expanded, setExpanded] = useState<boolean>(false)
@@ -61,13 +60,13 @@ export default function ArticleCard(props: Props) {
     try {
       const updatedPost = await apiClient.delete(`/post/album/delete/${article.id}`)
 
-      if (router.asPath === '/mypage') {
-        setAlbumData(
-          updatedPost.data.remainingPosts.filter(
-            (album: ArticlesType) => album.authorId === userId,
-          ),
-        )
-      }
+      // if (router.asPath === '/mypage') {
+      //   setAlbumData(
+      //     updatedPost.data.remainingPosts.filter(
+      //       (album: ArticlesType) => album.authorId === userId,
+      //     ),
+      //   )
+      // }
       setMoreover(false)
     } catch {
       alert('削除に失敗しました')

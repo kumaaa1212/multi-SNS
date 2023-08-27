@@ -15,7 +15,6 @@ interface Props {
 const Home = (props: Props) => {
   const { articles } = props
 
-
   const { userId } = useSelector((state: RootState) => state.user)
   const [showAlert, setShowAlert] = useState<boolean>(false)
 
@@ -36,7 +35,7 @@ const Home = (props: Props) => {
       <div className={style.swiper}>
         <SwiperArea />
       </div>
-      <CategoriesPart articles={articles} />
+      <CategoriesPart />
       <ArticlesPart articles={articles} />
       <div className={style.login_alert}>
         {showAlert && <BasicAlerts contents='This is a success alert — ログインに成功しました' />}

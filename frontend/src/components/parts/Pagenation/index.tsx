@@ -8,7 +8,7 @@ export default function BasicPagination(props: any) {
     <div className='pagenation_area'>
       <Stack spacing={2}>
         <Pagination
-          count={Math.floor(pagelenght / 6)}
+          count={Math.floor(pagelenght / 6 + 1)}
           color='primary'
           page={currentPage}
           onChange={(event, page: number) => setCurrentPage(page)}
