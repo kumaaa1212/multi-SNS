@@ -1,16 +1,29 @@
-.close_btn {
-  display: block;
-  background-color: #fff;
-  cursor: pointer;
-  border: none;
-}
-
-.abjust_modal{
+.abjust_modal {
   height: 700px;
   width: 800px;
-}
-
-.abjust_title{
-  text-align: center;
-  font-size: 40px;
+    overflow: scroll;
+    min-height: 700px;
+    width: 800px;
+    .close_btn {
+      display: block;
+      background-color: #fff;
+      cursor: pointer;
+      border: none;
+    }
+    .header_content {
+      .abjust_title {
+        text-align: center;
+        font-size: 40px;
+      }
+      .main_img {
+        display: block;
+        margin: 0 auto;
+        object-fit: cover;
+      }
+    }
+    .scrollo_modal {
+    .abjust_content {
+      margin-top: 10px;
+    }
+  }
 }

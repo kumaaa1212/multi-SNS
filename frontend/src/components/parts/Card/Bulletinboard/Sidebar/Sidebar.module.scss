@@ -6,7 +6,9 @@
   cursor: pointer;
 }
 .timeline_user{
+  width: 400px;
   display: flex;
+  margin: 20px 0;
   .profile_img{
     object-fit: cover;
     border-radius: 10px;

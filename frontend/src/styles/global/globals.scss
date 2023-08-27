@@ -15,7 +15,6 @@ body {
 .link_style {
   text-decoration: none;
   color: black;
-  // border: 1px solid red;
 }
 
 .main_area {
@@ -37,17 +36,11 @@ body {
   opacity: 0.5;
 }
 
-.EmojiPickerReact --epr-emoji-size {
-  width: 100px;
-  height: 100px;
-}
-
 .timeline_tab {
   position: relative;
 }
 
 .release_card {
-  // border: 1px red solid;
   .MuiPaper-root {
     margin: 0;
   }

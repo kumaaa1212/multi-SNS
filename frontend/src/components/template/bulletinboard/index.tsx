@@ -13,7 +13,7 @@ const Board = (props: Props) => {
   const { boardRooms, setBoardRooms } = props
 
   const [sideMessagrBar, setSideMessagrBar] = useState<boolean>(false)
-  const [selectBoard, setSelectBoard] = useState<BoardRoomType>()
+  const [selectBoard, setSelectBoard] = useState<BoardRoomType | undefined>()
 
   return (
     <div className={style.board}>
@@ -25,7 +25,6 @@ const Board = (props: Props) => {
         selectBoard={selectBoard}
         setSelectBoard={setSelectBoard}
       />
-      <div>
         {sideMessagrBar && (
           <MessageSidebar
             boardRooms={boardRooms}
@@ -33,7 +32,6 @@ const Board = (props: Props) => {
             selectBoard={selectBoard}
           />
         )}
-      </div>
     </div>
   )
 }

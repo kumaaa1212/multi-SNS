@@ -7,6 +7,7 @@ export interface MessageType {
   content: string
   createdAt: string
   authorId: string
+  authorName: string
   senderId: string
   roomId: string
 }
@@ -83,8 +84,10 @@ export interface followType {
 }
 
 export interface BoardRoomType {
+  id: string
   content: string
   authorId: string
   authorName: string
   authorAvatar: string
+  messages:MessageType[]
 }

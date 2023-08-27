@@ -19,7 +19,7 @@ const Timeline = (props: any) => {
 
   const { team, userId, username, iconPath } = useSelector((state: RootState) => state.user)
   const [input, setInput] = useState<string>('')
-  const [currentPage, setCurrentPage] = useState<number>(0)
+  const [currentPage, setCurrentPage] = useState<number>(1)
   const [fliteredBoardRooms, setFliteredBoardRooms] = useState<any[]>(boardRooms)
 
   useEffect(() => {

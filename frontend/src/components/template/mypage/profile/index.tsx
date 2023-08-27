@@ -47,7 +47,7 @@ const Profile = (props: Props) => {
       <div className={style.profile_area}>
         <Image
           src={icon ? Icongenerate(icon) : Noavater}
-          alt={''}
+          alt={'プロフィール画像'}
           width={200}
           height={200}
           className={style.profile_img}

@@ -3,10 +3,10 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { Paper } from '@mui/material'
 import Image from 'next/image'
-import { jLeagueTeams } from '@/TeamData'
+import { jLeagueTeams } from '@/utils/TeamData'
 import { useEffect } from 'react'
 
-const CategoriesPart = (props:any) => {
+const CategoriesPart = (props: any) => {
   const { articles } = props
 
   const router = useRouter()

@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import { useRouter } from 'next/router'
-import { jLeagueTeams } from '@/TeamData'
+import { jLeagueTeams } from '@/utils/TeamData'
 import LabelArea from '@/components/parts/Label/articles'
 import ArticleCard from '@/components/parts/Card/Articles'
 import { ArticlesType, TeamType } from '@/types/global'

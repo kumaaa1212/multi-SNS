@@ -16,7 +16,7 @@ const style = {
 interface Props {
   open?: boolean
   setOpen?: any
-  children?: any
+  children?: React.ReactNode
 }
 
 

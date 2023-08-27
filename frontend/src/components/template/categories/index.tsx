@@ -1,7 +1,7 @@
 import { Paper } from '@mui/material'
 import { useRouter } from 'next/router'
 import Image from 'next/image'
-import { jLeagueTeams } from '@/TeamData'
+import { jLeagueTeams } from '@/utils/TeamData'
 import { TeamType } from '@/types/global'
 import style from './Categories.module.scss'
 import { useState } from 'react'

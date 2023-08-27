@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import { useRouter } from 'next/router'
-import { jLeagueTeams } from '@/TeamData'
+import { jLeagueTeams } from '@/utils/TeamData'
 import LabelArea from '@/components/parts/Label/articles'
 import ArticleCard from '@/components/parts/Card/Articles'
 import { ArticlesType, TeamType } from '@/types/global'
@@ -10,11 +10,11 @@ interface Props {
   data: ArticlesType[] | undefined
 }
 
-const Locate = (props:Props) => {
+const Locate = (props: Props) => {
   const { data } = props
 
   const router = useRouter()
-  const teamfilter = jLeagueTeams.filter((team:TeamType) => team.label === router.query.label)
+  const teamfilter = jLeagueTeams.filter((team: TeamType) => team.label === router.query.label)
 
   return (
     <div className={style.articles_details}>
@@ -31,7 +31,7 @@ const Locate = (props:Props) => {
         </div>
         {data ? (
           <div>
-            {data?.map((article:ArticlesType) => (
+            {data?.map((article: ArticlesType) => (
               <div key={article.id} className={style.article_timeline}>
                 <ArticleCard article={article} />
               </div>

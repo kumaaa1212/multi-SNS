@@ -20,13 +20,15 @@ export default function EditModal(props: Props) {
   const { username, bio, icon, userId, twitterURL, teamURL } = useSelector(
     (state: RootState) => state.user,
   )
+  console.log(twitterURL)
+  console.log(teamURL)
 
-  const [file, setFile] = useState<any>(null)
-  const [twitterURLData, setTwitterURLData] = useState<string>(twitterURL)
-  const [teamURLData, setTeamURLData] = useState<string>(teamURL)
+  const [file, setFile] = useState<string>()
+  const [twitterURLData, setTwitterURLData] = useState<string | undefined>(twitterURL)
+  const [teamURLData, setTeamURLData] = useState<string | undefined>(teamURL)
   const [editName, setEditName] = useState<string>(username)
   const [editIntro, seteditIntro] = useState<string>(bio)
-  const [displayFile, setDisplayFile] = useState<any>(null)
+  const [displayFile, setDisplayFile] = useState<string>()
 
 
   const openFileInput = () => {

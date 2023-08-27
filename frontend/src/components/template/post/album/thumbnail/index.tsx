@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { AppDispatch, RootState } from '@/store/store'
 import { addThumbnail } from '@/features/postSlice'
 import ThumbnailCard from '@/components/parts/Card/Post/thumbnail'
-import { jLeagueTeams, studiumsData } from '@/TeamData'
+import { jLeagueTeams, studiumsData } from '@/utils/TeamData'
 const Thumbnail = () => {
   const dispatch: AppDispatch = useDispatch()
   const { thumbnailText } = useSelector((state: RootState) => state.post)

@@ -18,7 +18,7 @@ import {
   Select,
 } from '@mui/material'
 import Link from 'next/link'
-import { jLeagueTeams } from '@/TeamData'
+import { jLeagueTeams } from '@/utils/TeamData'
 import { useForm, SubmitHandler, Controller } from 'react-hook-form'
 import { AccountType } from '@/types/internal'
 import style from './SignUp.module.scss'
