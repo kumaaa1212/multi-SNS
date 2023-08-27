@@ -7,6 +7,9 @@ import apiClient from '@/libs/apiClient'
 import { RootState } from '@/store/store'
 import { useSelector } from 'react-redux'
 import Icongenerate from '@/utils/functions/Avater'
+import CardLike from '/public/svg/board_like.svg'
+import CardLiked from '/public/svg/board_liked.svg'
+import CardMessage from '/public/svg/board_message.svg'
 const BulletinboardCard = (props: any) => {
   const { children, sideMessagrBar, setSideMessagrBar, board, selectBoard, setSelectBoard } = props
   const { userId } = useSelector((state: RootState) => state.user)
@@ -100,57 +103,19 @@ const BulletinboardCard = (props: any) => {
         </div>
         <div className={style.option_btn}>
           <Badge badgeContent={board.messages.length} color='primary'>
-            <svg
-              xmlns='http://www.w3.org/2000/svg'
-              width='35'
-              height='35'
-              viewBox='0 0 24 24'
-              stroke-width='1.5'
-              stroke={board.id === selectBoard?.id ? '#ffffff' : '#000000'}
-              fill='none'
-              stroke-linecap='round'
-              stroke-linejoin='round'
+            <CardMessage
               onClick={handleSelectBoard}
-            >
-              <path stroke='none' d='M0 0h24v24H0z' fill='none' />
-              <path d='M8 9h8' />
-              <path d='M8 13h6' />
-              <path d='M9 18h-3a3 3 0 0 1 -3 -3v-8a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v8a3 3 0 0 1 -3 3h-3l-3 3l-3 -3z' />
-            </svg>
+              stroke={board.id === selectBoard?.id ? '#ffffff' : '#000000'}
+            />
           </Badge>
           <Badge badgeContent={likeCount} color='error' className={style.like_btn}>
             {like ? (
-              <svg
-                xmlns='http://www.w3.org/2000/svg'
-                width='35'
-                height='35'
-                viewBox='0 0 24 24'
-                stroke-width='1.5'
-                stroke='#ff0000'
-                fill='none'
-                stroke-linecap='round'
-                stroke-linejoin='round'
-                onClick={handleDelateLike}
-              >
-                <path stroke='none' d='M0 0h24v24H0z' fill='none' />
-                <path d='M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572' />
-              </svg>
+              <CardLike onClick={handleDelateLike} />
             ) : (
-              <svg
-                xmlns='http://www.w3.org/2000/svg'
-                width='35'
-                height='35'
-                viewBox='0 0 24 24'
-                stroke-width='1.5'
-                stroke={board.id === selectBoard?.id ? '#ffffff' : '#000000'}
-                fill='none'
-                stroke-linecap='round'
-                stroke-linejoin='round'
+              <CardLiked
                 onClick={handleAddLike}
-              >
-                <path stroke='none' d='M0 0h24v24H0z' fill='none' />
-                <path d='M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572' />
-              </svg>
+                stroke={board.id === selectBoard?.id ? '#ffffff' : '#000000'}
+              />
             )}
           </Badge>
         </div>

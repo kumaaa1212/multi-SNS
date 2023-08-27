@@ -21,7 +21,7 @@ const nextConfig = {
         {
           loader: "@svgr/webpack",
           options: {
-            svgo: false, // 圧縮無効
+            svgo: false, 
           },
         },
       ],

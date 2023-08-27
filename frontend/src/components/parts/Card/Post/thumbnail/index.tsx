@@ -16,6 +16,7 @@ import style from '../Card.module.scss'
 import { AppDispatch, RootState } from '@/store/store'
 import { useDispatch, useSelector } from 'react-redux'
 import { addThumbnailImg, dispalyThumbnailImg } from '@/features/postSlice'
+import CameraIcon from '/public/svg/post_thubnail_img_camera.svg'
 
 interface ExpandMoreProps extends IconButtonProps {
   expand: boolean
@@ -49,7 +50,7 @@ export default function ThumbnailCard(props: any) {
     const day = String(date.getDate()).padStart(2, '0')
     return `${year}/${month}/${day}`
   }
-  
+
   const openFileInput = () => {
     const fileInput = document.getElementById('fileInput')
     fileInput?.click()
@@ -85,23 +86,7 @@ export default function ThumbnailCard(props: any) {
           height={200}
         />
         <div className={style.thumbnail_img_cover}>
-          <svg
-            xmlns='http://www.w3.org/2000/svg'
-            className={style.thumbnail_img_cover_icon}
-            width='90'
-            height='90'
-            viewBox='0 0 24 24'
-            stroke-width='1.5'
-            stroke='#ffffff'
-            fill='none'
-            stroke-linecap='round'
-            stroke-linejoin='round'
-            onClick={openFileInput}
-          >
-            <path stroke='none' d='M0 0h24v24H0z' fill='none' />
-            <path d='M5 7h1a2 2 0 0 0 2 -2a1 1 0 0 1 1 -1h6a1 1 0 0 1 1 1a2 2 0 0 0 2 2h1a2 2 0 0 1 2 2v9a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-9a2 2 0 0 1 2 -2' />
-            <path d='M9 13a3 3 0 1 0 6 0a3 3 0 0 0 -6 0' />
-          </svg>
+          <CameraIcon onClick={openFileInput} className={style.thumbnail_img_cover_icon} />
           <input
             type='file'
             id='fileInput'
