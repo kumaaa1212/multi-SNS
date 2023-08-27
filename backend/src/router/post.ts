@@ -296,7 +296,6 @@ router.post("/album/like/delete", async (req: Request, res: Response) => {
     res.status(500).json({ error: "Failed to remove like." });
   }
 });
-// 配列としてfindUniqueして、その値をsetする。からの配列をsetしている
 
 // いいねをしているかを確認する
 router.post("/album/like/check", async (req: Request, res: Response) => {
@@ -552,10 +551,13 @@ router.get("/boardRooms/:team", async (req, res) => {
           include: {
             messages: {
               orderBy: {
-                createdAt: "desc", // 新しい順に並べ替える
+                createdAt: "desc",
               },
             },
             likes: true,
+          },
+          orderBy: {
+            createdAt: "desc", // 新しい順に並べ替える
           },
         },
       },
@@ -617,6 +619,9 @@ router.post("/boards", async (req, res) => {
                 createdAt: "asc", // 古い順に並べ替える
               },
             },
+          },
+          orderBy: {
+            createdAt: "desc", // 新しい順に並べ替える
           },
         },
       },
@@ -723,7 +728,7 @@ router.post("/boards/:boardId/messages", async (req, res) => {
     return res.status(500).json({ error: "Failed to add message to board." });
   }
 });
-
+// 掲示板にlikeを追加する
 router.post("/board/like/add", async (req: Request, res: Response) => {
   const { boardId, authorId } = req.body;
 
@@ -768,7 +773,7 @@ router.post("/board/like/add", async (req: Request, res: Response) => {
     res.status(500).json({ error: "Failed to add like." });
   }
 });
-
+// 掲示板にlikeがあるかを確認する
 router.post("/board/like/check", async (req: Request, res: Response) => {
   const { boardId, authorId } = req.body;
 
@@ -787,7 +792,7 @@ router.post("/board/like/check", async (req: Request, res: Response) => {
     res.status(500).json({ error: "Failed to check like status." });
   }
 });
-
+// 掲示板のlikeを削除する
 router.post("/board/like/delete", async (req: Request, res: Response) => {
   const { boardId, authorId } = req.body;
 
@@ -840,4 +845,128 @@ router.post("/board/like/delete", async (req: Request, res: Response) => {
   }
 });
 
+router.post("/tweet/like/check", async (req: Request, res: Response) => {
+  const { tweetId, authorId } = req.body;
+
+  try {
+    const like = await prisma.tweetLike.findFirst({
+      where: {
+        tweetId,
+        authorId,
+      },
+    });
+
+    const hasLiked = !!like;
+
+    return res.json({ hasLiked });
+  } catch (error) {
+    res.status(500).json({ error: "Failed to check like status." });
+  }
+});
+
+router.post("/tweet/like/delete", async (req: Request, res: Response) => {
+  const { tweetId, authorId } = req.body;
+
+  try {
+    // まずはいいねを削除
+    await prisma.tweetLike.deleteMany({
+      where: {
+        tweetId,
+        authorId,
+      },
+    });
+
+    // 削除されたいいねに関連するTweetを取得
+    const relatedTweet = await prisma.tweet.findUnique({
+      where: {
+        id: tweetId,
+      },
+      include: {
+        likes: true,
+      },
+    });
+
+    if (relatedTweet) {
+      const updatedLikes = relatedTweet.likes.filter(
+        (like) => like.authorId !== authorId
+      );
+
+      const updatedTweet = await prisma.tweet.update({
+        where: {
+          id: tweetId,
+        },
+        data: {
+          likes: {
+            set: updatedLikes,
+          },
+        },
+      });
+
+      return res.json({ updatedTweet });
+    }
+
+    return res.status(404).json({ error: "Tweet not found." });
+  } catch (error) {
+    res.status(500).json({ error: "Failed to remove like." });
+  }
+});
+
+
+router.post("/tweet/like/add", async (req: Request, res: Response) => {
+  const { tweetId, authorId } = req.body;
+
+  try {
+    const newLike = await prisma.tweetLike.create({
+      data: {
+        tweetId,
+        authorId,
+      },
+    });
+
+    const updatedTweet = await prisma.tweet.update({
+      where: {
+        id: tweetId,
+      },
+      data: {
+        likes: {
+          connect: {
+            id: newLike.id,
+          },
+        },
+      },
+      include: {
+        likes: true,
+      },
+    });
+    return res.json({ updatedTweet });
+  } catch (error) {
+    res.status(500).json({ error: "Failed to add like." });
+  }
+});
+
+router.get("/tweet/like/:authorId", async (req: Request, res: Response) => {
+  const { authorId } = req.params;
+
+  try {
+    const likedTweets = await prisma.tweet.findMany({
+      where: {
+        likes: {
+          some: {
+            authorId: authorId,
+          },
+        },
+      },
+      include: {
+        likes: true,
+      },
+    });
+
+    return res.json({ likedTweets });
+  } catch (error) {
+    res.status(500).json({ error: "Failed to check like status." });
+  }
+});
+
+
 export default router;
+

@@ -6,7 +6,7 @@ import { RootState } from '@/store/store'
 const TweetLikeBtn = (props: any) => {
   const { userId } = useSelector((state: RootState) => state.user)
 
-  const { article } = props
+  const { article, setCountLikes } = props
   const { id } = article
 
   const [likeBtn, setLikeBtn] = useState<boolean>(false)
@@ -14,8 +14,8 @@ const TweetLikeBtn = (props: any) => {
   useEffect(() => {
     const fetchLike = async () => {
       try {
-        const res = await apiClient.post('/post/album/like/check', {
-          postId: id,
+        const res = await apiClient.post('/post/tweet/like/check', {
+          tweetId: id,
           authorId: userId,
         })
         setLikeBtn(res.data.hasLiked)
@@ -30,16 +30,18 @@ const TweetLikeBtn = (props: any) => {
   const handleLike = async () => {
     try {
       if (likeBtn) {
-        await apiClient.post('/post/album/like/delete', {
-          postId: id,
+        await apiClient.post('/post/tweet/like/delete', {
+          tweetId: id,
           authorId: userId,
         })
+        setCountLikes((prev: number) => prev - 1)
         setLikeBtn(false)
       } else {
-        await apiClient.post('/post/album/like/add', {
-          postId: id,
+        await apiClient.post('/post/tweet/like/add', {
+          tweetId: id,
           authorId: userId,
         })
+        setCountLikes((prev: number) => prev + 1)
         setLikeBtn(true)
       }
     } catch {

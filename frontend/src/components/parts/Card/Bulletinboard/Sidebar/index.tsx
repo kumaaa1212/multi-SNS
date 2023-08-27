@@ -4,6 +4,7 @@ import Image from 'next/image'
 import Noavater from 'public/noavater.jpg'
 const SidebarChatCard = (props: any) => {
   const { sideChat, children, avater } = props
+
   return (
     <div className={style.timeline_user}>
       <Image
@@ -18,7 +19,7 @@ const SidebarChatCard = (props: any) => {
           <span className={style.user_name}>{sideChat?.authorName}</span>
           <span className={style.publish_time}>{sideChat?.createdAt}</span>
         </div>
-        <div>{children}</div>
+        <div className={style.card_content}>{children}</div>
       </div>
     </div>
   )

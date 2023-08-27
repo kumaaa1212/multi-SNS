@@ -2,14 +2,12 @@
   border-bottom: 1px solid #cbcbcb;
   padding: 10px 0px;
   width: 100%;
-  height: 70px;
   position: relative;
   cursor: pointer;
 }
 .timeline_user{
   display: flex;
   .profile_img{
-    border: 1px rgb(73, 0, 0) solid;
     object-fit: cover;
     border-radius: 10px;
   }
@@ -17,6 +15,10 @@
     margin-left: 10px;
     .publish_time{
       margin-left: 5px;
+    }
+    .card_content{
+      width: 400px;
+      height: auto;
     }
   }
 }

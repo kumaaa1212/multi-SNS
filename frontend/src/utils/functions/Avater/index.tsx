@@ -1,9 +1,9 @@
 import Identicon from 'identicon.js'
 
 const Icongenerate = (token: string) => {
-  if(token.includes('http')) {
+  if (token.includes('http')) {
     return token
-  }else{
+  } else {
     const data = new Identicon(token, 30).toString()
     const imgsrc = `data:image/png;base64,${data}`
     return imgsrc

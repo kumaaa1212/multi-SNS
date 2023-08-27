@@ -6,7 +6,7 @@ import { RootState } from '@/store/store'
 const AlbumLikeBtn = (props: any) => {
   const { userId } = useSelector((state: RootState) => state.user)
 
-  const { article } = props
+  const { article ,setCountLikes} = props
   const { id } = article
 
   const [likeBtn, setLikeBtn] = useState<boolean>(false)
@@ -34,6 +34,7 @@ const AlbumLikeBtn = (props: any) => {
           postId: id,
           authorId: userId,
         })
+        setCountLikes((prev:number) => prev - 1)
         setLikeBtn(false)
       } else {
         await apiClient.post('/post/album/like/add', {
@@ -41,6 +42,7 @@ const AlbumLikeBtn = (props: any) => {
           authorId: userId,
         })
         setLikeBtn(true)
+        setCountLikes((prev:number) => prev + 1)
       }
     } catch {
       alert('エラーが発生しました')

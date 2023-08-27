@@ -6,12 +6,13 @@ import MoreVertIcon from '@mui/icons-material/MoreVert'
 import FollowBtn from '../../Button/Follow'
 import { useSelector } from 'react-redux'
 import { RootState } from '@/store/store'
-import LikeBtn from '../../Button/Like/Album'
+import TweetLikeBtn from '../../Button/Like/Tweet'
 
 const TweetCard = (props: any) => {
   const { tweet, setAlbumData } = props
   const { userId } = useSelector((state: RootState) => state.user)
   const [moreover, setMoreover] = useState<boolean>(false)
+  const [countLikes, setCountLikes] = useState<number>(tweet.likes.length)
 
   // const handleDelete = async () => {
   //   try {
@@ -83,7 +84,8 @@ const TweetCard = (props: any) => {
       </div>
       <div className={style.footer}>
       <IconButton aria-label='add to favorites'>
-        <LikeBtn article={tweet} />
+        <TweetLikeBtn article={tweet} setCountLikes={setCountLikes} />
+        <span>{countLikes}</span>
       </IconButton>
       </div>
     </Card>

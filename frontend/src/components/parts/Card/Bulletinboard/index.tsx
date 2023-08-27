@@ -17,8 +17,6 @@ const BulletinboardCard = (props: any) => {
 
   const [likeCount, setLikeCount] = useState<number>(board.likes.length)
 
-  const [sideBar, setSideBar] = useState<boolean>(false)
-
   useEffect(() => {
     const fetchLike = async () => {
       try {
@@ -71,6 +69,16 @@ const BulletinboardCard = (props: any) => {
     }
   }
 
+  function formatTimestamp(timestamp: string) {
+    const date = new Date(timestamp)
+    const month = date.getMonth() + 1
+    const day = date.getDate()
+    const hours = date.getHours()
+    const minutes = date.getMinutes()
+
+    return `${month}-${day} ${hours}:${minutes}`
+  }
+
   return (
     <Card className={`${board.id === selectBoard?.id ? `${style.click}` : ''}`}>
       <div className={style.bulletin_board_Card}>
@@ -85,7 +93,7 @@ const BulletinboardCard = (props: any) => {
           <div className={style.card_info}>
             <div className={style.user_detail_info}>
               <span className={style.user_name}>{board.authorName}</span>
-              <span className={style.publish_time}>{board.createdAt}</span>
+              <span className={style.publish_time}>{formatTimestamp(board.createdAt)}</span>
             </div>
             <div className={style.card_contents}>{children}</div>
           </div>

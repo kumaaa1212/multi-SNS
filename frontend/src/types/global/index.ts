@@ -22,6 +22,8 @@ export interface ArticlesType {
   thumbnailImg: string
   thumbnailText: string
   title: string
+  likes: any[]
+  bookmarks: any[]
 }
 
 export interface TweetsType {

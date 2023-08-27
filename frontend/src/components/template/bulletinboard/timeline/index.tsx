@@ -19,8 +19,8 @@ const Timeline = (props: any) => {
 
   const { team, userId, username, iconPath } = useSelector((state: RootState) => state.user)
   const [input, setInput] = useState<string>('')
-  const [currentPage, setCurrentPage] = useState<number>(1)
-  const [fliteredBoardRooms, setFliteredBoardRooms] = useState<any[]>(boardRooms.slice(0, 6))
+  const [currentPage, setCurrentPage] = useState<number>(0)
+  const [fliteredBoardRooms, setFliteredBoardRooms] = useState<any[]>(boardRooms)
 
   useEffect(() => {
     const splitPage = (data: any[]) => {
@@ -30,8 +30,6 @@ const Timeline = (props: any) => {
     }
     splitPage(boardRooms)
   }, [currentPage, boardRooms])
-
-  console.log(currentPage)
 
   const handleSend = async () => {
     try {

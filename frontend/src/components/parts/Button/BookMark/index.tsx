@@ -8,10 +8,11 @@ import apiClient from '@/libs/apiClient'
 
 interface Props {
   article: ArticlesType
+  setCountBookmarks: any
 }
 
 const BookMarkBtn = (props: Props) => {
-  const { article } = props
+  const { article, setCountBookmarks } = props
   const { id } = article
 
   const { userId } = useSelector((state: RootState) => state.user)
@@ -41,12 +42,14 @@ const BookMarkBtn = (props: Props) => {
           postId: id,
           authorId: userId,
         })
+        setCountBookmarks((prev: number) => prev - 1)
         setBookmark(false)
       } else {
         await apiClient.post('/post/album/bookmark/add', {
           postId: id,
           authorId: userId,
         })
+        setCountBookmarks((prev: number) => prev + 1)
         setBookmark(true)
       }
     } catch {

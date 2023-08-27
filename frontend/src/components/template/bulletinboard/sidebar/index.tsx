@@ -46,7 +46,7 @@ const MessageSidebar = (props: Props) => {
     <div className={style.side}>
       <div className={style.side_header}>
         <SidebarChatCard selectBoard={selectBoard} avater={selectBoard.authorAvatar}>
-          <span className={style.card_title}>{selectBoard.content}</span>
+          {selectBoard.content}
         </SidebarChatCard>
         <p className={style.bottom_border}>その他の返信</p>
       </div>

@@ -48,12 +48,16 @@ export default function ArticleCard(props: Props) {
 
   const [expanded, setExpanded] = useState<boolean>(false)
   const [moreover, setMoreover] = useState<boolean>(false)
+  const [countLikes, setCountLikes] = useState<number>(article.likes.length)
+  const [countBookmarks, setCountBookmarks] = useState<number>(article.bookmarks.length)
 
   const router = useRouter()
 
   const handleExpandClick = (): void => {
     setExpanded(!expanded)
   }
+
+  console.log(article)
 
   const handleDelete = async () => {
     try {
@@ -136,10 +140,12 @@ export default function ArticleCard(props: Props) {
         </CardContent>
         <CardActions disableSpacing>
           <IconButton aria-label='add to favorites'>
-            <AlbumLikeBtn article={article} />
+            <AlbumLikeBtn article={article} setCountLikes={setCountLikes} />
+            <span>{countLikes}</span>
           </IconButton>
           <IconButton aria-label='share'>
-            <BookMarkBtn article={article} />
+            <BookMarkBtn article={article} setCountBookmarks={setCountBookmarks} />
+            <span>{countBookmarks}</span>
           </IconButton>
           <ExpandMore
             expand={expanded}

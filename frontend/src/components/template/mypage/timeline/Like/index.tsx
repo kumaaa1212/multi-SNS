@@ -5,29 +5,39 @@ import { ArticlesType } from '@/types/global'
 import apiClient from '@/libs/apiClient'
 import { RootState } from '@/store/store'
 import { useSelector } from 'react-redux'
+import TweetCard from '@/components/parts/Card/Tweet'
 const MypageLikes = () => {
   const { userId } = useSelector((state: RootState) => state.user)
   const [albumData, setAlbumData] = React.useState<ArticlesType[]>([])
 
   useEffect(() => {
-    console.log('VGBHJKNLM<+<KMLJNHBYGUTVYFRTCgh')
     const myAlbum = async () => {
-      try{
+      try {
         const albumdata = await apiClient.get(`/post/album/like/${userId}`)
-        setAlbumData(albumdata.data.likedPosts)
-      }
-      catch{
+        const tweetdata = await apiClient.get(`/post/tweet/like/${userId}`)
+        console.log()
+        setAlbumData([...albumdata.data.likedPosts,...tweetdata.data.likedTweets])
+      } catch {
         alert('情報の取得に失敗しました')
       }
     }
     myAlbum()
   }, [userId])
 
+  const ablusData = (data:any) => {
+    const arry = data?.map((item: any) => {
+      if ('thumbnailImg' in item) {
+        return <ArticleCard key={item.id} setAlbumData={setAlbumData} article={item} />
+      } else {
+        return <TweetCard key={item.id} tweet={item} setAlbumData={setAlbumData} />
+      }
+    })
+    return arry
+  }
+
   return (
     <div className={style.album}>
-      {albumData?.map((article) => (
-        <ArticleCard article={article} setAlbumData={setAlbumData} />
-      ))}
+      {ablusData(albumData)}
     </div>
   )
 }
