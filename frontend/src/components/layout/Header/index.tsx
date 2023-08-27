@@ -7,10 +7,9 @@ const Header = () => {
     <header className='header'>
       <nav className='header_nav'>
         <Link href='/mypage' className='header_logo_area'>
-          <Image src={Logo} alt={''} className='header_logo' />
+          {/* <Image src={Logo} alt={''} className='header_logo' /> */}
         </Link>
         <div className='header_nav_link'>
-          <Link href='/' className='nav_link'></Link>
           <Link href='/home' className='nav_link link_style'>
             HOME
           </Link>

@@ -9,7 +9,7 @@ import { useSelector } from 'react-redux'
 import Icongenerate from '@/utils/functions/Avater'
 const BulletinboardCard = (props: any) => {
   const { children, sideMessagrBar, setSideMessagrBar, board, selectBoard, setSelectBoard } = props
-  const { team, userId, username, iconPath } = useSelector((state: RootState) => state.user)
+  const { userId } = useSelector((state: RootState) => state.user)
 
   const [like, setLike] = useState<boolean>(
     board.likes.map((like: any) => like.authorId).includes(board.authorId),
