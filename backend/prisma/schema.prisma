@@ -130,3 +130,11 @@ model BoardMessage{
   boardId Int
   board Board @relation(fields: [boardId], references: [id])
 }
+
+model KeepPost{
+  id Int @id @default(autoincrement())
+  title String
+  content String
+  authorId String
+  createdAt DateTime @default(now())
+}

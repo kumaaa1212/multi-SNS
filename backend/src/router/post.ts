@@ -4,6 +4,40 @@ import { PrismaClient } from "@prisma/client";
 const router: Router = Router();
 const prisma = new PrismaClient();
 
+// albumを保存する
+router.post("/keep-post/save", async (req: Request, res: Response) => {
+  const { title, content, authorId } = req.body;
+
+  try {
+    const keepPost = await prisma.keepPost.create({
+      data: {
+        title,
+        content,
+        authorId,
+      },
+    });
+    return res.json({ keepPost });
+  } catch (err: any) {
+    res.json({ error: err.message });
+  }
+})
+
+// albumを保存した内容を取得する
+router.get("/keep-post/:authorId", async (req: Request, res: Response) => {
+  const { authorId } = req.params;
+
+  try {
+    const keepPosts = await prisma.keepPost.findMany({
+      where: {
+        authorId: authorId,
+      },
+    });
+    return res.json({ keepPosts });
+  } catch (err: any) {
+    res.json({ error: err.message });
+  }
+})
+
 // albumを追加する
 router.post("/tweet", async (req: Request, res: Response) => {
   const { content, authorId, authorName, authorAvatar, img } = req.body;

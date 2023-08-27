@@ -1,0 +1,16 @@
+.use_btn{
+  margin-top: 10px;
+  display: flex;
+  justify-content: end;
+  button{
+    display: block;
+    width: 100px;
+    height: 40px;
+    font-weight: bold;
+    background-color: black;
+    color:white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+}
