@@ -31,7 +31,7 @@ const Categories = () => {
         {teamData.map((team: TeamType) => (
           <Paper
             className={style.team_card}
-            onClick={() => router.push(`/categories/deails/${team.label}`)}
+            onClick={() => router.push(`/categories/details/${team.label}`)}
           >
             <Image src={team.img} alt={''} width={100} height={70} className={style.team_img} />
             <span>{team.name}</span>

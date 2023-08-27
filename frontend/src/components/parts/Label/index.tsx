@@ -4,10 +4,11 @@ import Stack from '@mui/material/Stack'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppDispatch, RootState } from '@/store/store'
 import { addLabels } from '@/features/postSlice'
+import { TeamDataType } from '@/types/global'
 
 interface Props {
   labelName: string
-  data: any
+  data: TeamDataType[]
 }
 
 export default function Labels(props: Props) {

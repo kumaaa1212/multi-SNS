@@ -1,4 +1,3 @@
-import Label from '@/components/parts/Label'
 import React from 'react'
 import style from './Thumbnail.module.scss'
 import AlnumLayout from '../albumLayout/AlbumLayout'
@@ -7,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { AppDispatch, RootState } from '@/store/store'
 import { addThumbnail } from '@/features/postSlice'
 import ThumbnailCard from '@/components/parts/Card/Post/thumbnail'
-import { jLeagueTeams, studiumsData } from '@/utils/TeamData'
+import { jLeagueTeams } from '@/utils/TeamData'
 const Thumbnail = () => {
   const dispatch: AppDispatch = useDispatch()
   const { thumbnailText } = useSelector((state: RootState) => state.post)

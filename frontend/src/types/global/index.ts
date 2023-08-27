@@ -91,3 +91,11 @@ export interface BoardRoomType {
   authorAvatar: string
   messages:MessageType[]
 }
+
+export interface TeamDataType {
+  label: string
+  name: string
+  league: string
+  img: string
+  stadium: string
+}

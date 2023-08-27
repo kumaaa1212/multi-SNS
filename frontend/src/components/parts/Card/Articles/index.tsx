@@ -48,16 +48,14 @@ export default function ArticleCard(props: Props) {
 
   const [expanded, setExpanded] = useState<boolean>(false)
   const [moreover, setMoreover] = useState<boolean>(false)
-  const [countLikes, setCountLikes] = useState<number>(article.likes.length)
-  const [countBookmarks, setCountBookmarks] = useState<number>(article.bookmarks.length)
+  const [countLikes, setCountLikes] = useState<number>(article.likes?.length)
+  const [countBookmarks, setCountBookmarks] = useState<number>(article.bookmarks?.length)
 
   const router = useRouter()
 
   const handleExpandClick = (): void => {
     setExpanded(!expanded)
   }
-
-  console.log(article)
 
   const handleDelete = async () => {
     try {
