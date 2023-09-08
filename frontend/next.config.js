@@ -19,14 +19,14 @@ const nextConfig = {
       test: /\.svg$/,
       use: [
         {
-          loader: "@svgr/webpack",
+          loader: '@svgr/webpack',
           options: {
-            svgo: false, 
+            svgo: false,
           },
         },
       ],
-    });
-    return config;
+    })
+    return config
   },
 }
 

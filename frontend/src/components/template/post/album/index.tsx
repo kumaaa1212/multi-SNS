@@ -1,24 +1,24 @@
-import  { useState } from 'react'
-import style from './Album.module.scss'
+import { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { Paper, Tooltip } from '@mui/material'
+import style from './Album.module.scss'
 import AlnumLayout from './albumLayout/AlbumLayout'
 import MarkDown from '@/components/template/MarkDown'
-import { useDispatch, useSelector } from 'react-redux'
 import { addImgcontents, createContentText, createTitleText } from '@/features/postSlice'
 import { AppDispatch, RootState } from '@/store/store'
 
-const Album = () => {
+const Album = (): JSX.Element => {
   const [preview, setPreview] = useState<boolean>(false)
 
   const dispatch: AppDispatch = useDispatch()
   const { titleText, contentText } = useSelector((state: RootState) => state.post)
 
-  const openFileInput = () => {
+  const openFileInput = (): void => {
     const fileInput = document.getElementById('markdown_file_input')
     fileInput?.click()
   }
 
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     const selectedFile = event.target.files?.[0]
     if (selectedFile) {
       const imageMarkdown = `![](${URL.createObjectURL(selectedFile)})`
@@ -86,7 +86,7 @@ const Album = () => {
                     fill='none'
                     stroke-linecap='round'
                     stroke-linejoin='round'
-                    onClick={() => setPreview(!preview)}
+                    onClick={(): void => setPreview(!preview)}
                   >
                     <path stroke='none' d='M0 0h24v24H0z' fill='none' />
                     <path d='M10 18l6 -6l-6 -6v12' />
@@ -114,7 +114,7 @@ const Album = () => {
                 </a>
               </Tooltip>
               <Tooltip title='写真を追加'>
-                <div onClick={() => openFileInput()}>
+                <div onClick={(): void => openFileInput()}>
                   <svg
                     xmlns='http://www.w3.org/2000/svg'
                     className='icon icon-tabler icon-tabler-plus'
@@ -135,7 +135,7 @@ const Album = () => {
                     type='file'
                     id='markdown_file_input'
                     style={{ display: 'none' }}
-                    onChange={(e) => handleFileChange(e)}
+                    onChange={(e): void => handleFileChange(e)}
                   />
                 </div>
               </Tooltip>

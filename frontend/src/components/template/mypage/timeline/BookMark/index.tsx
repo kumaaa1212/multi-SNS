@@ -1,24 +1,20 @@
 import React, { useEffect } from 'react'
-import style from '../TimeLine.module.scss'
-import ArticleCard from '@/components/parts/Card/Articles'
-import { ArticlesType } from '@/types/global'
-import apiClient from '@/libs/apiClient'
-import { RootState } from '@/store/store'
 import { useSelector } from 'react-redux'
+import style from '../TimeLine.module.scss'
+import apiClient from 'libs/apiClient'
+import { RootState } from 'store/store'
+import { ArticlesType } from 'types/global'
+import ArticleCard from 'components/parts/Card/Articles'
 const MypageBooKMark = () => {
   const { userId } = useSelector((state: RootState) => state.user)
   const [albumData, setAlbumData] = React.useState<ArticlesType[]>([])
 
   useEffect(() => {
     const BookMarkFerch = async () => {
-      console.log('hnjkml,')
-      console.log(userId)
-      try{
+      try {
         const albumdata = await apiClient.get(`/post/album/bookmarked/${userId}`)
         setAlbumData(albumdata.data.bookmarkedPosts)
-        console.log(albumdata.data)
-      }
-      catch{
+      } catch {
         alert('情報の取得に失敗しました')
       }
     }
@@ -27,7 +23,9 @@ const MypageBooKMark = () => {
 
   return (
     <div className={style.album}>
-      {albumData?.map((article) => <ArticleCard article={article} setAlbumData={setAlbumData} />)}
+      {albumData?.map((article, index) => (
+        <ArticleCard key={index} article={article} setAlbumData={setAlbumData} />
+      ))}
     </div>
   )
 }

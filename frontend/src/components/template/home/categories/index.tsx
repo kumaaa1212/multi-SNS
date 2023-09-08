@@ -1,14 +1,14 @@
-import style from '../Home.module.scss'
+import { useEffect, useState } from 'react'
+import { Paper } from '@mui/material'
+import apiClient from 'libs/apiClient'
+import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { Paper } from '@mui/material'
-import Image from 'next/image'
-import { jLeagueTeams } from '@/utils/TeamData'
-import { useEffect, useState } from 'react'
-import apiClient from '@/libs/apiClient'
-import { TeamType } from '@/types/global'
+import { jLeagueTeams } from 'utils/TeamData'
+import { TeamType } from 'types/global'
+import style from '../Home.module.scss'
 
-const CategoriesPart = () => {
+const CategoriesPart = (): JSX.Element => {
   const router = useRouter()
   const [teamData, setTeamData] = useState<TeamType[]>(jLeagueTeams.slice(0, 10))
 
@@ -18,7 +18,6 @@ const CategoriesPart = () => {
         const res = await apiClient.get('/post/post-labels')
         const data = res.data
         const fliterdata = data.map((item: any) => item.name)
-        console.log(fliterdata)
 
         const nameCountMap: Record<string, number> = {}
 
@@ -70,8 +69,11 @@ const CategoriesPart = () => {
       <div className={style.home_categories}>
         {teamData.map((team) => (
           <Paper
+            key={team.label}
             className={style.team_card}
-            onClick={() => router.push(`/categories/details/${team.label}`)}
+            onClick={(): void => {
+              router.push(`/categories/details/${team.label}`)
+            }}
           >
             <Image src={team.img} alt={''} width={100} height={70} className={style.team_img} />
             <span>{team.name}</span>

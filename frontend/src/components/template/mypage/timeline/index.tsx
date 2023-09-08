@@ -1,10 +1,10 @@
-import Tabs from '@mui/material/Tabs'
-import Tab from '@mui/material/Tab'
-import Box from '@mui/material/Box'
-import MypageAlbum from './Album'
-import MypageLikes from './Like'
-import MypageBooKMark from './BookMark'
 import { useState } from 'react'
+import Box from '@mui/material/Box'
+import Tab from '@mui/material/Tab'
+import Tabs from '@mui/material/Tabs'
+import MypageAlbum from './Album'
+import MypageBooKMark from './BookMark'
+import MypageLikes from './Like'
 
 interface TabPanelProps {
   children?: React.ReactNode
@@ -39,7 +39,7 @@ function a11yProps(index: number) {
   }
 }
 
-export default function BasicTabs() {
+export default function BasicTabs(): JSX.Element {
   const [value, setValue] = useState<number>(0)
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {

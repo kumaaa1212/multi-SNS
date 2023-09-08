@@ -1,14 +1,14 @@
-import Icongenerate from '@/utils/functions/Avater'
+import Icongenerate from 'utils/functions/Avater'
 import style from './Sidebar.module.scss'
 import Image from 'next/image'
 import Noavater from 'public/noavater.jpg'
-import { BoardRoomType, MessageType } from '@/types/global'
+import { BoardRoomType, MessageType } from 'types/global'
 
 interface Props {
   selectBoard?: BoardRoomType | undefined
   sideChat?: MessageType
   avater: string | undefined
-  children:  React.ReactNode
+  children: React.ReactNode
 }
 
 const SidebarChatCard = (props: Props) => {
@@ -17,7 +17,7 @@ const SidebarChatCard = (props: Props) => {
   return (
     <div className={style.timeline_user}>
       <Image
-        src={avater ? Icongenerate(avater) : Noavater}
+        src={avater ? Icongenerate(avater) : '/noavater.jpg'}
         alt={'プロフィール画像'}
         width={40}
         height={40}

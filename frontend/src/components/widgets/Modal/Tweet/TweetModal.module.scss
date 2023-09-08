@@ -1,14 +1,14 @@
-.tweet_img_area{
+.tweet_img_area {
   margin: 15px 0;
   display: flex;
   justify-content: center;
-  .tweet_img{
+  .tweet_img {
     object-fit: cover;
   }
 }
-.handle_close{
+.handle_close {
   margin-bottom: 10px;
-  .save_btn{
+  .save_btn {
     display: block;
     background-color: black;
     width: 90px;
@@ -20,20 +20,20 @@
     font-size: 20px;
   }
 
-  .close_btn{
+  .close_btn {
     cursor: pointer;
   }
 }
-.handle_tweet{
+.handle_tweet {
   margin-top: 10px;
   width: 600px;
   display: flex;
   justify-content: space-between;
-  svg{
+  svg {
     cursor: pointer;
   }
 
-  .handle_btn{
+  .handle_btn {
     display: block;
     width: 80px;
     height: 40px;
@@ -47,35 +47,35 @@
   }
 }
 
-.tweet_content{
+.tweet_content {
   display: flex;
-  .profile_img{
+  .profile_img {
     object-fit: cover;
     border-radius: 50%;
   }
 
-  .tweet_textarea{
+  .tweet_textarea {
     resize: none;
     margin-left: 20px;
     display: block;
     width: 100%;
     min-height: 150px;
     max-height: 150px;
-    min-width:530px;
+    min-width: 530px;
     max-width: 530px;
     border: none;
     font-size: 20px;
   }
-  .tweet_textarea:focus{
+  .tweet_textarea:focus {
     outline: none;
   }
 }
 
-.handle_area{
+.handle_area {
   display: flex;
   justify-content: space-between;
   margin-bottom: 10px;
-  .save_btn{
+  .save_btn {
     display: block;
     background-color: black;
     width: 90px;
@@ -87,7 +87,7 @@
     font-size: 20px;
   }
 
-  .close_btn{
+  .close_btn {
     display: block;
     background-color: #fff;
     cursor: pointer;

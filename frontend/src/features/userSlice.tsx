@@ -1,5 +1,5 @@
-import Icongenerate from '@/utils/functions/Avater'
 import { createSlice } from '@reduxjs/toolkit'
+import Icongenerate from 'utils/functions/Avater'
 
 interface FrendInfo {
   icon: string

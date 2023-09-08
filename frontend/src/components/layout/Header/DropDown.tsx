@@ -1,20 +1,17 @@
-import PersonIcon from '@mui/icons-material/Person'
+import { useDispatch, useSelector } from 'react-redux'
 import LogoutIcon from '@mui/icons-material/Logout'
+import PersonIcon from '@mui/icons-material/Person'
 import PersonAddIcon from '@mui/icons-material/PersonAdd'
-import LoginIcon from '@mui/icons-material/Login'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { supabase } from '@/utils/supabaseClient'
-import { useDispatch, useSelector } from 'react-redux'
-import { AppDispatch, RootState } from '@/store/store'
-import { logoutUser } from '@/features/userSlice'
+import { AppDispatch, RootState } from 'store/store'
 
-const DropDown = () => {
+const DropDown = (): JSX.Element => {
   const router = useRouter()
   const { userId } = useSelector((state: RootState) => state.user)
   const dispatch: AppDispatch = useDispatch()
 
-  const Logout = async () => {
+  const Logout = async (): Promise<void> => {
     localStorage.removeItem('auth_token')
     router.reload
   }
@@ -39,7 +36,7 @@ const DropDown = () => {
             <p>sighup</p>
           </Link>
           <Link href={'/login'} className='link_style dropdown_list'>
-            <LoginIcon />
+            {/* <LoginIcon /> */}
             <p>login</p>
           </Link>
         </div>

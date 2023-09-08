@@ -1,7 +1,6 @@
 import Thumbnail from '@/components/template/post/album/thumbnail'
-import React from 'react'
 
-const ThumbnailPage = () => {
+const ThumbnailPage = (): JSX.Element => {
   return <Thumbnail />
 }
 

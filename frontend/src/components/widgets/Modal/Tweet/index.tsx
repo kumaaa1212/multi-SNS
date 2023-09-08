@@ -1,22 +1,22 @@
 import { useState } from 'react'
-import style from './TweetModal.module.scss'
-import Image from 'next/image'
-import profile_img from 'public/profile_img.jpg'
-import apiClient from '@/libs/apiClient'
-import ModalBase from '@/components/parts/Modal'
 import { useSelector } from 'react-redux'
-import { RootState } from '@/store/store'
-import { supabase } from '@/utils/supabaseClient'
+import Image from 'next/image'
+import apiClient from 'libs/apiClient'
+import profile_img from 'public/profile_img.jpg'
+import { RootState } from 'store/store'
 import { v4 as uuidv4 } from 'uuid'
+import { supabase } from 'utils/supabaseClient'
+import ModalBase from 'components/parts/Modal'
+import style from './TweetModal.module.scss'
 
-export default function TweetModal(props: any) {
+export default function TweetModal(props: any): JSX.Element {
   const { open, setOpen } = props
   const { username, userId, iconPath } = useSelector((state: RootState) => state.user)
 
   const [tweetContents, setTweetContents] = useState<string>('')
   const [dispalayImg, setDisplayImg] = useState<string>('')
   const [file, setFile] = useState<string>('')
-  const handleTweet = async () => {
+  const handleTweet = async (): any => {
     try {
       if (tweetContents) {
         const { data: storageData, error: storegeError } = await supabase.storage
@@ -42,12 +42,12 @@ export default function TweetModal(props: any) {
     }
   }
 
-  function openFileInput() {
+  function openFileInput(): void {
     const fileInput = document.getElementById('addImg')
     fileInput?.click()
   }
 
-  function handleFileSelect(e: any) {
+  function handleFileSelect(e: any): void {
     const selectedFile = e.target.files![0]
     setDisplayImg(URL.createObjectURL(selectedFile))
     setFile(selectedFile)
@@ -68,7 +68,7 @@ export default function TweetModal(props: any) {
             fill='none'
             stroke-linecap='round'
             stroke-linejoin='round'
-            onClick={() => setOpen(!open)}
+            onClick={(): void => setOpen(!open)}
           >
             <path stroke='none' d='M0 0h24v24H0z' fill='none' />
             <path d='M18 6l-12 12' />
@@ -76,17 +76,31 @@ export default function TweetModal(props: any) {
           </svg>
         </div>
         <div className={style.tweet_content}>
-          <Image src={profile_img} alt={''} width={50} height={50} className={style.profile_img} />
+          <Image
+            src='profile_img.jpg'
+            alt={''}
+            width={50}
+            height={50}
+            className={style.profile_img}
+          />
           <textarea
             name=''
             id=''
             placeholder='What is happening'
             className={style.tweet_textarea}
-            onChange={(e) => setTweetContents(e.target.value)}
+            onChange={(e): void => setTweetContents(e.target.value)}
           ></textarea>
         </div>
         <div className={style.tweet_img_area}>
-          {dispalayImg && <Image src={dispalayImg} alt={''} width={500} height={300} className={style.tweet_img} />}
+          {dispalayImg && (
+            <Image
+              src={dispalayImg}
+              alt={''}
+              width={500}
+              height={300}
+              className={style.tweet_img}
+            />
+          )}
         </div>
         <div className={style.handle_tweet}>
           <svg
@@ -100,7 +114,7 @@ export default function TweetModal(props: any) {
             fill='none'
             stroke-linecap='round'
             stroke-linejoin='round'
-            onClick={() => openFileInput()}
+            onClick={(): void => openFileInput()}
           >
             <path stroke='none' d='M0 0h24v24H0z' fill='none' />
             <path d='M15 8h.01' />
@@ -113,7 +127,7 @@ export default function TweetModal(props: any) {
             type='file'
             id='addImg'
             style={{ display: 'none' }}
-            onChange={(e) => handleFileSelect(e)}
+            onChange={(e): void => handleFileSelect(e)}
           />
           <button className={style.handle_btn} onClick={handleTweet}>
             Tweet

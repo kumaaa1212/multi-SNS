@@ -1,6 +1,11 @@
+node_modules/
+.next/
+.nuxt/
 build/
+dist/
+out/
 public/
-**/node_modules/
-**/*.min.js
-*.config.js
-.*lintrc.js
+package-lock.json
+yarn.lock
+next.config.js
+tsconfig.json

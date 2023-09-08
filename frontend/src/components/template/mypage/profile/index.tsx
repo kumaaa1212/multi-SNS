@@ -1,20 +1,20 @@
-import Image from 'next/image'
 import React, { Dispatch, useEffect, useState } from 'react'
-import style from './Prolife.module.scss'
-import EditModal from '@/components/widgets/Modal/Edit'
 import { useSelector } from 'react-redux'
-import { RootState } from '@/store/store'
-import Noavater from '/public/noavater.jpg'
-import Icongenerate from '@/utils/functions/Avater'
-import PostBtn from '@/components/parts/Button/Post/addbtn'
-import apiClient from '@/libs/apiClient'
+import Image from 'next/image'
 import { useRouter } from 'next/router'
+import style from './Prolife.module.scss'
+import PostBtn from 'components/parts/Button/Post/addbtn'
+import EditModal from 'components/widgets/Modal/Edit'
+import apiClient from 'libs/apiClient'
+import { RootState } from 'store/store'
+import Noavater from '/public/noavater.jpg'
+import Icongenerate from 'utils/functions/Avater'
 
 interface Props {
   setOpen: Dispatch<boolean>
 }
 
-const Profile = (props: Props) => {
+const Profile = (props: Props): JSX.Element => {
   const { setOpen } = props
 
   const { username, icon, bio, follow, follower, userId, twitterURL, teamURL } = useSelector(
@@ -38,8 +38,6 @@ const Profile = (props: Props) => {
     llikeDeta()
   }, [])
 
-  console.log(icon)
-
   return (
     <div>
       {openEdit && <EditModal openEdit={openEdit} setOpenEdit={setOpenEdit} />}
@@ -55,7 +53,7 @@ const Profile = (props: Props) => {
         <div className={style.profile_details}>
           <div className={style.profile_header}>
             <h1>{username}</h1>
-            <button className={style.profile_header_btn} onClick={() => setOpenEdit(true)}>
+            <button className={style.profile_header_btn} onClick={(): void => setOpenEdit(true)}>
               編集
             </button>
           </div>

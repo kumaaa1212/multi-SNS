@@ -1,14 +1,14 @@
 import { GetServerSideProps } from 'next'
-import { ArticleProps, ArticlesType, TweetsType } from '@/types/global'
-import Article from '@/components/template/article'
-import apiClient from '@/libs/apiClient'
+import Article from 'components/template/article'
+import apiClient from 'libs/apiClient'
+import { ArticlesType, TweetsType } from 'types/global'
 
 interface Props {
   articlesLike: ArticlesType[] | TweetsType[]
   articlesNew: ArticlesType[] | TweetsType[]
 }
 
-const ArticlePage = ({ articlesLike, articlesNew }: Props) => {
+const ArticlePage = ({ articlesLike, articlesNew }: Props): JSX.Element => {
   return <Article articlesLike={articlesLike} articlesNew={articlesNew} />
 }
 

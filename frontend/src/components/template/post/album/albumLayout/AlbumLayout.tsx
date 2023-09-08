@@ -1,16 +1,16 @@
 import { useEffect, useState } from 'react'
-import style from './AlbumLayout.module.scss'
-import HorizontalLinearStepper from '@/components/parts/Stepper'
-import SwitchBtn from '@/components/parts/Button/SwitchBtn'
-import { useRouter } from 'next/router'
-import AbjustModal from '@/components/widgets/Modal/Abjustment'
-import { AppDispatch, RootState } from '@/store/store'
 import { useDispatch, useSelector } from 'react-redux'
-import apiClient from '@/libs/apiClient'
-import { supabase } from '@/utils/supabaseClient'
+import { useRouter } from 'next/router'
 import { v4 as uuidv4 } from 'uuid'
-import { stateReset } from '@/features/postSlice'
+import style from './AlbumLayout.module.scss'
+import SwitchBtn from '@/components/parts/Button/SwitchBtn'
+import HorizontalLinearStepper from '@/components/parts/Stepper'
+import AbjustModal from '@/components/widgets/Modal/Abjustment'
 import KeepModal from '@/components/widgets/Modal/Keep'
+import { stateReset } from '@/features/postSlice'
+import apiClient from '@/libs/apiClient'
+import { AppDispatch, RootState } from '@/store/store'
+import { supabase } from '@/utils/supabaseClient'
 
 interface Props {
   children: React.ReactNode
@@ -43,7 +43,7 @@ const AlnumLayout = (props: Props) => {
     }
   }, [])
 
-  const handleReverse = () => {
+  const handleReverse = (): void => {
     if (router.pathname === '/post/album/thumbnail') {
       router.push('/post')
     } else if (router.pathname === '/post') {
@@ -58,7 +58,7 @@ const AlnumLayout = (props: Props) => {
       authorId: userId,
     })
   }
-  
+
   const handleRelease = async () => {
     if (!(thumbnailText && titleText && labels && contentText)) {
       alert('必要な情報が入力されていません')
@@ -166,7 +166,7 @@ const AlnumLayout = (props: Props) => {
             {abjustOpen && (
               <div className={style.abjust_dropdown}>
                 <ul>
-                  <li className={style.drowdown_list} onClick={() => setKeepOpen(!keepOpen)}>
+                  <li className={style.drowdown_list} onClick={(): void => setKeepOpen(!keepOpen)}>
                     <svg
                       xmlns='http://www.w3.org/2000/svg'
                       width='30'
@@ -185,7 +185,7 @@ const AlnumLayout = (props: Props) => {
                     </svg>
                     <p> 保存一覧</p>
                   </li>
-                  <li className={style.drowdown_list} onClick={() => setIdeaOpen(!ideaOpen)}>
+                  <li className={style.drowdown_list} onClick={(): void => setIdeaOpen(!ideaOpen)}>
                     <svg
                       xmlns='http://www.w3.org/2000/svg'
                       width='30'
@@ -221,14 +221,18 @@ const AlnumLayout = (props: Props) => {
                 ) : (
                   <button
                     className={style.keep_btn}
-                    onClick={() => router.push('/post/album/thumbnail')}
+                    onClick={(): void => {
+                      router.push('/post/album/thumbnail')
+                    }}
                   >
                     次へ進む
                   </button>
                 )}
               </div>
             ) : (
-              <button className={style.keep_btn} onClick={handleKeep}>下書き保存</button>
+              <button className={style.keep_btn} onClick={handleKeep}>
+                下書き保存
+              </button>
             )}
           </div>
         </div>

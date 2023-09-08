@@ -1,10 +1,9 @@
-import MarkDown from '@/components/template/MarkDown'
-import apiClient from '@/libs/apiClient'
 import React from 'react'
 import { marked } from 'marked'
 import AlbumMore from '@/components/template/home/AlbumMore'
+import apiClient from '@/libs/apiClient'
 
-const AlbumDetails = ({ articles }: any) => {
+const AlbumDetails = ({ articles }: any): JSX.Element => {
   const markdownToHtml = marked(articles.content)
   return (
     <div>

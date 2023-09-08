@@ -1,10 +1,10 @@
-import Link from 'next/link'
-import BadgeAvatars from '@/components/parts/Account'
 import { useSelector } from 'react-redux'
-import { RootState } from '@/store/store'
-import { jLeagueTeams } from '@/utils/TeamData'
+import Link from 'next/link'
+import { RootState } from 'store/store'
+import { jLeagueTeams } from 'utils/TeamData'
+import BadgeAvatars from 'components/parts/Account'
 
-const Header = () => {
+const Header = (): JSX.Element => {
   const { team, userId } = useSelector((state: RootState) => state.user)
 
   const filterTeam = jLeagueTeams.filter((item) => item.name === team)

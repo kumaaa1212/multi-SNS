@@ -1,12 +1,12 @@
 import ReactMarkdown from 'react-markdown'
-import style from './MarkDown.module.scss'
 import remarkGfm from 'remark-gfm'
+import style from './MarkDown.module.scss'
 
 interface Props {
   children: any
 }
 
-const MarkDown = (props: Props) => {
+const MarkDown = (props: Props): JSX.Element => {
   const { children } = props
 
   return (

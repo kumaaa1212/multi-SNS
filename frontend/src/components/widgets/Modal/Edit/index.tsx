@@ -1,15 +1,15 @@
 import { useState } from 'react'
 import { TextField } from '@mui/material'
-import { supabase } from '@/utils/supabaseClient'
+import { supabase } from 'utils/supabaseClient'
 import style from './EditModal.module.scss'
 import Image from 'next/image'
-import ModalBase from '@/components/parts/Modal'
+import ModalBase from 'components/parts/Modal'
 import { useDispatch, useSelector } from 'react-redux'
-import { AppDispatch, RootState } from '@/store/store'
-import Icongenerate from '@/utils/functions/Avater'
+import { AppDispatch, RootState } from 'store/store'
+import Icongenerate from 'utils/functions/Avater'
 import { v4 as uuid4 } from 'uuid'
-import apiClient from '@/libs/apiClient'
-import { updateUser } from '@/features/userSlice'
+import apiClient from 'libs/apiClient'
+import { updateUser } from 'features/userSlice'
 
 interface Props {
   openEdit: boolean

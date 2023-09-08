@@ -1,15 +1,14 @@
-import { AppDispatch } from '@/store/store'
-import Header from './Header'
-import { useDispatch } from 'react-redux'
 import { useEffect } from 'react'
-import apiClient from '@/libs/apiClient'
-import { loginUser } from '@/features/userSlice'
+import { useDispatch } from 'react-redux'
+import { loginUser } from 'features/userSlice'
+import apiClient from 'libs/apiClient'
+import { AppDispatch } from 'store/store'
+import Header from './Header'
 
-const Layout = ({ children }: { children: React.ReactNode }) => {
-  
+const Layout = ({ children }: { children: React.ReactNode }): JSX.Element => {
   const dispatch: AppDispatch = useDispatch()
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchData = async (): Promise<void> => {
       const token = localStorage.getItem('auth_token')
       if (token) {
         // トークンがある場合、リクエストヘッダーに設定
@@ -19,7 +18,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
           const res = await apiClient.get('/auth/me')
           dispatch(loginUser(res.data))
         } catch (error) {
-          console.error('Error fetching data:', error)
+          // console.error('Error fetching data:', error)
         }
       }
     }

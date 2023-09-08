@@ -1,19 +1,19 @@
 import { useState } from 'react'
-import MessageSidebar from './sidebar'
-import Timeline from './timeline'
-import { BoardRoomType } from '@/types/global'
+import MessageSidebar from 'components/template/bulletinboard/sidebar'
+import Timeline from 'components/template/bulletinboard/timeline'
+import { BoardRoomType, BoardType } from 'types/global'
 import style from './bulletinboard.module.scss'
 
 interface Props {
-  boardRooms: BoardRoomType[]
-  setBoardRooms: React.Dispatch<React.SetStateAction<BoardRoomType[]>>
+  boardRoom: BoardRoomType
 }
 
-const Board = (props: Props) => {
-  const { boardRooms, setBoardRooms } = props
+const Board = (props: Props): JSX.Element => {
+  const { boardRoom } = props
 
+  const [boardRooms, setBoardRooms] = useState<BoardRoomType>(boardRoom)
+  const [selectBoard, setSelectBoard] = useState<BoardType | undefined>()
   const [sideMessagrBar, setSideMessagrBar] = useState<boolean>(false)
-  const [selectBoard, setSelectBoard] = useState<BoardRoomType | undefined>()
 
   return (
     <div className={style.board}>
@@ -25,13 +25,13 @@ const Board = (props: Props) => {
         selectBoard={selectBoard}
         setSelectBoard={setSelectBoard}
       />
-        {sideMessagrBar && (
-          <MessageSidebar
-            boardRooms={boardRooms}
-            setBoardRooms={setBoardRooms}
-            selectBoard={selectBoard}
-          />
-        )}
+      {/* {sideMessagrBar && (
+        <MessageSidebar
+          boardRooms={boardRooms}
+          setBoardRooms={setBoardRooms}
+          selectBoard={selectBoard}
+        />
+      )} */}
     </div>
   )
 }

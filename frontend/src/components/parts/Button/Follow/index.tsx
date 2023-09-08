@@ -1,10 +1,9 @@
 import React, { use, useEffect, useState } from 'react'
-import style from './FollowBtn.module.scss'
-import { RootState } from '@/store/store'
 import { useSelector } from 'react-redux'
-import { supabase } from '@/utils/supabaseClient'
-import { followUser } from '@/utils/functions/follow/follow'
-import { unFollowUser } from '@/utils/functions/follow/unfollow'
+import { RootState } from 'store/store'
+import { followUser } from 'utils/functions/follow/follow'
+import { unFollowUser } from 'utils/functions/follow/unfollow'
+import style from './FollowBtn.module.scss'
 const FollowBtn = (props: any) => {
   const { children, article } = props
   const { authorId, authorName, authorAvatar } = article

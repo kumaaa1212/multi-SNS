@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react'
-import { ArticlesType } from '@/types/global'
 import { useSelector } from 'react-redux'
-import { RootState } from '@/store/store'
 import BookMarkIcon from '/public/svg/card_bookmark.svg'
 import BookMarkedIcon from '/public/svg/card_bookmarked.svg'
-import apiClient from '@/libs/apiClient'
+import apiClient from 'libs/apiClient'
+import { RootState } from 'store/store'
+import { ArticlesType } from 'types/global'
 
 interface Props {
   article: ArticlesType

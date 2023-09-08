@@ -1,6 +1,6 @@
 import Album from '@/components/template/post/album'
 
-const AlbumPage = () => {
+const AlbumPage = (): JSX.Element => {
   return <Album />
 }
 

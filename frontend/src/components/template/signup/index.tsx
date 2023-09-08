@@ -1,33 +1,30 @@
 import { useState } from 'react'
-import Button from '@mui/material/Button'
-import CssBaseline from '@mui/material/CssBaseline'
-import TextField from '@mui/material/TextField'
-import Grid from '@mui/material/Grid'
-import Box from '@mui/material/Box'
-import Typography from '@mui/material/Typography'
-import Container from '@mui/material/Container'
-import { createTheme, ThemeProvider } from '@mui/material/styles'
-import { supabase } from '@/utils/supabaseClient'
+import { useForm, SubmitHandler, Controller } from 'react-hook-form'
+import Link from 'next/link'
 import {
   CircularProgress,
-  dividerClasses,
   FormControl,
   FormHelperText,
   InputLabel,
   MenuItem,
   Select,
 } from '@mui/material'
-import Link from 'next/link'
-import { jLeagueTeams } from '@/utils/TeamData'
-import { useForm, SubmitHandler, Controller } from 'react-hook-form'
-import { AccountType } from '@/types/internal'
-import style from './SignUp.module.scss'
+import Box from '@mui/material/Box'
+import Button from '@mui/material/Button'
+import Container from '@mui/material/Container'
+import CssBaseline from '@mui/material/CssBaseline'
+import Grid from '@mui/material/Grid'
+import TextField from '@mui/material/TextField'
+import Typography from '@mui/material/Typography'
+import { createTheme, ThemeProvider } from '@mui/material/styles'
 import ModalBase from '@/components/parts/Modal'
 import apiClient from '@/libs/apiClient'
+import { AccountType } from '@/types/internal'
+import { jLeagueTeams } from '@/utils/TeamData'
 
 const defaultTheme = createTheme()
 
-export default function SignUp() {
+export default function SignUp(): JSX.Element {
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [open, setOpen] = useState<boolean>(false)
 
@@ -103,7 +100,7 @@ export default function SignUp() {
                       required: '名前を入力してください。',
                       minLength: { value: 4, message: '4文字以上で入力してください。' },
                     }}
-                    render={({ field, fieldState }) => (
+                    render={({ field, fieldState }): JSX.Element => (
                       <TextField
                         {...field}
                         fullWidth
@@ -122,12 +119,14 @@ export default function SignUp() {
                     name='team'
                     control={control}
                     rules={{ required: 'チームを選択してください' }}
-                    render={({ field, fieldState }) => (
+                    render={({ field, fieldState }): JSX.Element => (
                       <FormControl fullWidth>
                         <InputLabel id='demo-simple-select-label'>TEAM</InputLabel>
                         <Select {...field} label='team' error={fieldState.invalid}>
                           {jLeagueTeams.map((team) => (
-                            <MenuItem value={team.name}>{team.name}</MenuItem>
+                            <MenuItem value={team.name} key={team.name}>
+                              {team.name}
+                            </MenuItem>
                           ))}
                         </Select>
                         <FormHelperText error={fieldState.invalid}>
@@ -145,7 +144,7 @@ export default function SignUp() {
                       required: 'メールアドレスを入力してください。',
                       minLength: { value: 4, message: '4文字以上で入力してください。' },
                     }}
-                    render={({ field, fieldState }) => (
+                    render={({ field, fieldState }): JSX.Element => (
                       <TextField
                         {...field}
                         fullWidth
@@ -165,7 +164,7 @@ export default function SignUp() {
                       required: 'パスワードを入力してください。',
                       minLength: { value: 4, message: '4文字以上で入力してください。' },
                     }}
-                    render={({ field, fieldState }) => (
+                    render={({ field, fieldState }): JSX.Element => (
                       <TextField
                         {...field}
                         fullWidth

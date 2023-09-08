@@ -1,10 +1,10 @@
 import { useState } from 'react'
 import style from '../bulletinboard.module.scss'
-import SidebarChatCard from '@/components/parts/Card/Bulletinboard/Sidebar'
-import apiClient from '@/libs/apiClient'
+import SidebarChatCard from 'components/parts/Card/Bulletinboard/Sidebar'
+import apiClient from 'libs/apiClient'
 import { useSelector } from 'react-redux'
-import { RootState } from '@/store/store'
-import { BoardRoomType, MessageType } from '@/types/global'
+import { RootState } from 'store/store'
+import { BoardRoomType, MessageType } from 'types/global'
 
 interface Props {
   selectBoard: BoardRoomType | undefined

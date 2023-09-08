@@ -1,6 +1,6 @@
-import Mapage from '@/components/template/mypage'
+import Mapage from 'components/template/mypage'
 
-const MypageFile = () => {
+const MypageFile = (): JSX.Element => {
   return <Mapage />
 }
 

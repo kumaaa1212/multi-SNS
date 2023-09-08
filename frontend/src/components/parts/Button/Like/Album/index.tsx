@@ -1,8 +1,8 @@
-import React, { use, useEffect, useMemo, useState } from 'react'
-import apiClient from '@/libs/apiClient'
+import React, { useEffect, useState } from 'react'
+import apiClient from 'libs/apiClient'
 import FavoriteIcon from '@mui/icons-material/Favorite'
 import { useSelector } from 'react-redux'
-import { RootState } from '@/store/store'
+import { RootState } from 'store/store'
 const AlbumLikeBtn = (props: any) => {
   const { userId } = useSelector((state: RootState) => state.user)
 

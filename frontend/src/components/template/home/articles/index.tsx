@@ -1,16 +1,16 @@
-import { useEffect, useState } from 'react'
-import { useRouter } from 'next/router'
+import { useState } from 'react'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
+import { ArticlesType, TweetsType } from 'types/global'
+import ArticleCard from 'components/parts/Card/Articles'
+import TweetCard from 'components/parts/Card/Tweet'
 import style from '../Home.module.scss'
-import { ArticlesType, TweetsType } from '@/types/global'
-import ArticleCard from '@/components/parts/Card/Articles'
-import TweetCard from '@/components/parts/Card/Tweet'
 
 interface Props {
   articles: ArticlesType[] | TweetsType[]
 }
 
-const ArticlesPart = (props: Props) => {
+const ArticlesPart = (props: Props): JSX.Element => {
   const { articles } = props
 
   const [albumData, setAlbumData] = useState<ArticlesType[] | TweetsType[]>([])
@@ -36,7 +36,12 @@ const ArticlesPart = (props: Props) => {
         </Link>
       </div>
       <div className={style.home_articles}>{articles && ablusData()}</div>
-      <button className={style.all_articles} onClick={() => router.push('/articles')}>
+      <button
+        className={style.all_articles}
+        onClick={(): void => {
+          router.push('/articles')
+        }}
+      >
         全ての記事を見る
       </button>
     </div>

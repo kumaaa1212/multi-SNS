@@ -1,15 +1,14 @@
+import React from 'react'
+import { GetServerSideProps } from 'next'
 import Team from '@/components/template/details'
 import apiClient from '@/libs/apiClient'
-import { ArticlesType, TeamType } from '@/types/global'
-import { GetServerSideProps } from 'next'
-import React from 'react'
+import { ArticlesType } from '@/types/global'
 
 interface Props {
   post: ArticlesType[]
 }
 
-const TeamPage = ({ data }: { data: Props }) => {
-  console.log(data)
+const TeamPage = ({ data }: { data: Props }): JSX.Element => {
   return <Team data={data.post} />
 }
 

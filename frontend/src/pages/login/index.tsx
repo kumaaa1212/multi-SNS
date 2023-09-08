@@ -1,7 +1,6 @@
 import Login from '@/components/template/login'
-import React from 'react'
 
-const LoginPage = () => {
+const LoginPage = (): JSX.Element => {
   return <Login />
 }
 export default LoginPage

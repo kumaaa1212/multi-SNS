@@ -83,13 +83,29 @@ export interface followType {
   icon: string
 }
 
-export interface BoardRoomType {
+export interface BoardType {
   id: string
   content: string
   authorId: string
   authorName: string
   authorAvatar: string
-  messages:MessageType[]
+  likes: LikeType[]
+  messages: MessageType[]
+  createdAt: string
+  roomId: string
+}
+
+export interface LikeType {
+  id: string
+  postId: string
+  authorId: string
+}
+
+export interface BoardRoomType {
+  board: BoardType[]
+  createdAt: string
+  roomId: string
+  team: string
 }
 
 export interface TeamDataType {
@@ -98,4 +114,27 @@ export interface TeamDataType {
   league: string
   img: string
   stadium: string
+}
+
+export interface Usertype {
+  username: string
+  userId: string
+  team: string
+  icon: string
+  iconPath: string
+  bio: string
+  follow: FrendInfo[]
+  follower: FrendInfo[]
+  twitterURL?: string
+  teamURL?: string
+}
+
+export interface FrendInfo {
+  userId: string
+  bio: string
+  name: string
+  icon: string
+  team: string
+  twitterURL: string
+  teamURL: string
 }

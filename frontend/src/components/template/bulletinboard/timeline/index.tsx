@@ -1,37 +1,31 @@
-import React, { useEffect, useState } from 'react'
-import style from '../bulletinboard.module.scss'
-import BulletinboardCard from '@/components/parts/Card/Bulletinboard'
-import SendInput from '@/components/parts/Input'
-import apiClient from '@/libs/apiClient'
-import { RootState } from '@/store/store'
+import { useState } from 'react'
 import { useSelector } from 'react-redux'
-import BasicPagination from '@/components/parts/Pagenation'
+import apiClient from 'libs/apiClient'
+import { RootState } from 'store/store'
+import { BoardRoomType, BoardType } from 'types/global'
+import BulletinboardCard from 'components/parts/Card/Bulletinboard'
+import SendInput from 'components/parts/Input'
+import BasicPagination from 'components/parts/Pagenation'
+import style from '../bulletinboard.module.scss'
 
-const Timeline = (props: any) => {
-  const {
-    boardRooms,
-    setBoardRooms,
-    sideMessagrBar,
-    setSideMessagrBar,
-    selectBoard,
-    setSelectBoard,
-  } = props
+interface Props {
+  boardRooms: BoardRoomType
+  setBoardRooms: React.Dispatch<React.SetStateAction<BoardRoomType>>
+  sideMessagrBar: boolean
+  setSideMessagrBar: React.Dispatch<React.SetStateAction<boolean>>
+  selectBoard: BoardType | undefined
+  setSelectBoard: React.Dispatch<React.SetStateAction<BoardType | undefined>>
+}
 
+const Timeline = (props: Props): JSX.Element => {
+  const { boardRooms, setBoardRooms, sideMessagrBar, setSideMessagrBar } = props
+
+  const { selectBoard, setSelectBoard } = props
   const { team, userId, username, iconPath } = useSelector((state: RootState) => state.user)
   const [input, setInput] = useState<string>('')
   const [currentPage, setCurrentPage] = useState<number>(1)
-  const [fliteredBoardRooms, setFliteredBoardRooms] = useState<any[]>(boardRooms)
 
-  useEffect(() => {
-    const splitPage = (data: any[]) => {
-      const start: number = currentPage * 6
-      const end: number = start + 6
-      setFliteredBoardRooms(data?.slice(start, end))
-    }
-    splitPage(boardRooms)
-  }, [currentPage, boardRooms])
-
-  const handleSend = async () => {
+  const handleSend = async (): Promise<void> => {
     try {
       if (input.length === 0) throw new Error('入力してください')
       const newRoom = await apiClient.post('/post/boards', {
@@ -52,8 +46,9 @@ const Timeline = (props: any) => {
   return (
     <div className={style.timeline}>
       <div className={style.timeline_main}>
-        {fliteredBoardRooms?.map((board: any) => (
+        {boardRooms.board?.slice(currentPage, currentPage + 6).map((board: BoardType) => (
           <BulletinboardCard
+            key={board.id}
             sideMessagrBar={sideMessagrBar}
             setSideMessagrBar={setSideMessagrBar}
             board={board}
@@ -72,7 +67,7 @@ const Timeline = (props: any) => {
           <BasicPagination
             currentPage={currentPage}
             setCurrentPage={setCurrentPage}
-            pagelenght={boardRooms?.length}
+            pagelenght={boardRooms?.board.length}
           />
         </div>
       </div>

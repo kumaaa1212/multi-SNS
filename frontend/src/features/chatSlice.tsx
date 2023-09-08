@@ -1,4 +1,3 @@
-import Icongenerate from '@/utils/functions/Avater'
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {}
