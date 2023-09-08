@@ -38,8 +38,7 @@ const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    loginUser: (state, action) => {
-      console.log(action.payload)
+    loginUser: (state, action): void => {
       state.username = action.payload.user.name
       state.userId = action.payload.user.id
       state.team = action.payload.user.team
@@ -50,7 +49,7 @@ const userSlice = createSlice({
       state.teamURL = action.payload.user.teamURL
     },
 
-    logoutUser: (state) => {
+    logoutUser: (state): void => {
       state.username = ''
       state.userId = ''
       state.team = ''

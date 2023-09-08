@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useSelector } from 'react-redux'
 import apiClient from 'libs/apiClient'
 import { RootState } from 'store/store'
+import { jLeagueTeams } from 'utils/TeamData'
 import { BoardRoomType, BoardType } from 'types/global'
 import BulletinboardCard from 'components/parts/Card/Bulletinboard'
 import SendInput from 'components/parts/Input'
@@ -26,14 +27,15 @@ const Timeline = (props: Props): JSX.Element => {
   const [currentPage, setCurrentPage] = useState<number>(1)
 
   const handleSend = async (): Promise<void> => {
+    const filterTeam = jLeagueTeams.filter((item) => item.name === team)
     try {
       if (input.length === 0) throw new Error('入力してください')
-      const newRoom = await apiClient.post('/post/boards', {
+      const newRoom = await apiClient.post('/board/boards', {
         content: input,
         authorId: userId,
         authorName: username,
         authorAvatar: iconPath,
-        team: team,
+        team: filterTeam[0]?.label,
       })
       setBoardRooms(newRoom.data.updatedRoom.board)
       setInput('')
@@ -67,7 +69,7 @@ const Timeline = (props: Props): JSX.Element => {
           <BasicPagination
             currentPage={currentPage}
             setCurrentPage={setCurrentPage}
-            pagelenght={boardRooms?.board.length}
+            pagelenght={boardRooms?.board ? boardRooms.board.length : 0}
           />
         </div>
       </div>

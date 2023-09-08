@@ -7,7 +7,7 @@ interface Props {
   handleSend: () => void
 }
 
-const SendInput = (props: Props) => {
+const SendInput = (props: Props): JSX.Element => {
   const { input, setInput, handleSend } = props
 
   return (
@@ -16,7 +16,7 @@ const SendInput = (props: Props) => {
         type='text'
         className={style.timeline_search}
         value={input}
-        onChange={(e) => {
+        onChange={(e): void => {
           setInput(e.target.value)
         }}
       />

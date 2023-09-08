@@ -5,7 +5,7 @@ import { BoardRoomType } from 'types/global'
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { team } = context.query
-  const res = await apiClient.get(`/post/boardRooms/${team}`)
+  const res = await apiClient.get(`/board/boardRooms/${team}`)
   return {
     props: {
       boardRoom: res.data.boardRoom,

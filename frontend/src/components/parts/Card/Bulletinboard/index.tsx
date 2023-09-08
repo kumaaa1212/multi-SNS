@@ -34,7 +34,7 @@ const BulletinboardCard = (props: Props): JSX.Element => {
     const fetchLike = async (): Promise<void> => {
       try {
         const res = await apiClient.get(
-          `/post/board/like/check?boardId=${board.id}&authorId=${userId}`,
+          `/board/board/like/check?boardId=${board.id}&authorId=${userId}`,
         )
         setLike(res.data.hasLiked)
       } catch {
@@ -56,7 +56,7 @@ const BulletinboardCard = (props: Props): JSX.Element => {
 
   const handleAddLike = async (): Promise<void> => {
     try {
-      const likePost = await apiClient.post('/post/board/like/add', {
+      const likePost = await apiClient.post('/board/board/like/add', {
         boardId: board.id,
         authorId: userId,
       })
@@ -69,7 +69,7 @@ const BulletinboardCard = (props: Props): JSX.Element => {
 
   const handleDelateLike = async (): Promise<void> => {
     try {
-      const likePost = await apiClient.post('/post/board/like/delete', {
+      const likePost = await apiClient.post('/board/board/like/delete', {
         boardId: board.id,
         authorId: userId,
       })

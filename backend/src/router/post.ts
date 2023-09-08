@@ -5,12 +5,12 @@ const router: Router = Router();
 const prisma = new PrismaClient();
 
 // labelを取得する
-router.get('/post-labels', async (req, res) => {
+router.get("/post-labels", async (req, res) => {
   try {
     const postLabels = await prisma.postLabel.findMany();
     res.json(postLabels);
   } catch (error) {
-    res.status(500).json({ error: 'An error occurred while fetching data.' });
+    res.status(500).json({ error: "An error occurred while fetching data." });
   }
 });
 
@@ -30,7 +30,7 @@ router.post("/keep-post/save", async (req: Request, res: Response) => {
   } catch (err: any) {
     res.json({ error: err.message });
   }
-})
+});
 
 // albumを保存した内容を取得する
 router.get("/keep-post/:authorId", async (req: Request, res: Response) => {
@@ -46,7 +46,7 @@ router.get("/keep-post/:authorId", async (req: Request, res: Response) => {
   } catch (err: any) {
     res.json({ error: err.message });
   }
-})
+});
 
 // albumを追加する
 router.post("/tweet", async (req: Request, res: Response) => {
@@ -236,8 +236,9 @@ router.get("/all/content", async (req: Request, res: Response) => {
     const allContent = [...posts, ...tweets];
 
     // likesの長さでソートして上位6つを選択
-    const topLikedContent = allContent
-      .sort((a, b) => b.likes.length - a.likes.length)
+    const topLikedContent = allContent.sort(
+      (a, b) => b.likes.length - a.likes.length
+    );
 
     return res.json(topLikedContent);
   } catch (err: any) {
@@ -271,8 +272,9 @@ router.get("/all/content/new", async (req: Request, res: Response) => {
     const allContent = [...posts, ...tweets];
 
     // 投稿順に並べ替えてから、上位6つを選択
-    const topContent = allContent
-      .sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime())
+    const topContent = allContent.sort(
+      (a, b) => b.createdAt.getTime() - a.createdAt.getTime()
+    );
 
     return res.json(topContent);
   } catch (err: any) {
@@ -652,312 +654,6 @@ router.get("/album/team/:label", async (req: Request, res: Response) => {
   }
 });
 
-router.get("/boardRooms/:team", async (req, res) => {
-  const team = req.params.team;
-
-  try {
-    const boardRooms = await prisma.boardRoom.findMany({
-      where: {
-        team: team,
-      },
-      include: {
-        board: {
-          include: {
-            messages: {
-              orderBy: {
-                createdAt: "desc",
-              },
-            },
-            likes: true,
-          },
-          orderBy: {
-            createdAt: "desc", // 新しい順に並べ替える
-          },
-        },
-      },
-    });
-
-    return res.json({ boardRooms });
-  } catch (error) {
-    console.error("Failed to retrieve board rooms:", error);
-    return res.status(500).json({ error: "Failed to retrieve board rooms." });
-  }
-});
-
-// 掲示板を追加する
-
-router.post("/boards", async (req, res) => {
-  const { content, authorId, authorName, authorAvatar, team } = req.body;
-
-  try {
-    const room = await prisma.boardRoom.findFirst({
-      where: {
-        team: team,
-      },
-    });
-
-    if (!room) {
-      return res
-        .status(404)
-        .json({ error: "Room not found for the specified team." });
-    }
-
-    await prisma.board.create({
-      data: {
-        content,
-        authorId,
-        authorName,
-        authorAvatar,
-        roomId: room.roomId,
-      },
-      include: {
-        likes: true,
-        messages: {
-          orderBy: {
-            createdAt: "asc", // 古い順に並べ替える
-          },
-        },
-      },
-    });
-
-    const updatedRoom = await prisma.boardRoom.findUnique({
-      where: {
-        roomId: room.roomId,
-      },
-      include: {
-        board: {
-          include: {
-            likes: true,
-            messages: {
-              orderBy: {
-                createdAt: "asc", // 古い順に並べ替える
-              },
-            },
-          },
-          orderBy: {
-            createdAt: "desc", // 新しい順に並べ替える
-          },
-        },
-      },
-    });
-
-    return res.json({ updatedRoom });
-  } catch (error) {
-    console.error("Failed to create board:", error);
-    return res.status(500).json({ error: "Failed to create board." });
-  }
-});
-
-// 特定の掲示板を取得する
-router.get("/boards/:id", async (req, res) => {
-  const boardId = parseInt(req.params.id);
-
-  try {
-    const board = await prisma.board.findUnique({
-      where: {
-        id: boardId,
-      },
-      include: {
-        room: true,
-        likes: true,
-        messages: true,
-      },
-    });
-
-    if (!board) {
-      return res.status(404).json({ error: "Board not found." });
-    }
-
-    return res.json({ board });
-  } catch (error) {
-    console.error("Failed to retrieve board:", error);
-    return res.status(500).json({ error: "Failed to retrieve board." });
-  }
-});
-
-// 掲示板一覧にいいねを追加する
-router.post("/boards/:boardId/likes", async (req, res) => {
-  const { boardId } = req.params;
-  const { authorId } = req.body;
-
-  try {
-    const updatedBoard = await prisma.board.update({
-      where: {
-        id: parseInt(boardId),
-      },
-      data: {
-        likes: {
-          create: {
-            authorId: authorId,
-          },
-        },
-      },
-    });
-
-    return res.json({ board: updatedBoard });
-  } catch (error) {
-    console.error("Failed to add like to board:", error);
-    return res.status(500).json({ error: "Failed to add like to board." });
-  }
-});
-
-// 掲示板にメッセージを追加する
-router.post("/boards/:boardId/messages", async (req, res) => {
-  const { boardId } = req.params;
-  const { content, authorId, authorName, authorAvatar } = req.body;
-
-  try {
-    await prisma.boardMessage.create({
-      data: {
-        content,
-        authorId,
-        authorName,
-        authorAvatar,
-        board: {
-          connect: {
-            id: parseInt(boardId),
-          },
-        },
-      },
-    });
-
-    // 更新された board を取得
-    const updatedBoard = await prisma.board.findUnique({
-      where: {
-        id: parseInt(boardId),
-      },
-      include: {
-        likes: true,
-        messages: {
-          orderBy: {
-            createdAt: "asc", // 古い順に並べ替える
-          },
-        },
-      },
-    });
-
-    return res.json({ board: updatedBoard });
-  } catch (error) {
-    console.error("Failed to add message to board:", error);
-    return res.status(500).json({ error: "Failed to add message to board." });
-  }
-});
-// 掲示板にlikeを追加する
-router.post("/board/like/add", async (req: Request, res: Response) => {
-  const { boardId, authorId } = req.body;
-
-  try {
-    const newLike = await prisma.boardLike.create({
-      data: {
-        boardId,
-        authorId,
-      },
-    });
-
-    // 既存のボードを取得
-    const existingBoard = await prisma.board.findUnique({
-      where: {
-        id: boardId,
-      },
-    });
-
-    // 既存のボードに新しい「いいね」を追加
-    if (existingBoard) {
-      const updatedBoard = await prisma.board.update({
-        where: {
-          id: boardId,
-        },
-        data: {
-          likes: {
-            connect: {
-              id: newLike.id,
-            },
-          },
-        },
-        include: {
-          likes: true,
-        },
-      });
-
-      return res.json({ updatedBoard });
-    } else {
-      return res.status(404).json({ error: "Board not found." });
-    }
-  } catch (error) {
-    res.status(500).json({ error: "Failed to add like." });
-  }
-});
-// 掲示板にlikeがあるかを確認する
-router.post("/board/like/check", async (req: Request, res: Response) => {
-  const { boardId, authorId } = req.body;
-
-  try {
-    const like = await prisma.boardLike.findFirst({
-      where: {
-        boardId,
-        authorId,
-      },
-    });
-
-    const hasLiked = !!like;
-
-    return res.json({ hasLiked });
-  } catch (error) {
-    res.status(500).json({ error: "Failed to check like status." });
-  }
-});
-// 掲示板のlikeを削除する
-router.post("/board/like/delete", async (req: Request, res: Response) => {
-  const { boardId, authorId } = req.body;
-
-  try {
-    // まずはいいねを削除
-    await prisma.boardLike.deleteMany({
-      where: {
-        boardId,
-        authorId,
-      },
-    });
-
-    // 削除されたいいねに関連するBoardを取得
-    const relatedBoard = await prisma.board.findUnique({
-      where: {
-        id: boardId,
-      },
-      include: {
-        likes: true,
-        messages: true,
-      },
-    });
-
-    if (relatedBoard) {
-      const updatedLikes = relatedBoard.likes.filter(
-        (like) => like.authorId !== authorId
-      );
-
-      const updatedBoard = await prisma.board.update({
-        where: {
-          id: boardId,
-        },
-        data: {
-          likes: {
-            set: updatedLikes,
-          },
-        },
-        include: {
-          likes: true,
-          messages: true,
-        },
-      });
-
-      return res.json({ updatedBoard });
-    }
-
-    return res.status(404).json({ error: "Board not found." });
-  } catch (error) {
-    res.status(500).json({ error: "Failed to remove like." });
-  }
-});
 
 router.post("/tweet/like/check", async (req: Request, res: Response) => {
   const { tweetId, authorId } = req.body;
@@ -1025,7 +721,6 @@ router.post("/tweet/like/delete", async (req: Request, res: Response) => {
   }
 });
 
-
 router.post("/tweet/like/add", async (req: Request, res: Response) => {
   const { tweetId, authorId } = req.body;
 
@@ -1082,4 +777,3 @@ router.get("/tweet/like/:authorId", async (req: Request, res: Response) => {
 });
 
 export default router;
-
