@@ -10,6 +10,45 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model User {
+    id     Int    @id @default(autoincrement())
+    email  String @unique
+    name   String
+    password String
+    team   String
+    icon   String
+    bio    String
+    follow Follow[]
+    follower Follower[]
+    twitterURL String
+    teamURL String
+    createdAt DateTime @default(now())
+}
+
+model Follow {
+  id     Int    @id @default(autoincrement())
+  userId Int
+  bio   String
+  name   String
+  icon   String
+  team   String
+  twitterURL String
+  teamURL String
+  frendId Int
+  frend User @relation(fields: [frendId], references: [id])
+}
+model Follower {
+  id     Int    @id @default(autoincrement())
+  userId Int
+  bio   String
+  name   String
+  icon   String
+  team   String
+  twitterURL String
+  teamURL String
+  frendId Int
+  frend User @relation(fields: [frendId], references: [id])
+}
 model Like {
   id     Int    @id @default(autoincrement())
   postId Int

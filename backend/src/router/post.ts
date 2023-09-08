@@ -280,7 +280,6 @@ router.get("/all/content/new", async (req: Request, res: Response) => {
   }
 });
 
-
 // 特定の投稿を取得する
 router.get("/album/:postId", async (req: Request, res: Response) => {
   const { postId } = req.params;
