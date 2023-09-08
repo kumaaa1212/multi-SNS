@@ -7,6 +7,7 @@ export interface MessageType {
   content: string
   createdAt: string
   authorId: string
+  authorAvatar: string
   authorName: string
   senderId: string
   roomId: string
@@ -102,6 +103,7 @@ export interface LikeType {
 }
 
 export interface BoardRoomType {
+  id: string
   board: BoardType[]
   createdAt: string
   roomId: string

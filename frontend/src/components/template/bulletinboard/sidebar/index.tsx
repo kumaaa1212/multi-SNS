@@ -1,40 +1,35 @@
 import { useState } from 'react'
-import style from '../bulletinboard.module.scss'
-import SidebarChatCard from 'components/parts/Card/Bulletinboard/Sidebar'
-import apiClient from 'libs/apiClient'
 import { useSelector } from 'react-redux'
+import apiClient from 'libs/apiClient'
 import { RootState } from 'store/store'
-import { BoardRoomType, MessageType } from 'types/global'
+import { BoardType, MessageType } from 'types/global'
+import SidebarChatCard from 'components/parts/Card/Bulletinboard/Sidebar'
+import style from '../bulletinboard.module.scss'
 
 interface Props {
-  selectBoard: BoardRoomType | undefined
-  boardRooms: BoardRoomType[]
-  setBoardRooms: React.Dispatch<React.SetStateAction<BoardRoomType[]>>
+  selectBoard: BoardType | undefined
+  setSelectBoard: React.Dispatch<React.SetStateAction<BoardType | undefined>>
 }
 
-const MessageSidebar = (props: Props) => {
-  const { selectBoard, boardRooms, setBoardRooms } = props
+const MessageSidebar = (props: Props): JSX.Element => {
+  const { selectBoard, setSelectBoard } = props
 
-  const [sideMessagrBar, setSideMessagrBar] = useState<MessageType[]>(selectBoard?.messages || [])
   const { userId, username, iconPath } = useSelector((state: RootState) => state.user)
-
+  const [sideMessagrBar, setSideMessagrBar] = useState<MessageType[]>(selectBoard?.messages || [])
   const [input, setInput] = useState<string>('')
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (): Promise<void> => {
     try {
-      if (input.length === 0) throw new Error('入力してください')
-      const newRoom = await apiClient.post(`/post/boards/${selectBoard?.id}/messages`, {
-        content: input,
-        authorId: userId,
-        authorName: username,
-        authorAvatar: iconPath,
-      })
-      setSideMessagrBar(newRoom.data.board.messages)
-      setBoardRooms(
-        boardRooms.map((room: BoardRoomType) =>
-          room.id === newRoom.data.board.id ? newRoom.data.board : room,
-        ),
-      )
+      if (input.length === 0 && selectBoard) {
+        const newBoard = await apiClient.post(`/board/boards/${selectBoard.id}/messages`, {
+          content: input,
+          authorId: userId,
+          authorName: username,
+          authorAvatar: iconPath,
+        })
+        setSideMessagrBar(newBoard.data.board.messages)
+        setSelectBoard(newBoard.data.board)
+      }
       setInput('')
     } catch {
       alert('投稿に失敗しました')
@@ -45,14 +40,14 @@ const MessageSidebar = (props: Props) => {
   return (
     <div className={style.side}>
       <div className={style.side_header}>
-        <SidebarChatCard selectBoard={selectBoard} avater={selectBoard?.authorAvatar}>
+        <SidebarChatCard contents={selectBoard} avater={selectBoard?.authorAvatar}>
           {selectBoard?.content}
         </SidebarChatCard>
         <p className={style.bottom_border}>その他の返信</p>
       </div>
       <div>
-        {sideMessagrBar.map((sideChat: any) => (
-          <SidebarChatCard sideChat={sideChat} avater={sideChat.authorAvatar}>
+        {sideMessagrBar.map((sideChat: MessageType) => (
+          <SidebarChatCard contents={sideChat} avater={sideChat.authorAvatar} key={sideChat.id}>
             {sideChat.content}
           </SidebarChatCard>
         ))}
@@ -62,7 +57,7 @@ const MessageSidebar = (props: Props) => {
           type='text'
           className={style.sidebar_input}
           value={input}
-          onChange={(e) => setInput(e.target.value)}
+          onChange={(e): void => setInput(e.target.value)}
         />
         <svg
           xmlns='http://www.w3.org/2000/svg'

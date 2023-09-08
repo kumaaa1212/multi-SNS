@@ -25,13 +25,9 @@ const Board = (props: Props): JSX.Element => {
         selectBoard={selectBoard}
         setSelectBoard={setSelectBoard}
       />
-      {/* {sideMessagrBar && (
-        <MessageSidebar
-          boardRooms={boardRooms}
-          setBoardRooms={setBoardRooms}
-          selectBoard={selectBoard}
-        />
-      )} */}
+      {sideMessagrBar && (
+        <MessageSidebar selectBoard={selectBoard} setSelectBoard={setSelectBoard} />
+      )}
     </div>
   )
 }

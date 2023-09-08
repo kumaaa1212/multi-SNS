@@ -598,9 +598,7 @@ router.post("/album/bookmark/check", async (req: Request, res: Response) => {
 });
 
 // 自分がbookmarkした投稿の取得
-router.get(
-  "/album/bookmarked/:authorId",
-  async (req: Request, res: Response) => {
+router.get("/album/bookmarked/:authorId", async (req: Request, res: Response) => {
     const { authorId } = req.params;
 
     try {
