@@ -39,17 +39,17 @@ const userSlice = createSlice({
   initialState,
   reducers: {
     loginUser: (state, action) => {
-      state.username = action.payload.user_metadata.username
-      state.userId = action.payload.id
-      state.team = action.payload.user_metadata.team
-      state.icon = Icongenerate(action.payload.user_metadata.icon)
-      state.iconPath = action.payload.user_metadata.icon
-      state.bio = action.payload.user_metadata.bio
-      state.follow = action.payload.user_metadata.follow
-      state.follower = action.payload.user_metadata.follower
-      state.twitterURL = action.payload.user_metadata.twitterURL
-      state.teamURL = action.payload.user_metadata.teamURL
+      console.log(action.payload)
+      state.username = action.payload.user.name
+      state.userId = action.payload.user.id
+      state.team = action.payload.user.team
+      state.icon = Icongenerate(action.payload.user.icon)
+      state.iconPath = action.payload.user.icon
+      state.bio = action.payload.user.bio
+      state.twitterURL = action.payload.user.twitterURL
+      state.teamURL = action.payload.user.teamURL
     },
+
     logoutUser: (state) => {
       state.username = ''
       state.userId = ''
@@ -59,10 +59,19 @@ const userSlice = createSlice({
       state.bio = ''
       state.follow = []
       state.follower = []
-    }
+    },
+    updateUser: (state, action) => {
+      state.username = action.payload.user.name
+      state.userId = action.payload.user.id
+      state.icon = Icongenerate(action.payload.user.icon)
+      state.iconPath = action.payload.user.icon
+      state.bio = action.payload.user.bio
+      state.twitterURL = action.payload.user.twitterURL
+      state.teamURL = action.payload.user.teamURL
+    },
   },
 })
 
-export const { loginUser,logoutUser } = userSlice.actions
+export const { loginUser, logoutUser, updateUser } = userSlice.actions
 
 export default userSlice.reducer

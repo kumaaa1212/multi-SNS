@@ -7,8 +7,8 @@ import '../styles/layout/sidebar.scss'
 import 'swiper/css'
 import 'swiper/css/bundle'
 import 'swiper/css/navigation'
-import { Provider } from 'react-redux'
-import store from '@/store/store'
+import { Provider, useDispatch, useSelector } from 'react-redux'
+import store, { AppDispatch, RootState } from '@/store/store'
 
 export default function App({ Component, pageProps }: AppProps) {
   return (

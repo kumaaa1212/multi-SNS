@@ -14,18 +14,9 @@ const DropDown = () => {
   const { userId } = useSelector((state: RootState) => state.user)
   const dispatch: AppDispatch = useDispatch()
 
-  const Logout = async (e: any) => {
-    e.preventDefault()
-    try {
-      const { error: logoutError } = await supabase.auth.signOut()
-      if (logoutError) {
-        throw logoutError
-      }
-      dispatch(logoutUser())
-      await router.push('/')
-    } catch {
-      alert('エラーが発生しました')
-    }
+  const Logout = async () => {
+    localStorage.removeItem('auth_token')
+    router.reload
   }
 
   return (

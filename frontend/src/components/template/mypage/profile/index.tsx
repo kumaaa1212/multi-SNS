@@ -16,14 +16,11 @@ interface Props {
 
 const Profile = (props: Props) => {
   const { setOpen } = props
+
   const { username, icon, bio, follow, follower, userId, twitterURL, teamURL } = useSelector(
     (state: RootState) => state.user,
   )
-
-  console.log(twitterURL)
-
   const router = useRouter()
-
   const [openEdit, setOpenEdit] = useState<boolean>(false)
   const [twitterOpen, setTwitterOpen] = useState<boolean>(false)
   const [teamOpen, setTeamOpen] = useState<boolean>(false)
@@ -41,6 +38,8 @@ const Profile = (props: Props) => {
     llikeDeta()
   }, [])
 
+  console.log(icon)
+
   return (
     <div>
       {openEdit && <EditModal openEdit={openEdit} setOpenEdit={setOpenEdit} />}
@@ -51,6 +50,7 @@ const Profile = (props: Props) => {
           width={200}
           height={200}
           className={style.profile_img}
+          priority={true}
         />
         <div className={style.profile_details}>
           <div className={style.profile_header}>

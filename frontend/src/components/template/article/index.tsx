@@ -103,7 +103,7 @@ const Article = (props: Props) => {
           <BasicPagination
             currentPage={currentPage}
             setCurrentPage={setCurrentPage}
-            pagelenght={albumDataLike?.length}
+            pagelenght={articlesLike?.length}
           />
         </div>
       </div>

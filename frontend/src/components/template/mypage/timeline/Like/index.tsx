@@ -27,9 +27,9 @@ const MypageLikes = () => {
   const ablusData = (data:any) => {
     const arry = data?.map((item: any) => {
       if ('thumbnailImg' in item) {
-        return <ArticleCard key={item.id} setAlbumData={setAlbumData} article={item} />
+        return <ArticleCard key={item.id} article={item} />
       } else {
-        return <TweetCard key={item.id} tweet={item} setAlbumData={setAlbumData} />
+        return <TweetCard key={item.id} tweet={item}  />
       }
     })
     return arry

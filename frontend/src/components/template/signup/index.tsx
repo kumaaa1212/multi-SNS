@@ -23,6 +23,7 @@ import { useForm, SubmitHandler, Controller } from 'react-hook-form'
 import { AccountType } from '@/types/internal'
 import style from './SignUp.module.scss'
 import ModalBase from '@/components/parts/Modal'
+import apiClient from '@/libs/apiClient'
 
 const defaultTheme = createTheme()
 
@@ -48,22 +49,13 @@ export default function SignUp() {
 
   const onSubmit: SubmitHandler<AccountType> = async (data) => {
     try {
-      await supabase.auth.signUp({
+      await apiClient.post('/auth/register', {
         email: data.email,
         password: data.password,
-        options: {
-          data: {
-            username: data.name,
-            bio: '自己紹介文を入力してください',
-            team: data.team,
-            icon: String(Math.floor(Math.random() * 10) + 1),
-            bgIcon: 'HYGTYUBHNIJMK<LKOMJINHUBGYVFTCDRFVGYBHUNIJMKO<OMJINHUBGYVFTCDFVGBHNJMNHUBGVYF',
-            follow: [],
-            follower: [],
-            twitterURL: '',
-            teamURL: '',
-          },
-        },
+        name: data.name,
+        team: data.team,
+        bio: '自己紹介文を入力してください',
+        icon: String(Math.floor(Math.random() * 100) + 1),
       })
       setIsLoading(true)
     } catch (error) {
@@ -71,7 +63,6 @@ export default function SignUp() {
     }
     setOpen(true)
   }
-
   return (
     <div className='sginup'>
       <ThemeProvider theme={defaultTheme}>

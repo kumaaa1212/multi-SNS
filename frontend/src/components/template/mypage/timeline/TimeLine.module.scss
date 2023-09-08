@@ -22,7 +22,19 @@
 }
 
 // albumのcss
-.album{
-  display:grid ;
-  grid-template-columns:1fr 1fr;
+
+.album {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+@media screen and (min-width: 1000px) {
+  .album {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media screen and (min-width: 1900px) {
+  .album {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
 }

@@ -55,8 +55,18 @@
 
 .article_timeline {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
   gap: 20px;
+}
+@media screen and (min-width: 1000px) {
+  .article_timeline {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media screen and (min-width: 1900px) {
+  .article_timeline {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
 }
 
 .pagenation {

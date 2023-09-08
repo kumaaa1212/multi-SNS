@@ -4,10 +4,12 @@ import { supabase } from '@/utils/supabaseClient'
 import style from './EditModal.module.scss'
 import Image from 'next/image'
 import ModalBase from '@/components/parts/Modal'
-import { useSelector } from 'react-redux'
-import { RootState } from '@/store/store'
+import { useDispatch, useSelector } from 'react-redux'
+import { AppDispatch, RootState } from '@/store/store'
 import Icongenerate from '@/utils/functions/Avater'
 import { v4 as uuid4 } from 'uuid'
+import apiClient from '@/libs/apiClient'
+import { updateUser } from '@/features/userSlice'
 
 interface Props {
   openEdit: boolean
@@ -17,11 +19,10 @@ interface Props {
 export default function EditModal(props: Props) {
   const { openEdit, setOpenEdit } = props
 
+  const dispatch: AppDispatch = useDispatch()
   const { username, bio, icon, userId, twitterURL, teamURL } = useSelector(
     (state: RootState) => state.user,
   )
-  console.log(twitterURL)
-  console.log(teamURL)
 
   const [file, setFile] = useState<string>()
   const [twitterURLData, setTwitterURLData] = useState<string | undefined>(twitterURL)
@@ -29,7 +30,6 @@ export default function EditModal(props: Props) {
   const [editName, setEditName] = useState<string>(username)
   const [editIntro, seteditIntro] = useState<string>(bio)
   const [displayFile, setDisplayFile] = useState<string>()
-
 
   const openFileInput = () => {
     const fileInput = document.getElementById('fileInput')
@@ -46,28 +46,32 @@ export default function EditModal(props: Props) {
       try {
         const { data: storageData, error: storegeError } = await supabase.storage
           .from('avatars')
-          .upload(`${userId}/${uuid4()}`, file)
+          .upload(`${uuid4()}/${uuid4()}`, file)
         if (storegeError) {
           throw storegeError
         } else {
           const { data: urlData } = supabase.storage.from('avatars').getPublicUrl(storageData.path)
-          supabase.auth.updateUser({
-            data: {
-              username: editName,
-              bio: editIntro,
-              icon: urlData.publicUrl,
-              twitterURL: twitterURLData,
-              teamURL: teamURL,
-            },
+          const res = await apiClient.put(`/auth/update/${userId}`, {
+            name: editName,
+            bio: editIntro,
+            icon: urlData.publicUrl,
+            twitterURL: twitterURLData,
+            teamURL: teamURLData,
           })
+          console.log(res.data)
+          dispatch(updateUser(res.data))
         }
       } catch {
         alert('画像のアップロードに失敗しました。')
       }
     } else {
-      supabase.auth.updateUser({
-        data: { username: editName, bio: editIntro },
+      const res = await apiClient.put(`/auth/update/${userId}`, {
+        name: editName,
+        bio: editIntro,
+        twitterURL: twitterURLData,
+        teamURL: teamURLData,
       })
+      dispatch(updateUser(res.data))
     }
     setOpenEdit(!openEdit)
   }
@@ -101,7 +105,7 @@ export default function EditModal(props: Props) {
         <div className={style.profle_info}>
           <div className={style.image_area}>
             <Image
-              src={displayFile ? displayFile : Icongenerate(icon)}
+              src={displayFile ? displayFile : icon}
               alt={''}
               className={style.profile_img}
               width={150}

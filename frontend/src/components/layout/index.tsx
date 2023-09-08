@@ -1,19 +1,30 @@
+import { AppDispatch } from '@/store/store'
 import Header from './Header'
-import { supabase } from '@/utils/supabaseClient'
-import { AppDispatch, RootState } from '@/store/store'
-import { useDispatch, useSelector } from 'react-redux'
-import { loginUser } from '@/features/userSlice'
+import { useDispatch } from 'react-redux'
 import { useEffect } from 'react'
+import apiClient from '@/libs/apiClient'
+import { loginUser } from '@/features/userSlice'
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
-  const dispatch: AppDispatch = useDispatch()
-
-  supabase.auth.onAuthStateChange((event, session: any) => {
-    if (session?.user?.user_metadata) {
-      dispatch(loginUser(session?.user))
-    }
-  })
   
+  const dispatch: AppDispatch = useDispatch()
+  useEffect(() => {
+    const fetchData = async () => {
+      const token = localStorage.getItem('auth_token')
+      if (token) {
+        // トークンがある場合、リクエストヘッダーに設定
+        apiClient.defaults.headers.common['Authorization'] = `Bearer ${token}`
+        try {
+          // ユーザーデータを取得
+          const res = await apiClient.get('/auth/me')
+          dispatch(loginUser(res.data))
+        } catch (error) {
+          console.error('Error fetching data:', error)
+        }
+      }
+    }
+    fetchData()
+  }, []) // 空の依存リストを渡すことで、マウント時にのみ実行
   return (
     <div className='layout'>
       <Header />

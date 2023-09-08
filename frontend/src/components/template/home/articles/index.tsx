@@ -13,7 +13,7 @@ interface Props {
 const ArticlesPart = (props: Props) => {
   const { articles } = props
 
-  const [albumData, setAlbumData] = useState<ArticlesType[] | TweetsType[]>(articles)
+  const [albumData, setAlbumData] = useState<ArticlesType[] | TweetsType[]>([])
   const router = useRouter()
 
   const ablusData = () => {

@@ -1,8 +1,13 @@
 import Link from 'next/link'
 import BadgeAvatars from '@/components/parts/Account'
-import Image from 'next/image'
-import Logo from 'public/logo.png'
+import { useSelector } from 'react-redux'
+import { RootState } from '@/store/store'
+import { jLeagueTeams } from '@/utils/TeamData'
+
 const Header = () => {
+  const { team, userId } = useSelector((state: RootState) => state.user)
+
+  const filterTeam = jLeagueTeams.filter((item) => item.name === team)
   return (
     <header className='header'>
       <nav className='header_nav'>
@@ -19,7 +24,7 @@ const Header = () => {
           <Link href='/mypage' className='nav_link link_style'>
             MYPAGE
           </Link>
-          <Link href='/board' className='nav_link link_style'>
+          <Link href={`/board/${filterTeam[0]?.label}`} className='nav_link link_style'>
             BOARD
           </Link>
           <BadgeAvatars />

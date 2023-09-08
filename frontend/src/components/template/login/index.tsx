@@ -11,6 +11,10 @@ import { supabase } from '@/utils/supabaseClient'
 import { useRouter } from 'next/router'
 import styles from './Login.module.scss'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
+import apiClient from '@/libs/apiClient'
+import { AppDispatch } from '@/store/store'
+import { useDispatch } from 'react-redux'
+import { loginUser } from '@/features/userSlice'
 
 const defaultTheme = createTheme()
 
@@ -21,6 +25,7 @@ interface LoginType {
 
 export default function Login() {
   const router = useRouter()
+  const dispatch: AppDispatch = useDispatch()
   const { control, handleSubmit } = useForm<LoginType>({
     defaultValues: {
       email: '',
@@ -30,10 +35,12 @@ export default function Login() {
 
   const onSubmit: SubmitHandler<LoginType> = async (data: LoginType) => {
     try {
-      await supabase.auth.signInWithPassword({
+      const res = await apiClient.post('/auth/login', {
         email: data.email,
         password: data.password,
       })
+      localStorage.setItem('auth_token', res.data.token)
+      dispatch(loginUser(res.data.user))
       router.push('/home')
     } catch {
       alert('エラーが発生しました')

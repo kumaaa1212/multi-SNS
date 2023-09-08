@@ -31,7 +31,7 @@ const MypageAlbum = () => {
   return (
     <div className={style.album}>
       {albumData &&
-        albumData.map((article) => <ArticleCard article={article} setAlbumData={setAlbumData} />)}
+        albumData.map((article) => <ArticleCard article={article}  />)}
     </div>
   )
 }
