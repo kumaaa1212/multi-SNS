@@ -1,9 +1,9 @@
 import { useEffect } from 'react'
 import { useSelector } from 'react-redux'
-import Chat from '@/components/template/chat'
-import apiClient from '@/libs/apiClient'
-import { RootState } from '@/store/store'
-import { RoomType } from '@/types/global'
+import Chat from 'components/template/chat'
+import apiClient from 'libs/apiClient'
+import { RootState } from 'store/store'
+import { RoomType } from 'types/global'
 
 interface Props {
   rooms: RoomType[]

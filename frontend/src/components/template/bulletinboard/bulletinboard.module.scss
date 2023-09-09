@@ -32,24 +32,6 @@
   .side_header {
     width: 400px;
   }
-
-  .sidebar_input_area {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    .sidebar_input {
-      display: block;
-      width: 350px;
-      height: 30px;
-    }
-
-    .sidebar_search_icon {
-      margin-left: 10px;
-      background-color: #1876d2;
-      border-radius: 50%;
-      cursor: pointer;
-    }
-  }
 }
 
 .bottom_border {

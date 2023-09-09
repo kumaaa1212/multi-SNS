@@ -1,14 +1,15 @@
+import { useState } from 'react'
 import Pagination from '@mui/material/Pagination'
 import Stack from '@mui/material/Stack'
 
 interface Props {
-  currentPage: number
   setCurrentPage: React.Dispatch<React.SetStateAction<number>>
   pagelenght: number
 }
 
 const BasicPagination = (props: Props): JSX.Element => {
-  const { currentPage, setCurrentPage, pagelenght } = props
+  const { setCurrentPage, pagelenght } = props
+  const [pageNumber, setPageNumber] = useState<number>(1)
 
   return (
     <div className='pagenation_area'>
@@ -16,8 +17,12 @@ const BasicPagination = (props: Props): JSX.Element => {
         <Pagination
           count={Math.floor(pagelenght / 6 + 1)}
           color='primary'
-          page={currentPage}
-          onChange={(event, page: number): void => setCurrentPage(page)}
+          page={pageNumber}
+          onChange={(_event, page: number): void => {
+            console.log(_event)
+            setPageNumber(page)
+            setCurrentPage((page - 1) * 6)
+          }}
         />
       </Stack>
     </div>

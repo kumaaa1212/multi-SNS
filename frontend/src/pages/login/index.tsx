@@ -1,4 +1,4 @@
-import Login from '@/components/template/login'
+import Login from 'components/template/login'
 
 const LoginPage = (): JSX.Element => {
   return <Login />

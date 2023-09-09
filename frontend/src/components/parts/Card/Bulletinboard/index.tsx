@@ -4,12 +4,14 @@ import Image from 'next/image'
 import { Badge, Card } from '@mui/material'
 import apiClient from 'libs/apiClient'
 import { RootState } from 'store/store'
+import { jLeagueTeams } from 'utils/TeamData'
 import Icongenerate from 'utils/functions/Avater'
 import style from './Bulletinboard.module.scss'
 import CardLike from '/public/svg/board_like.svg'
 import CardLiked from '/public/svg/board_liked.svg'
 import CardMessage from '/public/svg/board_message.svg'
-import { BoardType, LikeType } from 'types/global'
+import { BoardRoomType, BoardType, LikeType } from 'types/global'
+import DeleteButton from 'components/parts/Button/Delete'
 
 interface Props {
   children: React.ReactNode
@@ -18,16 +20,18 @@ interface Props {
   board: BoardType
   selectBoard: BoardType | undefined
   setSelectBoard: React.Dispatch<React.SetStateAction<BoardType | undefined>>
+  setBoardRooms: React.Dispatch<React.SetStateAction<BoardRoomType>>
 }
 
 const BulletinboardCard = (props: Props): JSX.Element => {
-  const { children, sideMessagrBar, setSideMessagrBar, board, selectBoard, setSelectBoard } = props
-  const { userId } = useSelector((state: RootState) => state.user)
+  const { children, sideMessagrBar, setSideMessagrBar, board } = props
+  const { selectBoard, setSelectBoard, setBoardRooms } = props
+
+  const { userId, team } = useSelector((state: RootState) => state.user)
 
   const [like, setLike] = useState<boolean>(
     board.likes?.map((like: LikeType) => like.authorId).includes(board.authorId),
   )
-
   const [likeCount, setLikeCount] = useState<number>(board.likes?.length)
 
   useEffect(() => {
@@ -90,6 +94,14 @@ const BulletinboardCard = (props: Props): JSX.Element => {
     return `${month}-${day} ${hours}:${minutes}`
   }
 
+  const handleClick = async (): Promise<void> => {
+    const filterTeam = jLeagueTeams.filter((item) => item.name === team)
+    const res = await apiClient.delete(
+      `/board/board/${board.id}/delete?team=${filterTeam[0]?.label}`,
+    )
+    setBoardRooms(res.data.boardRoom)
+  }
+
   return (
     <Card className={`${board.id === selectBoard?.id ? `${style.click}` : ''}`}>
       <div className={style.bulletin_board_Card}>
@@ -105,6 +117,9 @@ const BulletinboardCard = (props: Props): JSX.Element => {
             <div className={style.user_detail_info}>
               <span className={style.user_name}>{board.authorName}</span>
               <span className={style.publish_time}>{formatTimestamp(board.createdAt)}</span>
+              {board.authorId === userId && (
+                <DeleteButton content='削除' board onClick={handleClick} />
+              )}
             </div>
             <div className={style.card_contents}>{children}</div>
           </div>

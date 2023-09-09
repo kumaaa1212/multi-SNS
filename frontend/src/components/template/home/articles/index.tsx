@@ -16,7 +16,7 @@ const ArticlesPart = (props: Props): JSX.Element => {
   const [albumData, setAlbumData] = useState<ArticlesType[] | TweetsType[]>([])
   const router = useRouter()
 
-  const ablusData = () => {
+  const ablusData = (): any => {
     const arry = albumData?.map((item: any) => {
       if ('thumbnailImg' in item) {
         return <ArticleCard key={item.id} article={item} />

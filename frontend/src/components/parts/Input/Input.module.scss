@@ -3,6 +3,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 100%;
   .timeline_search {
     display: block;
     width: 100%;
@@ -17,6 +18,8 @@
   }
   .imput_area_icon {
     padding: 5px;
+    width: 40px;
+    height: 40px;
     margin-left: 10px;
     background-color: #1876d2;
     border-radius: 50%;

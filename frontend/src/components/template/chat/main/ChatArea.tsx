@@ -1,12 +1,12 @@
 import { useState } from 'react'
 import style from '../Chat.module.scss'
-import ChatContent from '@/components/parts/chat/ChatContent'
-import SendInput from '@/components/parts/Input'
-import apiClient from '@/libs/apiClient'
-import { MessageType, RoomType } from '@/types/global'
+import ChatContent from 'components/parts/chat/ChatContent'
+import SendInput from 'components/parts/Input'
+import apiClient from 'libs/apiClient'
+import { MessageType, RoomType } from 'types/global'
 import { useRouter } from 'next/router'
 import { useSelector } from 'react-redux'
-import { RootState } from '@/store/store'
+import { RootState } from 'store/store'
 
 interface Props {
   selectRoom: RoomType

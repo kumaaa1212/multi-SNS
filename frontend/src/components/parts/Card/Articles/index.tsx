@@ -21,7 +21,7 @@ import apiClient from 'libs/apiClient'
 import BookMarkBtn from '../../Button/BookMark'
 import { useRouter } from 'next/router'
 import AlbumLikeBtn from '../../Button/Like/Album'
-import DeleteIcon from '/public/svg/card_delete.svg'
+import DeleteButton from 'components/parts/Button/Delete'
 
 interface ExpandMoreProps extends IconButtonProps {
   expand: boolean
@@ -43,7 +43,7 @@ const ExpandMore = styled((props: ExpandMoreProps) => {
 }))
 
 export default function ArticleCard(props: Props) {
-  const { article,  } = props
+  const { article } = props
   const { username, userId } = useSelector((state: RootState) => state.user)
 
   const [expanded, setExpanded] = useState<boolean>(false)
@@ -103,12 +103,13 @@ export default function ArticleCard(props: Props) {
           title={article.title}
           subheader='September 14, 2016'
         />
-        {moreover && (
-          <div className={style.moreover_area} onClick={handleDelete}>
-            <p>削除</p>
-            <DeleteIcon />
-          </div>
-        )}
+        <div className={style.moreover_area} onClick={handleDelete}>
+          {moreover && (
+            <div onClick={handleDelete}>
+              <DeleteButton content='削除' article />
+            </div>
+          )}
+        </div>
         <Image
           src={article.thumbnailImg ? article.thumbnailImg : '/thumbnail.png'}
           alt={''}

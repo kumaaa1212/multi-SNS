@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import SideBar from './sidebar'
 import ChatArea from './main/ChatArea'
-import { RoomType } from '@/types/global'
+import { RoomType } from 'types/global'
 import style from './Chat.module.scss'
 
 interface Props {

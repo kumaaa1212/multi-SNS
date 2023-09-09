@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react'
-import ArticleCard from '@/components/parts/Card/Articles'
-import BasicPagination from '@/components/parts/Pagenation'
-import LabelArea from '@/components/parts/Label/articles'
-import { ArticlesType, TweetsType } from '@/types/global'
+import { ArticlesType, TweetsType } from 'types/global'
+import ArticleCard from 'components/parts/Card/Articles'
+import TweetCard from 'components/parts/Card/Tweet'
+import LabelArea from 'components/parts/Label/articles'
+import BasicPagination from 'components/parts/Pagenation'
 import style from './Article.module.scss'
-import TweetCard from '@/components/parts/Card/Tweet'
 
 interface Props {
   articlesLike: ArticlesType[] | TweetsType[]

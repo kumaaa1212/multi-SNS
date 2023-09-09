@@ -4,6 +4,7 @@ import apiClient from 'libs/apiClient'
 import { RootState } from 'store/store'
 import { BoardType, MessageType } from 'types/global'
 import SidebarChatCard from 'components/parts/Card/Bulletinboard/Sidebar'
+import SendInput from 'components/parts/Input'
 import style from '../bulletinboard.module.scss'
 
 interface Props {
@@ -52,31 +53,12 @@ const MessageSidebar = (props: Props): JSX.Element => {
           </SidebarChatCard>
         ))}
       </div>
-      <div className={style.sidebar_input_area}>
-        <input
-          type='text'
-          className={style.sidebar_input}
-          value={input}
-          onChange={(e): void => setInput(e.target.value)}
-        />
-        <svg
-          xmlns='http://www.w3.org/2000/svg'
-          className={style.sidebar_search_icon}
-          width='30'
-          height='30'
-          viewBox='0 0 24 24'
-          stroke-width='1.5'
-          stroke='#ffffff'
-          fill='none'
-          stroke-linecap='round'
-          stroke-linejoin='round'
-          onClick={handleSubmit}
-        >
-          <path stroke='none' d='M0 0h24v24H0z' fill='none' />
-          <path d='M12 5l0 14' />
-          <path d='M5 12l14 0' />
-        </svg>
-      </div>
+      <SendInput
+        input={input}
+        setInput={setInput}
+        handleSend={handleSubmit}
+        placeholder='メッセージを入力'
+      />
     </div>
   )
 }

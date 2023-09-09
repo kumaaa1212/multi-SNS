@@ -24,20 +24,20 @@ const Timeline = (props: Props): JSX.Element => {
   const { selectBoard, setSelectBoard } = props
   const { team, userId, username, iconPath } = useSelector((state: RootState) => state.user)
   const [input, setInput] = useState<string>('')
-  const [currentPage, setCurrentPage] = useState<number>(1)
+  const [currentPage, setCurrentPage] = useState<number>(0)
 
   const handleSend = async (): Promise<void> => {
     const filterTeam = jLeagueTeams.filter((item) => item.name === team)
     try {
       if (input.length === 0) throw new Error('入力してください')
-      const newRoom = await apiClient.post('/board/boards', {
+      const newRoom = await apiClient.post('/board/boards/add', {
         content: input,
         authorId: userId,
         authorName: username,
         authorAvatar: iconPath,
         team: filterTeam[0]?.label,
       })
-      setBoardRooms(newRoom.data.updatedRoom.board)
+      setBoardRooms(newRoom.data.updatedRoom)
       setInput('')
     } catch {
       alert('投稿に失敗しました')
@@ -56,6 +56,7 @@ const Timeline = (props: Props): JSX.Element => {
             board={board}
             selectBoard={selectBoard}
             setSelectBoard={setSelectBoard}
+            setBoardRooms={setBoardRooms}
           >
             {board.content}
           </BulletinboardCard>
@@ -63,11 +64,15 @@ const Timeline = (props: Props): JSX.Element => {
       </div>
       <div className={style.input_area}>
         <div className={style.input}>
-          <SendInput input={input} setInput={setInput} handleSend={handleSend} />
+          <SendInput
+            input={input}
+            setInput={setInput}
+            handleSend={handleSend}
+            placeholder='メッセージを入力'
+          />
         </div>
         <div className={style.pagenation}>
           <BasicPagination
-            currentPage={currentPage}
             setCurrentPage={setCurrentPage}
             pagelenght={boardRooms?.board ? boardRooms.board.length : 0}
           />

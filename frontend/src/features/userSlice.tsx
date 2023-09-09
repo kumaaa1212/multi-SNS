@@ -40,7 +40,7 @@ const userSlice = createSlice({
   reducers: {
     loginUser: (state, action): void => {
       state.username = action.payload.user.name
-      state.userId = action.payload.user.id
+      state.userId = String(action.payload.user.id)
       state.team = action.payload.user.team
       state.icon = Icongenerate(action.payload.user.icon)
       state.iconPath = action.payload.user.icon
@@ -61,7 +61,7 @@ const userSlice = createSlice({
     },
     updateUser: (state, action) => {
       state.username = action.payload.user.name
-      state.userId = action.payload.user.id
+      state.userId = String(action.payload.user.id)
       state.icon = Icongenerate(action.payload.user.icon)
       state.iconPath = action.payload.user.icon
       state.bio = action.payload.user.bio

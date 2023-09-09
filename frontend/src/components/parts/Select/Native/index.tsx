@@ -1,11 +1,11 @@
 import { Dispatch, SetStateAction, useEffect, useState } from 'react'
-import apiClient from '@/libs/apiClient'
+import apiClient from 'libs/apiClient'
 import { useSelector } from 'react-redux'
-import { RootState } from '@/store/store'
+import { RootState } from 'store/store'
 import Image from 'next/image'
 import Icongenerate from '../../../../utils/functions/Avater'
 import { useRouter } from 'next/router'
-import { RoomType } from '@/types/global'
+import { RoomType } from 'types/global'
 import style from './Native.module.scss'
 
 interface FrendInfo {

@@ -42,10 +42,8 @@ router.get("/boardRooms/:team", async (req, res) => {
     return res.status(500).json({ error: "ボードルームの取得に失敗しました" });
   }
 });
-
 // 掲示板を追加する
-
-router.post("/boards", async (req, res) => {
+router.post("/boards/add", async (req, res) => {
   const { content, authorId, authorName, authorAvatar, team } = req.body;
 
   try {
@@ -106,7 +104,6 @@ router.post("/boards", async (req, res) => {
     return res.status(500).json({ error: "Failed to create board." });
   }
 });
-
 // 特定の掲示板を取得する
 router.get("/boards/:id", async (req, res) => {
   const boardId = parseInt(req.params.id);
@@ -133,7 +130,6 @@ router.get("/boards/:id", async (req, res) => {
     return res.status(500).json({ error: "Failed to retrieve board." });
   }
 });
-
 // 掲示板一覧にいいねを追加する
 router.post("/boards/:boardId/likes", async (req, res) => {
   const { boardId } = req.params;
@@ -159,13 +155,13 @@ router.post("/boards/:boardId/likes", async (req, res) => {
     return res.status(500).json({ error: "Failed to add like to board." });
   }
 });
-
 // 掲示板にメッセージを追加する
 router.post("/boards/:boardId/messages", async (req, res) => {
   const { boardId } = req.params;
   const { content, authorId, authorName, authorAvatar } = req.body;
 
   try {
+    // メッセージを作成
     await prisma.boardMessage.create({
       data: {
         content,
@@ -174,13 +170,13 @@ router.post("/boards/:boardId/messages", async (req, res) => {
         authorAvatar,
         board: {
           connect: {
-            id: parseInt(boardId),
+            id: Number(boardId),
           },
         },
       },
     });
 
-    // 更新された board を取得
+    // ボードを更新
     const updatedBoard = await prisma.board.findUnique({
       where: {
         id: parseInt(boardId),
@@ -189,12 +185,13 @@ router.post("/boards/:boardId/messages", async (req, res) => {
         likes: true,
         messages: {
           orderBy: {
-            createdAt: "asc", // 古い順に並べ替える
+            createdAt: "desc",
           },
         },
       },
     });
 
+    // 更新されたボードをレスポンスとして返す
     return res.json({ board: updatedBoard });
   } catch (error) {
     console.error("Failed to add message to board:", error);
@@ -265,7 +262,6 @@ router.get("/board/like/check", async (req: Request, res: Response) => {
     res.status(500).json({ error: "Failed to check like status." });
   }
 });
-
 // 掲示板のlikeを削除する
 router.post("/board/like/delete", async (req: Request, res: Response) => {
   const { boardId, authorId } = req.body;
@@ -316,6 +312,69 @@ router.post("/board/like/delete", async (req: Request, res: Response) => {
     return res.status(404).json({ error: "Board not found." });
   } catch (error) {
     res.status(500).json({ error: "Failed to remove like." });
+  }
+});
+// 掲示板の投稿を削除する
+router.delete("/board/:boardId/delete", async (req, res) => {
+  const { boardId } = req.params;
+  const { team } = req.query;
+
+  try {
+    // Boardに関連するLikesを削除
+    await prisma.boardLike.deleteMany({
+      where: {
+        boardId: Number(boardId),
+      },
+    });
+
+    // Boardに関連するMessagesを削除
+    await prisma.boardMessage.deleteMany({
+      where: {
+        boardId: Number(boardId),
+      },
+    });
+
+    // ボードを削除
+    await prisma.board.delete({
+      where: {
+        id: Number(boardId),
+      },
+    });
+
+    // ボードが削除された後に新しいBoardRoomを取得
+    const boardRoom = await prisma.boardRoom.findFirst({
+      where: {
+        team: String(team),
+      },
+      include: {
+        board: {
+          include: {
+            messages: {
+              orderBy: {
+                createdAt: "desc",
+              },
+            },
+            likes: true,
+          },
+          orderBy: {
+            createdAt: "desc",
+          },
+        },
+      },
+    });
+
+    if (!boardRoom) {
+      return res
+        .status(404)
+        .json({ error: "ボードルームが見つかりませんでした" });
+    }
+
+    return res.json({ boardRoom });
+  } catch (error) {
+    console.error("Failed to delete board and related data:", error);
+    return res
+      .status(500)
+      .json({ error: "ボードの削除と新しいボードルームの取得に失敗しました" });
   }
 });
 

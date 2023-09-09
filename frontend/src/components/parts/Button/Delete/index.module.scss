@@ -1,0 +1,33 @@
+.content {
+  font-size: 20px;
+  font-weight: bold;
+  margin: 0;
+}
+.moreover_area {
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100px;
+  height: 40px;
+  background-color: #fafbfb;
+  border-radius: 10px;
+  padding: 0px 5px;
+}
+
+.article {
+  position: absolute;
+  right: 0;
+  top: 40px;
+}
+
+.board {
+  position: absolute;
+  left: 180px;
+  top: 0px;
+}
+
+.more_icon {
+  margin-left: 10px;
+  cursor: pointer;
+}
