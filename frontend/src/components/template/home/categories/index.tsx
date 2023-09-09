@@ -1,23 +1,23 @@
 import { useEffect, useState } from 'react'
-import { Paper } from '@mui/material'
-import apiClient from 'libs/apiClient'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+import { Paper } from '@mui/material'
+import apiClient from 'libs/apiClient'
 import { jLeagueTeams } from 'utils/TeamData'
-import { TeamType } from 'types/global'
+import { LabelType, TeamDataType } from 'types/global'
 import style from '../Home.module.scss'
 
 const CategoriesPart = (): JSX.Element => {
   const router = useRouter()
-  const [teamData, setTeamData] = useState<TeamType[]>(jLeagueTeams.slice(0, 10))
+  const [teamData, setTeamData] = useState<TeamDataType[]>(jLeagueTeams.slice(0, 10))
 
   useEffect(() => {
-    const datafetch = async () => {
+    const datafetch = async (): Promise<void> => {
       try {
         const res = await apiClient.get('/post/post-labels')
         const data = res.data
-        const fliterdata = data.map((item: any) => item.name)
+        const fliterdata = data.map((item: LabelType) => item.name)
 
         const nameCountMap: Record<string, number> = {}
 
@@ -33,10 +33,10 @@ const CategoriesPart = (): JSX.Element => {
         })
 
         const sortedNames = fliterdata.sort(
-          (a: any, b: any) => (nameCountMap[b] || 0) - (nameCountMap[a] || 0),
+          (a: LabelType, b: LabelType) => (nameCountMap[b] || 0) - (nameCountMap[a] || 0),
         )
 
-        let filteredTeams = jLeagueTeams.filter((team) => sortedNames.includes(team.name))
+        const filteredTeams = jLeagueTeams.filter((team) => sortedNames.includes(team.name))
 
         const remainingCount = 10 - filteredTeams.length
         if (remainingCount > 0) {
@@ -80,7 +80,12 @@ const CategoriesPart = (): JSX.Element => {
           </Paper>
         ))}
       </div>
-      <button className={style.all_jleagu_team} onClick={() => router.push('/categories')}>
+      <button
+        className={style.all_jleagu_team}
+        onClick={(): void => {
+          router.push('/categories')
+        }}
+      >
         全てのチームを見る
       </button>
     </div>

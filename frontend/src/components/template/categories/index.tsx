@@ -1,18 +1,18 @@
 import { useState } from 'react'
-import { Paper } from '@mui/material'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
+import { Paper } from '@mui/material'
+import { jLeagueTeams } from 'utils/TeamData'
+import { TeamDataType } from 'types/global'
 import style from './Categories.module.scss'
-import { TeamType } from '@/types/global'
-import { jLeagueTeams } from '@/utils/TeamData'
 
 const Categories = (): JSX.Element => {
-  const [teamData, setTeamData] = useState<TeamType[]>(jLeagueTeams)
+  const [teamData, setTeamData] = useState<TeamDataType[]>(jLeagueTeams)
 
   const router = useRouter()
 
   const handleSearch = (e: any): void => {
-    const data = jLeagueTeams.filter((teams: TeamType) =>
+    const data = jLeagueTeams.filter((teams: TeamDataType) =>
       teams.name.toLowerCase().includes(e.target.value.toLowerCase()),
     )
     setTeamData(data)
@@ -24,12 +24,12 @@ const Categories = (): JSX.Element => {
         type='text'
         className={style.categories_search}
         placeholder='キーワードを入力...'
-        onChange={(e): void => handleSearch(e)}
+        onChange={handleSearch}
       />
       <div className={style.categories_area}>
-        {teamData.map((team: TeamType) => (
+        {teamData.map((team: TeamDataType) => (
           <Paper
-            key={team.id}
+            key={team.label}
             className={style.team_card}
             onClick={(): void => {
               router.push(`/categories/details/${team.label}`)

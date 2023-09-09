@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
+import { RootState } from 'store/store'
+import { ArticlesType, TweetsType } from 'types/global'
+import BasicAlerts from 'components/parts/Alart'
+import SwiperArea from 'components/widgets/Swiper'
 import style from './Home.module.scss'
 import ArticlesPart from './articles'
 import CategoriesPart from './categories'
-import BasicAlerts from 'components/parts/Alart'
-import SwiperArea from 'components/widgets/Swiper'
-import { RootState } from 'store/store'
-import { ArticlesType, TweetsType } from 'types/global'
 
 interface Props {
   articles: ArticlesType[] | TweetsType[]
@@ -15,7 +15,7 @@ interface Props {
 const Home = (props: Props): JSX.Element => {
   const { articles } = props
 
-  const { userId, username } = useSelector((state: RootState) => state.user)
+  const { userId } = useSelector((state: RootState) => state.user)
   const [showAlert, setShowAlert] = useState<boolean>(false)
 
   useEffect(() => {
@@ -35,7 +35,7 @@ const Home = (props: Props): JSX.Element => {
       <div className={style.swiper}>
         <SwiperArea />
       </div>
-      <CategoriesPart />
+      {/* <CategoriesPart /> */}
       <ArticlesPart articles={articles} />
       <div className={style.login_alert}>
         {showAlert && <BasicAlerts contents='This is a success alert — ログインに成功しました' />}

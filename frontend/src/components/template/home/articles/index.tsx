@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { ArticlesType, TweetsType } from 'types/global'
@@ -13,19 +12,15 @@ interface Props {
 const ArticlesPart = (props: Props): JSX.Element => {
   const { articles } = props
 
-  const [albumData, setAlbumData] = useState<ArticlesType[] | TweetsType[]>([])
   const router = useRouter()
 
-  const ablusData = (): any => {
-    const arry = albumData?.map((item: any) => {
-      if ('thumbnailImg' in item) {
-        return <ArticleCard key={item.id} article={item} />
-      } else {
-        return <TweetCard key={item.id} tweet={item} />
-      }
-    })
-    return arry
-  }
+  const fliterCard = articles?.map((item: ArticlesType | TweetsType) => {
+    if ('thumbnailImg' in item && " 'thumbnailText" in item) {
+      return <ArticleCard key={item.id} article={item} />
+    } else {
+      return <TweetCard key={item.id} tweet={item} />
+    }
+  })
 
   return (
     <div className={style.articles_area}>
@@ -35,7 +30,7 @@ const ArticlesPart = (props: Props): JSX.Element => {
           全ての記事を見る
         </Link>
       </div>
-      <div className={style.home_articles}>{articles && ablusData()}</div>
+      <div className={style.home_articles}>{articles && fliterCard}</div>
       <button
         className={style.all_articles}
         onClick={(): void => {

@@ -11,7 +11,7 @@ interface Props {
   articlesNew: ArticlesType[] | TweetsType[]
 }
 
-const Article = (props: Props) => {
+const Article = (props: Props): JSX.Element => {
   const { articlesLike, articlesNew } = props
 
   const [click, setClicked] = useState<boolean>(true)
@@ -45,7 +45,7 @@ const Article = (props: Props) => {
     }
     splitPageLike(albumDataLike)
     splitPageNew(albumDataNew)
-  }, [currentPage])
+  }, [albumDataLike, albumDataNew, currentPage])
 
   // const handleRemove = (albumserch: string) => {
   //   const filteredData = albumDataLike.filter((item: ArticlesType | TweetsType) => {
@@ -63,8 +63,8 @@ const Article = (props: Props) => {
   //   setAlbumData(filteredData)
   // }
 
-  const handlePageChange = (value: string) => {
-    setAlbumserch(value)
+  const handlePageChange = (e: any) => {
+    setAlbumserch(e.target.value)
     // handleRemove(value)
   }
 
@@ -75,13 +75,13 @@ const Article = (props: Props) => {
           <div className={style.search_btn_area}>
             <button
               className={click ? style.search_btn_clicked : style.search_btn_click}
-              onClick={() => setClicked(!click)}
+              onClick={(): void => setClicked(!click)}
             >
               新着アルバム
             </button>
             <button
               className={click ? style.search_btn_click : style.search_btn_clicked}
-              onClick={() => setClicked(!click)}
+              onClick={(): void => setClicked(!click)}
             >
               人気アルバム
             </button>
@@ -91,7 +91,7 @@ const Article = (props: Props) => {
             placeholder='アルバムを検索'
             className={style.search_input_area}
             value={albumserch}
-            onChange={(e) => handlePageChange(e.target.value)}
+            onChange={handlePageChange}
           />
         </div>
         {click ? (
@@ -100,11 +100,11 @@ const Article = (props: Props) => {
           <div className={style.article_timeline}>{ablusData(albumDataLike)}</div>
         )}
         <div className={style.pagenation}>
-          <BasicPagination
+          {/* <BasicPagination
             currentPage={currentPage}
             setCurrentPage={setCurrentPage}
             pagelenght={articlesLike?.length}
-          />
+          /> */}
         </div>
       </div>
       <LabelArea />
