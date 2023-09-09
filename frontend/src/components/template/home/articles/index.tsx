@@ -30,7 +30,7 @@ const ArticlesPart = (props: Props): JSX.Element => {
           全ての記事を見る
         </Link>
       </div>
-      <div className={style.home_articles}>{articles && fliterCard}</div>
+      {/* <div className={style.home_articles}>{articles && fliterCard}</div> */}
       <button
         className={style.all_articles}
         onClick={(): void => {

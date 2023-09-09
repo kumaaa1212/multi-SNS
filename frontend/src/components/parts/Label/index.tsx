@@ -1,9 +1,9 @@
-import Autocomplete from '@mui/material/Autocomplete'
-import TextField from '@mui/material/TextField'
-import Stack from '@mui/material/Stack'
 import { useDispatch, useSelector } from 'react-redux'
-import { AppDispatch, RootState } from 'store/store'
+import Autocomplete from '@mui/material/Autocomplete'
+import Stack from '@mui/material/Stack'
+import TextField from '@mui/material/TextField'
 import { addLabels } from 'features/postSlice'
+import { AppDispatch, RootState } from 'store/store'
 import { TeamDataType } from 'types/global'
 
 interface Props {
@@ -11,12 +11,12 @@ interface Props {
   data: TeamDataType[]
 }
 
-export default function Labels(props: Props) {
+export default function Labels(props: Props): JSX.Element {
   const { labelName, data } = props
 
   const dispatch: AppDispatch = useDispatch()
   const { labels } = useSelector((state: RootState) => state.post)
-  
+
   return (
     <div className='labels'>
       <Stack spacing={3} sx={{ width: 600 }}>

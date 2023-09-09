@@ -1,7 +1,7 @@
 import Box from '@mui/material/Box'
-import Stepper from '@mui/material/Stepper'
 import Step from '@mui/material/Step'
 import StepLabel from '@mui/material/StepLabel'
+import Stepper from '@mui/material/Stepper'
 
 interface Props {
   activeStep: number
@@ -9,12 +9,12 @@ interface Props {
 
 const steps = ['記事を作成', 'サムネイルを作成', '公開']
 
-export default function HorizontalLinearStepper(props: Props) {
+export default function HorizontalLinearStepper(props: Props): JSX.Element {
   const { activeStep } = props
 
   return (
     <Box sx={{ width: '60%' }}>
-        <div className='stepper'>
+      <div className='stepper'>
         <Stepper activeStep={activeStep}>
           {steps.map((label) => {
             const stepProps: { completed?: boolean } = {}
@@ -28,7 +28,7 @@ export default function HorizontalLinearStepper(props: Props) {
             )
           })}
         </Stepper>
-    </div>
-      </Box>
+      </div>
+    </Box>
   )
 }

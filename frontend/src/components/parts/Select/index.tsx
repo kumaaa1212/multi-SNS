@@ -1,10 +1,10 @@
 import { Dispatch, SetStateAction, useEffect, useState } from 'react'
-import apiClient from 'libs/apiClient'
 import { useSelector } from 'react-redux'
-import { RootState } from 'store/store'
 import Image from 'next/image'
-import Icongenerate from '../../../../utils/functions/Avater'
 import { useRouter } from 'next/router'
+import apiClient from 'libs/apiClient'
+import { RootState } from 'store/store'
+import Icongenerate from 'utils/functions/Avater'
 import { RoomType } from 'types/global'
 import style from './Native.module.scss'
 
@@ -19,7 +19,7 @@ interface Props {
   setMyRooms: Dispatch<SetStateAction<RoomType[]>>
 }
 
-export default function MultipleSelectNative(props: Props) {
+export default function MultipleSelectNative(props: Props): JSX.Element {
   const { myRooms, setMyRooms } = props
 
   const { userId, iconPath, username, follow } = useSelector((state: RootState) => state.user)
@@ -53,7 +53,6 @@ export default function MultipleSelectNative(props: Props) {
         user2Icon: info.icon,
       })
       handleSelectFrend()
-      console.log(newChatRoom.data)
       setMyRooms(newChatRoom.data.room)
       // setMyRooms((prev) => [...prev, newChatRoom.data.room])
     } catch {
@@ -68,7 +67,13 @@ export default function MultipleSelectNative(props: Props) {
         <div>
           <div>
             {selectFrend.map((person) => (
-              <div className={style.new_chat_person} onClick={() => handleAddNewPerson(person)}>
+              <div
+                className={style.new_chat_person}
+                onClick={(): void => {
+                  handleAddNewPerson(person)
+                }}
+                key={person.authorId}
+              >
                 <Image
                   src={Icongenerate(person.icon)}
                   alt={''}

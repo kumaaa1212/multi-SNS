@@ -1,27 +1,27 @@
 import { useState } from 'react'
-import { styled } from '@mui/material/styles'
-import Card from '@mui/material/Card'
-import CardHeader from '@mui/material/CardHeader'
-import CardContent from '@mui/material/CardContent'
-import CardActions from '@mui/material/CardActions'
-import Collapse from '@mui/material/Collapse'
-import IconButton, { IconButtonProps } from '@mui/material/IconButton'
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
-import MoreVertIcon from '@mui/icons-material/MoreVert'
+import { useSelector } from 'react-redux'
 import Image from 'next/image'
 import Link from 'next/link'
-import style from './ArticlesCard.module.scss'
-import { Chip } from '@mui/material'
-import FollowBtn from 'components/parts/Button/Follow'
-import { useSelector } from 'react-redux'
-import { RootState } from 'store/store'
-import Icongenerate from '../../../../utils/functions/Avater'
-import { ArticlesType, LabelType, TweetsType } from 'types/global'
-import apiClient from 'libs/apiClient'
-import BookMarkBtn from '../../Button/BookMark'
 import { useRouter } from 'next/router'
-import AlbumLikeBtn from '../../Button/Like/Album'
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
+import MoreVertIcon from '@mui/icons-material/MoreVert'
+import { Chip } from '@mui/material'
+import Card from '@mui/material/Card'
+import CardActions from '@mui/material/CardActions'
+import CardContent from '@mui/material/CardContent'
+import CardHeader from '@mui/material/CardHeader'
+import Collapse from '@mui/material/Collapse'
+import IconButton, { IconButtonProps } from '@mui/material/IconButton'
+import { styled } from '@mui/material/styles'
+import apiClient from 'libs/apiClient'
+import { RootState } from 'store/store'
+import { ArticlesType, LabelType } from 'types/global'
 import DeleteButton from 'components/parts/Button/Delete'
+import FollowBtn from 'components/parts/Button/Follow'
+import style from './ArticlesCard.module.scss'
+import Icongenerate from '../../../../utils/functions/Avater'
+import BookMarkBtn from '../../Button/BookMark'
+import AlbumLikeBtn from '../../Button/Like/Album'
 
 interface ExpandMoreProps extends IconButtonProps {
   expand: boolean
@@ -42,7 +42,7 @@ const ExpandMore = styled((props: ExpandMoreProps) => {
   }),
 }))
 
-export default function ArticleCard(props: Props) {
+export default function ArticleCard(props: Props): JSX.Element {
   const { article } = props
   const { username, userId } = useSelector((state: RootState) => state.user)
 
