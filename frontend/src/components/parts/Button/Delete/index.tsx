@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import DeleteIcon from '/public/svg/card_delete.svg'
 import MoreHorizRoundedIcon from '@mui/icons-material/MoreHorizRounded'
-import style from './index.module.scss'
+import style from './Delete.module.scss'
 
 interface Posioton {
   article?: boolean

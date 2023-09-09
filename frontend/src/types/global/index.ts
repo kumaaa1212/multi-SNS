@@ -1,16 +1,9 @@
 export interface ChidrenProps {
   children: React.ReactNode
 }
-
-export interface MessageType {
-  id: string
-  content: string
-  createdAt: string
-  authorId: string
-  authorAvatar: string
-  authorName: string
-  senderId: string
-  roomId: string
+// album
+export interface ArticleProps {
+  posts: ArticlesType[]
 }
 
 export interface ArticlesType {
@@ -24,10 +17,31 @@ export interface ArticlesType {
   thumbnailImg: string
   thumbnailText: string
   title: string
-  likes: any[]
-  bookmarks: any[]
+  likes: ArticlesLikeType[]
+  bookmarks: ArticlesBookmarksType[]
 }
 
+export interface ArticlesLikeType {
+  id: number
+  postId: string
+  authorId: string
+}
+
+export interface ArticlesBookmarksType {
+  id: number
+  postId: string
+  authorId: string
+}
+export interface LabelType {
+  id: number
+  label: string
+  img: string
+  league: string
+  name: string
+  postId: number
+}
+
+// tweet
 export interface TweetsType {
   id: number
   authorAvatar: string
@@ -44,28 +58,7 @@ export interface TweetLikeType {
   tweetId: number
   authorId: string
 }
-
-export interface ArticleProps {
-  posts: ArticlesType[]
-}
-
-export interface LabelType {
-  id: number
-  label: string
-  img: string
-  league: string
-  name: string
-  postId: number
-}
-
-export interface TeamType {
-  name: string
-  league: string
-  img: string
-  label: string
-  stadium: string
-}
-
+// chat
 export interface RoomType {
   id: string
   user1Id: string
@@ -78,28 +71,15 @@ export interface RoomType {
   messages: MessageType[]
 }
 
-export interface followType {
-  authorId: string
-  username: string
-  icon: string
-}
-
-export interface BoardType {
+export interface MessageType {
   id: string
   content: string
-  authorId: string
-  authorName: string
-  authorAvatar: string
-  likes: LikeType[]
-  messages: MessageType[]
   createdAt: string
-  roomId: string
-}
-
-export interface LikeType {
-  id: string
-  postId: string
   authorId: string
+  authorAvatar: string
+  authorName: string
+  senderId: string
+  roomId: string
 }
 
 export interface BoardRoomType {
@@ -109,7 +89,34 @@ export interface BoardRoomType {
   roomId: string
   team: string
 }
+export interface BoardType {
+  id: string
+  content: string
+  authorId: string
+  authorName: string
+  authorAvatar: string
+  likes: BoradLikeType[]
+  messages: BoardMessageType[]
+  createdAt: string
+  roomId: string
+}
 
+export interface BoradLikeType {
+  id: string
+  postId: string
+  authorId: string
+}
+export interface BoardMessageType {
+  id: number
+  content: string
+  createdAt: string
+  authorId: string
+  authorName: string
+  authorAvatar: string
+  boardId: string
+}
+
+// team
 export interface TeamDataType {
   label: string
   name: string
@@ -118,6 +125,7 @@ export interface TeamDataType {
   stadium: string
 }
 
+// user
 export interface Usertype {
   username: string
   userId: string
@@ -130,7 +138,7 @@ export interface Usertype {
   twitterURL?: string
   teamURL?: string
 }
-
+// followUser, followerUser
 export interface FrendInfo {
   userId: string
   bio: string

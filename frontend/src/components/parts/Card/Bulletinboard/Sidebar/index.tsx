@@ -1,10 +1,10 @@
 import Image from 'next/image'
 import Icongenerate from 'utils/functions/Avater'
-import { BoardType, MessageType } from 'types/global'
+import { BoardMessageType, BoardType } from 'types/global'
 import style from './Sidebar.module.scss'
 
 interface Props {
-  contents?: BoardType | MessageType | undefined
+  contents?: BoardType | BoardMessageType | undefined
   avater: string | undefined
   children: React.ReactNode
 }

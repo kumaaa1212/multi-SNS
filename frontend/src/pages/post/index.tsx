@@ -1,4 +1,4 @@
-import Album from '@/components/template/post/album'
+import Album from 'components/template/post'
 
 const AlbumPage = (): JSX.Element => {
   return <Album />

@@ -1,10 +1,10 @@
-import ModalBase from '@/components/parts/Modal'
+import { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux'
+import apiClient from 'libs/apiClient'
+import { RootState } from 'store/store'
+import ModalBase from 'components/parts/Modal'
 import style from './KeepModal.module.scss'
 import ControlledAccordions from '../../Accordion'
-import { useEffect, useState } from 'react'
-import apiClient from '@/libs/apiClient'
-import {  useSelector } from 'react-redux'
-import {  RootState } from '@/store/store'
 
 interface Props {
   open: boolean
@@ -14,7 +14,7 @@ interface Props {
 const KeepModal = (props: Props) => {
   const { open, setOpen } = props
   const { username, userId, iconPath } = useSelector((state: RootState) => state.user)
-  
+
   const [keepPost, setKeepPost] = useState<any[]>([])
   useEffect(() => {
     const datafetch = async () => {
@@ -22,7 +22,7 @@ const KeepModal = (props: Props) => {
       setKeepPost(res.data.keepPosts)
     }
     datafetch()
-  },[])
+  }, [])
   return (
     <ModalBase open={open} setOpen={setOpen}>
       <div className={style.keep_modal}>

@@ -1,50 +1,45 @@
-import React, { Dispatch, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import Image from 'next/image'
-import { useRouter } from 'next/router'
-import style from './Prolife.module.scss'
-import PostBtn from 'components/parts/Button/Post/addbtn'
-import EditModal from 'components/widgets/Modal/Edit'
 import apiClient from 'libs/apiClient'
 import { RootState } from 'store/store'
+import { ArticlesLikeType } from 'types/global'
+import ActiveLink from 'components/parts/Button/ActiveLink'
+import Button from 'components/parts/Button/Base'
+import PostBtn from 'components/parts/Button/Post/addbtn'
 import Noavater from '/public/noavater.jpg'
-import Icongenerate from 'utils/functions/Avater'
+import style from './Prolife.module.scss'
+import EditModal from 'components/widgets/Modal/Edit'
+import TweetModal from 'components/widgets/Modal/Tweet'
+import TwitterIcon from '/public/svg/mypage_twitter.svg'
+import TeamIcon from '/public/svg/mypage_team.svg'
 
-interface Props {
-  setOpen: Dispatch<boolean>
-}
-
-const Profile = (props: Props): JSX.Element => {
-  const { setOpen } = props
-
+const Profile = (): JSX.Element => {
+  const [openEdit, setOpenEdit] = useState<boolean>(false)
+  const [openTweet, setOpenTweet] = useState<boolean>(false)
+  const [likeCount, setLikeCount] = useState<ArticlesLikeType[]>()
   const { username, icon, bio, follow, follower, userId, twitterURL, teamURL } = useSelector(
     (state: RootState) => state.user,
   )
-  const router = useRouter()
-  const [openEdit, setOpenEdit] = useState<boolean>(false)
-  const [twitterOpen, setTwitterOpen] = useState<boolean>(false)
-  const [teamOpen, setTeamOpen] = useState<boolean>(false)
-  const [like, setLike] = useState<any>()
 
   useEffect(() => {
-    const llikeDeta = async () => {
+    const llikeDeta = async (): Promise<void> => {
       try {
         const likeArry = await apiClient.get(`/post/album/likes/${userId}`)
-        setLike(likeArry.data.likes)
+        setLikeCount(likeArry.data.likes)
       } catch {
         alert('情報の更新に失敗しました。')
       }
     }
     llikeDeta()
-  }, [])
+  }, [userId])
 
   return (
     <div>
-      {openEdit && <EditModal openEdit={openEdit} setOpenEdit={setOpenEdit} />}
       <div className={style.profile_area}>
         <Image
-          src={icon ? Icongenerate(icon) : Noavater}
-          alt={'プロフィール画像'}
+          src={icon ? icon : Noavater}
+          alt='プロフィール画像'
           width={200}
           height={200}
           className={style.profile_img}
@@ -53,14 +48,19 @@ const Profile = (props: Props): JSX.Element => {
         <div className={style.profile_details}>
           <div className={style.profile_header}>
             <h1>{username}</h1>
-            <button className={style.profile_header_btn} onClick={(): void => setOpenEdit(true)}>
-              編集
-            </button>
+            <Button
+              content='編集'
+              onClick={(): void => setOpenEdit(true)}
+              className='mr_30'
+              size='md'
+              weight='weight_600'
+              blue
+            />
           </div>
           <div className={style.profile_bio}>{bio}</div>
           <div className={style.profile_info}>
             <button>
-              <span>{like ? like.length : 0}Likes</span>
+              <span>{likeCount ? likeCount.length : 0}Likes</span>
             </button>
             <button>
               <span>{follow.length}Follow</span>
@@ -70,51 +70,18 @@ const Profile = (props: Props): JSX.Element => {
             </button>
           </div>
           <div className={style.other_icon}>
-            <a href={twitterURL}>
-              <svg
-                xmlns='http://www.w3.org/2000/svg'
-                width='30'
-                height='30'
-                viewBox='0 0 24 24'
-                stroke-width='1.5'
-                stroke='#000000'
-                fill='none'
-                stroke-linecap='round'
-                stroke-linejoin='round'
-              >
-                <path stroke='none' d='M0 0h24v24H0z' fill='none' />
-                <path
-                  d='M14.058 3.41c-1.807 .767 -2.995 2.453 -3.056 4.38l-.002 .182l-.243 -.023c-2.392 -.269 -4.498 -1.512 -5.944 -3.531a1 1 0 0 0 -1.685 .092l-.097 .186l-.049 .099c-.719 1.485 -1.19 3.29 -1.017 5.203l.03 .273c.283 2.263 1.5 4.215 3.779 5.679l.173 .107l-.081 .043c-1.315 .663 -2.518 .952 -3.827 .9c-1.056 -.04 -1.446 1.372 -.518 1.878c3.598 1.961 7.461 2.566 10.792 1.6c4.06 -1.18 7.152 -4.223 8.335 -8.433l.127 -.495c.238 -.993 .372 -2.006 .401 -3.024l.003 -.332l.393 -.779l.44 -.862l.214 -.434l.118 -.247c.265 -.565 .456 -1.033 .574 -1.43l.014 -.056l.008 -.018c.22 -.593 -.166 -1.358 -.941 -1.358l-.122 .007a.997 .997 0 0 0 -.231 .057l-.086 .038a7.46 7.46 0 0 1 -.88 .36l-.356 .115l-.271 .08l-.772 .214c-1.336 -1.118 -3.144 -1.254 -5.012 -.554l-.211 .084z'
-                  stroke-width='0'
-                  fill='currentColor'
-                />
-              </svg>
-            </a>
-            <a href={teamURL}>
-              <svg
-                className={style.icon_team}
-                xmlns='http://www.w3.org/2000/svg'
-                width='30'
-                height='30'
-                viewBox='0 0 24 24'
-                stroke-width='1.5'
-                stroke='#000000'
-                fill='none'
-                stroke-linecap='round'
-                stroke-linejoin='round'
-              >
-                <path stroke='none' d='M0 0h24v24H0z' fill='none' />
-                <path d='M12 12m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0' />
-                <path d='M3 9h3v6h-3z' />
-                <path d='M18 9h3v6h-3z' />
-                <path d='M3 5m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z' />
-                <path d='M12 5l0 14' />
-              </svg>
-            </a>
+            <ActiveLink href={twitterURL} black>
+              <TwitterIcon />
+            </ActiveLink>
+            <ActiveLink href={teamURL} className='ml_10'>
+              <TeamIcon />
+            </ActiveLink>
           </div>
         </div>
       </div>
-      <PostBtn setOpen={setOpen} />
+      {openEdit && <EditModal openEdit={openEdit} setOpenEdit={setOpenEdit} />}
+      {openTweet && <TweetModal open={openTweet} setOpen={setOpenTweet} />}
+      <PostBtn setOpen={setOpenTweet} />
     </div>
   )
 }

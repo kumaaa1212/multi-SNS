@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import ReactConfetti from 'react-confetti'
+import ReleaseCard from 'components/parts/Card/Post/Release'
 import style from './Release.module.scss'
-import ReleaseCard from '@/components/parts/Card/Post/Release'
 const Release = (): JSX.Element => {
   const [width, setWidth] = useState<number>(0)
   const [height, setHeight] = useState<number>(0)

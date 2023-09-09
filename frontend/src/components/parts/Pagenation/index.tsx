@@ -19,7 +19,6 @@ const BasicPagination = (props: Props): JSX.Element => {
           color='primary'
           page={pageNumber}
           onChange={(_event, page: number): void => {
-            console.log(_event)
             setPageNumber(page)
             setCurrentPage((page - 1) * 6)
           }}

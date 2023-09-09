@@ -7,7 +7,7 @@
 
   .header_right{
     display: flex;
-
+    align-items: center;
     svg{
       cursor: pointer;
     }
@@ -43,22 +43,7 @@
     }
   }
 }
-.keep_btn{
-  display: block;
-  width: 100px;
-  height: 40px;
-  margin-left:10px;
-  background-color: black;
-  color:white;
-  border: none;
-  border-radius: 5px;
-  padding: 5px 10px;
-  cursor: pointer;
-  
-  &:hover{
-    background-color: black;
-  }
-}
+
 .album_main{
   margin-top: 40px;
 }

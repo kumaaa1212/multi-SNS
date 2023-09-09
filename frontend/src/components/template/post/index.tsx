@@ -1,17 +1,16 @@
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Paper, Tooltip } from '@mui/material'
+import MarkDown from 'components/template/MarkDown'
+import { addImgcontents, createContentText, createTitleText } from 'features/postSlice'
+import { AppDispatch, RootState } from 'store/store'
 import style from './Album.module.scss'
 import AlnumLayout from './albumLayout/AlbumLayout'
-import MarkDown from '@/components/template/MarkDown'
-import { addImgcontents, createContentText, createTitleText } from '@/features/postSlice'
-import { AppDispatch, RootState } from '@/store/store'
 
 const Album = (): JSX.Element => {
-  const [preview, setPreview] = useState<boolean>(false)
-
   const dispatch: AppDispatch = useDispatch()
   const { titleText, contentText } = useSelector((state: RootState) => state.post)
+  const [preview, setPreview] = useState<boolean>(false)
 
   const openFileInput = (): void => {
     const fileInput = document.getElementById('markdown_file_input')
@@ -34,7 +33,9 @@ const Album = (): JSX.Element => {
             type='text'
             placeholder='title'
             value={titleText}
-            onChange={(e) => dispatch(createTitleText(e.target.value))}
+            onChange={(e): void => {
+              dispatch(createTitleText(e.target.value))
+            }}
           />
           <div className={style.content}>
             <div className={style.preview_area}>
@@ -49,7 +50,9 @@ const Album = (): JSX.Element => {
                     placeholder='マークダウン形式で入力してください'
                     value={contentText}
                     className={style.album_text}
-                    onChange={(e) => dispatch(createContentText(e.target.value))}
+                    onChange={(e): void => {
+                      dispatch(createContentText(e.target.value))
+                    }}
                   />
                 </Paper>
               )}
@@ -67,7 +70,9 @@ const Album = (): JSX.Element => {
                     fill='none'
                     stroke-linecap='round'
                     stroke-linejoin='round'
-                    onClick={() => setPreview(!preview)}
+                    onClick={(): void => {
+                      setPreview(!preview)
+                    }}
                   >
                     <path stroke='none' d='M0 0h24v24H0z' fill='none' />
                     <path d='M4 20h4l10.5 -10.5a1.5 1.5 0 0 0 -4 -4l-10.5 10.5v4' />

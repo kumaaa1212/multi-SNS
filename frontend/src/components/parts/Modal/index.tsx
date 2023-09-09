@@ -3,7 +3,7 @@ import Modal from '@mui/material/Modal'
 import styles from './Modal.module.scss'
 
 const style = {
-  position: 'absolute' as 'absolute',
+  position: 'absolute' as const,
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
@@ -14,25 +14,26 @@ const style = {
 }
 
 interface Props {
-  open?: boolean
-  setOpen?: any
-  children?: React.ReactNode
+  open: boolean
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>
+  children: React.ReactNode
 }
 
-
-export default function ModalBase(props:Props) {
+const ModalBase = (props: Props): JSX.Element => {
   const { open, setOpen, children } = props
-  
+
   return (
     <div className={styles.tweet_modal}>
       <Modal
-         open={open || false} 
-        onClose={() => setOpen(!open)}
+        open={open || false}
+        onClose={(): void => {
+          setOpen(!open)
+        }}
       >
-        <Box sx={style}>
-          {children}
-        </Box>
+        <Box sx={style}>{children}</Box>
       </Modal>
     </div>
   )
 }
+
+export default ModalBase

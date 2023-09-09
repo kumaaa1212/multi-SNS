@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useSelector } from 'react-redux'
 import apiClient from 'libs/apiClient'
 import { RootState } from 'store/store'
-import { BoardType, MessageType } from 'types/global'
+import { BoardType, BoardMessageType } from 'types/global'
 import SidebarChatCard from 'components/parts/Card/Bulletinboard/Sidebar'
 import SendInput from 'components/parts/Input'
 import style from '../bulletinboard.module.scss'
@@ -16,7 +16,9 @@ const MessageSidebar = (props: Props): JSX.Element => {
   const { selectBoard, setSelectBoard } = props
 
   const { userId, username, iconPath } = useSelector((state: RootState) => state.user)
-  const [sideMessagrBar, setSideMessagrBar] = useState<MessageType[]>(selectBoard?.messages || [])
+  const [sideMessagrBar, setSideMessagrBar] = useState<BoardMessageType[]>(
+    selectBoard?.messages || [],
+  )
   const [input, setInput] = useState<string>('')
 
   const handleSubmit = async (): Promise<void> => {
@@ -47,7 +49,7 @@ const MessageSidebar = (props: Props): JSX.Element => {
         <p className={style.bottom_border}>その他の返信</p>
       </div>
       <div>
-        {sideMessagrBar.map((sideChat: MessageType) => (
+        {sideMessagrBar.map((sideChat: BoardMessageType) => (
           <SidebarChatCard contents={sideChat} avater={sideChat.authorAvatar} key={sideChat.id}>
             {sideChat.content}
           </SidebarChatCard>

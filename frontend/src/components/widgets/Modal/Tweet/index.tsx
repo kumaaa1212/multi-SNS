@@ -2,16 +2,16 @@ import { useState } from 'react'
 import { useSelector } from 'react-redux'
 import Image from 'next/image'
 import apiClient from 'libs/apiClient'
-import profile_img from 'public/profile_img.jpg'
 import { RootState } from 'store/store'
 import { v4 as uuidv4 } from 'uuid'
 import { supabase } from 'utils/supabaseClient'
+import ButtonBase from 'components/parts/Button/Base'
 import ModalBase from 'components/parts/Modal'
 import style from './TweetModal.module.scss'
 
 export default function TweetModal(props: any): JSX.Element {
   const { open, setOpen } = props
-  const { username, userId, iconPath } = useSelector((state: RootState) => state.user)
+  const { username, userId, iconPath, icon } = useSelector((state: RootState) => state.user)
 
   const [tweetContents, setTweetContents] = useState<string>('')
   const [dispalayImg, setDisplayImg] = useState<string>('')
@@ -76,13 +76,7 @@ export default function TweetModal(props: any): JSX.Element {
           </svg>
         </div>
         <div className={style.tweet_content}>
-          <Image
-            src='profile_img.jpg'
-            alt={''}
-            width={50}
-            height={50}
-            className={style.profile_img}
-          />
+          <Image src={icon} alt={''} width={50} height={50} className={style.profile_img} />
           <textarea
             name=''
             id=''
@@ -95,7 +89,7 @@ export default function TweetModal(props: any): JSX.Element {
           {dispalayImg && (
             <Image
               src={dispalayImg}
-              alt={''}
+              alt='投稿画像'
               width={500}
               height={300}
               className={style.tweet_img}
@@ -129,9 +123,7 @@ export default function TweetModal(props: any): JSX.Element {
             style={{ display: 'none' }}
             onChange={(e): void => handleFileSelect(e)}
           />
-          <button className={style.handle_btn} onClick={handleTweet}>
-            Tweet
-          </button>
+          <ButtonBase onClick={handleTweet} content='Tweet' weight='weight_600' size='sm' black />
         </div>
       </div>
     </ModalBase>

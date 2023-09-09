@@ -1,0 +1,69 @@
+// default
+.button {
+  display: block;
+  font-size: 14px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+}
+
+// size
+.button.xs {
+  padding: 4px 8px;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.button.sm {
+  width: 80px;
+  height: 40px;
+}
+
+.button.md {
+  width: 100px;
+  height: 40px;
+}
+// weight
+.button.thin {
+  font-weight: 400;
+}
+
+.button.regular {
+  font-weight: 500;
+}
+.button.bold {
+  font-weight: 600;
+}
+
+.button.blue {
+  color: rgb(255, 255, 255);
+  border: 1px solid rgb(20, 120, 250);
+  background-color: #1876d2;
+}
+
+.button.blue:hover {
+  background-color: rgb(20, 110, 230);
+}
+
+.button.blue:active {
+  background-color: #1169c1;
+}
+
+.button.blue:disabled {
+  border: 1px solid rgb(150, 200, 255);
+  background-color: rgb(150, 200, 255);
+  cursor: initial;
+}
+
+.button.black {
+  color: rgb(255, 255, 255);
+  background-color: black;
+}
+
+.button.black:hover {
+  background-color: rgb(18, 18, 18);
+}
+
+.button.black:active {
+  background-color: rgb(18, 18, 18);
+}

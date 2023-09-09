@@ -1,6 +1,4 @@
-import ModalBase from '@/components/parts/Modal'
-import { useSelector } from 'react-redux'
-import { RootState } from '@/store/store'
+import ModalBase from 'components/parts/Modal'
 import style from './AbjustModal.module.scss'
 import Image from 'next/image'
 import ImageImg from '/public/thumbnail.png'

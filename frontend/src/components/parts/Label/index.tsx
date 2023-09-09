@@ -2,9 +2,9 @@ import Autocomplete from '@mui/material/Autocomplete'
 import TextField from '@mui/material/TextField'
 import Stack from '@mui/material/Stack'
 import { useDispatch, useSelector } from 'react-redux'
-import { AppDispatch, RootState } from '@/store/store'
-import { addLabels } from '@/features/postSlice'
-import { TeamDataType } from '@/types/global'
+import { AppDispatch, RootState } from 'store/store'
+import { addLabels } from 'features/postSlice'
+import { TeamDataType } from 'types/global'
 
 interface Props {
   labelName: string

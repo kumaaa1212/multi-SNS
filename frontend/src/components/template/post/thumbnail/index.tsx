@@ -1,15 +1,16 @@
-import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { addThumbnail } from 'features/postSlice'
+import { AppDispatch, RootState } from 'store/store'
+import { jLeagueTeams } from 'utils/TeamData'
+import ThumbnailCard from 'components/parts/Card/Post/thumbnail'
+import Labels from 'components/parts/Label'
 import style from './Thumbnail.module.scss'
 import AlnumLayout from '../albumLayout/AlbumLayout'
-import ThumbnailCard from '@/components/parts/Card/Post/thumbnail'
-import Labels from '@/components/parts/Label'
-import { addThumbnail } from '@/features/postSlice'
-import { AppDispatch, RootState } from '@/store/store'
-import { jLeagueTeams } from '@/utils/TeamData'
+
 const Thumbnail = (): JSX.Element => {
   const dispatch: AppDispatch = useDispatch()
   const { thumbnailText } = useSelector((state: RootState) => state.post)
+
   return (
     <div className='thumbnail'>
       <AlnumLayout>
@@ -23,7 +24,9 @@ const Thumbnail = (): JSX.Element => {
               cols={10}
               value={thumbnailText}
               className={style.thumbnail_textarea}
-              onChange={(e) => dispatch(addThumbnail(e.target.value))}
+              onChange={(e): void => {
+                dispatch(addThumbnail(e.target.value))
+              }}
             />
           </div>
         </div>

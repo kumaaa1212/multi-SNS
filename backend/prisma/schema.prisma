@@ -37,6 +37,7 @@ model Follow {
   frendId Int
   frend User @relation(fields: [frendId], references: [id])
 }
+
 model Follower {
   id     Int    @id @default(autoincrement())
   userId Int
@@ -48,13 +49,6 @@ model Follower {
   teamURL String
   frendId Int
   frend User @relation(fields: [frendId], references: [id])
-}
-model Like {
-  id     Int    @id @default(autoincrement())
-  postId Int
-  authorId String
-  post   Post   @relation(fields: [postId], references: [id])
-  @@unique([postId, authorId])
 }
 
 model Post{
@@ -70,6 +64,14 @@ model Post{
   thumbnailImg String
   likes Like[]
   bookmarks Bookmark[]
+}
+
+model Like {
+  id     Int    @id @default(autoincrement())
+  postId Int
+  authorId String
+  post   Post   @relation(fields: [postId], references: [id])
+  @@unique([postId, authorId])
 }
 
 model Bookmark{
@@ -100,29 +102,6 @@ model Tweet{
   authorAvatar String
   likes TweetLike[]
 }
-
-model Room {
-  id String @id @default(uuid())
-  user1Id   String
-  user1Name String
-  user1Icon String
-  user2Id   String
-  user2Icon String
-  user2Name String
-  createdAt DateTime @default(now())
-  messages Message[] 
-}
-
-model Message {
-  id Int @id @default(autoincrement())
-  content String
-  createdAt DateTime @default(now())
-  authorId String?
-  senderId String
-  roomId String?
-  room Room? @relation(fields: [roomId], references: [id])
-}
-
 model TweetLike{
   id Int @id @default(autoincrement())
   tweetId Int
@@ -168,6 +147,28 @@ model BoardMessage{
   authorAvatar String
   boardId Int
   board Board @relation(fields: [boardId], references: [id])
+}
+
+model Room {
+  id String @id @default(uuid())
+  user1Id   String
+  user1Name String
+  user1Icon String
+  user2Id   String
+  user2Icon String
+  user2Name String
+  createdAt DateTime @default(now())
+  messages Message[] 
+}
+
+model Message {
+  id Int @id @default(autoincrement())
+  content String
+  createdAt DateTime @default(now())
+  authorId String?
+  senderId String
+  roomId String?
+  room Room? @relation(fields: [roomId], references: [id])
 }
 
 model KeepPost{
