@@ -20,7 +20,7 @@ const MessageSidebar = (props: Props): JSX.Element => {
 
   const handleSubmit = async (): Promise<void> => {
     try {
-      if (input.length === 0 && selectBoard) {
+      if (input.length !== 0 && selectBoard) {
         const newBoard = await apiClient.post(`/board/boards/${selectBoard.id}/messages`, {
           content: input,
           authorId: userId,

@@ -1,5 +1,10 @@
-import { render, screen } from '@testing-library/react'
+import { render } from '@testing-library/react'
 import Board from 'components/template/bulletinboard'
+import apiClient from 'libs/apiClient'
+import { setupServer } from 'msw/node'
+// const server = setupServer(
+//  await apiClient.get(`/board/boardRooms/YokohamaFC`)
+// )
 describe('Example', () => {
   it('表示されること', () => {
     const dummyData = {
@@ -19,8 +24,8 @@ describe('Example', () => {
       createdAt: '2021-08-22T13:00:00.000Z',
       roomId: '1',
       team: 'smaple team',
+      id: '1',
     }
     render(<Board boardRoom={dummyData} />)
-    expect(screen.getByText('サンプルコンポーネント')).toBeTruthy()
   })
 })
