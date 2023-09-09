@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react'
 import Image from 'next/image'
-import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { Paper } from '@mui/material'
 import apiClient from 'libs/apiClient'
 import { jLeagueTeams } from 'utils/TeamData'
-import { LabelType, TeamDataType } from 'types/global'
+import { TeamDataType } from 'types/global'
+import HomeTemplate from 'components/widgets/home'
 import style from '../Home.module.scss'
 
 const CategoriesPart = (): JSX.Element => {
@@ -15,59 +15,24 @@ const CategoriesPart = (): JSX.Element => {
   useEffect(() => {
     const datafetch = async (): Promise<void> => {
       try {
-        const res = await apiClient.get('/post/post-labels')
-        const data = res.data
-        const fliterdata = data.map((item: LabelType) => item.name)
-
-        const nameCountMap: Record<string, number> = {}
-
-        jLeagueTeams.forEach((team) => {
-          const { name } = team
-          if (fliterdata.includes(name)) {
-            if (nameCountMap[name]) {
-              nameCountMap[name]++
-            } else {
-              nameCountMap[name] = 1
-            }
-          }
-        })
-
-        const sortedNames = fliterdata.sort(
-          (a: LabelType, b: LabelType) => (nameCountMap[b] || 0) - (nameCountMap[a] || 0),
-        )
-
-        const filteredTeams = jLeagueTeams.filter((team) => sortedNames.includes(team.name))
-
-        const remainingCount = 10 - filteredTeams.length
-        if (remainingCount > 0) {
-          const randomTeams = jLeagueTeams.filter(
-            (team) => !filteredTeams.some((t) => t.name === team.name),
-          )
-          for (let i = 0; i < remainingCount; i++) {
-            const randomIndex = Math.floor(Math.random() * randomTeams.length)
-            filteredTeams.push(randomTeams[randomIndex])
-            randomTeams.splice(randomIndex, 1)
-          }
-        }
-
-        setTeamData(filteredTeams)
+        // const res = await apiClient.get('/post/post-labels')
       } catch (error) {
         alert('エラーが発生しました。')
       }
     }
+
     datafetch()
   }, [])
 
   return (
-    <div className='CategoriesPart'>
-      <div className={style.categories_title}>
-        <h2>人気のチーム</h2>
-        <Link href='/categories' className={style.show_all}>
-          全てのチームを見る
-        </Link>
-      </div>
+    <HomeTemplate
+      titile='人気のチーム'
+      showAll='全てのチームを見る'
+      href='/categories'
+      footerShowAll='全てのチームを見る'
+    >
       <div className={style.home_categories}>
-        {teamData.map((team) => (
+        {teamData.map((team: TeamDataType) => (
           <Paper
             key={team.label}
             className={style.team_card}
@@ -80,15 +45,7 @@ const CategoriesPart = (): JSX.Element => {
           </Paper>
         ))}
       </div>
-      <button
-        className={style.all_jleagu_team}
-        onClick={(): void => {
-          router.push('/categories')
-        }}
-      >
-        全てのチームを見る
-      </button>
-    </div>
+    </HomeTemplate>
   )
 }
 

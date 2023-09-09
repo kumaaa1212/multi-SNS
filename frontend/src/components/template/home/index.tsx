@@ -35,7 +35,7 @@ const Home = (props: Props): JSX.Element => {
       <div className={style.swiper}>
         <SwiperArea />
       </div>
-      {/* <CategoriesPart /> */}
+      <CategoriesPart />
       <ArticlesPart articles={articles} />
       <div className={style.login_alert}>
         {showAlert && <BasicAlerts contents='This is a success alert — ログインに成功しました' />}

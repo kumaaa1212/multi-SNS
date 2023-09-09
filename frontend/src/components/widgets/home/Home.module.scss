@@ -1,0 +1,30 @@
+.title_area {
+  width: 70%;
+  height: 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 auto;
+}
+
+.show_all {
+  text-decoration: none;
+  color: #408ddb;
+}
+
+.show_all:hover {
+  text-decoration: dashed;
+}
+
+.footer_show_all {
+  display: block;
+  width: 70%;
+  margin: 0 auto;
+  border-top: 1px gray solid;
+  border-bottom: 1px gray solid;
+  padding: 20px 0px;
+  border-left: none;
+  border-right: none;
+  background-color: transparent;
+  cursor: pointer;
+}

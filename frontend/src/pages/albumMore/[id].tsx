@@ -1,5 +1,5 @@
 import React from 'react'
-import AlbumMore from 'components/template/home/AlbumMore'
+import AlbumMore from 'components/template/AlbumMore'
 import apiClient from 'libs/apiClient'
 import { marked } from 'marked'
 
