@@ -16,10 +16,11 @@ interface Props {
   setSideMessagrBar: React.Dispatch<React.SetStateAction<boolean>>
   selectBoard: BoardType | undefined
   setSelectBoard: React.Dispatch<React.SetStateAction<BoardType | undefined>>
+  toastFunc: (content: string, isError: boolean) => void
 }
 
 const Timeline = (props: Props): JSX.Element => {
-  const { boardRooms, setBoardRooms, sideMessagrBar, setSideMessagrBar } = props
+  const { boardRooms, setBoardRooms, sideMessagrBar, setSideMessagrBar, toastFunc } = props
 
   const { selectBoard, setSelectBoard } = props
   const { team, userId, username, iconPath } = useSelector((state: RootState) => state.user)
@@ -40,7 +41,7 @@ const Timeline = (props: Props): JSX.Element => {
       setBoardRooms(newRoom.data.updatedRoom)
       setInput('')
     } catch {
-      alert('投稿に失敗しました')
+      toastFunc('投稿に失敗しました', true)
       setInput('')
     }
   }
@@ -57,6 +58,7 @@ const Timeline = (props: Props): JSX.Element => {
             selectBoard={selectBoard}
             setSelectBoard={setSelectBoard}
             setBoardRooms={setBoardRooms}
+            toastFunc={toastFunc}
           >
             {board.content}
           </BulletinboardCard>

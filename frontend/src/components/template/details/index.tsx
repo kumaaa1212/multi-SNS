@@ -5,6 +5,7 @@ import { jLeagueTeams } from 'utils/TeamData'
 import { ArticlesType, TeamDataType } from 'types/global'
 import ArticleCard from 'components/parts/Card/Articles'
 import LabelArea from 'components/parts/Label/articles'
+import ArticleArea from 'components/widgets/article'
 import style from './ArticleDetail.module.scss'
 
 interface Props {
@@ -14,14 +15,12 @@ interface Props {
 const Team = (props: Props): JSX.Element => {
   const { data } = props
 
-  const [albumData, setAlbumData] = useState<ArticlesType[]>(data ? data : [])
-
   const router = useRouter()
   const teamfilter = jLeagueTeams.filter((team: TeamDataType) => team.label === router.query.label)
 
   return (
     <div className={style.articles_details}>
-      <div className={style.articles_details_show}>
+      <div>
         <div className={style.articles_details_header}>
           <Image
             src={teamfilter[0].img}
@@ -32,17 +31,25 @@ const Team = (props: Props): JSX.Element => {
           />
           <h2>{`"${teamfilter[0].name}"に関するまとめ`}</h2>
         </div>
-        <div className={style.article_area}>
-          {data ? (
-            <div>
-              {/* {data?.map((article: ArticlesType) => (
-                <div key={article.id} className={style.article_timeline}>
-                  <ArticleCard article={article} setAlbumData={setAlbumData} />
-                </div>
-              ))} */}
-            </div>
+        <div>
+          {data?.length ? (
+            <ArticleArea>
+              <div></div>
+            </ArticleArea>
           ) : (
-            <h1>まだ投稿がありません</h1>
+            <div className={style.not_article}>
+              <h1 className={style.not_article_title}>Not Found Album</h1>
+              <p
+                className={style.not_article_sub_title}
+              >{`${teamfilter[0].name}に関するアルバムは投稿されていません`}</p>
+              <Image
+                src='/404.jpg'
+                width={600}
+                height={500}
+                alt='404の画像'
+                className={style.not_article_img}
+              />
+            </div>
           )}
         </div>
       </div>

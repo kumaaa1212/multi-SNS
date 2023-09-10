@@ -1,26 +1,39 @@
-.articles_details{
+.articles_details {
   display: grid;
   grid-template-columns: 1fr 300px;
-  .articles_details_header{
-    margin-top: 50px;
+
+  .articles_details_header {
+    margin: 50px 0;
     display: flex;
     justify-content: center;
     align-items: center;
   }
-  .article_area{
-    margin-top: 50px;
-  }
-  .team_img{
+
+  .team_img {
     margin-right: 30px;
     border-radius: 10px;
   }
-  .labels_area{
+
+  .not_article {
+    .not_article_title {
+      text-align: center;
+      font-size: 50px;
+    }
+    .not_article_sub_title {
+      margin-top: 10px;
+      font-size: 20px;
+      text-align: center;
+      color: gray;
+    }
+    .not_article_img {
+      display: block;
+      margin: 0 auto;
+    }
+  }
+
+  .labels_area {
     width: 300px;
     display: flex;
     justify-content: center;
-  }
-  .article_timeline{
-    display: grid;
-    grid-template-columns: 1fr 1fr;
   }
 }

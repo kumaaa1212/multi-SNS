@@ -22,18 +22,18 @@ interface Props {
   selectBoard: BoardType | undefined
   setSelectBoard: React.Dispatch<React.SetStateAction<BoardType | undefined>>
   setBoardRooms: React.Dispatch<React.SetStateAction<BoardRoomType>>
+  toastFunc: (content: string, isError: boolean) => void
 }
 
 const BulletinboardCard = (props: Props): JSX.Element => {
   const { children, sideMessagrBar, setSideMessagrBar, board } = props
-  const { selectBoard, setSelectBoard, setBoardRooms } = props
+  const { selectBoard, setSelectBoard, setBoardRooms, toastFunc } = props
 
   const { userId, team } = useSelector((state: RootState) => state.user)
-
+  const [likeCount, setLikeCount] = useState<number>(board.likes?.length)
   const [like, setLike] = useState<boolean>(
     board.likes?.map((like: BoradLikeType) => like.authorId).includes(board.authorId),
   )
-  const [likeCount, setLikeCount] = useState<number>(board.likes?.length)
 
   useEffect(() => {
     const fetchLike = async (): Promise<void> => {
@@ -87,10 +87,14 @@ const BulletinboardCard = (props: Props): JSX.Element => {
 
   const handleClick = async (): Promise<void> => {
     const filterTeam = jLeagueTeams.filter((item) => item.name === team)
-    const res = await apiClient.delete(
-      `/board/board/${board.id}/delete?team=${filterTeam[0]?.label}`,
-    )
-    setBoardRooms(res.data.boardRoom)
+    try {
+      const res = await apiClient.delete(
+        `/board/board/${board.id}/delete?team=${filterTeam[0]?.label}`,
+      )
+      setBoardRooms(res.data.boardRoom)
+    } catch {
+      toastFunc('削除に失敗しました', true)
+    }
   }
 
   return (

@@ -1,10 +1,12 @@
 import { useState } from 'react'
 import { useSelector } from 'react-redux'
+import { useToast } from 'components/hooks/useToast'
 import apiClient from 'libs/apiClient'
 import { RootState } from 'store/store'
 import { BoardType, BoardMessageType } from 'types/global'
 import SidebarChatCard from 'components/parts/Card/Bulletinboard/Sidebar'
 import SendInput from 'components/parts/Input/Send'
+import ToastBase from 'components/parts/Toast'
 import style from '../bulletinboard.module.scss'
 
 interface Props {
@@ -16,6 +18,7 @@ const MessageSidebar = (props: Props): JSX.Element => {
   const { selectBoard, setSelectBoard } = props
 
   const { userId, username, iconPath } = useSelector((state: RootState) => state.user)
+  const { toastContent, isError, isToast, toastFunc } = useToast()
   const [sideMessagrBar, setSideMessagrBar] = useState<BoardMessageType[]>(
     selectBoard?.messages || [],
   )
@@ -35,7 +38,7 @@ const MessageSidebar = (props: Props): JSX.Element => {
       }
       setInput('')
     } catch {
-      alert('投稿に失敗しました')
+      toastFunc('メッセージの送信に失敗しました', true)
       setInput('')
     }
   }
@@ -61,6 +64,7 @@ const MessageSidebar = (props: Props): JSX.Element => {
         handleSend={handleSubmit}
         placeholder='メッセージを入力'
       />
+      <ToastBase content={toastContent} isError={isError} active={isToast} />
     </div>
   )
 }
