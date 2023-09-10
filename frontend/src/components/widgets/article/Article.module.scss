@@ -1,4 +1,7 @@
-.main{
-  border: 1px red solid;
+.main {
   padding: 20px;
+
+  .main_children {
+    padding: 10px;
+  }
 }

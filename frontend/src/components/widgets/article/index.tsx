@@ -13,7 +13,7 @@ const ArticleArea = (props: Props): JSX.Element => {
       <Grid container className={styled.card_area} columns={{ xs: 1, sm: 1, md: 1, lg: 2, xl: 3 }}>
         {Array.from(Array(6)).map((_, index) => (
           <Grid xs={1} sm={1} md={1} key={index}>
-            <div>{children}</div>
+            <div className={styled.main_children}>{children}</div>
           </Grid>
         ))}
       </Grid>

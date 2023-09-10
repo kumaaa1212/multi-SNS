@@ -12,9 +12,7 @@ const AlbumNew = (props: Props): JSX.Element => {
   const { articlesNew, albumserch } = props
   return (
     <ArticleArea>
-      <div>
-        {articlesNew?.map((album: ArticlesType) => <ArticleCard article={album} key={album.id} />)}
-      </div>
+      {articlesNew?.map((album: ArticlesType) => <ArticleCard article={album} key={album.id} />)}
     </ArticleArea>
   )
 }

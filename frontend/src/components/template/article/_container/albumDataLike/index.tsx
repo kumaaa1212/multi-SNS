@@ -13,13 +13,7 @@ const AlbumLike = (props: Props): JSX.Element => {
   const { articlesLike, albumserch } = props
   return (
     <ArticleArea>
-      <div className={style.card_area}>
-        {articlesLike?.map((album) => (
-          <div key={album.id}>
-            <ArticleCard article={album} />
-          </div>
-        ))}
-      </div>
+      {articlesLike?.map((album) => <ArticleCard article={album} key={album.id} />)}
     </ArticleArea>
   )
 }
