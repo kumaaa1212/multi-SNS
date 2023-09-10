@@ -11,10 +11,10 @@ const ArticlesPart = (props: Props): JSX.Element => {
   const { articles } = props
 
   const fliterCard = articles?.map((item: ArticlesType | TweetsType) => {
-    if ('thumbnailImg' in item && " 'thumbnailText" in item) {
-      return <ArticleCard key={item.id} article={item} />
+    if ('thumbnailImg' in item) {
+      return <ArticleCard key={item.id} article={item as ArticlesType} />
     } else {
-      return <TweetCard key={item.id} tweet={item} />
+      return <TweetCard key={item.id} tweet={item as TweetsType} />
     }
   })
 
@@ -26,7 +26,7 @@ const ArticlesPart = (props: Props): JSX.Element => {
         href='articles'
         footerShowAll='全ての記事を見る'
       >
-        {/* {articles && fliterCard} */}
+        {articles && fliterCard}
       </HomeTemplate>
     </div>
   )

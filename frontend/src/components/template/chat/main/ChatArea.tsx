@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import style from '../Chat.module.scss'
 import ChatContent from 'components/parts/chat/ChatContent'
-import SendInput from 'components/parts/Input'
+import SendInput from 'components/parts/Input/Send'
 import apiClient from 'libs/apiClient'
 import { MessageType, RoomType } from 'types/global'
 import { useRouter } from 'next/router'

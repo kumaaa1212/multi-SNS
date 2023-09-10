@@ -1,8 +1,8 @@
 import React from 'react'
 import { GetServerSideProps } from 'next'
-import Team from '@/components/template/details'
-import apiClient from '@/libs/apiClient'
-import { ArticlesType } from '@/types/global'
+import Team from 'components/template/details'
+import apiClient from 'libs/apiClient'
+import { ArticlesType } from 'types/global'
 
 interface Props {
   post: ArticlesType[]

@@ -1,14 +1,15 @@
-import { useEffect, useState } from 'react'
-import { ArticlesType, TweetsType } from 'types/global'
-import ArticleCard from 'components/parts/Card/Articles'
-import TweetCard from 'components/parts/Card/Tweet'
+import { useState } from 'react'
+import { ArticlesType } from 'types/global'
+import Button from 'components/parts/Button/Base'
+import SerchInput from 'components/parts/Input/Serch'
 import LabelArea from 'components/parts/Label/articles'
 import BasicPagination from 'components/parts/Pagenation'
 import style from './Article.module.scss'
-
+import AlbumLike from './_container/albumDataLike'
+import AlbumNew from './_container/albumDataNew'
 interface Props {
-  articlesLike: ArticlesType[] | TweetsType[]
-  articlesNew: ArticlesType[] | TweetsType[]
+  articlesLike: ArticlesType[]
+  articlesNew: ArticlesType[]
 }
 
 const Article = (props: Props): JSX.Element => {
@@ -17,87 +18,39 @@ const Article = (props: Props): JSX.Element => {
   const [click, setClicked] = useState<boolean>(true)
   const [currentPage, setCurrentPage] = useState<number>(1)
   const [albumserch, setAlbumserch] = useState<string>('')
-  const [albumDataLike, setAlbumDataLike] = useState<ArticlesType[] | TweetsType[]>(articlesLike)
-  const [albumDataNew, setAlbumDataNew] = useState<ArticlesType[] | TweetsType[]>(articlesNew)
-
-  const ablusData = (data: ArticlesType[] | TweetsType[]) => {
-    const arry = data?.map((item: ArticlesType | TweetsType) => {
-      if ('thumbnailImg' in item) {
-        return <ArticleCard key={item.id} article={item} />
-      } else {
-        return <TweetCard key={item.id} tweet={item} />
-      }
-    })
-    return arry
-  }
-
-  useEffect(() => {
-    const splitPageNew = (data: ArticlesType[] | TweetsType[]) => {
-      const start: number = (currentPage - 1) * 6
-      const end: number = start + 6
-      setAlbumDataNew(data?.slice(start, end))
-    }
-
-    const splitPageLike = (data: ArticlesType[] | TweetsType[]) => {
-      const start: number = (currentPage - 1) * 6
-      const end: number = start + 6
-      setAlbumDataLike(data?.slice(start, end))
-    }
-    splitPageLike(albumDataLike)
-    splitPageNew(albumDataNew)
-  }, [albumDataLike, albumDataNew, currentPage])
-
-  // const handleRemove = (albumserch: string) => {
-  //   const filteredData = albumDataLike.filter((item: ArticlesType | TweetsType) => {
-  //     if ('thumbnailImg' in item) {
-  //       const articleItem = item as ArticlesType
-  //       return (
-  //         articleItem.title.toLowerCase().includes(albumserch.toLowerCase()) ||
-  //         articleItem.authorName.toLowerCase().includes(albumserch.toLowerCase())
-  //       )
-  //     } else {
-  //       const tweetsItem = item as TweetsType
-  //       return tweetsItem.content.toLowerCase().includes(albumserch.toLowerCase())
-  //     }
-  //   })
-  //   setAlbumData(filteredData)
-  // }
-
-  const handlePageChange = (e: any) => {
-    setAlbumserch(e.target.value)
-    // handleRemove(value)
-  }
 
   return (
     <div className={style.article}>
       <div className={style.article_contents}>
         <div className={style.search_area}>
           <div className={style.search_btn_area}>
-            <button
-              className={click ? style.search_btn_clicked : style.search_btn_click}
+            <Button
+              content='新着アルバム'
               onClick={(): void => setClicked(!click)}
-            >
-              新着アルバム
-            </button>
-            <button
-              className={click ? style.search_btn_click : style.search_btn_clicked}
+              className='mh_16'
+              size='md'
+              weight='weight_600'
+              black={click ? true : false}
+            />
+            <Button
+              content='人気アルバム'
               onClick={(): void => setClicked(!click)}
-            >
-              人気アルバム
-            </button>
+              className='mh_16'
+              size='md'
+              weight='weight_600'
+              black={click ? false : true}
+            />
           </div>
-          <input
-            type='text'
-            placeholder='アルバムを検索'
-            className={style.search_input_area}
+          <SerchInput
             value={albumserch}
-            onChange={handlePageChange}
+            placeholder='アルバムを検索'
+            onChange={(e): void => setAlbumserch(e.target.value)}
           />
         </div>
         {click ? (
-          <div className={style.article_timeline}>{ablusData(albumDataNew)}</div>
+          <AlbumLike albumserch={albumserch} articlesLike={articlesLike} />
         ) : (
-          <div className={style.article_timeline}>{ablusData(albumDataLike)}</div>
+          <AlbumNew albumserch={albumserch} articlesNew={articlesNew} />
         )}
         <div className={style.pagenation}>
           {/* <BasicPagination

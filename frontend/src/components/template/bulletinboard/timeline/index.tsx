@@ -5,7 +5,7 @@ import { RootState } from 'store/store'
 import { jLeagueTeams } from 'utils/TeamData'
 import { BoardRoomType, BoardType } from 'types/global'
 import BulletinboardCard from 'components/parts/Card/Bulletinboard'
-import SendInput from 'components/parts/Input'
+import SendInput from 'components/parts/Input/Send'
 import BasicPagination from 'components/parts/Pagenation'
 import style from '../bulletinboard.module.scss'
 

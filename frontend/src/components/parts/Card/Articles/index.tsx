@@ -15,9 +15,10 @@ import IconButton, { IconButtonProps } from '@mui/material/IconButton'
 import { styled } from '@mui/material/styles'
 import apiClient from 'libs/apiClient'
 import { RootState } from 'store/store'
+import { formatTimestamp } from 'utils/functions/Time'
 import { ArticlesType, LabelType } from 'types/global'
 import DeleteButton from 'components/parts/Button/Delete'
-import FollowBtn from 'components/parts/Button/Follow'
+import FollowButton from 'components/parts/Button/Follow'
 import style from './ArticlesCard.module.scss'
 import Icongenerate from '../../../../utils/functions/Avater'
 import BookMarkBtn from '../../Button/BookMark'
@@ -44,7 +45,7 @@ const ExpandMore = styled((props: ExpandMoreProps) => {
 
 export default function ArticleCard(props: Props): JSX.Element {
   const { article } = props
-  const { username, userId } = useSelector((state: RootState) => state.user)
+  const { username } = useSelector((state: RootState) => state.user)
 
   const [expanded, setExpanded] = useState<boolean>(false)
   const [moreover, setMoreover] = useState<boolean>(false)
@@ -57,17 +58,8 @@ export default function ArticleCard(props: Props): JSX.Element {
     setExpanded(!expanded)
   }
 
-  const handleDelete = async () => {
+  const handleDelete = async (): Promise<void> => {
     try {
-      const updatedPost = await apiClient.delete(`/post/album/delete/${article.id}`)
-
-      // if (router.asPath === '/mypage') {
-      //   setAlbumData(
-      //     updatedPost.data.remainingPosts.filter(
-      //       (album: ArticlesType) => album.authorId === userId,
-      //     ),
-      //   )
-      // }
       setMoreover(false)
     } catch {
       alert('削除に失敗しました')
@@ -81,7 +73,7 @@ export default function ArticleCard(props: Props): JSX.Element {
           className={style.card_header}
           avatar={
             <Image
-              src={Icongenerate(article.authorAvatar)}
+              src={article.authorAvatar ? Icongenerate(article.authorAvatar) : '/noavatar.png'}
               alt={''}
               width={30}
               height={30}
@@ -95,18 +87,16 @@ export default function ArticleCard(props: Props): JSX.Element {
                 className={style.moreover_btn}
               />
             ) : (
-              <FollowBtn article={article} className={style.follow_icon}>
-                Follow
-              </FollowBtn>
+              <FollowButton article={article} content='Follow' />
             )
           }
           title={article.title}
-          subheader='September 14, 2016'
+          subheader={formatTimestamp(article.createdAt)}
         />
         <div className={style.moreover_area} onClick={handleDelete}>
           {moreover && (
             <div onClick={handleDelete}>
-              <DeleteButton content='削除' article />
+              <DeleteButton content='削除' article onClick={handleDelete} />
             </div>
           )}
         </div>
@@ -114,13 +104,15 @@ export default function ArticleCard(props: Props): JSX.Element {
           src={article.thumbnailImg ? article.thumbnailImg : '/thumbnail.png'}
           alt={''}
           className={style.main_img}
-          width={500}
+          width={550}
           height={250}
         />
         <CardContent>
           <span className={style.thumbnail_text}>{article.thumbnailText}</span>
           <div className={style.label_area}>
-            {article.labels?.map((label: LabelType) => <Chip label={label.name} />)}
+            {article.labels?.map((label: LabelType) => (
+              <Chip label={label.name} key={label.label} />
+            ))}
           </div>
         </CardContent>
         <CardActions disableSpacing>

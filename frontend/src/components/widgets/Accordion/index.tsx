@@ -5,9 +5,9 @@ import Accordion from '@mui/material/Accordion'
 import AccordionDetails from '@mui/material/AccordionDetails'
 import AccordionSummary from '@mui/material/AccordionSummary'
 import Typography from '@mui/material/Typography'
-import style from './Accordion.module.scss'
 import { createContentText, createTitleText } from 'features/postSlice'
 import { AppDispatch } from 'store/store'
+import style from './Accordion.module.scss'
 
 interface Props {
   keepPost: any[]

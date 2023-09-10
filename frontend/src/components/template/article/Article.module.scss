@@ -6,68 +6,18 @@
   }
 }
 .search_area {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  display: grid;
+  grid-template-columns: 2fr 3fr;
+  gap: 20px;
+  align-items: center; 
   width: 100%;
   margin-bottom: 50px;
+
   .search_btn_area {
     display: flex;
-    .search_btn_click {
-      margin: 0px 15px;
-      display: block;
-      border: 1px rgb(176, 176, 176) solid;
-      background-color: white;
-      color: black;
-      width: 100px;
-      height: 40px;
-      border-radius: 10px;
-      cursor: pointer;
-    }
-
-    .search_btn_clicked {
-      margin: 0px 15px;
-      display: block;
-      border: 1px rgb(176, 176, 176) solid;
-      background-color: #217dcd;
-      color: white;
-      width: 100px;
-      height: 40px;
-      border-radius: 10px;
-      cursor: pointer;
-    }
-  }
-
-  .search_input_area {
-    font-size: 30px;
-    display: block;
-    height: 40px;
-    width: 500px;
-    border: 1px rgb(176, 176, 176) solid;
-    border-radius: 10px;
-    padding: 5px;
-  }
-
-  .search_input_area:focus {
-    outline: none;
   }
 }
 
-.article_timeline {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 20px;
-}
-@media screen and (min-width: 1000px) {
-  .article_timeline {
-    grid-template-columns: 1fr 1fr;
-  }
-}
-@media screen and (min-width: 1900px) {
-  .article_timeline {
-    grid-template-columns: 1fr 1fr 1fr;
-  }
-}
 
 .pagenation {
   margin: 100px 0px;
@@ -97,4 +47,8 @@
       }
     }
   }
+}
+
+.card_area{
+  padding: 10px;
 }

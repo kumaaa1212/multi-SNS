@@ -210,7 +210,7 @@ router.get("/all/content/top", async (req: Request, res: Response) => {
   }
 });
 // 投稿全の取得(いいね順)
-router.get("/all/content", async (req: Request, res: Response) => {
+router.get("/all/content/order/like", async (req: Request, res: Response) => {
   try {
     const posts = await prisma.post.findMany({
       orderBy: {
@@ -223,30 +223,17 @@ router.get("/all/content", async (req: Request, res: Response) => {
       },
     });
 
-    const tweets = await prisma.tweet.findMany({
-      orderBy: {
-        createdAt: "desc",
-      },
-      include: {
-        likes: true,
-      },
-    });
-
-    // postsとtweetsを結合して1つの配列にする
-    const allContent = [...posts, ...tweets];
-
-    // likesの長さでソートして上位6つを選択
-    const topLikedContent = allContent.sort(
+    const topLikedContent = posts.sort(
       (a, b) => b.likes.length - a.likes.length
     );
 
-    return res.json(topLikedContent);
+    return res.json({topLikedContent});
   } catch (err: any) {
     res.json({ error: err.message });
   }
 });
 // 投稿全の取得(投稿順)
-router.get("/all/content/new", async (req: Request, res: Response) => {
+router.get("/all/content/order/new", async (req: Request, res: Response) => {
   try {
     const posts = await prisma.post.findMany({
       orderBy: {
@@ -259,24 +246,7 @@ router.get("/all/content/new", async (req: Request, res: Response) => {
       },
     });
 
-    const tweets = await prisma.tweet.findMany({
-      orderBy: {
-        createdAt: "desc",
-      },
-      include: {
-        likes: true,
-      },
-    });
-
-    // postsとtweetsを結合して1つの配列にする
-    const allContent = [...posts, ...tweets];
-
-    // 投稿順に並べ替えてから、上位6つを選択
-    const topContent = allContent.sort(
-      (a, b) => b.createdAt.getTime() - a.createdAt.getTime()
-    );
-
-    return res.json(topContent);
+    return res.json({posts});
   } catch (err: any) {
     res.json({ error: err.message });
   }

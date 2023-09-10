@@ -4,7 +4,7 @@ import apiClient from 'libs/apiClient'
 import { RootState } from 'store/store'
 import { BoardType, BoardMessageType } from 'types/global'
 import SidebarChatCard from 'components/parts/Card/Bulletinboard/Sidebar'
-import SendInput from 'components/parts/Input'
+import SendInput from 'components/parts/Input/Send'
 import style from '../bulletinboard.module.scss'
 
 interface Props {

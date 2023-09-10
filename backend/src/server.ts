@@ -3,13 +3,14 @@ import postRoute from "./router/post";
 import chatRoute from "./router/chat";
 import authRoute from "./router/auth";
 import boardRoute from "./router/board";
+import articleRoute from "./router/article";
 import cors from "cors";
 import dotenv from "dotenv";
 
 const app = express();
 const port = process.env.PORT;
 app.use(express.json());
-dotenv.config()
+dotenv.config();
 
 const corsOptions = {
   origin: "http://localhost:3002",
@@ -21,5 +22,6 @@ app.use("/api/post", postRoute);
 app.use("/api/chat", chatRoute);
 app.use("/api/auth", authRoute);
 app.use("/api/board", boardRoute);
+app.use("/api/article", articleRoute);
 
 app.listen(port, () => console.log(`Listening on port ${port}`));

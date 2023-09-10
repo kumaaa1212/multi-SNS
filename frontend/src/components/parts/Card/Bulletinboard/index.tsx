@@ -6,11 +6,12 @@ import apiClient from 'libs/apiClient'
 import { RootState } from 'store/store'
 import { jLeagueTeams } from 'utils/TeamData'
 import Icongenerate from 'utils/functions/Avater'
+import { formatTimestamp } from 'utils/functions/Time'
 import style from './Bulletinboard.module.scss'
 import CardLike from '/public/svg/board_like.svg'
 import CardLiked from '/public/svg/board_liked.svg'
 import CardMessage from '/public/svg/board_message.svg'
-import { BoardRoomType, BoardType, LikeType } from 'types/global'
+import { BoardRoomType, BoardType, BoradLikeType } from 'types/global'
 import DeleteButton from 'components/parts/Button/Delete'
 
 interface Props {
@@ -30,7 +31,7 @@ const BulletinboardCard = (props: Props): JSX.Element => {
   const { userId, team } = useSelector((state: RootState) => state.user)
 
   const [like, setLike] = useState<boolean>(
-    board.likes?.map((like: LikeType) => like.authorId).includes(board.authorId),
+    board.likes?.map((like: BoradLikeType) => like.authorId).includes(board.authorId),
   )
   const [likeCount, setLikeCount] = useState<number>(board.likes?.length)
 
@@ -82,16 +83,6 @@ const BulletinboardCard = (props: Props): JSX.Element => {
     } catch {
       alert('エラーが発生しました')
     }
-  }
-
-  const formatTimestamp = (timestamp: string): string => {
-    const date = new Date(timestamp)
-    const month = date.getMonth() + 1
-    const day = date.getDate()
-    const hours = date.getHours()
-    const minutes = date.getMinutes()
-
-    return `${month}-${day} ${hours}:${minutes}`
   }
 
   const handleClick = async (): Promise<void> => {

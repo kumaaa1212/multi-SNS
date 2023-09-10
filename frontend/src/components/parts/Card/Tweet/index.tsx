@@ -37,7 +37,8 @@ const TweetCard = (props: any) => {
       <Card className={style.tweet_card}>
         <div className={style.tweet_header}>
           <Image
-            src={tweet.authorAvatar}
+            // src={tweet.authorAvatar}
+            src={'/noavatar.png'}
             alt=''
             width={40}
             height={40}
@@ -67,7 +68,14 @@ const TweetCard = (props: any) => {
           </div>
         </div>
         <div className={style.tweet_contents}>
-          <Image src={tweet.img} alt='' width={450} height={250} className={style.tweet_img} />
+          {/* <Image src={tweet.img} alt='' width={450} height={250} className={style.tweet_img} /> */}
+          <Image
+            src={'/noavatar.png'}
+            alt=''
+            width={450}
+            height={250}
+            className={style.tweet_img}
+          />
           <div className={style.scroll_area}>
             <span className={style.tweet_content}>{tweet.content}</span>
           </div>

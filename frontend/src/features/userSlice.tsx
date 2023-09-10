@@ -1,12 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import Icongenerate from 'utils/functions/Avater'
-
-interface FrendInfo {
-  icon: string
-  username: string
-  authorId: string
-  team: string
-}
+import { FrendInfo } from 'types/global'
 
 interface UserState {
   username: string
