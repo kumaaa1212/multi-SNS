@@ -48,9 +48,9 @@ const Article = (props: Props): JSX.Element => {
           />
         </div>
         {click ? (
-          <AlbumLike albumserch={albumserch} articlesLike={articlesLike} />
-        ) : (
           <AlbumNew albumserch={albumserch} articlesNew={articlesNew} />
+        ) : (
+          <AlbumLike albumserch={albumserch} articlesLike={articlesLike} />
         )}
         <div className={style.pagenation}>
           {/* <BasicPagination

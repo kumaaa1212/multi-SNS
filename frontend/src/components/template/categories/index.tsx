@@ -4,14 +4,16 @@ import { useRouter } from 'next/router'
 import { Paper } from '@mui/material'
 import { jLeagueTeams } from 'utils/TeamData'
 import { TeamDataType } from 'types/global'
+import SerchInput from 'components/parts/Input/Serch'
 import style from './Categories.module.scss'
 
 const Categories = (): JSX.Element => {
-  const [teamData, setTeamData] = useState<TeamDataType[]>(jLeagueTeams)
-
   const router = useRouter()
+  const [teamData, setTeamData] = useState<TeamDataType[]>(jLeagueTeams)
+  const [search, setSearch] = useState<string>('')
 
-  const handleSearch = (e: any): void => {
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    setSearch(e.target.value)
     const data = jLeagueTeams.filter((teams: TeamDataType) =>
       teams.name.toLowerCase().includes(e.target.value.toLowerCase()),
     )
@@ -19,13 +21,10 @@ const Categories = (): JSX.Element => {
   }
 
   return (
-    <div className={style.categories}>
-      <input
-        type='text'
-        className={style.categories_search}
-        placeholder='キーワードを入力...'
-        onChange={handleSearch}
-      />
+    <div>
+      <div className={style.categories_serch_area}>
+        <SerchInput value={search} placeholder='キーワードを入力...' onChange={handleSearch} />
+      </div>
       <div className={style.categories_area}>
         {teamData.map((team: TeamDataType) => (
           <Paper

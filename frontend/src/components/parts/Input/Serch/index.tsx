@@ -1,5 +1,4 @@
 import { TextField } from '@mui/material'
-import style from './Serch.module.scss'
 
 interface Props {
   value: string
@@ -11,9 +10,7 @@ const SerchInput = (props: Props): JSX.Element => {
   const { value, placeholder, onChange } = props
 
   return (
-    <div className={style.input_area}>
-      <TextField fullWidth label={placeholder} id='fullWidth' value={value} onChange={onChange} />
-    </div>
+    <TextField fullWidth label={placeholder} id='fullWidth' value={value} onChange={onChange} />
   )
 }
 

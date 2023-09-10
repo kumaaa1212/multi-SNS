@@ -37,7 +37,7 @@ const CategoriesPart = (): JSX.Element => {
             key={team.label}
             className={style.team_card}
             onClick={(): void => {
-              router.push(`/categories/details/${team.label}`)
+              router.push(`/categories/${team.label}`)
             }}
           >
             <Image src={team.img} alt={''} width={100} height={70} className={style.team_img} />
