@@ -1,9 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit'
+import { LabelType } from 'types/global'
 
 interface PostState {
   titleText: string
   contentText: string
-  labels: any[]
+  labels: LabelType[]
   thumbnailText: string
   thumbnailImg: string
   displayThumbnailImg: string
