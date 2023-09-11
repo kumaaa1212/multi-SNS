@@ -1,14 +1,9 @@
 import { useState } from 'react'
 import { useForm, SubmitHandler, Controller } from 'react-hook-form'
-import Link from 'next/link'
-import {
-  CircularProgress,
-  FormControl,
-  FormHelperText,
-  InputLabel,
-  MenuItem,
-  Select,
-} from '@mui/material'
+import Image from 'next/image'
+import { useRouter } from 'next/router'
+import { CircularProgress, FormControl, FormHelperText } from '@mui/material'
+import { InputLabel, MenuItem, Select } from '@mui/material'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import Container from '@mui/material/Container'
@@ -19,12 +14,15 @@ import Typography from '@mui/material/Typography'
 import { createTheme, ThemeProvider } from '@mui/material/styles'
 import apiClient from 'libs/apiClient'
 import { jLeagueTeams } from 'utils/TeamData'
+import CloseIcon from '/public/svg/modal_close.svg'
 import { AccountType } from 'types/internal'
+import style from './SignUp.module.scss'
 import ModalBase from 'components/parts/Modal'
 
 const defaultTheme = createTheme()
 
 export default function SignUp(): JSX.Element {
+  const router = useRouter()
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [open, setOpen] = useState<boolean>(false)
 
@@ -60,21 +58,34 @@ export default function SignUp(): JSX.Element {
     }
     setOpen(true)
   }
+  const handleClose = (): void => {
+    setOpen(false)
+    router.push('/login')
+  }
   return (
     <div className='sginup'>
       <ThemeProvider theme={defaultTheme}>
         {isLoading && (
-          <ModalBase open={open} setOpen={undefined}>
-            {open ? (
-              <div>
-                <p>
-                  仮登録完了メールを送りました。メール内のリンクをクリックして登録を完了してください。
-                </p>
-                <Link href={'/login'}>閉じる</Link>
-              </div>
-            ) : (
-              <CircularProgress color='inherit' />
-            )}
+          <ModalBase open={open} onClose={handleClose}>
+            <div className={style.modal}>
+              {open ? (
+                <>
+                  <CloseIcon
+                    className={style.modal_close_icon}
+                    onCLick={(): void => {
+                      setOpen(false)
+                    }}
+                  />
+                  <div className={style.modal_contents}>
+                    <p>会員登録が完了しました。</p>
+                    <p>ログインしてさっそく始めましょう！！</p>
+                    <Image src='/soccer.jpg' alt='close' width={100} height={76} />
+                  </div>
+                </>
+              ) : (
+                <CircularProgress color='inherit' />
+              )}
+            </div>
           </ModalBase>
         )}
         <Container component='main' maxWidth='xs'>

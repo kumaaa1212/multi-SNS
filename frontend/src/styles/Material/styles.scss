@@ -41,6 +41,10 @@
   .MuiContainer-root {
     margin-top: 150px;
   }
+  .MuiBox-root {
+    pointer-events: none;
+  }
+
 }
 
 .login {

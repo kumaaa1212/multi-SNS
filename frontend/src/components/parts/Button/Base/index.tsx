@@ -18,7 +18,7 @@ interface Props extends Color {
 
 export default function ButtonBase(props: Props): JSX.Element {
   const { blue, black } = props
-  const { size, type = 'button', weight = 'regular', value } = props
+  const { size, type = 'button', weight = 'weight_500', value } = props
   const { className, disabled, onClick, content } = props
 
   const colorCheck = (name: string, isColor?: boolean): string => {

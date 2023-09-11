@@ -1,0 +1,17 @@
+.modal {
+  width: 500px;
+  height: 150px;
+
+  .modal_close_icon {
+    cursor: pointer;
+  }
+
+  .modal_contents {
+    height: 100px;
+  
+    p {
+      text-align: center;
+      font-weight: bold;
+    }
+  }
+}

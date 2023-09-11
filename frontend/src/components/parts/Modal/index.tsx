@@ -1,6 +1,5 @@
 import Box from '@mui/material/Box'
 import Modal from '@mui/material/Modal'
-import styles from './Modal.module.scss'
 
 const style = {
   position: 'absolute' as const,
@@ -15,24 +14,17 @@ const style = {
 
 interface Props {
   open: boolean
-  setOpen: React.Dispatch<React.SetStateAction<boolean>>
   children: React.ReactNode
+  onClose(): void
 }
 
 const ModalBase = (props: Props): JSX.Element => {
-  const { open, setOpen, children } = props
+  const { open, children, onClose } = props
 
   return (
-    <div className={styles.tweet_modal}>
-      <Modal
-        open={open || false}
-        onClose={(): void => {
-          setOpen(!open)
-        }}
-      >
-        <Box sx={style}>{children}</Box>
-      </Modal>
-    </div>
+    <Modal open={open || false} onClose={onClose}>
+      <Box sx={style}>{children}</Box>
+    </Modal>
   )
 }
 
