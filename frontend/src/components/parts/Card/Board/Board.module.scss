@@ -32,7 +32,7 @@
       display: flex;
       font-weight: bold;
     }
-  
+
     .publish_time {
       margin-left: 5px;
     }
@@ -51,7 +51,12 @@
   justify-content: end;
   width: 200px;
 
+  .message_btn {
+    cursor: pointer;
+  }
+
   .like_btn {
+    cursor: pointer;
     margin: 0 15px 0 10px;
   }
 }

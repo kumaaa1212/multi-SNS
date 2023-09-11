@@ -7,7 +7,7 @@ import { RootState } from 'store/store'
 import { jLeagueTeams } from 'utils/TeamData'
 import Icongenerate from 'utils/functions/Avater'
 import { formatTimestamp } from 'utils/functions/Time'
-import style from './Bulletinboard.module.scss'
+import style from './Board.module.scss'
 import CardLike from '/public/svg/board_like.svg'
 import CardLiked from '/public/svg/board_liked.svg'
 import CardMessage from '/public/svg/board_message.svg'
@@ -120,7 +120,11 @@ const BulletinboardCard = (props: Props): JSX.Element => {
           </div>
         </div>
         <div className={style.option_btn}>
-          <Badge badgeContent={board.messages?.length} color='primary'>
+          <Badge
+            badgeContent={board.messages?.length}
+            color='primary'
+            className={style.message_btn}
+          >
             <CardMessage
               onClick={handleSelectBoard}
               stroke={board.id === selectBoard?.id ? '#ffffff' : '#000000'}
