@@ -1,22 +1,4 @@
-// 共通のcss
-* {
-  margin: 0;
-  padding: 0;
-
-}
-*, *::before, *::after {
-  box-sizing: inherit;
-}
-
-body {
-  background-color: white;
-}
-
-.link_style {
-  text-decoration: none;
-  color: black;
-}
-
+// layoutのcss
 .main_area {
   margin-top: 50px;
 }
@@ -44,6 +26,26 @@ body {
   .MuiPaper-root {
     margin: 0;
   }
+}
+
+// 共通のcss
+* {
+  margin: 0;
+  padding: 0;
+}
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+body {
+  background-color: white;
+}
+
+.link_style {
+  text-decoration: none;
+  color: black;
 }
 
 $values: 0, 1, 2, 4, 6, 8, 9, 10, 12, 14, 16, 18, 20, 22, 24, 25, 26, 28, 30, 32, 34, 36, 38, 40, 64;

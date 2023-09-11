@@ -2,7 +2,7 @@ import { useSelector } from 'react-redux'
 import Link from 'next/link'
 import { RootState } from 'store/store'
 import { jLeagueTeams } from 'utils/TeamData'
-import BadgeAvatars from 'components/parts/Account'
+import BadgeAvatars from 'components/parts/Avatars'
 
 const Header = (): JSX.Element => {
   const { team, userId } = useSelector((state: RootState) => state.user)

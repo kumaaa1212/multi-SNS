@@ -1,33 +1,43 @@
 import { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
+import { useToast } from 'components/hooks/useToast'
 import { updateUser } from 'features/userSlice'
 import apiClient from 'libs/apiClient'
 import { AppDispatch } from 'store/store'
+import ToastBase from 'components/parts/Toast'
 import Header from './Header'
 
-const Layout = ({ children }: { children: React.ReactNode }): JSX.Element => {
+interface Props {
+  children: React.ReactNode
+}
+
+const Layout = (props: Props): JSX.Element => {
+  const { children } = props
+
   const dispatch: AppDispatch = useDispatch()
+  const { toastContent, isError, isToast, toastFunc } = useToast()
+
   useEffect(() => {
     const fetchData = async (): Promise<void> => {
       const token = localStorage.getItem('auth_token')
       if (token) {
-        // トークンがある場合、リクエストヘッダーに設定
         apiClient.defaults.headers.common['Authorization'] = `Bearer ${token}`
         try {
-          // ユーザーデータを取得
           const res = await apiClient.get('/auth/me')
           dispatch(updateUser(res.data))
         } catch (error) {
-          // console.error('Error fetching data:', error)
+          toastFunc('ログインしてください', true)
         }
       }
     }
     fetchData()
-  }, [])
+  }, [dispatch, toastFunc])
+
   return (
     <div className='layout'>
       <Header />
       <div className='main_area'>{children}</div>
+      <ToastBase content={toastContent} isError={isError} active={isToast} />
     </div>
   )
 }

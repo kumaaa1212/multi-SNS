@@ -1,5 +1,5 @@
 import { Alert } from '@mui/material'
-
+import style from './Toast.module.scss'
 interface Props {
   content: string
   isError?: boolean
@@ -10,8 +10,10 @@ export default function ToastBase(props: Props): JSX.Element | null {
   const { content, isError, active } = props
 
   return active ? (
-    <Alert variant='filled' severity={isError ? 'error' : 'success'}>
-      {content}
-    </Alert>
+    <div className={style.toast}>
+      <Alert variant='filled' severity={isError ? 'error' : 'success'}>
+        {content}
+      </Alert>
+    </div>
   ) : null
 }

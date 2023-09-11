@@ -6,7 +6,7 @@ import DropDown from 'components/layout/Header/DropDown'
 import Image from 'next/image'
 import { RootState } from 'store/store'
 import { useSelector } from 'react-redux'
-import style from './Account.module.scss'
+import style from './Avatars.module.scss'
 import Noavater from '/public/noavater.jpg'
 
 const StyledBadgeLogin = styled(Badge)(({ theme }) => ({
@@ -67,7 +67,7 @@ const StyledBadgeLogout = styled(Badge)(({ theme }) => ({
   },
 }))
 
-export default function BadgeAvatars() {
+export default function BadgeAvatars(): JSX.Element {
   const [open, setOpen] = useState<boolean>(false)
   const dropdownRef = useRef<HTMLDivElement>(null)
   const { icon, userId } = useSelector((state: RootState) => state.user)
@@ -92,7 +92,7 @@ export default function BadgeAvatars() {
           overlap='circular'
           anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
           variant='dot'
-          onClick={() => setOpen(!open)}
+          onClick={(): void => setOpen(!open)}
         >
           <Image
             src={icon ? icon : Noavater}
@@ -107,7 +107,7 @@ export default function BadgeAvatars() {
           overlap='circular'
           anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
           variant='dot'
-          onClick={() => setOpen(!open)}
+          onClick={(): void => setOpen(!open)}
         >
           <Image
             src={icon ? icon : Noavater}
