@@ -41,28 +41,28 @@
 .account {
   position: relative;
   cursor: pointer;
+}
 
-  .header_dropdown {
-    box-sizing: content-box;
-    background-color: #fafbfb;
-    border-radius: 5px;
-    position: absolute;
-    top: 53px;
-    right: 10px;
+.header_dropdown {
+  box-sizing: content-box;
+  background-color: #fafbfb;
+  border-radius: 5px;
+  position: absolute;
+  top: 53px;
+  right: 10px;
+  width: 160px;
+  height: 80px;
+  padding: 5px;
+
+  .dropdown_list {
     width: 150px;
-    height: 80px;
-    padding: 5px;
+    height: 40px;
+    display: flex;
+    align-items: center;
 
-    .dropdown_list {
-      width: 150px;
-      height: 40px;
-      display: flex;
-      align-items: center;
-
-      p {
-        margin-left: 15px;
-        font-size: 25px;
-      }
+    p {
+      margin-left: 15px;
+      font-size: 25px;
     }
   }
 }

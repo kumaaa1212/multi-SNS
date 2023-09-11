@@ -20,7 +20,7 @@ const DropDown = (): JSX.Element => {
     <div className='header_dropdown'>
       {userId ? (
         <>
-          <Link href='/account' className='link_style dropdown_list'>
+          <Link href='/mypage' className='link_style dropdown_list'>
             <PersonIcon />
             <p>Account</p>
           </Link>
