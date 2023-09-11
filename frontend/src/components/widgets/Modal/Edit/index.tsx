@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { ChangeEvent, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import Image from 'next/image'
 import { TextField } from '@mui/material'
@@ -28,21 +28,25 @@ export default function EditModal(props: Props): JSX.Element {
     (state: RootState) => state.user,
   )
 
-  const [file, setFile] = useState<string>()
+  const [file, setFile] = useState<File | string>()
   const [twitterURLData, setTwitterURLData] = useState<string | undefined>(twitterURL)
   const [teamURLData, setTeamURLData] = useState<string | undefined>(teamURL)
   const [editName, setEditName] = useState<string>(username)
   const [editIntro, seteditIntro] = useState<string>(bio)
-  const [displayFile, setDisplayFile] = useState<string>()
+  const [displayFile, setDisplayFile] = useState<File | string>()
 
   const openFileInput = (): void => {
     const fileInput = document.getElementById('fileInput')
     fileInput?.click()
   }
 
-  function handleFileSelect(e: any): void {
-    setDisplayFile(URL.createObjectURL(e.target.files![0]))
-    setFile(e.target.files![0])
+  function handleFileSelect(e: ChangeEvent<HTMLInputElement>): void {
+    const selectedFile = e.target.files![0]
+
+    if (selectedFile) {
+      setDisplayFile(URL.createObjectURL(selectedFile))
+      setFile(selectedFile) // setFile の型を修正し、File オブジェクトを受け入れるようにする
+    }
   }
 
   const handleSubmit = async (): Promise<void> => {
