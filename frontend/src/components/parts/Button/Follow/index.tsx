@@ -45,13 +45,13 @@ const FollowButton = (props: Props): JSX.Element => {
   }
 
   useEffect(() => {
-    const isFollowing = follow.some((friend: FrendInfo) => friend.userId === article.authorId)
+    const isFollowing = follow?.some((friend: FrendInfo) => friend.userId === article.authorId)
     setFollowBtn(isFollowing)
   }, [article.authorId, follow])
 
   const handleFrends = (): void => {
     setFollowBtn(!followBtn)
-    if (!follow.some((user: FrendInfo) => user.userId === authorId)) {
+    if (!follow?.some((user: FrendInfo) => user.userId === authorId)) {
       followUser(authorId, userId, username, iconPath, bio, team, twitterURL, teamURL)
     } else {
       unFollowUser(authorId, userId)

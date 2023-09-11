@@ -1,20 +1,22 @@
 // import React from 'react'
-import CssBaseline from '@mui/material/CssBaseline'
-import TextField from '@mui/material/TextField'
-import Link from '@mui/material/Link'
-import Grid from '@mui/material/Grid'
-import Box from '@mui/material/Box'
-import Typography from '@mui/material/Typography'
-import Container from '@mui/material/Container'
-import { createTheme, ThemeProvider } from '@mui/material/styles'
-import { useRouter } from 'next/router'
-import styles from './Login.module.scss'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
+import { useDispatch } from 'react-redux'
+import { useRouter } from 'next/router'
+import { Button } from '@mui/material'
+import Box from '@mui/material/Box'
+import Container from '@mui/material/Container'
+import CssBaseline from '@mui/material/CssBaseline'
+import Grid from '@mui/material/Grid'
+import Link from '@mui/material/Link'
+import TextField from '@mui/material/TextField'
+import Typography from '@mui/material/Typography'
+import { createTheme, ThemeProvider } from '@mui/material/styles'
+import { useToast } from 'components/hooks/useToast'
+import { loginUser } from 'features/userSlice'
 import apiClient from 'libs/apiClient'
 import { AppDispatch } from 'store/store'
-import { useDispatch } from 'react-redux'
-import { loginUser } from 'features/userSlice'
-import { Button } from '@mui/material'
+import ToastBase from 'components/parts/Toast'
+import styles from './Login.module.scss'
 
 const defaultTheme = createTheme()
 
@@ -23,27 +25,29 @@ interface LoginType {
   password: string
 }
 
-export default function Login() {
+export default function Login(): JSX.Element {
   const router = useRouter()
   const dispatch: AppDispatch = useDispatch()
-  const { control, handleSubmit } = useForm<LoginType>({
+  const { toastContent, isError, isToast, toastFunc } = useToast()
+  const { control, handleSubmit, getValues } = useForm<LoginType>({
     defaultValues: {
       email: '',
       password: '',
     },
   })
 
-  const onSubmit: SubmitHandler<LoginType> = async (data: LoginType) => {
+  const onSubmit: SubmitHandler<LoginType> = async () => {
+    const value = getValues()
     try {
       const res = await apiClient.post('/auth/login', {
-        email: data.email,
-        password: data.password,
+        email: value.email,
+        password: value.password,
       })
       localStorage.setItem('auth_token', res.data.token)
       dispatch(loginUser(res.data.user))
-      router.push('/home')
+      // router.push('/home')
     } catch {
-      alert('エラーが発生しました')
+      toastFunc('ログインに失敗しました', true)
     }
   }
 
@@ -71,7 +75,7 @@ export default function Login() {
                   required: 'メールアドレスを入力してください。',
                   minLength: { value: 4, message: '4文字以上で入力してください。' },
                 }}
-                render={({ field, fieldState }) => (
+                render={({ field, fieldState }): JSX.Element => (
                   <TextField
                     {...field}
                     margin='normal'
@@ -91,7 +95,7 @@ export default function Login() {
                   required: 'メールアドレスを入力してください。',
                   minLength: { value: 4, message: '4文字以上で入力してください。' },
                 }}
-                render={({ field, fieldState }) => (
+                render={({ field, fieldState }): JSX.Element => (
                   <TextField
                     {...field}
                     margin='normal'
@@ -125,6 +129,9 @@ export default function Login() {
           </Box>
         </Container>
       </ThemeProvider>
+      <div className={styles.toast}>
+        <ToastBase isError={isError} active={isToast} content={toastContent} />
+      </div>
     </div>
   )
 }

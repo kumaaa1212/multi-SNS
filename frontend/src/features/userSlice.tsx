@@ -32,35 +32,42 @@ const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    loginUser: (state, action): void => {
-      state.username = action.payload.user.name
-      state.userId = String(action.payload.user.id)
-      state.team = action.payload.user.team
-      state.icon = Icongenerate(action.payload.user.icon)
-      state.iconPath = action.payload.user.icon
-      state.bio = action.payload.user.bio
-      state.twitterURL = action.payload.user.twitterURL
-      state.teamURL = action.payload.user.teamURL
+    loginUser: (state, action) => {
+      return {
+        ...state,
+        username: action.payload.name,
+        userId: String(action.payload.id),
+        team: action.payload.team,
+        icon: Icongenerate(action.payload.icon),
+        iconPath: action.payload.icon,
+        bio: action.payload.bio,
+        follow: action.payload.follow && [...action.payload.follow],
+        follower: action.payload.follower && [...action.payload.follower],
+        twitterURL: action.payload.twitterURL,
+        teamURL: action.payload.teamURL,
+      }
     },
 
-    logoutUser: (state): void => {
-      state.username = ''
-      state.userId = ''
-      state.team = ''
-      state.icon = ''
-      state.iconPath = ''
-      state.bio = ''
-      state.follow = []
-      state.follower = []
+    logoutUser: (state) => {
+      return {
+        ...initialState,
+      }
     },
+
     updateUser: (state, action) => {
-      state.username = action.payload.user.name
-      state.userId = String(action.payload.user.id)
-      state.icon = Icongenerate(action.payload.user.icon)
-      state.iconPath = action.payload.user.icon
-      state.bio = action.payload.user.bio
-      state.twitterURL = action.payload.user.twitterURL
-      state.teamURL = action.payload.user.teamURL
+      return {
+        ...state,
+        username: action.payload.user.name,
+        userId: String(action.payload.user.id),
+        team: action.payload.user.team,
+        icon: Icongenerate(action.payload.user.icon),
+        iconPath: action.payload.user.icon,
+        bio: action.payload.user.bio,
+        follow: action.payload.follow && [...action.payload.follow],
+        follower: action.payload.follower && [...action.payload.follower],
+        twitterURL: action.payload.user.twitterURL,
+        teamURL: action.payload.user.teamURL,
+      }
     },
   },
 })

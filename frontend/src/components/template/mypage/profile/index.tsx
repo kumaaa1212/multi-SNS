@@ -63,10 +63,10 @@ const Profile = (): JSX.Element => {
               <span>{likeCount ? likeCount.length : 0}Likes</span>
             </button>
             <button>
-              <span>{follow.length}Follow</span>
+              <span>{follow?.length}Follow</span>
             </button>
             <button>
-              <span>{follower.length}Follower</span>
+              <span>{follower?.length}Follower</span>
             </button>
           </div>
           <div className={style.other_icon}>

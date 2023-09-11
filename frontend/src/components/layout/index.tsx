@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
-import { loginUser } from 'features/userSlice'
+import { updateUser } from 'features/userSlice'
 import apiClient from 'libs/apiClient'
 import { AppDispatch } from 'store/store'
 import Header from './Header'
@@ -16,14 +16,14 @@ const Layout = ({ children }: { children: React.ReactNode }): JSX.Element => {
         try {
           // ユーザーデータを取得
           const res = await apiClient.get('/auth/me')
-          dispatch(loginUser(res.data))
+          dispatch(updateUser(res.data))
         } catch (error) {
           // console.error('Error fetching data:', error)
         }
       }
     }
     fetchData()
-  }, []) // 空の依存リストを渡すことで、マウント時にのみ実行
+  }, [])
   return (
     <div className='layout'>
       <Header />

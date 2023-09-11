@@ -39,20 +39,20 @@ router.post("/login", async (req: Request, res: Response) => {
   const { email, password } = req.body;
   const user = await prisma.user.findUnique({
     where: {
-      email,
+      email: String(email),
     },
   });
   if (!user) {
     return res.status(404).json({ error: "User not found" });
   }
-  const passwordMatch = await bcrypt.compare(password, user.password);
+  const passwordMatch = bcrypt.compare(password, user.password);
   if (!passwordMatch) {
     return res.status(401).json({ error: "Password does not match" });
   }
   const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET as string, {
     expiresIn: "1d",
   });
-  res.json({ token });
+  res.json({ token, user });
 });
 
 // ユーザー情報取得

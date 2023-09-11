@@ -17,10 +17,10 @@ import Grid from '@mui/material/Grid'
 import TextField from '@mui/material/TextField'
 import Typography from '@mui/material/Typography'
 import { createTheme, ThemeProvider } from '@mui/material/styles'
-import ModalBase from '@/components/parts/Modal'
-import apiClient from '@/libs/apiClient'
-import { AccountType } from '@/types/internal'
-import { jLeagueTeams } from '@/utils/TeamData'
+import apiClient from 'libs/apiClient'
+import { jLeagueTeams } from 'utils/TeamData'
+import { AccountType } from 'types/internal'
+import ModalBase from 'components/parts/Modal'
 
 const defaultTheme = createTheme()
 
