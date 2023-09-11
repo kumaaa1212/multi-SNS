@@ -9,8 +9,8 @@ const LabelArea = (): JSX.Element => {
   const router = useRouter()
 
   return (
-    <div className={style.label_areas}>
-      <div className={style.label_area}>
+    <div className={style.label}>
+      <div className={style.label_areas}>
         <h3 className={style.label_title}>J1リーグ</h3>
         <div className={style.label_contents}>
           {jLeagueTeams.map((team: TeamDataType) => (

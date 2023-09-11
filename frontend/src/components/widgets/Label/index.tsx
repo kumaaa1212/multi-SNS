@@ -24,12 +24,12 @@ export default function Labels(props: Props): JSX.Element {
           multiple
           id='tags-standard'
           options={data}
-          getOptionLabel={(option) => option.name}
+          getOptionLabel={(option: TeamDataType): string => option.name}
           value={labels}
-          onChange={(event, newValue) => {
+          onChange={(event, newValue): void => {
             dispatch(addLabels(newValue))
           }}
-          renderInput={(params) => (
+          renderInput={(params): JSX.Element => (
             <TextField
               {...params}
               variant='standard'

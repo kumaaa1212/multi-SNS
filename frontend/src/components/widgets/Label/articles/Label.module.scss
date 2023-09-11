@@ -1,0 +1,23 @@
+.label {
+  margin: 60px auto;
+  .label_areas {
+    margin-bottom: 50px;
+    border: 1px #c8c8c8 solid;
+    width: 250px;
+    min-height: 400px;
+    border-radius: 10px;
+    padding: 5px;
+  }
+  .label_title {
+    font-weight: 800;
+    padding: 5px;
+  }
+  .label_contents {
+    min-height: 400px;
+    .label {
+      margin: 5px;
+      cursor: pointer;
+      user-select: none;
+    }
+  }
+}

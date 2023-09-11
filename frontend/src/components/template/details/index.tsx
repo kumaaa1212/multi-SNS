@@ -3,7 +3,7 @@ import { useRouter } from 'next/router'
 import { jLeagueTeams } from 'utils/TeamData'
 import { ArticlesType, TeamDataType } from 'types/global'
 import ArticleCard from 'components/parts/Card/Articles'
-import LabelArea from 'components/parts/Label/articles'
+import LabelArea from 'components/widgets/Label/articles'
 import ArticleArea from 'components/widgets/article'
 import style from './ArticleDetail.module.scss'
 

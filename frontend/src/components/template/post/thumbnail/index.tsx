@@ -3,7 +3,7 @@ import { addThumbnail } from 'features/postSlice'
 import { AppDispatch, RootState } from 'store/store'
 import { jLeagueTeams } from 'utils/TeamData'
 import ThumbnailCard from 'components/parts/Card/Post/thumbnail'
-import Labels from 'components/parts/Label'
+import Labels from 'components/widgets/Label'
 import style from './Thumbnail.module.scss'
 import AlnumLayout from '../albumLayout/AlbumLayout'
 
