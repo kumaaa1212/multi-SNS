@@ -1,7 +1,7 @@
 import React from 'react'
 import { ArticlesType } from 'types/global'
 import ArticleCard from 'components/parts/Card/Articles'
-import ArticleArea from 'components/widgets/article'
+import ArticleArea from 'components/widgets/Article'
 
 interface Props {
   albumserch: string

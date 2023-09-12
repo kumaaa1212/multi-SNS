@@ -4,7 +4,7 @@ import { jLeagueTeams } from 'utils/TeamData'
 import { ArticlesType, TeamDataType } from 'types/global'
 import ArticleCard from 'components/parts/Card/Articles'
 import LabelArea from 'components/widgets/Label/articles'
-import ArticleArea from 'components/widgets/article'
+import ArticleArea from 'components/widgets/Article'
 import style from './ArticleDetail.module.scss'
 
 interface Props {
