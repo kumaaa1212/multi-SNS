@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
+import { useToast } from 'components/hooks/useToast'
 import { RootState } from 'store/store'
 import { ArticlesType, TweetsType } from 'types/global'
-import BasicAlerts from 'components/parts/Alart'
+import ToastBase from 'components/parts/Toast'
 import SwiperArea from 'components/widgets/Swiper'
 import style from './Home.module.scss'
 import ArticlesPart from './articles'
@@ -17,11 +18,11 @@ const Home = (props: Props): JSX.Element => {
 
   const { userId } = useSelector((state: RootState) => state.user)
   const [showAlert, setShowAlert] = useState<boolean>(false)
+  const { toastContent, isError, isToast, toastFunc } = useToast()
 
   useEffect(() => {
-    if (userId) {
+    if (localStorage.getItem('auth_token')) {
       setShowAlert(true)
-
       const timer = setTimeout(() => {
         setShowAlert(false)
       }, 10000)
@@ -37,9 +38,7 @@ const Home = (props: Props): JSX.Element => {
       </div>
       <CategoriesPart />
       <ArticlesPart articles={articles} />
-      <div className={style.login_alert}>
-        {showAlert && <BasicAlerts contents='This is a success alert — ログインに成功しました' />}
-      </div>
+      {showAlert && <ToastBase content={toastContent} isError={isError} active={isToast} />}
     </div>
   )
 }
