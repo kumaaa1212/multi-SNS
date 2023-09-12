@@ -5,7 +5,7 @@ import NoUser from 'components/widgets/NoUser'
 
 const MypageFile = (): JSX.Element => {
   const { userId } = useSelector((state: RootState) => state.user)
-  return <>{userId.length > 0 ? <Mapage /> : <NoUser />}</>
+  return <>{userId.length > 0 ? <Mapage /> : <NoUser contens='Mypage' />}</>
 }
 
 export default MypageFile

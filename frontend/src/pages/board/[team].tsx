@@ -31,7 +31,15 @@ const BoardPage = (props: Props): JSX.Element => {
   const { boardRoom } = props
   const router = useRouter()
 
-  return <div>{router.query.team === undefined ? <Board boardRoom={boardRoom} /> : <NoUser />}</div>
+  return (
+    <>
+      {router.query.team === undefined ? (
+        <Board boardRoom={boardRoom} />
+      ) : (
+        <NoUser contens='自分のTeamの掲示板' />
+      )}
+    </>
+  )
 }
 
 export default BoardPage
