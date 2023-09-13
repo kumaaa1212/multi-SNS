@@ -2,16 +2,16 @@ import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import apiClient from 'libs/apiClient'
 import { RootState } from 'store/store'
-import { ArticlesType, FrendInfo } from 'types/global'
+import { ArticlesType, FrendInfo, TweetsType } from 'types/global'
 import style from './FollowBtn.module.scss'
 interface Props {
-  article: ArticlesType
+  posts: ArticlesType | TweetsType
   content: string
 }
 
 const FollowButton = (props: Props): JSX.Element => {
-  const { article, content } = props
-  const { authorId } = article
+  const { posts, content } = props
+  const { authorId } = posts
 
   const { follow, userId, iconPath, bio, team, twitterURL, teamURL, username } = useSelector(
     (state: RootState) => state.user,
@@ -45,9 +45,9 @@ const FollowButton = (props: Props): JSX.Element => {
   }
 
   useEffect(() => {
-    const isFollowing = follow?.some((friend: FrendInfo) => friend.userId === article.authorId)
+    const isFollowing = follow?.some((friend: FrendInfo) => friend.userId === posts.authorId)
     setFollowBtn(isFollowing)
-  }, [article.authorId, follow])
+  }, [posts.authorId, follow])
 
   const handleFrends = (): void => {
     setFollowBtn(!followBtn)

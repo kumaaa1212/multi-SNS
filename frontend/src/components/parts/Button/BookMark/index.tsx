@@ -7,20 +7,20 @@ import { RootState } from 'store/store'
 import { ArticlesType } from 'types/global'
 
 interface Props {
-  article: ArticlesType
-  setCountBookmarks: any
+  album: ArticlesType
+  setCountBookmarks: React.Dispatch<React.SetStateAction<number>>
 }
 
-const BookMarkBtn = (props: Props) => {
-  const { article, setCountBookmarks } = props
-  const { id } = article
+const BookMarkBtn = (props: Props): JSX.Element => {
+  const { album, setCountBookmarks } = props
+  const { id } = album
 
   const { userId } = useSelector((state: RootState) => state.user)
 
   const [bookmark, setBookmark] = useState<boolean>(false)
 
   useEffect(() => {
-    const fetchLike = async () => {
+    const fetchLike = async (): Promise<void> => {
       try {
         const res = await apiClient.post('/post/album/bookmark/check', {
           postId: id,
@@ -33,9 +33,9 @@ const BookMarkBtn = (props: Props) => {
     }
 
     fetchLike()
-  }, [])
+  }, [id, userId])
 
-  const handleBookMark = async () => {
+  const handleBookMark = async (): Promise<void> => {
     try {
       if (bookmark) {
         await apiClient.post('/post/album/bookmark/delete', {

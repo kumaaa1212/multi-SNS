@@ -15,14 +15,14 @@ const HomeTemplate = (props: Props): JSX.Element => {
   const { titile, showAll, href, footerShowAll, children } = props
   const router = useRouter()
   return (
-    <div>
+    <div className='mv_40'>
       <div className={style.title_area}>
         <h2>{titile}</h2>
         <Link href={href} className={style.show_all}>
           {showAll}
         </Link>
       </div>
-      <div>{children}</div>
+      <div className={style.main}>{children}</div>
       <button
         className={style.footer_show_all}
         onClick={(): void => {

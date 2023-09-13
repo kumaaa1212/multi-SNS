@@ -4,7 +4,7 @@ import MoreHorizRoundedIcon from '@mui/icons-material/MoreHorizRounded'
 import style from './Delete.module.scss'
 
 interface Posioton {
-  article?: boolean
+  album?: boolean
   board?: boolean
 }
 
@@ -14,7 +14,7 @@ interface Props extends Posioton {
 }
 
 const DeleteButton = (props: Props): JSX.Element => {
-  const { article, board, onClick } = props
+  const { album, board, onClick } = props
   const { content } = props
 
   const [moreOver, setMoreOver] = useState<boolean>(false)
@@ -33,7 +33,7 @@ const DeleteButton = (props: Props): JSX.Element => {
         <div
           onClick={onClick}
           className={
-            style.moreover_area + positonCheck('article', article) + positonCheck('board', board)
+            style.moreover_area + positonCheck('article', album) + positonCheck('board', board)
           }
         >
           <p className={style.content}>{content}</p>

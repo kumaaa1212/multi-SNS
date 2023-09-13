@@ -33,7 +33,7 @@ const BoardPage = (props: Props): JSX.Element => {
 
   return (
     <>
-      {router.query.team === undefined ? (
+      {router.query.team !== undefined ? (
         <Board boardRoom={boardRoom} />
       ) : (
         <NoUser contens='自分のTeamの掲示板' />

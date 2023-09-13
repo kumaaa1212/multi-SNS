@@ -1,17 +1,19 @@
 .tweet_card_continer {
   display: flex;
   align-items: center;
+  padding: 10px;
 }
 .tweet_card {
   width: 500px;
-  max-height: 450px;
   margin: 0 auto;
   .tweet_header {
     display: flex;
     align-items: center;
+    font-weight: bold;
 
     .profile_img {
       border-radius: 10px;
+      object-fit: cover;
     }
 
     .tweet_header_details {
@@ -59,8 +61,12 @@
     }
     .scroll_area {
       margin-top: 10px;
+      border: 1px red solid;
+      width: 450px;
       .tweet_content {
+        white-space: normal;
         font-size: 20px;
+        border: 1px red solid;
       }
     }
   }

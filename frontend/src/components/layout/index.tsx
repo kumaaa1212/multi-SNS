@@ -34,7 +34,7 @@ const Layout = (props: Props): JSX.Element => {
   }, [dispatch, toastFunc])
 
   return (
-    <div className='layout'>
+    <div className='layout mb_30'>
       <Header />
       <div className='main_area'>{children}</div>
       <ToastBase content={toastContent} isError={isError} active={isToast} />

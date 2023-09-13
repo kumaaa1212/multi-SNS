@@ -6,7 +6,7 @@ import style from './Swiper.module.scss'
 
 SwiperCore.use([Navigation, Autoplay])
 
-const images = ['/swiper1.jpg', '/swiper2.jpg', '/swiper3.jpg']
+const images = ['/tokyo_1.jpeg', '/tokyo_2.jpeg', '/swiper3.jpg']
 
 const SwiperArea = (): JSX.Element => {
   return (
@@ -15,7 +15,7 @@ const SwiperArea = (): JSX.Element => {
         {images.map((src: string, index: number) => {
           return (
             <SwiperSlide key={`${index}`}>
-              <Image className={style.img} src={src} width={1000} height={350} alt='sample' />
+              <Image className={style.img} src={src} width={1000} height={250} alt='sample' />
             </SwiperSlide>
           )
         })}

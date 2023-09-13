@@ -1,18 +1,23 @@
 import React, { useEffect, useState } from 'react'
-import apiClient from 'libs/apiClient'
-import FavoriteIcon from '@mui/icons-material/Favorite'
 import { useSelector } from 'react-redux'
+import apiClient from 'libs/apiClient'
 import { RootState } from 'store/store'
-const AlbumLikeBtn = (props: any) => {
-  const { userId } = useSelector((state: RootState) => state.user)
+import { ArticlesType } from 'types/global'
 
-  const { article ,setCountLikes} = props
-  const { id } = article
+interface Props {
+  album: ArticlesType
+  setCountLikes: React.Dispatch<React.SetStateAction<number>>
+}
+
+const AlbumLikeBtn = (props: Props): JSX.Element => {
+  const { album, setCountLikes } = props
+  const { userId } = useSelector((state: RootState) => state.user)
+  const { id } = album
 
   const [likeBtn, setLikeBtn] = useState<boolean>(false)
 
   useEffect(() => {
-    const fetchLike = async () => {
+    const fetchLike = async (): Promise<void> => {
       try {
         const res = await apiClient.post('/post/album/like/check', {
           postId: id,
@@ -25,16 +30,16 @@ const AlbumLikeBtn = (props: any) => {
     }
 
     fetchLike()
-  }, [])
+  }, [id, userId])
 
-  const handleLike = async () => {
+  const handleLike = async (): Promise<void> => {
     try {
       if (likeBtn) {
         await apiClient.post('/post/album/like/delete', {
           postId: id,
           authorId: userId,
         })
-        setCountLikes((prev:number) => prev - 1)
+        setCountLikes((prev: number) => prev - 1)
         setLikeBtn(false)
       } else {
         await apiClient.post('/post/album/like/add', {
@@ -42,7 +47,7 @@ const AlbumLikeBtn = (props: any) => {
           authorId: userId,
         })
         setLikeBtn(true)
-        setCountLikes((prev:number) => prev + 1)
+        setCountLikes((prev: number) => prev + 1)
       }
     } catch {
       alert('エラーが発生しました')

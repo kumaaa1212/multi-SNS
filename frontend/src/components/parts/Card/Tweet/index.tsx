@@ -1,45 +1,40 @@
-import React, { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { formatTimestamp } from 'utils/functions/Time'
 import style from './Tweet.module.scss'
 import { Card, IconButton } from '@mui/material'
 import Image from 'next/image'
 import MoreVertIcon from '@mui/icons-material/MoreVert'
 import FollowBtn from '../../Button/Follow'
 import { useSelector } from 'react-redux'
-import { RootState } from '@/store/store'
+import { RootState } from 'store/store'
 import TweetLikeBtn from '../../Button/Like/Tweet'
+import { TweetsType } from 'types/global'
 import DeleteIcon from '/public/svg/tweet_delete.svg'
 
-const TweetCard = (props: any) => {
+interface Props {
+  tweet: TweetsType
+}
+
+const TweetCard = (props: Props): JSX.Element => {
   const { tweet } = props
+
   const { userId } = useSelector((state: RootState) => state.user)
   const [moreover, setMoreover] = useState<boolean>(false)
-  const [countLikes, setCountLikes] = useState<number>(tweet.likes.length)
+  const [countLikes, setCountLikes] = useState<number>(0)
 
-  // const handleDelete = async () => {
-  //   try {
-  //     const updatedPost = await apiClient.delete(`/post/album/delete/${tweet.id}`)
-
-  //     if (router.asPath === '/mypage') {
-  //       setAlbumData(
-  //         updatedPost.data.remainingPosts.filter(
-  //           (album: ArticlesType) => album.authorId === userId,
-  //         ),
-  //       )
-  //     }
-  //     setMoreover(false)
-  //   } catch {
-  //     alert('削除に失敗しました')
-  //   }
-  // }
+  useEffect(() => {
+    if (tweet.likes) {
+      setCountLikes(tweet.likes.length)
+    }
+  }, [tweet.likes])
 
   return (
     <div className={style.tweet_card_continer}>
       <Card className={style.tweet_card}>
         <div className={style.tweet_header}>
           <Image
-            // src={tweet.authorAvatar}
-            src={'/noavatar.png'}
-            alt=''
+            src={tweet.authorAvatar}
+            alt='tweetのicon'
             width={40}
             height={40}
             className={style.profile_img}
@@ -47,7 +42,7 @@ const TweetCard = (props: any) => {
           <div className={style.tweet_header_details}>
             <div>
               <p>{tweet.authorName}</p>
-              <p>{tweet.createdAt}</p>
+              <p>{formatTimestamp(tweet.createdAt)}</p>
             </div>
             {tweet.authorId === userId ? (
               <MoreVertIcon
@@ -55,9 +50,7 @@ const TweetCard = (props: any) => {
                 className={style.moreover_btn}
               />
             ) : (
-              <FollowBtn article={tweet} className={style.follow_icon}>
-                Follow
-              </FollowBtn>
+              <FollowBtn posts={tweet} content='follow' />
             )}
             {moreover && (
               <div className={style.moreover_area}>
@@ -68,16 +61,15 @@ const TweetCard = (props: any) => {
           </div>
         </div>
         <div className={style.tweet_contents}>
-          {/* <Image src={tweet.img} alt='' width={450} height={250} className={style.tweet_img} /> */}
           <Image
-            src={'/noavatar.png'}
-            alt=''
+            src={tweet.img}
+            alt='tweetのmain画像'
             width={450}
             height={250}
             className={style.tweet_img}
           />
           <div className={style.scroll_area}>
-            <span className={style.tweet_content}>{tweet.content}</span>
+            <p className={style.tweet_content}>{tweet.content}</p>
           </div>
         </div>
         <div className={style.footer}>

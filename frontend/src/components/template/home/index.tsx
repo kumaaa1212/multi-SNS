@@ -2,19 +2,21 @@ import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { useToast } from 'components/hooks/useToast'
 import { RootState } from 'store/store'
-import { ArticlesType, TweetsType } from 'types/global'
+import { ArticlesType, LabelType, TweetsType } from 'types/global'
 import ToastBase from 'components/parts/Toast'
 import SwiperArea from 'components/widgets/Swiper'
-import style from './Home.module.scss'
-import ArticlesPart from './articles'
-import CategoriesPart from './categories'
+import ArticlesPart from './details/album'
+import CategoriesPart from './details/categories'
+import TweetParts from './details/tweet'
 
 interface Props {
-  articles: ArticlesType[] | TweetsType[]
+  albums: ArticlesType[]
+  tweets: TweetsType[]
+  labels: LabelType[]
 }
 
 const Home = (props: Props): JSX.Element => {
-  const { articles } = props
+  const { albums, tweets, labels } = props
 
   const { userId } = useSelector((state: RootState) => state.user)
   const [showAlert, setShowAlert] = useState<boolean>(false)
@@ -32,14 +34,13 @@ const Home = (props: Props): JSX.Element => {
   }, [userId])
 
   return (
-    <div className={style.home}>
-      <div className={style.swiper}>
-        <SwiperArea />
-      </div>
-      <CategoriesPart />
-      <ArticlesPart articles={articles} />
+    <>
+      <SwiperArea />
+      <CategoriesPart labels={labels} />
+      <TweetParts tweets={tweets} />
+      <ArticlesPart albums={albums} />
       {showAlert && <ToastBase content={toastContent} isError={isError} active={isToast} />}
-    </div>
+    </>
   )
 }
 

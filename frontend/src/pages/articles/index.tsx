@@ -18,15 +18,16 @@ export const getServerSideProps: GetServerSideProps = async () => {
   } catch {
     return {
       props: {
-        articles: [],
+        articlesLike: [],
+        articlesNew: [],
       },
     }
   }
 }
 
 interface Props {
-  articlesLike: ArticlesType[]
-  articlesNew: ArticlesType[]
+  articlesLike: ArticlesType[] | []
+  articlesNew: ArticlesType[] | []
 }
 
 const ArticlePage = ({ articlesLike, articlesNew }: Props): JSX.Element => {

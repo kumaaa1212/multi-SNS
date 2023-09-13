@@ -27,7 +27,7 @@ interface ExpandMoreProps extends IconButtonProps {
 }
 
 interface Props {
-  article: ArticlesType
+  album: ArticlesType
 }
 
 const ExpandMore = styled((props: ExpandMoreProps) => {
@@ -42,13 +42,13 @@ const ExpandMore = styled((props: ExpandMoreProps) => {
 }))
 
 export default function ArticleCard(props: Props): JSX.Element {
-  const { article } = props
+  const { album } = props
 
   const { username } = useSelector((state: RootState) => state.user)
   const [expanded, setExpanded] = useState<boolean>(false)
   const [moreover, setMoreover] = useState<boolean>(false)
-  const [countLikes, setCountLikes] = useState<number>(article.likes?.length)
-  const [countBookmarks, setCountBookmarks] = useState<number>(article.bookmarks?.length)
+  const [countLikes, setCountLikes] = useState<number>(album?.likes.length)
+  const [countBookmarks, setCountBookmarks] = useState<number>(album?.bookmarks.length)
 
   const handleExpandClick = (): void => {
     setExpanded(!expanded)
@@ -69,7 +69,7 @@ export default function ArticleCard(props: Props): JSX.Element {
           className={style.card_header}
           avatar={
             <Image
-              src={article.authorAvatar ? Icongenerate(article.authorAvatar) : '/noavatar.png'}
+              src={album?.authorAvatar ? Icongenerate(album.authorAvatar) : '/noavatar.png'}
               alt={''}
               width={30}
               height={30}
@@ -77,47 +77,45 @@ export default function ArticleCard(props: Props): JSX.Element {
             />
           }
           action={
-            article.authorName === username ? (
+            album?.authorName === username ? (
               <MoreVertIcon
                 onClick={(): void => setMoreover(!moreover)}
                 className={style.moreover_btn}
               />
             ) : (
-              <FollowButton article={article} content='Follow' />
+              <FollowButton posts={album} content='Follow' />
             )
           }
-          title={article.title}
-          subheader={formatTimestamp(article.createdAt)}
+          title={album?.title}
+          subheader={formatTimestamp(album?.createdAt)}
         />
         <div className={style.moreover_area} onClick={handleDelete}>
           {moreover && (
             <div onClick={handleDelete}>
-              <DeleteButton content='削除' article onClick={handleDelete} />
+              <DeleteButton content='削除' album onClick={handleDelete} />
             </div>
           )}
         </div>
         <Image
-          src={article.thumbnailImg ? article.thumbnailImg : '/thumbnail.png'}
+          src={album?.thumbnailImg ? album.thumbnailImg : '/thumbnail.png'}
           alt={''}
           className={style.main_img}
           width={550}
           height={250}
         />
         <CardContent>
-          <span className={style.thumbnail_text}>{article.thumbnailText}</span>
+          <span className={style.thumbnail_text}>{album?.thumbnailText}</span>
           <div className={style.label_area}>
-            {article.labels?.map((label: LabelType) => (
-              <Chip label={label.name} key={label.label} />
-            ))}
+            {album?.labels.map((label: LabelType) => <Chip label={label.name} key={label.label} />)}
           </div>
         </CardContent>
         <CardActions disableSpacing>
           <IconButton aria-label='add to favorites'>
-            <AlbumLikeBtn article={article} setCountLikes={setCountLikes} />
+            <AlbumLikeBtn album={album} setCountLikes={setCountLikes} />
             <span>{countLikes}</span>
           </IconButton>
           <IconButton aria-label='share'>
-            <BookMarkBtn article={article} setCountBookmarks={setCountBookmarks} />
+            <BookMarkBtn album={album} setCountBookmarks={setCountBookmarks} />
             <span>{countBookmarks}</span>
           </IconButton>
           <ExpandMore
@@ -132,7 +130,7 @@ export default function ArticleCard(props: Props): JSX.Element {
         <Collapse in={expanded} timeout='auto' unmountOnExit>
           <CardContent>
             <div>
-              <Link href={`/home/albumMore/${article.id}`}>Show more</Link>
+              <Link href={`/home/albumMore/${album.id}`}>Show more</Link>
             </div>
           </CardContent>
         </Collapse>

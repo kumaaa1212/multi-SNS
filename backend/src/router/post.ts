@@ -5,10 +5,10 @@ const router: Router = Router();
 const prisma = new PrismaClient();
 
 // labelを取得する
-router.get("/post-labels", async (req, res) => {
+router.get("/album/labels", async (req, res) => {
   try {
-    const postLabels = await prisma.postLabel.findMany();
-    res.json(postLabels);
+    const albumLabels = await prisma.postLabel.findMany();
+    res.json({albumLabels});
   } catch (error) {
     res.status(500).json({ error: "An error occurred while fetching data." });
   }
@@ -173,10 +173,10 @@ router.delete("/album/delete/:postId", async (req, res) => {
   }
 });
 
-// 投稿全の取得(いいね順上位6個)
-router.get("/all/content/top", async (req: Request, res: Response) => {
+// 全アルバムの取得(いいね順上位6個)
+router.get("/all/album/top", async (req: Request, res: Response) => {
   try {
-    const posts = await prisma.post.findMany({
+    const album = await prisma.post.findMany({
       orderBy: {
         createdAt: "desc",
       },
@@ -187,6 +187,20 @@ router.get("/all/content/top", async (req: Request, res: Response) => {
       },
     });
 
+    // likesの長さでソートして上位6つを選択
+    const topAlbumLikedContent = album
+      .sort((a, b) => b.likes.length - a.likes.length)
+      .slice(0, 6);
+
+    return res.json({topAlbumLikedContent});
+  } catch (err: any) {
+    res.json({ error: err.message });
+  }
+});
+// 全tweetの取得(いいね順上位6個)
+router.get("/all/tweet/top", async (req: Request, res: Response) => {
+  try {
+
     const tweets = await prisma.tweet.findMany({
       orderBy: {
         createdAt: "desc",
@@ -194,17 +208,14 @@ router.get("/all/content/top", async (req: Request, res: Response) => {
       include: {
         likes: true,
       },
-    });
-
-    // postsとtweetsを結合して1つの配列にする
-    const allContent = [...posts, ...tweets];
+    })
 
     // likesの長さでソートして上位6つを選択
-    const topLikedContent = allContent
+    const topTweetLikedContent = tweets
       .sort((a, b) => b.likes.length - a.likes.length)
       .slice(0, 6);
 
-    return res.json(topLikedContent);
+    return res.json({topTweetLikedContent});
   } catch (err: any) {
     res.json({ error: err.message });
   }

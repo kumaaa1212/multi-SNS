@@ -50,7 +50,7 @@ export interface TweetsType {
   content: string
   createdAt: string
   img: string
-  likes?: TweetLikeType[]
+  likes?: TweetLikeType[] | []
 }
 
 export interface TweetLikeType {
