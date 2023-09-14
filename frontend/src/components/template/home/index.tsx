@@ -5,7 +5,7 @@ import { RootState } from 'store/store'
 import { ArticlesType, LabelType, TweetsType } from 'types/global'
 import ToastBase from 'components/parts/Toast'
 import SwiperArea from 'components/widgets/Swiper'
-import ArticlesPart from './details/album'
+import AlbumParts from './details/album'
 import CategoriesPart from './details/categories'
 import TweetParts from './details/tweet'
 
@@ -38,7 +38,7 @@ const Home = (props: Props): JSX.Element => {
       <SwiperArea />
       <CategoriesPart labels={labels} />
       <TweetParts tweets={tweets} />
-      <ArticlesPart albums={albums} />
+      <AlbumParts albums={albums} />
       {showAlert && <ToastBase content={toastContent} isError={isError} active={isToast} />}
     </>
   )

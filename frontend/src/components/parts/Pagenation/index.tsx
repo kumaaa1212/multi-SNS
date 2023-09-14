@@ -5,14 +5,15 @@ import Stack from '@mui/material/Stack'
 interface Props {
   setCurrentPage: React.Dispatch<React.SetStateAction<number>>
   pagelenght: number
+  clasName?: string
 }
 
 const BasicPagination = (props: Props): JSX.Element => {
-  const { setCurrentPage, pagelenght } = props
+  const { setCurrentPage, pagelenght, clasName } = props
   const [pageNumber, setPageNumber] = useState<number>(1)
 
   return (
-    <div className='pagenation_area'>
+    <div className={`pagenation_area ${clasName}`}>
       <Stack spacing={2}>
         <Pagination
           count={Math.floor(pagelenght / 6 + 1)}

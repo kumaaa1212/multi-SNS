@@ -41,7 +41,7 @@ const ExpandMore = styled((props: ExpandMoreProps) => {
   }),
 }))
 
-export default function ArticleCard(props: Props): JSX.Element {
+export default function AlbumCard(props: Props): JSX.Element {
   const { album } = props
 
   const { username } = useSelector((state: RootState) => state.user)
@@ -130,7 +130,7 @@ export default function ArticleCard(props: Props): JSX.Element {
         <Collapse in={expanded} timeout='auto' unmountOnExit>
           <CardContent>
             <div>
-              <Link href={`/home/albumMore/${album.id}`}>Show more</Link>
+              <Link href={`/home/albumMore/${album?.id}`}>Show more</Link>
             </div>
           </CardContent>
         </Collapse>

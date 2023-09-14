@@ -11,7 +11,6 @@ interface Props {
 
 const FollowButton = (props: Props): JSX.Element => {
   const { posts, content } = props
-  const { authorId } = posts
 
   const { follow, userId, iconPath, bio, team, twitterURL, teamURL, username } = useSelector(
     (state: RootState) => state.user,
@@ -29,7 +28,7 @@ const FollowButton = (props: Props): JSX.Element => {
     teamURL: string | undefined,
   ): Promise<void> => {
     await apiClient.post('/auth/follow', {
-      authorId,
+      authorId: posts.authorId,
       userId,
       name: username,
       iconpath: iconPath,
@@ -47,14 +46,14 @@ const FollowButton = (props: Props): JSX.Element => {
   useEffect(() => {
     const isFollowing = follow?.some((friend: FrendInfo) => friend.userId === posts.authorId)
     setFollowBtn(isFollowing)
-  }, [posts.authorId, follow])
+  }, [posts?.authorId, follow])
 
   const handleFrends = (): void => {
     setFollowBtn(!followBtn)
-    if (!follow?.some((user: FrendInfo) => user.userId === authorId)) {
-      followUser(authorId, userId, username, iconPath, bio, team, twitterURL, teamURL)
+    if (!follow?.some((user: FrendInfo) => user.userId === posts.authorId)) {
+      followUser(posts.authorId, userId, username, iconPath, bio, team, twitterURL, teamURL)
     } else {
-      unFollowUser(authorId, userId)
+      unFollowUser(posts.authorId, userId)
     }
   }
 

@@ -13,7 +13,6 @@ interface Props {
 
 const BookMarkBtn = (props: Props): JSX.Element => {
   const { album, setCountBookmarks } = props
-  const { id } = album
 
   const { userId } = useSelector((state: RootState) => state.user)
 
@@ -23,7 +22,7 @@ const BookMarkBtn = (props: Props): JSX.Element => {
     const fetchLike = async (): Promise<void> => {
       try {
         const res = await apiClient.post('/post/album/bookmark/check', {
-          postId: id,
+          postId: album.id,
           authorId: userId,
         })
         setBookmark(res.data.hasLiked)
@@ -33,20 +32,20 @@ const BookMarkBtn = (props: Props): JSX.Element => {
     }
 
     fetchLike()
-  }, [id, userId])
+  }, [album?.id, userId])
 
   const handleBookMark = async (): Promise<void> => {
     try {
       if (bookmark) {
         await apiClient.post('/post/album/bookmark/delete', {
-          postId: id,
+          postId: album.id,
           authorId: userId,
         })
         setCountBookmarks((prev: number) => prev - 1)
         setBookmark(false)
       } else {
         await apiClient.post('/post/album/bookmark/add', {
-          postId: id,
+          postId: album.id,
           authorId: userId,
         })
         setCountBookmarks((prev: number) => prev + 1)

@@ -5,21 +5,13 @@ import apiClient from 'libs/apiClient'
 import { BoardRoomType } from 'types/global'
 import NoUser from 'components/widgets/NoUser'
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const { team } = context.query
-  try {
-    const res = await apiClient.get(`/board/boardRooms/${team}`)
-    return {
-      props: {
-        boardRoom: res.data.boardRoom,
-      },
-    }
-  } catch (err) {
-    return {
-      props: {
-        boardRoom: [],
-      },
-    }
+export const getServerSideProps: GetServerSideProps = async ({ query }) => {
+  const data = await apiClient.get(`/board/boardRooms/${query.team}`).then((res) => {
+    if (res.status !== 200) throw Error
+    return res.data.boardRoom
+  })
+  return {
+    props: { boardRoom: data },
   }
 }
 
@@ -27,8 +19,9 @@ interface Props {
   boardRoom: BoardRoomType
 }
 
-const BoardPage = (props: Props): JSX.Element => {
+export default function BoardPage(props: Props): JSX.Element {
   const { boardRoom } = props
+
   const router = useRouter()
 
   return (
@@ -41,5 +34,3 @@ const BoardPage = (props: Props): JSX.Element => {
     </>
   )
 }
-
-export default BoardPage

@@ -20,12 +20,12 @@ const TweetLikeBtn = (props: any) => {
         })
         setLikeBtn(res.data.hasLiked)
       } catch {
-        alert('情報の取得に失敗しました')
+        alert('gggg')
       }
     }
 
     fetchLike()
-  }, [])
+  }, [id, userId])
 
   const handleLike = async () => {
     try {

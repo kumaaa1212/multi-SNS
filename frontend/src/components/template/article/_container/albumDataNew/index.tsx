@@ -10,9 +10,12 @@ interface Props {
 
 const AlbumNew = (props: Props): JSX.Element => {
   const { articlesNew, albumserch } = props
+  const articlesNewFilter = articlesNew.filter((article) => article.title.includes(albumserch))
   return (
     <ArticleArea>
-      {articlesNew?.map((album: ArticlesType) => <ArticleCard article={album} key={album.id} />)}
+      {articlesNewFilter?.map((album: ArticlesType) => (
+        <ArticleCard album={album} key={album.id} />
+      ))}
     </ArticleArea>
   )
 }

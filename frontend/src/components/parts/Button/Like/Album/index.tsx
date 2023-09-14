@@ -12,7 +12,6 @@ interface Props {
 const AlbumLikeBtn = (props: Props): JSX.Element => {
   const { album, setCountLikes } = props
   const { userId } = useSelector((state: RootState) => state.user)
-  const { id } = album
 
   const [likeBtn, setLikeBtn] = useState<boolean>(false)
 
@@ -20,7 +19,7 @@ const AlbumLikeBtn = (props: Props): JSX.Element => {
     const fetchLike = async (): Promise<void> => {
       try {
         const res = await apiClient.post('/post/album/like/check', {
-          postId: id,
+          postId: album.id,
           authorId: userId,
         })
         setLikeBtn(res.data.hasLiked)
@@ -30,20 +29,20 @@ const AlbumLikeBtn = (props: Props): JSX.Element => {
     }
 
     fetchLike()
-  }, [id, userId])
+  }, [album?.id, userId])
 
   const handleLike = async (): Promise<void> => {
     try {
       if (likeBtn) {
         await apiClient.post('/post/album/like/delete', {
-          postId: id,
+          postId: album.id,
           authorId: userId,
         })
         setCountLikes((prev: number) => prev - 1)
         setLikeBtn(false)
       } else {
         await apiClient.post('/post/album/like/add', {
-          postId: id,
+          postId: album.id,
           authorId: userId,
         })
         setLikeBtn(true)
