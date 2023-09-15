@@ -19,7 +19,7 @@ export default function DropDown(): JSX.Element {
 
   return (
     <div>
-      {userId.length < 0 ? (
+      {userId.length === 0 ? (
         <>
           <MenuItem
             onClick={(): void => {

@@ -22,6 +22,7 @@ const CategoriesPart = (props: Props): JSX.Element => {
       showAll='すべてのチームを見る'
       href='/categories'
       footerShowAll='すべてのチームを見る'
+      color='blue'
     >
       <div className={style.home_categories}>
         {teamData.map((team: LabelType, index: number) => (

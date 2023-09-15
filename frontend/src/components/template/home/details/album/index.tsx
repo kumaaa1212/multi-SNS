@@ -1,6 +1,6 @@
 import { Grid } from '@mui/material'
 import { ArticlesType } from 'types/global'
-import AlbumCard from 'components/parts/Card/Articles'
+import HomeAlbumCard from 'components/parts/Card/Home/Album'
 import HomeTemplate from 'components/widgets/home'
 
 interface Props {
@@ -17,11 +17,12 @@ export default function AlbumParts(props: Props): JSX.Element {
         showAll='全ての記事を見る'
         href='/album'
         footerShowAll='全ての記事を見る'
+        color='white'
       >
         <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 1, sm: 1, md: 1, lg: 2, xl: 3 }}>
           {albums.map((album) => (
             <Grid item xs={1} sm={1} md={1} key={album.id}>
-              <AlbumCard key={album.id} album={album as ArticlesType} />
+              <HomeAlbumCard album={album} key={album.id} />
             </Grid>
           ))}
         </Grid>

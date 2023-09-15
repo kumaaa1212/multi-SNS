@@ -1,12 +1,12 @@
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Paper, Tooltip } from '@mui/material'
+import Layout from 'components/layout'
 import MarkDown from 'components/template/MarkDown'
 import { addImgcontents, createContentText, createTitleText } from 'features/postSlice'
 import { AppDispatch, RootState } from 'store/store'
 import style from './Album.module.scss'
 import AlnumLayout from './albumLayout/AlbumLayout'
-import Layout from 'components/layout'
 
 const Album = (): JSX.Element => {
   const dispatch: AppDispatch = useDispatch()
@@ -27,7 +27,7 @@ const Album = (): JSX.Element => {
   }
 
   return (
-    <Layout isSaveBar>
+    <Layout>
       <div className='album'>
         <AlnumLayout titleText={titleText} contentText={contentText}>
           <div className={style.album_main}>

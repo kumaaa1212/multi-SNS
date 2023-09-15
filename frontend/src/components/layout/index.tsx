@@ -44,21 +44,21 @@ const Layout = (props: Props): JSX.Element => {
     fetchData()
   }, [dispatch])
 
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setProgress((oldProgress) => {
-        if (oldProgress === 100) {
-          return 0
-        }
-        const diff = Math.random() * 10
-        return Math.min(oldProgress + diff, 100)
-      })
-    }, 500)
+  // useEffect(() => {
+  //   const timer = setInterval(() => {
+  //     setProgress((oldProgress) => {
+  //       if (oldProgress === 100) {
+  //         return 0
+  //       }
+  //       const diff = Math.random() * 10
+  //       return Math.min(oldProgress + diff, 100)
+  //     })
+  //   }, 500)
 
-    return () => {
-      clearInterval(timer)
-    }
-  }, [])
+  //   return () => {
+  //     clearInterval(timer)
+  //   }
+  // }, [])
 
   useEffect(() => {
     if (!localStorage.getItem('auth_token')) {
@@ -77,13 +77,13 @@ const Layout = (props: Props): JSX.Element => {
         />
       )}
       <ResponsiveAppBar />
-      <div className='mh_10'>{children}</div>
+      <div>{children}</div>
       {isSaveBar && <SaveBar />}
-      <ModalDiscard
+      {/* <ModalDiscard
         open={discardModalOpen}
         setOpen={discardModalClose}
         discardModalRefresh={discardModalRefresh}
-      />
+      /> */}
       <ToastBase content={toastContent} isError={isError} active={isToast} />
     </div>
   )

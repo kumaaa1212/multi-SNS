@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import Image from 'next/image'
+import { HttpStatusCode } from 'axios'
 import apiClient from 'libs/apiClient'
 import { RootState } from 'store/store'
 import { ArticlesLikeType } from 'types/global'
@@ -8,28 +9,26 @@ import ActiveLink from 'components/parts/Button/ActiveLink'
 import Button from 'components/parts/Button/Base'
 import PostBtn from 'components/parts/Button/Post/addbtn'
 import Noavater from '/public/noavater.jpg'
-import style from './Prolife.module.scss'
 import EditModal from 'components/widgets/Modal/Edit'
 import TweetModal from 'components/widgets/Modal/Tweet'
+import style from './Prolife.module.scss'
 import TwitterIcon from '/public/svg/mypage_twitter.svg'
 import TeamIcon from '/public/svg/mypage_team.svg'
 
-const Profile = (): JSX.Element => {
-  const [openEdit, setOpenEdit] = useState<boolean>(false)
-  const [openTweet, setOpenTweet] = useState<boolean>(false)
-  const [likeCount, setLikeCount] = useState<ArticlesLikeType[]>()
+export default function Profile(): JSX.Element {
   const { username, icon, bio, follow, follower, userId, twitterURL, teamURL } = useSelector(
     (state: RootState) => state.user,
   )
+  const [openEdit, setOpenEdit] = useState<boolean>(false)
+  const [openTweet, setOpenTweet] = useState<boolean>(false)
+  const [likeCount, setLikeCount] = useState<ArticlesLikeType[]>()
 
   useEffect(() => {
     const llikeDeta = async (): Promise<void> => {
-      try {
-        const likeArry = await apiClient.get(`/post/album/likes/${userId}`)
-        setLikeCount(likeArry.data.likes)
-      } catch {
-        console.log('いいねの取得に失敗しました')
-      }
+      await apiClient.get(`/post/album/likes/${userId}`).then((res) => {
+        if (res.status !== HttpStatusCode.Ok) return
+        setLikeCount(res.data.likes)
+      })
     }
     llikeDeta()
   }, [userId])
@@ -85,5 +84,3 @@ const Profile = (): JSX.Element => {
     </div>
   )
 }
-
-export default Profile

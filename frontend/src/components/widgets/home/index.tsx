@@ -9,13 +9,19 @@ interface Props {
   href: string
   footerShowAll: string
   children: React.ReactNode
+  color?: string
 }
 
 const HomeTemplate = (props: Props): JSX.Element => {
-  const { titile, showAll, href, footerShowAll, children } = props
+  const { titile, showAll, href, footerShowAll, children, color = 'white' } = props
   const router = useRouter()
+
+  const colorcheck = (color: string): string => {
+    return color ? ' ' + style[color] : ''
+  }
+
   return (
-    <div className='mv_40'>
+    <div className={`pv_40 ${colorcheck(color)}`}>
       <div className={style.title_area}>
         <h2>{titile}</h2>
         <Link href={href} className={style.show_all}>

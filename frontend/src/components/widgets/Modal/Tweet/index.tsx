@@ -4,21 +4,28 @@ import Image from 'next/image'
 import apiClient from 'libs/apiClient'
 import { RootState } from 'store/store'
 import { v4 as uuidv4 } from 'uuid'
+import { jLeagueTeams } from 'utils/TeamData'
 import { supabase } from 'utils/supabaseClient'
 import ButtonBase from 'components/parts/Button/Base'
 import ModalBase from 'components/parts/Modal'
+import Labels from 'components/widgets/Label'
 import style from './TweetModal.module.scss'
 
-export default function TweetModal(props: any): JSX.Element {
+interface Props {
+  open: boolean
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>
+}
+
+export default function TweetModal(props: Props): JSX.Element {
   const { open, setOpen } = props
   const { username, userId, iconPath, icon } = useSelector((state: RootState) => state.user)
 
   const [tweetContents, setTweetContents] = useState<string>('')
   const [dispalayImg, setDisplayImg] = useState<string>('')
-  const [file, setFile] = useState<string>('')
-  const handleTweet = async (): any => {
+  const [file, setFile] = useState<any>()
+  const handleTweet = async (): Promise<void> => {
     try {
-      if (tweetContents) {
+      if (tweetContents && !file) {
         const { data: storageData, error: storegeError } = await supabase.storage
           .from('thumbnail')
           .upload(`${userId}/${uuidv4()}`, file)
@@ -47,14 +54,14 @@ export default function TweetModal(props: any): JSX.Element {
     fileInput?.click()
   }
 
-  function handleFileSelect(e: any): void {
+  function handleFileSelect(e: React.ChangeEvent<HTMLInputElement>): void {
     const selectedFile = e.target.files![0]
     setDisplayImg(URL.createObjectURL(selectedFile))
     setFile(selectedFile)
   }
 
   return (
-    <ModalBase open={open} setOpen={setOpen}>
+    <ModalBase open={open} onClose={setOpen}>
       <div className={style.tweet_modal}>
         <div className={style.handle_close}>
           <svg
@@ -123,6 +130,7 @@ export default function TweetModal(props: any): JSX.Element {
             style={{ display: 'none' }}
             onChange={(e): void => handleFileSelect(e)}
           />
+          <Labels labelName='チームを選択' data={jLeagueTeams} width={400} />
           <ButtonBase onClick={handleTweet} content='Tweet' weight='weight_600' size='sm' black />
         </div>
       </div>

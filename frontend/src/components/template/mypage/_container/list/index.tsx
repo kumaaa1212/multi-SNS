@@ -2,17 +2,21 @@ import { useState } from 'react'
 import Box from '@mui/material/Box'
 import Tab from '@mui/material/Tab'
 import Tabs from '@mui/material/Tabs'
-import MypageAlbum from './Album'
-import MypageBooKMark from './BookMark'
-import MypageLikes from './Like'
+import MypageAlbum from './album'
+import MypageBooKMark from './bookMark'
+import MypageLikes from './like'
 
 interface TabPanelProps {
   children?: React.ReactNode
   index: number
   value: number
 }
+interface a11yPropsProps {
+  id: string
+  'aria-controls': string
+}
 
-function CustomTabPanel(props: TabPanelProps) {
+function CustomTabPanel(props: TabPanelProps): JSX.Element {
   const { children, value, index, ...other } = props
 
   return (
@@ -32,7 +36,7 @@ function CustomTabPanel(props: TabPanelProps) {
   )
 }
 
-function a11yProps(index: number) {
+function a11yProps(index: number): a11yPropsProps {
   return {
     id: `simple-tab-${index}`,
     'aria-controls': `simple-tabpanel-${index}`,
@@ -42,7 +46,7 @@ function a11yProps(index: number) {
 export default function BasicTabs(): JSX.Element {
   const [value, setValue] = useState<number>(0)
 
-  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
+  const handleChange = (event: React.SyntheticEvent, newValue: number): void => {
     setValue(newValue)
   }
 
