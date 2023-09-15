@@ -15,7 +15,7 @@ const style = {
 interface Props {
   open: boolean
   children: React.ReactNode
-  onClose(): void
+  onClose: (open: boolean) => void
 }
 
 const ModalBase = (props: Props): JSX.Element => {

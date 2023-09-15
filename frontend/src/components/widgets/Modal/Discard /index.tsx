@@ -3,16 +3,17 @@ import { useSelector } from 'react-redux'
 import apiClient from 'libs/apiClient'
 import { RootState } from 'store/store'
 import ModalBase from 'components/parts/Modal'
-import style from './KeepModal.module.scss'
+import style from './Discard.module.scss'
 import ControlledAccordions from '../../Accordion'
 
 interface Props {
   open: boolean
-  setOpen: (open: boolean) => void
+  setOpen: any
+  discardModalRefresh?: () => void
 }
 
-const KeepModal = (props: Props) => {
-  const { open, setOpen } = props
+const ModalDiscard = (props: Props) => {
+  const { open, setOpen, discardModalRefresh } = props
   const { username, userId, iconPath } = useSelector((state: RootState) => state.user)
 
   const [keepPost, setKeepPost] = useState<any[]>([])
@@ -24,7 +25,7 @@ const KeepModal = (props: Props) => {
     datafetch()
   }, [])
   return (
-    <ModalBase open={open} onClose={setOpen}>
+    <ModalBase open={open} setOpen={setOpen}>
       <div className={style.keep_modal}>
         <div className={style.modal_header}>
           <button onClick={() => setOpen(!open)} className={style.close_btn}>
@@ -53,4 +54,4 @@ const KeepModal = (props: Props) => {
   )
 }
 
-export default KeepModal
+export default ModalDiscard

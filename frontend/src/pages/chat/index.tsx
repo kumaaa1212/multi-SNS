@@ -20,7 +20,8 @@ const ChatPage = ({ rooms }: Props): JSX.Element => {
     roomFetch()
   }, [userId])
 
-  return <>{userId.length > 0 ? <Chat rooms={rooms} /> : <NoUser contens='Chat' />}</>
+  // return <>{userId.length > 0 ? <Chat rooms={rooms} /> : <NoUser contens='Chat' />}</>
+  return <div></div>
 }
 
 export default ChatPage

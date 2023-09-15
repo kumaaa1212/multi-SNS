@@ -6,6 +6,7 @@ import { jLeagueTeams } from 'utils/TeamData'
 import { TeamDataType } from 'types/global'
 import SerchInput from 'components/parts/Input/Serch'
 import style from './Categories.module.scss'
+import Layout from 'components/layout'
 
 const Categories = (): JSX.Element => {
   const router = useRouter()
@@ -21,7 +22,7 @@ const Categories = (): JSX.Element => {
   }
 
   return (
-    <div>
+    <Layout>
       <div className={style.categories_serch_area}>
         <SerchInput value={search} placeholder='キーワードを入力...' onChange={handleSearch} />
       </div>
@@ -39,7 +40,7 @@ const Categories = (): JSX.Element => {
           </Paper>
         ))}
       </div>
-    </div>
+    </Layout>
   )
 }
 

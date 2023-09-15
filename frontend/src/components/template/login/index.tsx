@@ -16,6 +16,7 @@ import apiClient from 'libs/apiClient'
 import { AppDispatch } from 'store/store'
 import ToastBase from 'components/parts/Toast'
 import styles from './Login.module.scss'
+import Layout from 'components/layout'
 
 const defaultTheme = createTheme()
 
@@ -44,14 +45,14 @@ export default function Login(): JSX.Element {
       })
       localStorage.setItem('auth_token', res.data.token)
       dispatch(loginUser(res.data.user))
-      // router.push('/home')
+      router.push('/home')
     } catch {
       toastFunc('ログインに失敗しました', true)
     }
   }
 
   return (
-    <div className='login'>
+    <Layout>
       <ThemeProvider theme={defaultTheme}>
         <Container component='main' maxWidth='xs'>
           <CssBaseline />
@@ -131,6 +132,6 @@ export default function Login(): JSX.Element {
       <div className={styles.toast}>
         <ToastBase isError={isError} active={isToast} content={toastContent} />
       </div>
-    </div>
+    </Layout>
   )
 }

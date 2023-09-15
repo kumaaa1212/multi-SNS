@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { useToast } from 'components/hooks/useToast'
+import Layout from 'components/layout'
 import { RootState } from 'store/store'
 import { ArticlesType, LabelType, TweetsType } from 'types/global'
 import ToastBase from 'components/parts/Toast'
@@ -34,13 +35,13 @@ const Home = (props: Props): JSX.Element => {
   }, [userId])
 
   return (
-    <>
+    <Layout>
       <SwiperArea />
       <CategoriesPart labels={labels} />
       <TweetParts tweets={tweets} />
       <AlbumParts albums={albums} />
       {showAlert && <ToastBase content={toastContent} isError={isError} active={isToast} />}
-    </>
+    </Layout>
   )
 }
 

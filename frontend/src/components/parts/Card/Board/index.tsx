@@ -43,11 +43,11 @@ const BulletinboardCard = (props: Props): JSX.Element => {
         )
         setLike(res.data.hasLiked)
       } catch {
-        // alert('情報の取得に失敗しました')
+        toastFunc('エラーが発生しました', true)
       }
     }
     fetchLike()
-  }, [board.id, userId])
+  }, [board, toastFunc, userId])
 
   const handleSelectBoard = (): void => {
     if (!sideMessagrBar) {
@@ -68,7 +68,7 @@ const BulletinboardCard = (props: Props): JSX.Element => {
       setLikeCount(likePost.data.updatedBoard.likes.length)
       setLike(!like)
     } catch {
-      alert('エラーが発生しました')
+      toastFunc('エラーが発生しました', true)
     }
   }
 

@@ -6,7 +6,7 @@ interface Color {
 }
 
 interface Props extends Color {
-  size?: 'xl' | 'sm' | 'md'
+  size?: 'xl' | 'sm' | 'md' | 'lg'
   type?: 'submit' | 'reset' | 'button'
   weight?: 'weight_400' | 'weight_500' | 'weight_600'
   value?: string
@@ -46,6 +46,7 @@ export default function ButtonBase(props: Props): JSX.Element {
         sizeCheck('xs') +
         sizeCheck('sm') +
         sizeCheck('md') +
+        sizeCheck('lg') +
         weightCheck('weight_400') +
         weightCheck('weight_500') +
         weightCheck('weight_600') +

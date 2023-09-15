@@ -1,13 +1,14 @@
-import Profile from './profile'
-import BasicTabs from './timeline'
+import Layout from 'components/layout'
+import Meta from 'components/layout/Head'
+import Profile from './_container/profile'
+import BasicTabs from './_container/timeline'
 
-const Mapage = (): JSX.Element => {
+export default function Mapage(): JSX.Element {
   return (
-    <div className='mypage'>
+    <Layout>
+      <Meta title='マイページ' />
       <Profile />
       <BasicTabs />
-    </div>
+    </Layout>
   )
 }
-
-export default Mapage

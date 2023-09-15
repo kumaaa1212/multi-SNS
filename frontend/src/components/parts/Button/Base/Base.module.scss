@@ -25,15 +25,19 @@
   width: 100px;
   height: 40px;
 }
+.button.lg {
+  width: 120px;
+  height: 50px;
+}
 // weight
-.button.thin {
+.button.weight_400 {
   font-weight: 400;
 }
 
-.button.regular {
+.button.weight_500 {
   font-weight: 500;
 }
-.button.bold {
+.button.weight_600 {
   font-weight: 600;
 }
 

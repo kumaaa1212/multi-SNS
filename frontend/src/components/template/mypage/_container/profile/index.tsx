@@ -28,7 +28,7 @@ const Profile = (): JSX.Element => {
         const likeArry = await apiClient.get(`/post/album/likes/${userId}`)
         setLikeCount(likeArry.data.likes)
       } catch {
-        alert('情報の更新に失敗しました。')
+        console.log('いいねの取得に失敗しました')
       }
     }
     llikeDeta()

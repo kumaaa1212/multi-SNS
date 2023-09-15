@@ -1,48 +1,71 @@
+import { useCallback } from 'react'
 import { useSelector } from 'react-redux'
-import Link from 'next/link'
 import { useRouter } from 'next/router'
 import LoginIcon from '@mui/icons-material/Login'
 import LogoutIcon from '@mui/icons-material/Logout'
 import PersonIcon from '@mui/icons-material/Person'
 import PersonAddIcon from '@mui/icons-material/PersonAdd'
+import { MenuItem, Typography } from '@mui/material'
 import { RootState } from 'store/store'
 
-const DropDown = (): JSX.Element => {
+export default function DropDown(): JSX.Element {
   const router = useRouter()
   const { userId } = useSelector((state: RootState) => state.user)
 
-  const Logout = async (): Promise<void> => {
+  const Logout = useCallback(async (): Promise<void> => {
     localStorage.removeItem('auth_token')
     router.reload
-  }
+  }, [router])
 
   return (
-    <div className='header_dropdown'>
-      {userId ? (
+    <div>
+      {userId.length < 0 ? (
         <>
-          <Link href='/mypage' className='link_style dropdown_list'>
-            <PersonIcon />
-            <p>Account</p>
-          </Link>
-          <Link href='/' className='link_style dropdown_list' onClick={Logout}>
-            <LogoutIcon />
-            <p>Logout</p>
-          </Link>
+          <MenuItem
+            onClick={(): void => {
+              router.push('/login')
+            }}
+          >
+            <Typography textAlign='center' className='drop_menu'>
+              <LoginIcon />
+              <div>ログイン</div>
+            </Typography>
+          </MenuItem>
+          <MenuItem
+            onClick={(): void => {
+              router.push('/')
+            }}
+          >
+            <Typography textAlign='center' className='drop_menu'>
+              <PersonAddIcon />
+              <div>サインアップ</div>
+            </Typography>
+          </MenuItem>
         </>
       ) : (
         <>
-          <Link href='/signup' className='link_style dropdown_list'>
-            <PersonAddIcon />
-            <p>Sighup</p>
-          </Link>
-          <Link href='/login' className='link_style dropdown_list'>
-            <LoginIcon />
-            <p>Login</p>
-          </Link>
+          <MenuItem
+            onClick={(): void => {
+              router.push('/')
+            }}
+          >
+            <Typography textAlign='center' className='drop_menu'>
+              <LogoutIcon />
+              <div onClick={Logout}>ログアウト</div>
+            </Typography>
+          </MenuItem>
+          <MenuItem
+            onClick={(): void => {
+              router.push('/mypage')
+            }}
+          >
+            <Typography textAlign='center' className='drop_menu'>
+              <PersonIcon />
+              <div>アカウント</div>
+            </Typography>
+          </MenuItem>
         </>
       )}
     </div>
   )
 }
-
-export default DropDown

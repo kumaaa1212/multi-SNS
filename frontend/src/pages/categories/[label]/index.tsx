@@ -23,7 +23,8 @@ interface Props {
 }
 
 const TeamPage = ({ data }: { data: Props }): JSX.Element => {
-  return <Team data={data.post} />
+  // return <Team data={data.post} />
+  return <div></div>
 }
 
 export default TeamPage

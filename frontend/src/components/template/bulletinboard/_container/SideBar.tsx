@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useSelector } from 'react-redux'
+import { HttpStatusCode } from 'axios'
 import { useToast } from 'components/hooks/useToast'
 import apiClient from 'libs/apiClient'
 import { RootState } from 'store/store'
@@ -7,7 +8,7 @@ import { BoardType, BoardMessageType } from 'types/global'
 import SidebarChatCard from 'components/parts/Card/Board/Sidebar'
 import SendInput from 'components/parts/Input/Send'
 import ToastBase from 'components/parts/Toast'
-import style from '../bulletinboard.module.scss'
+import style from './bulletinboard.module.scss'
 
 interface Props {
   selectBoard: BoardType | undefined
@@ -25,21 +26,24 @@ const MessageSidebar = (props: Props): JSX.Element => {
   const [input, setInput] = useState<string>('')
 
   const handleSubmit = async (): Promise<void> => {
-    try {
-      if (input.length !== 0 && selectBoard) {
-        const newBoard = await apiClient.post(`/board/boards/${selectBoard.id}/messages`, {
+    if (input.length !== 0 && selectBoard) {
+      await apiClient
+        .post(`/board/boards/${selectBoard.id}/messages`, {
           content: input,
           authorId: userId,
           authorName: username,
           authorAvatar: iconPath,
         })
-        setSideMessagrBar(newBoard.data.board.messages)
-        setSelectBoard(newBoard.data.board)
-      }
-      setInput('')
-    } catch {
-      toastFunc('メッセージの送信に失敗しました', true)
-      setInput('')
+        .then((res) => {
+          if (res.status !== HttpStatusCode.Ok) {
+            toastFunc('メッセージの送信に失敗しました', true)
+            setInput('')
+          } else {
+            setSideMessagrBar(res.data.board.messages)
+            setSelectBoard(res.data.board)
+            setInput('')
+          }
+        })
     }
   }
 
