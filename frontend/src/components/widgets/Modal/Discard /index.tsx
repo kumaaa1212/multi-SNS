@@ -17,13 +17,6 @@ const ModalDiscard = (props: Props) => {
   const { username, userId, iconPath } = useSelector((state: RootState) => state.user)
 
   const [keepPost, setKeepPost] = useState<any[]>([])
-  useEffect(() => {
-    const datafetch = async () => {
-      const res = await apiClient.get(`/post/keep-post/${userId}`)
-      setKeepPost(res.data.keepPosts)
-    }
-    datafetch()
-  }, [])
   return (
     <ModalBase open={open} setOpen={setOpen}>
       <div className={style.keep_modal}>

@@ -5,6 +5,7 @@ import Layout from 'components/layout'
 import MarkDown from 'components/template/MarkDown'
 import { addImgcontents, createContentText, createTitleText } from 'features/postSlice'
 import { AppDispatch, RootState } from 'store/store'
+import Meta from 'components/layout/Head'
 import style from './Album.module.scss'
 import AlnumLayout from './albumLayout/AlbumLayout'
 
@@ -12,6 +13,8 @@ const Album = (): JSX.Element => {
   const dispatch: AppDispatch = useDispatch()
   const { titleText, contentText } = useSelector((state: RootState) => state.post)
   const [preview, setPreview] = useState<boolean>(false)
+  const [open, setOpen] = useState<boolean>(false)
+  const [isSaveBar, setIsSaveBar] = useState<boolean>(false)
 
   const openFileInput = (): void => {
     const fileInput = document.getElementById('markdown_file_input')
@@ -27,9 +30,10 @@ const Album = (): JSX.Element => {
   }
 
   return (
-    <Layout>
+    <Layout isSaveBar={isSaveBar} discardModalOpen={open}>
+      <Meta title='アルバム' />
       <div className='album'>
-        <AlnumLayout titleText={titleText} contentText={contentText}>
+        <AlnumLayout setIsSaveBar={setIsSaveBar} setOpen={setOpen}>
           <div className={style.album_main}>
             <input
               type='text'

@@ -19,12 +19,12 @@ import style from './AlbumLayout.module.scss'
 
 interface Props {
   children: React.ReactNode
-  titleText?: string
-  contentText?: string
+  setIsSaveBar?: React.Dispatch<React.SetStateAction<boolean>>
+  setOpen?: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 const AlnumLayout = (props: Props): JSX.Element => {
-  const { children } = props
+  const { children, setIsSaveBar = (): boolean => false, setOpen = (): boolean => false } = props
 
   const router = useRouter()
   const [keepPost, setKeepPost] = useState<boolean>(false)
@@ -48,10 +48,14 @@ const AlnumLayout = (props: Props): JSX.Element => {
   }, [router.pathname])
 
   const handleReverse = (): void => {
-    if (router.pathname === '/post/album/thumbnail') {
-      router.push('/post')
-    } else if (router.pathname === '/post') {
-      router.push('/mypage')
+    if (titleText.length > 0 || contentText.length > 0) {
+      setIsSaveBar(true)
+    } else {
+      if (router.pathname === '/post/album/thumbnail') {
+        router.push('/post')
+      } else if (router.pathname === '/post') {
+        router.push('/mypage')
+      }
     }
   }
 

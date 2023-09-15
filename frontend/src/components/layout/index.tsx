@@ -13,6 +13,7 @@ import ResponsiveAppBar from './Header'
 import SaveBar from './SaveBar'
 
 interface Props {
+  margin?: string
   children: React.ReactNode
   isSaveBar?: boolean
   saveAction?: () => void
@@ -22,7 +23,7 @@ interface Props {
 }
 
 const Layout = (props: Props): JSX.Element => {
-  const { children, isSaveBar } = props
+  const { margin = 'm_0 p_0', children, isSaveBar } = props
   const { discardModalOpen = false, discardModalClose, discardModalRefresh } = props
 
   const loading = useLoading()
@@ -77,13 +78,13 @@ const Layout = (props: Props): JSX.Element => {
         />
       )}
       <ResponsiveAppBar />
-      <div>{children}</div>
+      <div className={margin}>{children}</div>
       {isSaveBar && <SaveBar />}
-      {/* <ModalDiscard
+      <ModalDiscard
         open={discardModalOpen}
         setOpen={discardModalClose}
         discardModalRefresh={discardModalRefresh}
-      /> */}
+      />
       <ToastBase content={toastContent} isError={isError} active={isToast} />
     </div>
   )
