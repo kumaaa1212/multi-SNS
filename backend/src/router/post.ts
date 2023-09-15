@@ -421,7 +421,7 @@ router.get("/album/likes/:userId", async (req, res) => {
   try {
     const likes = await prisma.like.findMany({
       where: {
-        authorId: userId,
+        authorId: String(userId),
       },
     });
 

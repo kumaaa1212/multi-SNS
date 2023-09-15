@@ -69,7 +69,7 @@ const TweetCard = (props: Props): JSX.Element => {
             className={style.tweet_img}
           />
           <div className={style.scroll_area}>
-            <p className={style.tweet_content}>{tweet.content}</p>
+            <div className={style.tweet_content}>{tweet.content}</div>
           </div>
         </div>
         <div className={style.footer}>

@@ -6,6 +6,7 @@
 .tweet_card {
   width: 500px;
   margin: 0 auto;
+  padding: 10px;
   .tweet_header {
     display: flex;
     align-items: center;
@@ -61,13 +62,7 @@
     }
     .scroll_area {
       margin-top: 10px;
-      border: 1px red solid;
-      width: 450px;
-      .tweet_content {
-        white-space: normal;
-        font-size: 20px;
-        border: 1px red solid;
-      }
+      overflow: scroll;
     }
   }
 }

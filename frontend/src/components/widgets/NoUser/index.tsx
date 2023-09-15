@@ -1,6 +1,7 @@
 import Image from 'next/image'
-import style from './NoUser.module.scss'
 import Layout from 'components/layout'
+import Meta from 'components/layout/Head'
+import style from './NoUser.module.scss'
 
 interface Props {
   contens: string
@@ -11,6 +12,7 @@ export default function NoUser(props: Props): JSX.Element {
 
   return (
     <Layout>
+      <Meta />
       <div className={style.no_user}>
         <h1>No User</h1>
         <p>ログインされていません。</p>

@@ -1,7 +1,12 @@
 .card {
-  padding: 15px 0;
+  padding: 15px;
   display: flex;
   align-items: center;
+  cursor: pointer;
+  border-radius: 10px;
+}
+.card:hover {
+  background-color: #f1f1f1;
 }
 .team_card {
   padding-top: 10px;
