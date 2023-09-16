@@ -2,11 +2,12 @@ import { useState } from 'react'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { Paper } from '@mui/material'
+import Layout from 'components/layout'
 import { jLeagueTeams } from 'utils/TeamData'
 import { TeamDataType } from 'types/global'
+import Meta from 'components/layout/Head'
 import SerchInput from 'components/parts/Input/Serch'
 import style from './Categories.module.scss'
-import Layout from 'components/layout'
 
 const Categories = (): JSX.Element => {
   const router = useRouter()
@@ -23,22 +24,25 @@ const Categories = (): JSX.Element => {
 
   return (
     <Layout>
-      <div className={style.categories_serch_area}>
-        <SerchInput value={search} placeholder='キーワードを入力...' onChange={handleSearch} />
-      </div>
-      <div className={style.categories_area}>
-        {teamData.map((team: TeamDataType) => (
-          <Paper
-            key={team.label}
-            className={style.team_card}
-            onClick={(): void => {
-              router.push(`/categories/${team.label}`)
-            }}
-          >
-            <Image src={team.img} alt={''} width={100} height={70} className={style.team_img} />
-            <span>{team.name}</span>
-          </Paper>
-        ))}
+      <Meta title='カテゴリー' />
+      <div className='bg_blue'>
+        <div className={style.categories_serch_area}>
+          <SerchInput value={search} placeholder='キーワードを入力...' onChange={handleSearch} />
+        </div>
+        <div className={style.categories_area}>
+          {teamData.map((team: TeamDataType) => (
+            <Paper
+              key={team.label}
+              className={style.team_card}
+              onClick={(): void => {
+                router.push(`/categories/${team.label}`)
+              }}
+            >
+              <Image src={team.img} alt={''} width={100} height={70} className={style.team_img} />
+              <span>{team.name}</span>
+            </Paper>
+          ))}
+        </div>
       </div>
     </Layout>
   )

@@ -156,7 +156,13 @@ export default function Header(): JSX.Element {
                 }
                 sx={{ p: 0 }}
               >
-                <Image src={icon} alt='icon' width={50} height={50} className='header_img' />
+                <Image
+                  src={icon ? icon : '/noavater.jpg'}
+                  alt='icon'
+                  width={50}
+                  height={50}
+                  className='header_img'
+                />
               </IconButton>
             </Tooltip>
             <Menu

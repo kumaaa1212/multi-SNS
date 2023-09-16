@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import { useToast } from 'components/hooks/useToast'
+import Layout from 'components/layout'
 import { ArticlesType } from 'types/global'
+import Meta from 'components/layout/Head'
 import Button from 'components/parts/Button/Base'
 import SerchInput from 'components/parts/Input/Serch'
 import BasicPagination from 'components/parts/Pagenation'
@@ -23,7 +25,8 @@ export default function Albums(props: Props): JSX.Element {
   const { toastContent, isError, isToast, toastFunc } = useToast()
 
   return (
-    <div>
+    <Layout>
+      <Meta title='アルバム' />
       <div className={style.article}>
         <div className={style.article_contents}>
           <div className={style.search_area}>
@@ -75,6 +78,6 @@ export default function Albums(props: Props): JSX.Element {
         <LabelArea />
       </div>
       <ToastBase content={toastContent} isError={isError} active={isToast} />
-    </div>
+    </Layout>
   )
 }

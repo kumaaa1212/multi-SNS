@@ -2,13 +2,10 @@ import { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import LinearProgress from '@mui/material/LinearProgress'
 import { useLoading } from 'components/hooks/useLoading'
-import { useToast } from 'components/hooks/useToast'
 import { updateUser } from 'features/userSlice'
 import apiClient from 'libs/apiClient'
 import { AppDispatch } from 'store/store'
-import ToastBase from 'components/parts/Toast'
 import ModalDiscard from 'components/widgets/Modal/Discard '
-import Meta from './Head'
 import ResponsiveAppBar from './Header'
 import SaveBar from './SaveBar'
 
@@ -27,7 +24,6 @@ const Layout = (props: Props): JSX.Element => {
   const { discardModalOpen = false, discardModalClose, discardModalRefresh } = props
 
   const loading = useLoading()
-  const { toastContent, isError, isToast, toastFunc } = useToast()
   const dispatch: AppDispatch = useDispatch()
   const [progress, setProgress] = useState<number>(50)
 
@@ -61,22 +57,9 @@ const Layout = (props: Props): JSX.Element => {
   //   }
   // }, [])
 
-  useEffect(() => {
-    if (!localStorage.getItem('auth_token')) {
-      toastFunc('ログインしてください', true)
-    }
-  }, [toastFunc])
-
   return (
     <div className='layout'>
-      {loading && (
-        <LinearProgress
-          variant='determinate'
-          value={progress}
-          color='primary'
-          className='loading'
-        />
-      )}
+      {loading && <LinearProgress variant='determinate' color='primary' className='loading' />}
       <ResponsiveAppBar />
       <div className={margin}>{children}</div>
       {isSaveBar && <SaveBar />}
@@ -85,7 +68,6 @@ const Layout = (props: Props): JSX.Element => {
         setOpen={discardModalClose}
         discardModalRefresh={discardModalRefresh}
       />
-      <ToastBase content={toastContent} isError={isError} active={isToast} />
     </div>
   )
 }

@@ -27,7 +27,7 @@ const BookMarkBtn = (props: Props): JSX.Element => {
         })
         setBookmark(res.data.hasLiked)
       } catch {
-        alert('情報の取得に失敗しました')
+        console.log('error')
       }
     }
 

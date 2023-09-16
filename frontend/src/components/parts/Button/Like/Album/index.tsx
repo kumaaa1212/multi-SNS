@@ -24,7 +24,7 @@ const AlbumLikeBtn = (props: Props): JSX.Element => {
         })
         setLikeBtn(res.data.hasLiked)
       } catch {
-        alert('情報の取得に失敗しました')
+        console.log('error')
       }
     }
 
