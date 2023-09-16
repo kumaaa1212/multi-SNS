@@ -59,7 +59,7 @@ router.post("/login", async (req: Request, res: Response) => {
 router.get("/me", middleware, async (req: any, res: Response) => {
   const user = await prisma.user.findUnique({
     where: {
-      id: req.userId,
+      id: Number(req.userId),
     },
   });
   res.json({ user });

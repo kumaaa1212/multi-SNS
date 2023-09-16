@@ -6,6 +6,7 @@ import { RootState } from 'store/store'
 import { v4 as uuidv4 } from 'uuid'
 import { jLeagueTeams } from 'utils/TeamData'
 import { supabase } from 'utils/supabaseClient'
+import { TeamDataType } from 'types/global'
 import ButtonBase from 'components/parts/Button/Base'
 import ModalBase from 'components/parts/Modal'
 import Labels from 'components/widgets/Label'
@@ -18,11 +19,13 @@ interface Props {
 
 export default function TweetModal(props: Props): JSX.Element {
   const { open, setOpen } = props
-  const { username, userId, iconPath, icon } = useSelector((state: RootState) => state.user)
 
+  const { username, userId, iconPath, icon } = useSelector((state: RootState) => state.user)
   const [tweetContents, setTweetContents] = useState<string>('')
   const [dispalayImg, setDisplayImg] = useState<string>('')
+  const [selectedLabels, setSelectedLabels] = useState<TeamDataType[]>([])
   const [file, setFile] = useState<any>()
+
   const handleTweet = async (): Promise<void> => {
     try {
       if (tweetContents && !file) {
@@ -39,10 +42,12 @@ export default function TweetModal(props: Props): JSX.Element {
           authorName: username,
           authorAvatar: iconPath,
           img: urlData.publicUrl,
+          label: selectedLabels,
         })
         setTweetContents('')
         setDisplayImg('')
         setFile('')
+        setSelectedLabels([])
       }
     } catch {
       alert('ツイートに失敗しました')
@@ -130,7 +135,12 @@ export default function TweetModal(props: Props): JSX.Element {
             style={{ display: 'none' }}
             onChange={(e): void => handleFileSelect(e)}
           />
-          <Labels labelName='チームを選択' data={jLeagueTeams} width={400} />
+          <Labels
+            labelName='自分のチーム→使いたいラベル順番で選択してください'
+            data={jLeagueTeams}
+            width={400}
+            setSelectedLabels={setSelectedLabels}
+          />
           <ButtonBase onClick={handleTweet} content='Tweet' weight='weight_600' size='sm' black />
         </div>
       </div>
