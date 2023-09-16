@@ -1,7 +1,5 @@
 import Album from 'components/template/post'
 
-const AlbumPage = (): JSX.Element => {
+export default function AlbumPage(): JSX.Element {
   return <Album />
 }
-
-export default AlbumPage

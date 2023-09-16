@@ -20,11 +20,10 @@ import style from './AlbumLayout.module.scss'
 interface Props {
   children: React.ReactNode
   setIsSaveBar?: React.Dispatch<React.SetStateAction<boolean>>
-  setOpen?: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 const AlnumLayout = (props: Props): JSX.Element => {
-  const { children, setIsSaveBar = (): boolean => false, setOpen = (): boolean => false } = props
+  const { children, setIsSaveBar = (): boolean => false } = props
 
   const router = useRouter()
   const [keepPost, setKeepPost] = useState<boolean>(false)

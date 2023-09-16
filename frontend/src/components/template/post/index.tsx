@@ -13,8 +13,8 @@ const Album = (): JSX.Element => {
   const dispatch: AppDispatch = useDispatch()
   const { titleText, contentText } = useSelector((state: RootState) => state.post)
   const [preview, setPreview] = useState<boolean>(false)
-  const [open, setOpen] = useState<boolean>(false)
   const [isSaveBar, setIsSaveBar] = useState<boolean>(false)
+  const [open, setOpen] = useState<boolean>(false)
 
   const openFileInput = (): void => {
     const fileInput = document.getElementById('markdown_file_input')
@@ -30,11 +30,12 @@ const Album = (): JSX.Element => {
   }
 
   return (
-    <Layout isSaveBar={isSaveBar} discardModalOpen={open}>
+    <Layout isSaveBar={isSaveBar} discardModalOpen={open} discardModalClose={setOpen}>
       <Meta title='アルバム' />
-      <AlnumLayout setIsSaveBar={setIsSaveBar} setOpen={setOpen}>
-        <div className={style.album_main}>
+      <AlnumLayout setIsSaveBar={setIsSaveBar}>
+        <div className='full_width'>
           <input
+            className={style.input}
             type='text'
             placeholder='title'
             value={titleText}

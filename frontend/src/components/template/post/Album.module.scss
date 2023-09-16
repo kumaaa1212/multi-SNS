@@ -1,59 +1,54 @@
-// アルバムのmain画面
-.album_main{
-  width: 100%;
+.input {
+  display: block;
+  width: 600px;
+  height: 50px;
+  margin: 0 auto;
+  border: none;
+  font-size: 30px;
+}
 
-  input{
+.input:focus {
+  outline: none;
+}
+
+.content {
+  margin-top: 30px;
+  margin-left: 50px;
+  display: flex;
+  justify-content: center;
+
+  .preview_area {
+    width: 800px;
+    height: 400px;
+  }
+
+  .album_text {
     display: block;
-    width: 600px;
-    height: 50px;
-    margin: 0 auto;
-    border: none;
-    font-size: 30px;
-  }
-
-  input:focus{
+    resize: none;
+    min-width: 800px;
+    max-width: 800px;
+    min-height: 400px;
+    max-height: 400px;
+    font-size: 20px;
     outline: none;
+    border: none;
+    padding: 5px 0px;
   }
 
-  .content{
-    margin-top: 30px;
-    margin-left: 50px;
+  .content_btn {
+    margin-left: 20px;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
 
-    .preview_area{
-      width: 800px;
-      height: 400px;
+    svg {
+      cursor: pointer;
+      margin-top: 30px;
+      background-color: gray;
+      border-radius: 50%;
     }
 
-    .album_text{
-      display: block;
-      resize: none;
-      min-width: 800px;
-      max-width: 800px;
-      min-height: 400px;
-      max-height: 400px;
-      font-size: 20px;
-      outline: none;
-      border: none;
-      padding: 5px 0px;
-    }
-
-    .content_btn{
-      margin-left: 20px;
-      display: flex;
-      flex-direction: column;
-
-      svg{
-        cursor: pointer;
-        margin-top: 30px;
-        background-color: gray;
-        border-radius: 50%;
-      }
-      
-      svg:hover{
-        background-color: black;
-      }
+    svg:hover {
+      background-color: black;
     }
   }
 }

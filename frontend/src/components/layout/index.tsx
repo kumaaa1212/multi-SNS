@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import LinearProgress from '@mui/material/LinearProgress'
 import { useLoading } from 'components/hooks/useLoading'
@@ -15,17 +15,20 @@ interface Props {
   isSaveBar?: boolean
   saveAction?: () => void
   discardModalOpen?: boolean
-  discardModalClose?: () => void
+  discardModalClose?: React.Dispatch<React.SetStateAction<boolean>>
   discardModalRefresh?: () => void
 }
 
-const Layout = (props: Props): JSX.Element => {
+export default function Layout(props: Props): JSX.Element {
   const { margin = 'm_0 p_0', children, isSaveBar } = props
-  const { discardModalOpen = false, discardModalClose, discardModalRefresh } = props
+  const {
+    discardModalOpen = false,
+    discardModalClose = (): void => {},
+    discardModalRefresh,
+  } = props
 
   const loading = useLoading()
   const dispatch: AppDispatch = useDispatch()
-  const [progress, setProgress] = useState<number>(50)
 
   useEffect(() => {
     const fetchData = async (): Promise<void> => {
@@ -41,28 +44,12 @@ const Layout = (props: Props): JSX.Element => {
     fetchData()
   }, [dispatch])
 
-  // useEffect(() => {
-  //   const timer = setInterval(() => {
-  //     setProgress((oldProgress) => {
-  //       if (oldProgress === 100) {
-  //         return 0
-  //       }
-  //       const diff = Math.random() * 10
-  //       return Math.min(oldProgress + diff, 100)
-  //     })
-  //   }, 500)
-
-  //   return () => {
-  //     clearInterval(timer)
-  //   }
-  // }, [])
-
   return (
     <div className='layout'>
       {loading && <LinearProgress variant='determinate' color='primary' className='loading' />}
       <ResponsiveAppBar />
       <div className={margin}>{children}</div>
-      {isSaveBar && <SaveBar />}
+      {isSaveBar && <SaveBar discardModalClose={discardModalClose} />}
       <ModalDiscard
         open={discardModalOpen}
         setOpen={discardModalClose}
@@ -71,5 +58,3 @@ const Layout = (props: Props): JSX.Element => {
     </div>
   )
 }
-
-export default Layout
