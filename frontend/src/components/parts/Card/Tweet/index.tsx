@@ -15,7 +15,7 @@ interface Props {
   tweet: TweetsType
 }
 
-const TweetCard = (props: Props): JSX.Element => {
+export default function TweetCard(props: Props): JSX.Element {
   const { tweet } = props
 
   const { userId } = useSelector((state: RootState) => state.user)
@@ -82,5 +82,3 @@ const TweetCard = (props: Props): JSX.Element => {
     </div>
   )
 }
-
-export default TweetCard

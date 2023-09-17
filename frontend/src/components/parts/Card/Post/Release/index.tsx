@@ -1,27 +1,27 @@
-import Card from '@mui/material/Card'
-import CardHeader from '@mui/material/CardHeader'
-import CardContent from '@mui/material/CardContent'
-import CardActions from '@mui/material/CardActions'
-import Avatar from '@mui/material/Avatar'
-import IconButton from '@mui/material/IconButton'
-import FavoriteIcon from '@mui/icons-material/Favorite'
-import ShareIcon from '@mui/icons-material/Share'
-import MoreVertIcon from '@mui/icons-material/MoreVert'
+import { useSelector } from 'react-redux'
 import Image from 'next/image'
+import FavoriteIcon from '@mui/icons-material/Favorite'
+import MoreVertIcon from '@mui/icons-material/MoreVert'
+import ShareIcon from '@mui/icons-material/Share'
 import { Chip } from '@mui/material'
+import Avatar from '@mui/material/Avatar'
+import Card from '@mui/material/Card'
+import CardActions from '@mui/material/CardActions'
+import CardContent from '@mui/material/CardContent'
+import CardHeader from '@mui/material/CardHeader'
+import IconButton from '@mui/material/IconButton'
+import { RootState } from 'store/store'
 import style from '../Card.module.scss'
-import { AppDispatch, RootState } from '@/store/store'
-import { useDispatch, useSelector } from 'react-redux'
 
-export default function ReleaseCard(props: any) {
+export default function ReleaseCard(props: any): JSX.Element {
   const { className } = props
-  
+
   const { titleText, labels, thumbnailText, displayThumbnailImg } = useSelector(
     (state: RootState) => state.post,
   )
   const { icon } = useSelector((state: RootState) => state.user)
 
-  const formatDate = (date: any) => {
+  const formatDate = (date: any): string => {
     const year = date.getFullYear()
     const month = String(date.getMonth() + 1).padStart(2, '0')
     const day = String(date.getDate()).padStart(2, '0')

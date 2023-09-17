@@ -46,5 +46,41 @@ router.get("/all/content/order/new", async (req: Request, res: Response) => {
   }
 });
 
+router.get("/all/tweets/order/like", async (req: Request, res: Response) => {
+  try {
+    const tweets = await prisma.tweet.findMany({
+      orderBy: {
+        createdAt: "desc",
+      },
+      include: {
+        likes: true,
+      },
+    });
+    const tweetsTopLike = tweets.sort(
+      (a, b) => b.likes.length - a.likes.length
+    );
+
+    return res.json({ tweetsTopLike });
+  } catch (err: any) {
+    res.json({ error: err.message });
+  }
+});
+
+router.get("/all/tweets/order/new", async (req: Request, res: Response) => {
+  try {
+    const tweetsTopNew = await prisma.tweet.findMany({
+      orderBy: {
+        createdAt: "desc"
+      },
+      include: {
+        likes: true
+      }
+    });
+
+    return res.json({ tweetsTopNew });
+  } catch (err: any) {
+    res.json({ error: err.message });
+  }
+});
 
 export default router;

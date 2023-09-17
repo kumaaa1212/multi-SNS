@@ -1,15 +1,16 @@
 import { useState } from 'react'
-import SideBar from './sidebar'
-import ChatArea from './main/ChatArea'
-import { RoomType } from 'types/global'
-import style from './Chat.module.scss'
 import Layout from 'components/layout'
+import { RoomType } from 'types/global'
+import Meta from 'components/layout/Head'
+import style from './Chat.module.scss'
+import ChatArea from './_container/main/ChatArea'
+import SideBar from './_container/sidebar'
 
 interface Props {
   rooms: RoomType[]
 }
 
-const Chat = (props: Props) => {
+const Chat = (props: Props): JSX.Element => {
   const { rooms } = props
 
   const [selectChatRoom, setSelectChatRoom] = useState<boolean>(true)
@@ -17,8 +18,9 @@ const Chat = (props: Props) => {
 
   return (
     <Layout>
+      <Meta title='Chat' />
       <div className={style.chat}>
-        {/* <SideBar
+        <SideBar
           rooms={rooms}
           selectChatRoom={selectChatRoom}
           setSelectChatRoom={setSelectChatRoom}
@@ -28,7 +30,7 @@ const Chat = (props: Props) => {
           selectRoom={selectRoom[0]}
           setSelectRoom={setSelectRoom}
           selectChatRoom={selectChatRoom}
-        /> */}
+        />
       </div>
     </Layout>
   )

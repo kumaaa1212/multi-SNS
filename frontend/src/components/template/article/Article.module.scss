@@ -1,24 +1,4 @@
 .article {
   display: grid;
   grid-template-columns: 1fr 300px;
-  .article_contents {
-    margin: 60px 0 0 50px;
-  }
-}
-
-.search_area {
-  display: grid;
-  grid-template-columns: 2fr 3fr;
-  gap: 20px;
-  align-items: center; 
-  width: 100%;
-  margin-bottom: 50px;
-
-  .search_btn_area {
-    display: flex;
-  }
-}
-
-.pagenation {
-  margin: 100px 0px;
 }

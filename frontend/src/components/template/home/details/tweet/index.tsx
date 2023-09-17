@@ -17,7 +17,7 @@ const TweetParts = (props: Props): JSX.Element => {
   return (
     <>
       <HomeTemplate
-        titile='Popular Tweets'
+        titile='人気のTweet'
         showAll='Show All Tweets'
         href='/tweet'
         footerShowAll='Show All Tweets'
@@ -25,7 +25,7 @@ const TweetParts = (props: Props): JSX.Element => {
       >
         <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 1, sm: 1, md: 3, lg: 3, xl: 3 }}>
           {tweets.map((tweet) => (
-            <Grid item xs={1} sm={1} md={1} key={tweet.id}>
+            <Grid item xs={1} sm={1} md={1} key={tweet.id} className='aaaaa'>
               <HomeTweetCard
                 tweet={tweet}
                 key={tweet.id}

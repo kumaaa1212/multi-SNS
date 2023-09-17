@@ -12,12 +12,14 @@ import Grid from '@mui/material/Grid'
 import TextField from '@mui/material/TextField'
 import Typography from '@mui/material/Typography'
 import { createTheme, ThemeProvider } from '@mui/material/styles'
+import Layout from 'components/layout'
 import apiClient from 'libs/apiClient'
+import { v4 as uuidv4 } from 'uuid'
 import { jLeagueTeams } from 'utils/TeamData'
 import CloseIcon from '/public/svg/modal_close.svg'
-import { AccountType } from 'types/internal'
+import { AccountType } from 'types/global'
+import Meta from 'components/layout/Head'
 import style from './SignUp.module.scss'
-import ModalBase from 'components/parts/Modal'
 
 const defaultTheme = createTheme()
 
@@ -50,7 +52,7 @@ export default function SignUp(): JSX.Element {
         name: data.name,
         team: data.team,
         bio: '自己紹介文を入力してください',
-        icon: String(Math.floor(Math.random() * 100) + 1),
+        icon: String(uuidv4() + 'iconImg'),
       })
       setIsLoading(true)
     } catch (error) {
@@ -58,36 +60,39 @@ export default function SignUp(): JSX.Element {
     }
     setOpen(true)
   }
+
   const handleClose = (): void => {
     setOpen(false)
     router.push('/login')
   }
+
   return (
-    <div className='sginup'>
+    <Layout>
+      <Meta title='新規登録' />
       <ThemeProvider theme={defaultTheme}>
-        {isLoading && (
-          <ModalBase open={open} onClose={handleClose}>
-            <div className={style.modal}>
-              {open ? (
-                <>
-                  <CloseIcon
-                    className={style.modal_close_icon}
-                    onCLick={(): void => {
-                      setOpen(false)
-                    }}
-                  />
-                  <div className={style.modal_contents}>
-                    <p>会員登録が完了しました。</p>
-                    <p>ログインしてさっそく始めましょう！！</p>
-                    <Image src='/soccer.jpg' alt='close' width={100} height={76} />
-                  </div>
-                </>
-              ) : (
-                <CircularProgress color='inherit' />
-              )}
-            </div>
-          </ModalBase>
-        )}
+        {/* {isLoading && (
+            <ModalBase open={open} onClose={handleClose}>
+              <div className={style.modal}>
+                {open ? (
+                  <>
+                    <CloseIcon
+                      className={style.modal_close_icon}
+                      onCLick={(): void => {
+                        setOpen(false)
+                      }}
+                    />
+                    <div className={style.modal_contents}>
+                      <p>会員登録が完了しました。</p>
+                      <p>ログインしてさっそく始めましょう！！</p>
+                      <Image src='/soccer.jpg' alt='close' width={100} height={76} />
+                    </div>
+                  </>
+                ) : (
+                  <CircularProgress color='inherit' />
+                )}
+              </div>
+            </ModalBase>
+          )} */}
         <Container component='main' maxWidth='xs'>
           <CssBaseline />
           <Box
@@ -196,6 +201,6 @@ export default function SignUp(): JSX.Element {
           </Box>
         </Container>
       </ThemeProvider>
-    </div>
+    </Layout>
   )
 }

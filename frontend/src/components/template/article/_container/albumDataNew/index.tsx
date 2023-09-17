@@ -8,7 +8,7 @@ interface Props {
   articlesNew: ArticlesType[]
 }
 
-const AlbumNew = (props: Props): JSX.Element => {
+export default function AlbumNew(props: Props): JSX.Element {
   const { articlesNew, albumserch } = props
   const articlesNewFilter = articlesNew.filter((article) => article.title.includes(albumserch))
   return (
@@ -19,5 +19,3 @@ const AlbumNew = (props: Props): JSX.Element => {
     </ArticleArea>
   )
 }
-
-export default AlbumNew

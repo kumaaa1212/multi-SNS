@@ -20,6 +20,7 @@ const Thumbnail = (): JSX.Element => {
     dispatch(addThumbnail(e.target.value))
     dispatch(addLabels(selectedLabels))
   }
+  
 
   return (
     <Layout>

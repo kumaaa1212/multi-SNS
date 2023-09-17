@@ -26,9 +26,9 @@ const AlnumLayout = (props: Props): JSX.Element => {
   const { children, setIsSaveBar = (): boolean => false } = props
 
   const router = useRouter()
-  const [keepPost, setKeepPost] = useState<boolean>(false)
+  const [keepPost, setKeepPost] = useState<boolean>(true)
   const [activeStep, setActiveStep] = useState<number>(0)
-  const [relese, setRelese] = useState<boolean>(false)
+  const [relese, setRelese] = useState<boolean>(true)
   const [ideaOpen, setIdeaOpen] = useState<boolean>(false)
   const [keepOpen, setKeepOpen] = useState<boolean>(false)
   const [abjustOpen, setAbjustOpen] = useState<boolean>(false)

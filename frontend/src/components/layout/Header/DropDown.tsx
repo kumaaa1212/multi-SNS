@@ -33,7 +33,7 @@ export default function DropDown(): JSX.Element {
           </MenuItem>
           <MenuItem
             onClick={(): void => {
-              router.push('/')
+              router.push('/signup')
             }}
           >
             <Typography textAlign='center' className='drop_menu'>

@@ -4,28 +4,18 @@ import apiClient from 'libs/apiClient'
 import { ArticlesType, LabelType, TweetsType } from 'types/global'
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  try {
-    const albumsData = await apiClient.get('/post/all/album/top')
-    const tweetsData = await apiClient.get('/post/all/tweet/top')
-    const labelsData = await apiClient.get('/post/album/labels')
-    const albums = albumsData.data
-    const tweets = tweetsData.data
-    const labels = labelsData.data
-    return {
-      props: {
-        albums: albums.topAlbumLikedContent,
-        tweets: tweets.topTweetLikedContent,
-        labels: labels.albumLabels,
-      },
-    }
-  } catch {
-    return {
-      props: {
-        albums: [],
-        tweets: [],
-        labels: [],
-      },
-    }
+  const [albumsData, tweetsData, labelsData] = await Promise.all([
+    apiClient.get('/post/all/album/top'),
+    apiClient.get('/post/all/tweet/top'),
+    apiClient.get('/post/album/labels'),
+  ])
+
+  return {
+    props: {
+      albums: albumsData.data.topAlbumLikedContent,
+      tweets: tweetsData.data.topTweetLikedContent,
+      labels: labelsData.data.albumLabels,
+    },
   }
 }
 interface Props {
@@ -36,7 +26,6 @@ interface Props {
 
 export const HomePage = (props: Props): JSX.Element => {
   const { albums, tweets, labels } = props
-
   return <Home albums={albums} tweets={tweets} labels={labels} />
 }
 

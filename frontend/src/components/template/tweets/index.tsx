@@ -1,13 +1,20 @@
 import { useState } from 'react'
-import { useToast } from 'components/hooks/useToast'
 import Layout from 'components/layout'
+import { TweetsType } from 'types/global'
 import Meta from 'components/layout/Head'
 import LabelArea from 'components/widgets/Label/articles'
 import PostTemPlate from 'components/widgets/Post'
 import style from './Tweets.module.scss'
+import TweetLike from './_container/tweetsDataLike'
+import TweetNew from './_container/tweetsDataNew'
 
-export default function Tweets(): JSX.Element {
-  const { toastContent, isError, isToast, toastFunc } = useToast()
+interface Props {
+  tweetsLike: TweetsType[]
+  tweetsNew: TweetsType[]
+}
+
+export default function Tweets(props: Props): JSX.Element {
+  const { tweetsLike, tweetsNew } = props
   const [click, setClicked] = useState<boolean>(true)
   const [albumserch, setAlbumserch] = useState<string>('')
 
@@ -24,7 +31,11 @@ export default function Tweets(): JSX.Element {
           albumserch={albumserch}
           setAlbumserch={setAlbumserch}
         >
-          <div></div>
+          {click ? (
+            <TweetNew albumserch={albumserch} tweetsNew={tweetsNew} />
+          ) : (
+            <TweetLike albumserch={albumserch} tweetsLike={tweetsLike} />
+          )}
         </PostTemPlate>
         <LabelArea />
       </div>

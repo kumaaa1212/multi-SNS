@@ -1,14 +1,14 @@
 import { Dispatch, SetStateAction, useEffect, useState } from 'react'
+import { useSelector } from 'react-redux'
+import { Badge } from '@mui/material'
+import { RootState } from 'store/store'
+import { RoomType } from 'types/global'
 import ChatSearch from 'components/parts/Search/ChatSearch'
 import NewChatIcon from '/public/svg/newChat.svg'
 import ChatSetting from '/public/svg/chat_setting.svg'
 import MultipleSelectNative from 'components/parts/Select'
 import Chatlist from 'components/parts/chat/ChatSide'
-import style from '../Chat.module.scss'
-import { RoomType } from 'types/global'
-import { useSelector } from 'react-redux'
-import { RootState } from 'store/store'
-import { Badge } from '@mui/material'
+import style from '../../Chat.module.scss'
 
 interface Props {
   rooms: RoomType[]
@@ -17,7 +17,7 @@ interface Props {
   setSelectRoom: Dispatch<SetStateAction<RoomType[]>>
 }
 
-const SideBar = (props: Props) => {
+const SideBar = (props: Props): JSX.Element => {
   const { setSelectChatRoom, setSelectRoom, rooms, selectChatRoom } = props
   const { userId, follow } = useSelector((state: RootState) => state.user)
 
