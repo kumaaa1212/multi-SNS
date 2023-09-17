@@ -24,10 +24,8 @@ interface Props {
   articlesNew: ArticlesType[] | []
 }
 
-const ArticlePage = (props: Props): JSX.Element => {
+export default function ArticlePage(props: Props): JSX.Element {
   const { articlesLike, articlesNew } = props
 
   return <Albums articlesLike={articlesLike} articlesNew={articlesNew} />
 }
-
-export default ArticlePage
