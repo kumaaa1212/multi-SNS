@@ -1,7 +1,6 @@
 .article_contents {
-  margin: 50px 0 0 50px;
   min-height: 100vh;
-  background-color: gray;
+  padding: 50px;
 }
 
 .search_area {
@@ -21,7 +20,7 @@
   margin: 100px 0px;
 }
 
-.main_area{
+.main_area {
   display: grid;
   grid-template-columns: 1fr 300px;
 }

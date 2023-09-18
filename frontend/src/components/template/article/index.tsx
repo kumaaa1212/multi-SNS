@@ -4,7 +4,6 @@ import { ArticlesType } from 'types/global'
 import Meta from 'components/layout/Head'
 import LabelArea from 'components/widgets/Label/articles'
 import PostTemPlate from 'components/widgets/Post'
-import style from './Article.module.scss'
 import AlbumLike from './_container/albumDataLike'
 import AlbumNew from './_container/albumDataNew'
 
@@ -22,24 +21,22 @@ export default function Albums(props: Props): JSX.Element {
   return (
     <Layout>
       <Meta title='アルバム' />
-      <div className={style.article}>
-        <PostTemPlate
-          newButton='新着アルバム'
-          popularButton='人気アルバム'
-          inputName='アルバムを検索'
-          click={click}
-          setClicked={setClicked}
-          albumserch={albumserch}
-          setAlbumserch={setAlbumserch}
-        >
-          {click ? (
-            <AlbumNew albumserch={albumserch} articlesNew={articlesNew} />
-          ) : (
-            <AlbumLike albumserch={albumserch} articlesLike={articlesLike} />
-          )}
-        </PostTemPlate>
+      <PostTemPlate
+        newButton='新着アルバム'
+        popularButton='人気アルバム'
+        inputName='アルバムを検索'
+        click={click}
+        setClicked={setClicked}
+        albumserch={albumserch}
+        setAlbumserch={setAlbumserch}
+      >
+        {click ? (
+          <AlbumNew albumserch={albumserch} articlesNew={articlesNew} />
+        ) : (
+          <AlbumLike albumserch={albumserch} articlesLike={articlesLike} />
+        )}
         <LabelArea />
-      </div>
+      </PostTemPlate>
     </Layout>
   )
 }

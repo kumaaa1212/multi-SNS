@@ -4,7 +4,6 @@ import { TweetsType } from 'types/global'
 import Meta from 'components/layout/Head'
 import LabelArea from 'components/widgets/Label/articles'
 import PostTemPlate from 'components/widgets/Post'
-import style from './Tweets.module.scss'
 import TweetLike from './_container/tweetsDataLike'
 import TweetNew from './_container/tweetsDataNew'
 
@@ -21,7 +20,7 @@ export default function Tweets(props: Props): JSX.Element {
   return (
     <Layout>
       <Meta title='Tweet' />
-      <div className={style.article}>
+      <div className='bg_gray'>
         <PostTemPlate
           newButton='新着Tweet'
           popularButton='人気Tweet'
