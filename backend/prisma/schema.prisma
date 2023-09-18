@@ -101,6 +101,7 @@ model Tweet{
   authorName String
   authorAvatar String
   likes TweetLike[]
+  label String
 }
 model TweetLike{
   id Int @id @default(autoincrement())

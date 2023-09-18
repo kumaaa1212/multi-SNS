@@ -6,15 +6,15 @@ import { RootState } from 'store/store'
 import { MessageType, RoomType } from 'types/global'
 import SendInput from 'components/parts/Input/Send'
 import ChatContent from 'components/parts/chat/ChatContent'
-import style from '../../Chat.module.scss'
+import style from './Main.module.scss'
 
 interface Props {
   selectRoom: RoomType
-  setSelectRoom: any
+  setSelectRoom: React.Dispatch<React.SetStateAction<RoomType[]>>
   selectChatRoom: boolean
 }
 
-const ChatArea = (props: Props) => {
+const ChatArea = (props: Props): JSX.Element => {
   const { selectRoom, setSelectRoom, selectChatRoom } = props
   const [newMessage, setNewMessage] = useState<RoomType>()
 
@@ -22,7 +22,7 @@ const ChatArea = (props: Props) => {
   const [input, setInput] = useState<string>('')
   const router = useRouter()
 
-  const handleSend = async () => {
+  const handleSend = async (): Promise<void> => {
     if (!input) return
     try {
       await apiClient.post('/chat/room/add/message', {
@@ -46,7 +46,7 @@ const ChatArea = (props: Props) => {
           {newMessage ? (
             <div className={style.chat_area_scroll}>
               {newMessage?.messages.map((message: MessageType) => (
-                <ChatContent message={message} selectRoom={selectRoom} />
+                <ChatContent message={message} selectRoom={selectRoom} key={message.id} />
               ))}
               <div className={style.input_area}>
                 <SendInput input={input} setInput={setInput} handleSend={handleSend} />
@@ -55,7 +55,7 @@ const ChatArea = (props: Props) => {
           ) : (
             <div className={style.chat_area_scroll}>
               {selectRoom?.messages.map((message: MessageType) => (
-                <ChatContent message={message} selectRoom={selectRoom} />
+                <ChatContent message={message} selectRoom={selectRoom} key={message.id} />
               ))}
               <div className={style.input_area}>
                 <SendInput input={input} setInput={setInput} handleSend={handleSend} />

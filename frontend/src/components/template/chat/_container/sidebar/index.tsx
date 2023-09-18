@@ -3,12 +3,14 @@ import { useSelector } from 'react-redux'
 import { Badge } from '@mui/material'
 import { RootState } from 'store/store'
 import { RoomType } from 'types/global'
-import ChatSearch from 'components/parts/Search/ChatSearch'
+import ChatSearch from 'components/parts/Search'
 import NewChatIcon from '/public/svg/newChat.svg'
 import ChatSetting from '/public/svg/chat_setting.svg'
 import MultipleSelectNative from 'components/parts/Select'
 import Chatlist from 'components/parts/chat/ChatSide'
-import style from '../../Chat.module.scss'
+import SettingsIcon from '/public/svg/message_settings.svg'
+import RequestIcon from '/public/svg/message_request.svg'
+import style from './Sidebar.module.scss'
 
 interface Props {
   rooms: RoomType[]
@@ -27,15 +29,15 @@ const SideBar = (props: Props): JSX.Element => {
   const [roomsData, setRoomsData] = useState<RoomType[]>(rooms)
 
   useEffect(() => {
-    const filterMyRooms = rooms?.filter((room: any) =>
+    const filterMyRooms = rooms?.filter((room: RoomType) =>
       follow.some(
         (person) =>
-          (person.authorId === room.user1Id && room.user2Id === userId) ||
-          (person.authorId === room.user2Id && room.user1Id === userId),
+          (person.userId === room.user1Id && room.user2Id === userId) ||
+          (person.userId === room.user2Id && room.user1Id === userId),
       ),
     )
     setMyRooms(filterMyRooms)
-  }, [])
+  }, [follow, rooms, userId])
 
   return (
     <div className='chat_sidebar'>
@@ -44,12 +46,18 @@ const SideBar = (props: Props): JSX.Element => {
           <Badge badgeContent={4} color='primary'>
             <ChatSetting
               className={style.settingIcon}
-              onClick={() => setSettingArea(!settingArea)}
+              onClick={(): void => setSettingArea(!settingArea)}
             />
             {settingArea && (
               <div className={style.setting_area}>
-                <span>Message Rqquests</span>
-                <span>メッセージを編集</span>
+                <div className={style.message_request}>
+                  <RequestIcon />
+                  <p>Message Rqquests</p>
+                </div>
+                <div className={style.message_setting}>
+                  <SettingsIcon />
+                  <p>メッセージを編集</p>
+                </div>
               </div>
             )}
           </Badge>
@@ -70,6 +78,7 @@ const SideBar = (props: Props): JSX.Element => {
         <div className={style.chat_person}>
           {myRooms?.map((room: RoomType) => (
             <Chatlist
+              key={room.id}
               selectChatRoom={selectChatRoom}
               setSelectChatRoom={setSelectChatRoom}
               myRooms={myRooms}

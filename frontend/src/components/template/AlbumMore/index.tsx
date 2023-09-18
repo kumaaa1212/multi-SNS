@@ -1,5 +1,7 @@
 import React from 'react'
 import 'github-markdown-css'
+import Layout from 'components/layout'
+import Meta from 'components/layout/Head'
 import style from './AlbumMore.module.scss'
 
 interface Props {
@@ -13,13 +15,16 @@ const AlbumMore = (props: Props): JSX.Element => {
   })
 
   return (
-    <div className={style.content}>
-      <div
-        id='mdrender'
-        className='markdown-body'
-        dangerouslySetInnerHTML={{ __html: absoluteMarkdown }}
-      ></div>
-    </div>
+    <Layout>
+      <Meta title='AlbumMore' />
+      <div className={style.content}>
+        <div
+          id='mdrender'
+          className='markdown-body'
+          dangerouslySetInnerHTML={{ __html: absoluteMarkdown }}
+        ></div>
+      </div>
+    </Layout>
   )
 }
 

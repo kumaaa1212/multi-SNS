@@ -1,17 +1,17 @@
 import { useSelector } from 'react-redux'
-import { RootState } from '@/store/store'
-import { MessageType, RoomType } from '@/types/global'
+import Image from 'next/image'
+import { RootState } from 'store/store'
+import { MessageType, RoomType } from 'types/global'
 import styles from './ChatContent.module.scss'
 import Icongenerate from '../../../utils/functions/Avater'
 import noavater from '/public/noavater.jpg'
-import Image from 'next/image'
 
 interface Props {
   message: MessageType
   selectRoom: RoomType
 }
 
-const ChatContent = (props: Props) => {
+const ChatContent = (props: Props): JSX.Element => {
   const { message, selectRoom } = props
 
   const { userId } = useSelector((state: RootState) => state.user)

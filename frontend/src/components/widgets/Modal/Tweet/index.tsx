@@ -44,7 +44,7 @@ export default function TweetModal(props: Props): JSX.Element {
           authorName: username,
           authorAvatar: iconPath,
           img: urlData.publicUrl ? urlData.publicUrl : '',
-          label: selectedLabels,
+          label: selectedLabels[0].name,
         })
         setTweetContents('')
         setDisplayImg('')

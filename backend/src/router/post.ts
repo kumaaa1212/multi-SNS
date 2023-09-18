@@ -8,7 +8,7 @@ const prisma = new PrismaClient();
 router.get("/album/labels", async (req, res) => {
   try {
     const albumLabels = await prisma.postLabel.findMany();
-    res.json({albumLabels});
+    res.json({ albumLabels });
   } catch (error) {
     res.status(500).json({ error: "An error occurred while fetching data." });
   }
@@ -50,7 +50,7 @@ router.get("/keep-post/:authorId", async (req: Request, res: Response) => {
 
 // albumを追加する
 router.post("/tweet", async (req: Request, res: Response) => {
-  const { content, authorId, authorName, authorAvatar, img } = req.body;
+  const { content, authorId, authorName, authorAvatar, img, label } = req.body;
 
   try {
     const tweet = await prisma.tweet.create({
@@ -60,6 +60,7 @@ router.post("/tweet", async (req: Request, res: Response) => {
         authorId,
         authorName,
         authorAvatar,
+        label,
       },
     });
     return res.json({ tweet });
@@ -192,7 +193,7 @@ router.get("/all/album/top", async (req: Request, res: Response) => {
       .sort((a, b) => b.likes.length - a.likes.length)
       .slice(0, 6);
 
-    return res.json({topAlbumLikedContent});
+    return res.json({ topAlbumLikedContent });
   } catch (err: any) {
     res.json({ error: err.message });
   }
@@ -200,7 +201,6 @@ router.get("/all/album/top", async (req: Request, res: Response) => {
 // 全tweetの取得(いいね順上位6個)
 router.get("/all/tweet/top", async (req: Request, res: Response) => {
   try {
-
     const tweets = await prisma.tweet.findMany({
       orderBy: {
         createdAt: "desc",
@@ -208,14 +208,14 @@ router.get("/all/tweet/top", async (req: Request, res: Response) => {
       include: {
         likes: true,
       },
-    })
+    });
 
     // likesの長さでソートして上位6つを選択
     const topTweetLikedContent = tweets
       .sort((a, b) => b.likes.length - a.likes.length)
       .slice(0, 6);
 
-    return res.json({topTweetLikedContent});
+    return res.json({ topTweetLikedContent });
   } catch (err: any) {
     res.json({ error: err.message });
   }
@@ -238,7 +238,7 @@ router.get("/all/content/order/like", async (req: Request, res: Response) => {
       (a, b) => b.likes.length - a.likes.length
     );
 
-    return res.json({topLikedContent});
+    return res.json({ topLikedContent });
   } catch (err: any) {
     res.json({ error: err.message });
   }
@@ -257,7 +257,7 @@ router.get("/all/content/order/new", async (req: Request, res: Response) => {
       },
     });
 
-    return res.json({posts});
+    return res.json({ posts });
   } catch (err: any) {
     res.json({ error: err.message });
   }
@@ -579,7 +579,9 @@ router.post("/album/bookmark/check", async (req: Request, res: Response) => {
 });
 
 // 自分がbookmarkした投稿の取得
-router.get("/album/bookmarked/:authorId", async (req: Request, res: Response) => {
+router.get(
+  "/album/bookmarked/:authorId",
+  async (req: Request, res: Response) => {
     const { authorId } = req.params;
 
     try {
@@ -632,7 +634,6 @@ router.get("/album/team/:label", async (req: Request, res: Response) => {
     res.json({ error: err.message });
   }
 });
-
 
 router.post("/tweet/like/check", async (req: Request, res: Response) => {
   const { tweetId, authorId } = req.body;

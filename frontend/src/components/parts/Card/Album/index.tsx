@@ -129,7 +129,7 @@ export default function AlbumCard(props: Props): JSX.Element {
         <Collapse in={expanded} timeout='auto' unmountOnExit>
           <CardContent>
             <div>
-              <Link href={`/home/albumMore/${album?.id}`}>Show more</Link>
+              <Link href={`/albumMore/${album?.id}`}>Show more</Link>
             </div>
           </CardContent>
         </Collapse>
