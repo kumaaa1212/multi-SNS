@@ -20,8 +20,8 @@ export const getServerSideProps: GetServerSideProps = async () => {
 }
 
 interface Props {
-  articlesLike: ArticlesType[] | []
-  articlesNew: ArticlesType[] | []
+  articlesLike: ArticlesType[]
+  articlesNew: ArticlesType[]
 }
 
 export default function ArticlePage(props: Props): JSX.Element {

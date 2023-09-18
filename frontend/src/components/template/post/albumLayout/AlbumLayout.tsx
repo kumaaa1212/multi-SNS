@@ -7,7 +7,7 @@ import { AppDispatch, RootState } from 'store/store'
 import { v4 as uuidv4 } from 'uuid'
 import { supabase } from 'utils/supabaseClient'
 import Button from 'components/parts/Button/Base'
-import SwitchBtn from 'components/parts/Button/SwitchBtn'
+import SwitchBtn from 'components/parts/Button/Switch/SwitchBtn'
 import HorizontalLinearStepper from 'components/parts/Stepper'
 import AbjustModal from 'components/widgets/Modal/Abjustment'
 import KeepModal from 'components/widgets/Modal/Keep'
@@ -22,13 +22,13 @@ interface Props {
   setIsSaveBar?: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-const AlnumLayout = (props: Props): JSX.Element => {
+export default function AlnumLayout(props: Props): JSX.Element {
   const { children, setIsSaveBar = (): boolean => false } = props
 
   const router = useRouter()
-  const [keepPost, setKeepPost] = useState<boolean>(true)
+  const [keepPost, setKeepPost] = useState<boolean>(false)
   const [activeStep, setActiveStep] = useState<number>(0)
-  const [relese, setRelese] = useState<boolean>(true)
+  const [relese, setRelese] = useState<boolean>(false)
   const [ideaOpen, setIdeaOpen] = useState<boolean>(false)
   const [keepOpen, setKeepOpen] = useState<boolean>(false)
   const [abjustOpen, setAbjustOpen] = useState<boolean>(false)
@@ -42,7 +42,7 @@ const AlnumLayout = (props: Props): JSX.Element => {
   useEffect(() => {
     if (router.pathname === '/post/album/thumbnail') {
       setActiveStep(1)
-      setRelese((prev) => !prev)
+      setRelese(true)
     }
   }, [router.pathname])
 
@@ -147,9 +147,7 @@ const AlnumLayout = (props: Props): JSX.Element => {
               </ul>
             )}
           </div>
-          <div>
-            <SwitchBtn keepPost={keepPost} setKeepPost={setKeepPost} relese={relese} />
-          </div>
+          <SwitchBtn keepPost={keepPost} setKeepPost={setKeepPost} relese={relese} />
           <div>
             {keepPost || relese ? (
               <div>
@@ -192,5 +190,3 @@ const AlnumLayout = (props: Props): JSX.Element => {
     </div>
   )
 }
-
-export default AlnumLayout

@@ -66,7 +66,7 @@ router.get("/me", middleware, async (req: any, res: Response) => {
 });
 
 router.put("/update/:id", async (req, res) => {
-  const { name, bio, icon, twitterURL, teamURL } = req.body;
+  const { name, bio, iconPath, twitterURL, teamURL } = req.body;
   const { id } = req.params;
 
   try {
@@ -77,7 +77,7 @@ router.put("/update/:id", async (req, res) => {
       data: {
         name: name,
         bio: bio,
-        icon: icon,
+        icon: iconPath,
         twitterURL: twitterURL,
         teamURL: teamURL,
       },
@@ -96,7 +96,6 @@ router.post("/follow", async (req: Request, res: Response) => {
     req.body;
 
   try {
-    // 新しいフォローを作成
     const newFollow = await prisma.follow.create({
       data: {
         userId: Number(authorId),
@@ -110,7 +109,6 @@ router.post("/follow", async (req: Request, res: Response) => {
       },
     });
 
-    // フォローを作成したユーザーの follow 関連フィールドに新しいフォローを追加
     await prisma.user.update({
       where: { id: Number(authorId) },
       data: {
@@ -120,7 +118,6 @@ router.post("/follow", async (req: Request, res: Response) => {
       },
     });
 
-    // フォローされたユーザーの follower 関連フィールドに新しいフォロワーを追加
     await prisma.user.update({
       where: { id: Number(userId) },
       data: {

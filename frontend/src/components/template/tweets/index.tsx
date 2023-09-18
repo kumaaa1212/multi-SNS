@@ -31,13 +31,15 @@ export default function Tweets(props: Props): JSX.Element {
           albumserch={albumserch}
           setAlbumserch={setAlbumserch}
         >
-          {click ? (
-            <TweetNew albumserch={albumserch} tweetsNew={tweetsNew} />
-          ) : (
-            <TweetLike albumserch={albumserch} tweetsLike={tweetsLike} />
-          )}
+          <div>
+            {click ? (
+              <TweetNew albumserch={albumserch} tweetsNew={tweetsNew} />
+            ) : (
+              <TweetLike albumserch={albumserch} tweetsLike={tweetsLike} />
+            )}
+          </div>
+          <LabelArea />
         </PostTemPlate>
-        <LabelArea />
       </div>
     </Layout>
   )

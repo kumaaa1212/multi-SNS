@@ -48,7 +48,7 @@ export default function PostTemPlate(props: Props): JSX.Element {
           onChange={(e): void => setAlbumserch(e.target.value)}
         />
       </div>
-      <div>{children}</div>
+      <div className={style.main_area}>{children}</div>
       <div className={style.pagenation}>
         {click ? (
           <BasicPagination setCurrentPage={setCurrentPage} pagelenght={0} clasName='mv_64' />

@@ -18,7 +18,7 @@ const FollowButton = (props: Props): JSX.Element => {
   const [followBtn, setFollowBtn] = useState<boolean>()
 
   const followUser = async (
-    authorId: string,
+    _authorId: string,
     userId: string,
     username: string,
     iconPath: string,
@@ -28,7 +28,7 @@ const FollowButton = (props: Props): JSX.Element => {
     teamURL: string | undefined,
   ): Promise<void> => {
     await apiClient.post('/auth/follow', {
-      authorId: posts.authorId,
+      authorId: _authorId,
       userId,
       name: username,
       iconpath: iconPath,
@@ -39,8 +39,8 @@ const FollowButton = (props: Props): JSX.Element => {
     })
   }
 
-  const unFollowUser = async (authorId: string, userId: string): Promise<void> => {
-    await apiClient.delete(`/auth/unfollow?authorId=${authorId}&userId=${userId}`)
+  const unFollowUser = async (_authorId: string, userId: string): Promise<void> => {
+    await apiClient.delete(`/auth/unfollow?authorId=${_authorId}&userId=${userId}`)
   }
 
   useEffect(() => {

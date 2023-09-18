@@ -10,6 +10,8 @@ import { TeamDataType } from 'types/global'
 import ButtonBase from 'components/parts/Button/Base'
 import ModalBase from 'components/parts/Modal'
 import Labels from 'components/widgets/Label'
+import CloseIcon from '/public/svg/modal_close.svg'
+import ImgIcon from '/public/svg/modal_tweet_img.svg'
 import style from './TweetModal.module.scss'
 
 interface Props {
@@ -24,14 +26,14 @@ export default function TweetModal(props: Props): JSX.Element {
   const [tweetContents, setTweetContents] = useState<string>('')
   const [dispalayImg, setDisplayImg] = useState<string>('')
   const [selectedLabels, setSelectedLabels] = useState<TeamDataType[]>([])
-  const [file, setFile] = useState<any>()
+  const [fileData, setFile] = useState<File>()
 
   const handleTweet = async (): Promise<void> => {
     try {
-      if (tweetContents && !file) {
+      if (tweetContents && fileData) {
         const { data: storageData, error: storegeError } = await supabase.storage
           .from('thumbnail')
-          .upload(`${userId}/${uuidv4()}`, file)
+          .upload(`${userId}/${uuidv4()}`, fileData)
         if (storegeError) {
           throw storegeError
         }
@@ -41,12 +43,12 @@ export default function TweetModal(props: Props): JSX.Element {
           authorId: userId,
           authorName: username,
           authorAvatar: iconPath,
-          img: urlData.publicUrl,
+          img: urlData.publicUrl ? urlData.publicUrl : '',
           label: selectedLabels,
         })
         setTweetContents('')
         setDisplayImg('')
-        setFile('')
+        setFile(undefined)
         setSelectedLabels([])
       }
     } catch {
@@ -69,23 +71,7 @@ export default function TweetModal(props: Props): JSX.Element {
     <ModalBase open={open} onClose={setOpen}>
       <div className={style.tweet_modal}>
         <div className={style.handle_close}>
-          <svg
-            xmlns='http://www.w3.org/2000/svg'
-            className={style.close_btn}
-            width='40'
-            height='40'
-            viewBox='0 0 24 24'
-            stroke-width='1.5'
-            stroke='#000000'
-            fill='none'
-            stroke-linecap='round'
-            stroke-linejoin='round'
-            onClick={(): void => setOpen(!open)}
-          >
-            <path stroke='none' d='M0 0h24v24H0z' fill='none' />
-            <path d='M18 6l-12 12' />
-            <path d='M6 6l12 12' />
-          </svg>
+          <CloseIcon className={style.close_btn} onClick={(): void => setOpen(!open)} />
         </div>
         <div className={style.tweet_content}>
           <Image src={icon} alt={''} width={50} height={50} className={style.profile_img} />
@@ -109,26 +95,7 @@ export default function TweetModal(props: Props): JSX.Element {
           )}
         </div>
         <div className={style.handle_tweet}>
-          <svg
-            xmlns='http://www.w3.org/2000/svg'
-            className='icon icon-tabler icon-tabler-photo-minus'
-            width='36'
-            height='36'
-            viewBox='0 0 24 24'
-            stroke-width='2'
-            stroke='#000000'
-            fill='none'
-            stroke-linecap='round'
-            stroke-linejoin='round'
-            onClick={(): void => openFileInput()}
-          >
-            <path stroke='none' d='M0 0h24v24H0z' fill='none' />
-            <path d='M15 8h.01' />
-            <path d='M12.5 21h-6.5a3 3 0 0 1 -3 -3v-12a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v9' />
-            <path d='M3 16l5 -5c.928 -.893 2.072 -.893 3 0l4 4' />
-            <path d='M14 14l1 -1c.928 -.893 2.072 -.893 3 0l2 2' />
-            <path d='M16 19h6' />
-          </svg>
+          <ImgIcon onClick={(): void => openFileInput()} />
           <input
             type='file'
             id='addImg'

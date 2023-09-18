@@ -33,12 +33,16 @@ export default function Layout(props: Props): JSX.Element {
   useEffect(() => {
     const fetchData = async (): Promise<void> => {
       const token = localStorage.getItem('auth_token')
-      if (token) {
-        apiClient.defaults.headers.common['Authorization'] = `Bearer ${token}`
-        await apiClient.get('/auth/me').then((res) => {
-          if (res.status !== 200) throw Error
-          dispatch(updateUser(res.data))
-        })
+      try {
+        if (token) {
+          apiClient.defaults.headers.common['Authorization'] = `Bearer ${token}`
+          await apiClient.get('/auth/me').then((res) => {
+            if (res.status !== 200) throw Error
+            dispatch(updateUser(res.data))
+          })
+        }
+      } catch {
+        localStorage.removeItem('auth_token')
       }
     }
     fetchData()

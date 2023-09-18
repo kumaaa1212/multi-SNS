@@ -10,9 +10,14 @@ interface Props {
 
 export default function AlbumLike(props: Props): JSX.Element {
   const { articlesLike, albumserch } = props
+
+  const articlesNewFilter = articlesLike.filter(
+    (article) => article.title.includes(albumserch) || article.content.includes(albumserch),
+  )
+
   return (
     <ArticleArea>
-      {articlesLike?.map((album) => <ArticleCard album={album} key={album.id} />)}
+      {articlesNewFilter?.map((album) => <ArticleCard album={album} key={album.id} />)}
     </ArticleArea>
   )
 }

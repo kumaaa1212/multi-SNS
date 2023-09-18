@@ -44,7 +44,6 @@ export default function Login(): JSX.Element {
         password: value.password,
       })
       localStorage.setItem('auth_token', res.data.token)
-      console.log(res.data.user)
       dispatch(loginUser(res.data.user))
       router.push('/home')
     } catch {

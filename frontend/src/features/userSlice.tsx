@@ -33,7 +33,6 @@ const userSlice = createSlice({
   initialState,
   reducers: {
     loginUser: (state, action) => {
-      console.log(action.payload)
       return {
         ...state,
         username: action.payload.name,
@@ -63,8 +62,8 @@ const userSlice = createSlice({
         icon: Icongenerate(action.payload.user.icon),
         iconPath: action.payload.user.icon,
         bio: action.payload.user.bio,
-        follow: action.payload.follow && [...action.payload.follow],
-        follower: action.payload.follower && [...action.payload.follower],
+        follow: action.payload.follow ? action.payload.follow : [],
+        follower: action.payload.follower ? action.payload.follower : [],
         twitterURL: action.payload.user.twitterURL,
         teamURL: action.payload.user.teamURL,
       }
