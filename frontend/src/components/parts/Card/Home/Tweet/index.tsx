@@ -1,6 +1,7 @@
+import { useState } from 'react'
 import Image from 'next/image'
-import { useRouter } from 'next/router'
 import { Paper } from '@mui/material'
+import { jLeagueTeams } from 'utils/TeamData'
 import { formatTimestamp } from 'utils/functions/Time'
 import { TweetsType } from 'types/global'
 import style from './index.module.scss'
@@ -14,7 +15,7 @@ interface Props {
 export default function HomeTweetCard(props: Props): JSX.Element {
   const { tweet, setShowTweets, setOpen } = props
 
-  const router = useRouter()
+  const label = jLeagueTeams.filter((team) => team.name === tweet?.label)[0]
 
   const handleShow = (): void => {
     setShowTweets(tweet)
@@ -25,13 +26,13 @@ export default function HomeTweetCard(props: Props): JSX.Element {
     <div className={style.card} onClick={handleShow}>
       <Paper className={style.team_card}>
         <Image
-          src='/images/profile.jpg'
+          src={label.img}
           alt='チームのエンブレム'
           width={100}
           height={70}
           className={style.team_img}
         />
-        <span>FC東京</span>
+        <span>{label.name}</span>
       </Paper>
       <div className='ml_10'>
         <p className={style.content}>{tweet?.content}</p>

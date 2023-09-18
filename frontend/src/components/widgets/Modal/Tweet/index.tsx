@@ -30,10 +30,10 @@ export default function TweetModal(props: Props): JSX.Element {
 
   const handleTweet = async (): Promise<void> => {
     try {
-      if (tweetContents && fileData) {
+      if (tweetContents && fileData && selectedLabels.length === 1) {
         const { data: storageData, error: storegeError } = await supabase.storage
           .from('thumbnail')
-          .upload(`${userId}/${uuidv4()}`, fileData)
+          .upload(`${userId}/${uuidv4()}`, fileData ? fileData : '')
         if (storegeError) {
           throw storegeError
         }
@@ -50,6 +50,7 @@ export default function TweetModal(props: Props): JSX.Element {
         setDisplayImg('')
         setFile(undefined)
         setSelectedLabels([])
+        setOpen(false)
       }
     } catch {
       alert('ツイートに失敗しました')

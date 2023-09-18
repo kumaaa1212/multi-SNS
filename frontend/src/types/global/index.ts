@@ -51,6 +51,7 @@ export interface TweetsType {
   createdAt: string
   img: string
   likes?: TweetLikeType[] | []
+  label: string
 }
 
 export interface TweetLikeType {

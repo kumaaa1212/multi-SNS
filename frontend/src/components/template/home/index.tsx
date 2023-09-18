@@ -10,7 +10,7 @@ interface Props {
   labels: LabelType[]
 }
 
-const Home = (props: Props): JSX.Element => {
+export default function Home(props: Props): JSX.Element {
   const { albums, tweets, labels } = props
 
   return (
@@ -21,5 +21,3 @@ const Home = (props: Props): JSX.Element => {
     </Layout>
   )
 }
-
-export default Home

@@ -24,9 +24,7 @@ interface Props {
   labels: LabelType[]
 }
 
-export const HomePage = (props: Props): JSX.Element => {
+export default function HomePage(props: Props): JSX.Element {
   const { albums, tweets, labels } = props
   return <Home albums={albums} tweets={tweets} labels={labels} />
 }
-
-export default HomePage

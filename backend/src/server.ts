@@ -9,6 +9,7 @@ import dotenv from "dotenv";
 
 const app = express();
 const port = process.env.PORT;
+// ミドルウェアの設定
 app.use(express.json());
 dotenv.config();
 
