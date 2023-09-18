@@ -1,0 +1,41 @@
+.main_img {
+  object-fit: cover;
+}
+.article_card {
+  position: relative;
+
+  .icon_img {
+    border-radius: 10px;
+  }
+}
+
+.moreover_btn {
+  cursor: pointer;
+}
+
+.moreover_area {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  width: 100px;
+  height: 40px;
+  background-color: #fafbfb;
+  position: absolute;
+  right: 0;
+  top: 50px;
+  border-radius: 10px;
+  padding: 0px 5px;
+
+  p {
+    font-size: 20px;
+    font-weight: bold;
+    margin: 0;
+  }
+}
+.thumbnail_text {
+  font-weight: bold;
+}
+.label_area {
+  margin-top: 10px;
+}

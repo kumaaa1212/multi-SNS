@@ -20,6 +20,7 @@ import BookMarkBtn from 'components/parts/Button/BookMark'
 import DeleteButton from 'components/parts/Button/Delete'
 import FollowButton from 'components/parts/Button/Follow'
 import AlbumLikeBtn from 'components/parts/Button/Like/Album'
+import DeleteIcon from '/public/svg/tweet_delete.svg'
 import style from './ArticlesCard.module.scss'
 
 interface ExpandMoreProps extends IconButtonProps {
@@ -89,7 +90,12 @@ export default function AlbumCard(props: Props): JSX.Element {
           title={album?.title}
           subheader={formatTimestamp(album?.createdAt)}
         />
-        {true && <DeleteButton content='削除' album onClick={handleDelete} />}
+        {moreover && (
+          <div className={style.moreover_area}>
+            <p>削除</p>
+            <DeleteIcon />
+          </div>
+        )}
         <Image
           src={album?.thumbnailImg ? album.thumbnailImg : '/thumbnail.png'}
           alt={''}
