@@ -56,7 +56,7 @@ const MessageSidebar = (props: Props): JSX.Element => {
         <p className={style.bottom_border}>その他の返信</p>
       </div>
       <div>
-        {sideMessagrBar.map((sideChat: BoardMessageType) => (
+        {sideMessagrBar?.map((sideChat: BoardMessageType) => (
           <SidebarChatCard contents={sideChat} avater={sideChat.authorAvatar} key={sideChat.id}>
             {sideChat.content}
           </SidebarChatCard>

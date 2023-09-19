@@ -22,8 +22,6 @@ interface Props {
   post: ArticlesType[]
 }
 
-const TeamPage = ({ data }: { data: Props }): JSX.Element => {
+export default function TeamPage({ data }: { data: Props }): JSX.Element {
   return <Team data={data.post} />
 }
-
-export default TeamPage

@@ -26,20 +26,20 @@ export default function DropDown(): JSX.Element {
               router.push('/login')
             }}
           >
-            <Typography textAlign='center' className='drop_menu'>
+            <div className='drop_menu'>
               <LoginIcon />
-              <div>ログイン</div>
-            </Typography>
+              <p>ログイン</p>
+            </div>
           </MenuItem>
           <MenuItem
             onClick={(): void => {
               router.push('/signup')
             }}
           >
-            <Typography textAlign='center' className='drop_menu'>
+            <div className='drop_menu'>
               <PersonAddIcon />
-              <div>サインアップ</div>
-            </Typography>
+              <p>サインアップ</p>
+            </div>
           </MenuItem>
         </>
       ) : (

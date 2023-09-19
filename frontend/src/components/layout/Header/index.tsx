@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from 'react'
+import React, { useCallback, useMemo, useState } from 'react'
 import { useSelector } from 'react-redux'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
@@ -20,8 +20,8 @@ import DropDown from './DropDown'
 export default function Header(): JSX.Element {
   const router = useRouter()
   const { icon } = useSelector((state: RootState) => state.user)
-  const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null)
-  const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null)
+  const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null)
+  const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null)
 
   const pages = useMemo(() => ['HOME', 'CHAT', 'MYPAGE', 'BOARD'], [])
 
@@ -75,7 +75,6 @@ export default function Header(): JSX.Element {
           >
             LOGO
           </Typography>
-
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
               size='large'
@@ -180,7 +179,7 @@ export default function Header(): JSX.Element {
               open={Boolean(anchorElUser)}
               onClose={(): void => setAnchorElUser(null)}
             >
-              <DropDown />
+              {/* <DropDown /> */}
             </Menu>
           </Box>
         </Toolbar>

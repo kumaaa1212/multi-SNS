@@ -11,17 +11,17 @@ interface Props {
   boardRoom: BoardRoomType
 }
 
-const Board = (props: Props): JSX.Element => {
+export default function Board(props: Props): JSX.Element {
   const { boardRoom } = props
 
   const { toastContent, isError, isToast, toastFunc } = useToast()
   const [boardRooms, setBoardRooms] = useState<BoardRoomType>(boardRoom)
-  const [selectBoard, setSelectBoard] = useState<BoardType | undefined>()
   const [sideMessagrBar, setSideMessagrBar] = useState<boolean>(false)
+  const [selectBoard, setSelectBoard] = useState<BoardType | undefined>()
 
   return (
     <Layout>
-      <Meta title='Bulletin Board' />
+      <Meta title='BulletinBoard' />
       <div className='display_flex'>
         <Timeline
           boardRooms={boardRooms}
@@ -40,5 +40,3 @@ const Board = (props: Props): JSX.Element => {
     </Layout>
   )
 }
-
-export default Board
