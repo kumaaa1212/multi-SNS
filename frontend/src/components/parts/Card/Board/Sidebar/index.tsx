@@ -9,7 +9,7 @@ interface Props {
   children: React.ReactNode
 }
 
-const SidebarChatCard = (props: Props): JSX.Element => {
+export default function SidebarChatCard(props: Props): JSX.Element {
   const { children, avater, contents } = props
 
   return (
@@ -22,7 +22,7 @@ const SidebarChatCard = (props: Props): JSX.Element => {
         className={style.profile_img}
       />
       <div className={style.card_info}>
-        <div className={style.user_detail_info}>
+        <div>
           <span className={style.user_name}>{contents?.authorName}</span>
           <span className={style.publish_time}>{contents?.createdAt}</span>
         </div>
@@ -31,5 +31,3 @@ const SidebarChatCard = (props: Props): JSX.Element => {
     </div>
   )
 }
-
-export default SidebarChatCard

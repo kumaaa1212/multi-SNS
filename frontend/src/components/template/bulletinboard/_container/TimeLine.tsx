@@ -5,10 +5,10 @@ import apiClient from 'libs/apiClient'
 import { RootState } from 'store/store'
 import { jLeagueTeams } from 'utils/TeamData'
 import { BoardRoomType, BoardType } from 'types/global'
-import BulletinboardCard from 'components/parts/Card/Board'
+import BulletinboardCard from 'components/parts/Card/Board/Main'
 import SendInput from 'components/parts/Input/Send'
 import BasicPagination from 'components/parts/Pagenation'
-import style from './bulletinboard.module.scss'
+import style from './Bulletinboard.module.scss'
 
 interface Props {
   boardRooms: BoardRoomType

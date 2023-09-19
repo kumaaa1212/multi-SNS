@@ -13,6 +13,23 @@
   }
 }
 
+@media screen and (max-width: 1400px) {
+  .handle_area {
+    flex-direction: column;
+    align-items: center;
+    height: 160px;
+
+    .input {
+      width: 100%;
+    }
+
+    .pagenation {
+      margin-top: 40px;
+      width: 100%;
+    }
+  }
+}
+
 .side {
   margin: 10px;
   display: flex;

@@ -13,7 +13,7 @@ interface Props extends Posioton {
   onClick?: () => void
 }
 
-const DeleteButton = (props: Props): JSX.Element => {
+export default function DeleteButton(props: Props): JSX.Element {
   const { album, board, onClick } = props
   const { content } = props
 
@@ -43,5 +43,3 @@ const DeleteButton = (props: Props): JSX.Element => {
     </div>
   )
 }
-
-export default DeleteButton

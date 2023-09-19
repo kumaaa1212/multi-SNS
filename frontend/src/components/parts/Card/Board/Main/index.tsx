@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import Image from 'next/image'
 import { Badge, Card } from '@mui/material'
+import { HttpStatusCode } from 'axios'
 import apiClient from 'libs/apiClient'
 import { RootState } from 'store/store'
 import { jLeagueTeams } from 'utils/TeamData'
@@ -25,7 +26,7 @@ interface Props {
   toastFunc: (content: string, isError: boolean) => void
 }
 
-const BulletinboardCard = (props: Props): JSX.Element => {
+export default function BulletinboardCard(props: Props): JSX.Element {
   const { children, sideMessagrBar, setSideMessagrBar, board } = props
   const { selectBoard, setSelectBoard, setBoardRooms, toastFunc } = props
 
@@ -37,14 +38,15 @@ const BulletinboardCard = (props: Props): JSX.Element => {
 
   useEffect(() => {
     const fetchLike = async (): Promise<void> => {
-      try {
-        const res = await apiClient.get(
-          `/board/board/like/check?boardId=${board.id}&authorId=${userId}`,
-        )
-        setLike(res.data.hasLiked)
-      } catch {
-        toastFunc('エラーが発生しました', true)
-      }
+      await apiClient
+        .get(`/board/board/like/check?boardId=${board.id}&authorId=${userId}`)
+        .then((res) => {
+          if (res.status !== HttpStatusCode.Ok) {
+            toastFunc('エラーが発生しました', true)
+          } else {
+            setLike(res.data.hasLiked)
+          }
+        })
     }
     fetchLike()
   }, [board, toastFunc, userId])
@@ -60,41 +62,48 @@ const BulletinboardCard = (props: Props): JSX.Element => {
   }
 
   const handleAddLike = async (): Promise<void> => {
-    try {
-      const likePost = await apiClient.post('/board/board/like/add', {
+    await apiClient
+      .post('/board/board/like/add', {
         boardId: board.id,
         authorId: userId,
       })
-      setLikeCount(likePost.data.updatedBoard.likes.length)
-      setLike(!like)
-    } catch {
-      toastFunc('エラーが発生しました', true)
-    }
+      .then((res) => {
+        if (res.status !== HttpStatusCode.Ok) {
+          toastFunc('エラーが発生しました', true)
+        } else {
+          setLikeCount(res.data.updatedBoard.likes.length)
+          setLike(!like)
+        }
+      })
   }
 
   const handleDelateLike = async (): Promise<void> => {
-    try {
-      const likePost = await apiClient.post('/board/board/like/delete', {
+    await apiClient
+      .post('/board/board/like/delete', {
         boardId: board.id,
         authorId: userId,
       })
-      setLikeCount(likePost.data.updatedBoard.likes.length)
-      setLike(!like)
-    } catch {
-      alert('エラーが発生しました')
-    }
+      .then((res) => {
+        if (res.status !== HttpStatusCode.Ok) {
+          toastFunc('エラーが発生しました', true)
+        } else {
+          setLikeCount(res.data.updatedBoard.likes.length)
+          setLike(!like)
+        }
+      })
   }
 
   const handleClick = async (): Promise<void> => {
     const filterTeam = jLeagueTeams.filter((item) => item.name === team)
-    try {
-      const res = await apiClient.delete(
-        `/board/board/${board.id}/delete?team=${filterTeam[0]?.label}`,
-      )
-      setBoardRooms(res.data.boardRoom)
-    } catch {
-      toastFunc('削除に失敗しました', true)
-    }
+    await apiClient
+      .delete(`/board/board/${board.id}/delete?team=${filterTeam[0]?.label}`)
+      .then((res) => {
+        if (res.status !== HttpStatusCode.Ok) {
+          toastFunc('削除に失敗しました', true)
+        } else {
+          setBoardRooms(res.data.boardRoom)
+        }
+      })
   }
 
   return (
@@ -145,5 +154,3 @@ const BulletinboardCard = (props: Props): JSX.Element => {
     </Card>
   )
 }
-
-export default BulletinboardCard

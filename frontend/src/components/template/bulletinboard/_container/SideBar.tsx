@@ -8,14 +8,14 @@ import { BoardType, BoardMessageType } from 'types/global'
 import SidebarChatCard from 'components/parts/Card/Board/Sidebar'
 import SendInput from 'components/parts/Input/Send'
 import ToastBase from 'components/parts/Toast'
-import style from './bulletinboard.module.scss'
+import style from './Bulletinboard.module.scss'
 
 interface Props {
   selectBoard: BoardType | undefined
   setSelectBoard: React.Dispatch<React.SetStateAction<BoardType | undefined>>
 }
 
-const MessageSidebar = (props: Props): JSX.Element => {
+export default function MessageSidebar(props: Props): JSX.Element {
   const { selectBoard, setSelectBoard } = props
 
   const { userId, username, iconPath } = useSelector((state: RootState) => state.user)
@@ -72,5 +72,3 @@ const MessageSidebar = (props: Props): JSX.Element => {
     </div>
   )
 }
-
-export default MessageSidebar

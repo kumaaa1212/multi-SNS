@@ -22,7 +22,7 @@ export default function Board(props: Props): JSX.Element {
   return (
     <Layout>
       <Meta title='BulletinBoard' />
-      <div className='display_flex'>
+      <div className='display_flex ph_10'>
         <Timeline
           boardRooms={boardRooms}
           setBoardRooms={setBoardRooms}

@@ -1,37 +1,30 @@
-.bulletin_board_Card{
+.bulletin_board_Card {
   border-bottom: 1px solid #cbcbcb;
   padding: 10px 0px;
   width: 100%;
   position: relative;
   cursor: pointer;
 }
-.timeline_user{
+.timeline_user {
   width: 400px;
   display: flex;
   margin: 20px 0;
-  .profile_img{
+
+  .profile_img {
     object-fit: cover;
     border-radius: 10px;
   }
-  .card_info{
+
+  .card_info {
     margin-left: 10px;
-    .publish_time{
+
+    .publish_time {
       margin-left: 5px;
     }
-    .card_content{
+
+    .card_content {
       width: 400px;
       height: auto;
     }
-  }
-}
-.option_btn{
-  width: 200px;
-  position: absolute;
-  border-radius: 5px;
-  padding: 5px;
-  top: 50px;
-  right: 0px;
-  svg{
-    margin-right: 10px;
   }
 }
