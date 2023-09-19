@@ -64,6 +64,7 @@ export default function TweetCard(props: Props): JSX.Element {
           <Image
             src={tweet.img.length === 0 ? tweet.img : '/thumbnail.png'}
             alt='tweetのmain画像'
+            priority
             width={450}
             height={250}
             className={style.tweet_img}

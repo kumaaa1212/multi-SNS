@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import LinearProgress from '@mui/material/LinearProgress'
 import { useLoading } from 'components/hooks/useLoading'
@@ -21,6 +21,7 @@ interface Props {
 
 export default function Layout(props: Props): JSX.Element {
   const { margin = 'm_0 p_0', children, isSaveBar } = props
+  const [progress, setProgress] = useState<number>(0)
   const {
     discardModalOpen = false,
     discardModalClose = (): void => {},
@@ -50,7 +51,14 @@ export default function Layout(props: Props): JSX.Element {
 
   return (
     <div className='layout'>
-      {loading && <LinearProgress variant='determinate' color='primary' className='loading' />}
+      {loading && (
+        <LinearProgress
+          value={progress}
+          variant='determinate'
+          color='primary'
+          className='loading'
+        />
+      )}
       <ResponsiveAppBar />
       <div className={margin}>{children}</div>
       {isSaveBar && <SaveBar discardModalClose={discardModalClose} />}

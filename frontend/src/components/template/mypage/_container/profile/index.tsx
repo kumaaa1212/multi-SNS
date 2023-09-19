@@ -34,7 +34,7 @@ export default function Profile(): JSX.Element {
   }, [userId])
 
   return (
-    <div>
+    <div className='mt_30'>
       <div className={style.profile_area}>
         <Image
           src={icon ? icon : Noavater}
@@ -50,7 +50,6 @@ export default function Profile(): JSX.Element {
             <Button
               content='編集'
               onClick={(): void => setOpenEdit(true)}
-              className='mr_30'
               size='md'
               weight='weight_600'
               blue

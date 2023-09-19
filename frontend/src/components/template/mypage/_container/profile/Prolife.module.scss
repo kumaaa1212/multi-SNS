@@ -1,6 +1,5 @@
 .profile_area {
   width: 1000px;
-  height: 300px;
   margin: 0 auto;
   display: flex;
   align-items: center;
@@ -50,6 +49,53 @@
       }
       .team_icon {
         margin-left: 10px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .profile_area {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 610px) {
+  .profile_area {
+    flex-direction: column;
+    align-items: center;
+
+    .profile_details {
+      width: 100%;
+      margin: 0;
+
+      .profile_header {
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .profile_info {
+        width: 100%;
+        margin-top: 20px;
+        justify-content: space-around;
+
+        button {
+          font-size: 16px;
+        }
+      }
+
+      .other_icon {
+        width: 100%;
+        margin-top: 20px;
+        justify-content: space-around;
+
+        .twitter_icon {
+          font-size: 30px;
+        }
+
+        .team_icon {
+          margin-left: 10px;
+        }
       }
     }
   }

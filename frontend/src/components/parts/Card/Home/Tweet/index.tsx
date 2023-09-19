@@ -30,6 +30,7 @@ export default function HomeTweetCard(props: Props): JSX.Element {
           width={100}
           height={70}
           className={style.team_img}
+          priority
         />
         <span>{label.name}</span>
       </Paper>

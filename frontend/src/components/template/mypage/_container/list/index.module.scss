@@ -3,13 +3,44 @@
   grid-template-columns: 1fr;
   gap: 20px;
 }
+.team_card{
+  display: block;
+}
 @media screen and (min-width: 1000px) {
   .album {
     grid-template-columns: 1fr 1fr;
   }
 }
+
 @media screen and (min-width: 1900px) {
   .album {
     grid-template-columns: 1fr 1fr 1fr;
   }
+}
+
+@media screen and (max-width: 1000px) {
+  .wide {
+    display: none;
+  }
+  .team_card {
+    display: block;
+  }
+}
+@media screen and (min-width: 1000px) {
+  .wide {
+    display: block;
+  }
+  .team_card {
+    display: none;
+  }
+}
+
+.team_card {
+  width: 400px;
+  height: 100px;
+  padding-top: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
 }

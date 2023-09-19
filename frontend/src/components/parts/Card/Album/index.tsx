@@ -98,6 +98,7 @@ export default function AlbumCard(props: Props): JSX.Element {
         <Image
           src={album?.thumbnailImg ? album.thumbnailImg : '/thumbnail.png'}
           alt={''}
+          priority
           className={style.main_img}
           width={550}
           height={250}

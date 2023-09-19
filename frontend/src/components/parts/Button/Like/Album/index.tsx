@@ -61,11 +61,11 @@ const AlbumLikeBtn = (props: Props): JSX.Element => {
           width='40'
           height='40'
           viewBox='0 0 24 24'
-          stroke-width='3'
+          strokeWidth='3'
           stroke='#ff4500'
           fill='none'
-          stroke-linecap='round'
-          stroke-linejoin='round'
+          strokeLinecap='round'
+          strokeLinejoin='round'
           onClick={handleLike}
         >
           <path stroke='none' d='M0 0h24v24H0z' fill='none' />
@@ -77,11 +77,11 @@ const AlbumLikeBtn = (props: Props): JSX.Element => {
           width='40'
           height='40'
           viewBox='0 0 24 24'
-          stroke-width='1'
+          strokeWidth='1'
           stroke='#000000'
           fill='none'
-          stroke-linecap='round'
-          stroke-linejoin='round'
+          strokeLinecap='round'
+          strokeLinejoin='round'
           onClick={handleLike}
         >
           <path stroke='none' d='M0 0h24v24H0z' fill='none' />

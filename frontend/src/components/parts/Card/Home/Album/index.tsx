@@ -14,8 +14,12 @@ export default function HomeAlbumCard(props: Props): JSX.Element {
 
   const router = useRouter()
 
+  const handlePath = (): void => {
+    router.push(`/home`)
+  }
+
   return (
-    <div className={style.card}>
+    <div className={style.card} onClick={handlePath}>
       <Paper className={style.team_card}>
         <Image
           src='/images/profile.jpg'
@@ -23,13 +27,21 @@ export default function HomeAlbumCard(props: Props): JSX.Element {
           width={100}
           height={70}
           className={style.team_img}
+          priority
         />
         <span>FC東京</span>
       </Paper>
       <div className='ml_10'>
         <h1>{album?.title}</h1>
         <div className={style.detail_area}>
-          <Image src='/images/profile.jpg' alt='me' width={40} height={40} className={style.img} />
+          <Image
+            src='/images/profile.jpg'
+            alt='me'
+            width={40}
+            height={40}
+            className={style.img}
+            priority
+          />
           <div className='ml_10 fw_700'>
             <p>{album?.authorName}</p>
             <div className='display_flex'>
