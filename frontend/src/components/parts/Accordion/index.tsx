@@ -7,14 +7,16 @@ import AccordionSummary from '@mui/material/AccordionSummary'
 import Typography from '@mui/material/Typography'
 import { createContentText, createTitleText } from 'features/postSlice'
 import { AppDispatch } from 'store/store'
+import { KeepAlbum } from 'types/internal/album'
 import style from './Accordion.module.scss'
 
 interface Props {
-  keepPost: any[]
+  keepPost: KeepAlbum[]
 }
 
 export default function ControlledAccordions(props: Props): JSX.Element {
   const { keepPost } = props
+
   const dispatch: AppDispatch = useDispatch()
   const [expanded, setExpanded] = useState<string | false>(false)
 

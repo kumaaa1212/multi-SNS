@@ -12,9 +12,9 @@ import style from './Thumbnail.module.scss'
 import AlnumLayout from '../albumLayout/AlbumLayout'
 
 const Thumbnail = (): JSX.Element => {
-  const [selectedLabels, setSelectedLabels] = useState<TeamDataType[]>([])
   const dispatch: AppDispatch = useDispatch()
   const { thumbnailText } = useSelector((state: RootState) => state.post)
+  const [selectedLabels, setSelectedLabels] = useState<TeamDataType[]>([])
 
   const handleThumbnail = (e: React.ChangeEvent<HTMLTextAreaElement>): void => {
     dispatch(addThumbnail(e.target.value))

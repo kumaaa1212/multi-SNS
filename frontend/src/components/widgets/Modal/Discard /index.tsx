@@ -4,7 +4,7 @@ import apiClient from 'libs/apiClient'
 import { RootState } from 'store/store'
 import ModalBase from 'components/parts/Modal'
 import style from './Discard.module.scss'
-import ControlledAccordions from '../../Accordion'
+import ControlledAccordions from '../../../parts/Accordion'
 
 interface Props {
   open: boolean

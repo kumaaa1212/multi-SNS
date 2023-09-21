@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import Image from 'next/image'
 import FavoriteIcon from '@mui/icons-material/Favorite'
@@ -10,11 +9,10 @@ import Card from '@mui/material/Card'
 import CardActions from '@mui/material/CardActions'
 import CardContent from '@mui/material/CardContent'
 import CardHeader from '@mui/material/CardHeader'
-import Collapse from '@mui/material/Collapse'
 import IconButton from '@mui/material/IconButton'
 import { addThumbnailImg, dispalyThumbnailImg } from 'features/postSlice'
 import { AppDispatch, RootState } from 'store/store'
-import { LabelType } from 'types/internal'
+import { LabelType } from 'types/internal/album'
 import style from '../Card.module.scss'
 import CameraIcon from '/public/svg/post_thubnail_img_camera.svg'
 
@@ -24,11 +22,12 @@ interface Props {
 
 export default function ThumbnailCard(props: Props): JSX.Element {
   const { className } = props
+
   const dispatch: AppDispatch = useDispatch()
+  const { icon } = useSelector((state: RootState) => state.user)
   const { titleText, labels, thumbnailText, displayThumbnailImg } = useSelector(
     (state: RootState) => state.post,
   )
-  const { icon } = useSelector((state: RootState) => state.user)
 
   const formatDate = (date: Date): string => {
     const year = date.getFullYear()
@@ -54,7 +53,12 @@ export default function ThumbnailCard(props: Props): JSX.Element {
       <CardHeader
         avatar={
           <Avatar aria-label='recipe'>
-            <Image src={icon} alt={''} width={40} height={40} />
+            <Image
+              src={icon ? icon : '/noavater.jpg'}
+              alt={'プロフィール画像'}
+              width={40}
+              height={40}
+            />
           </Avatar>
         }
         action={
@@ -72,6 +76,7 @@ export default function ThumbnailCard(props: Props): JSX.Element {
           className={style.thumbnail_img}
           width={300}
           height={200}
+          priority
         />
         <div className={style.thumbnail_img_cover}>
           <CameraIcon onClick={openFileInput} className={style.thumbnail_img_cover_icon} />

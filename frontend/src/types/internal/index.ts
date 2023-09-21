@@ -2,63 +2,8 @@ export interface ChidrenProps {
   children: React.ReactNode
 }
 // album
-export interface ArticleProps {
-  posts: ArticlesType[]
-}
-
-export interface ArticlesType {
-  authorAvatar: string
-  authorId: string
-  authorName: string
-  content: string
-  createdAt: string
-  id: number
-  labels: LabelType[]
-  thumbnailImg: string
-  thumbnailText: string
-  title: string
-  likes: ArticlesLikeType[]
-  bookmarks: ArticlesBookmarksType[]
-}
-
-export interface ArticlesLikeType {
-  id: number
-  postId: string
-  authorId: string
-}
-
-export interface ArticlesBookmarksType {
-  id: number
-  postId: string
-  authorId: string
-}
-export interface LabelType {
-  id: number
-  label: string
-  img: string
-  league: string
-  name: string
-  postId: number
-}
-
 // tweet
-export interface TweetsType {
-  id: number
-  authorAvatar: string
-  authorId: string
-  authorName: string
-  content: string
-  createdAt: string
-  img: string
-  likes?: TweetLikeType[] | []
-  label: string
-}
 
-export interface TweetLikeType {
-  id: number
-  tweetId: number
-  authorId: string
-}
 // chat
 export interface RoomType {
   id: string
@@ -82,7 +27,6 @@ export interface MessageType {
   senderId: string
   roomId: string
 }
-
 
 // team
 export interface TeamDataType {

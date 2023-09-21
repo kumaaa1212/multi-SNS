@@ -9,7 +9,7 @@ import { supabase } from 'utils/supabaseClient'
 import Button from 'components/parts/Button/Base'
 import SwitchBtn from 'components/parts/Button/Switch/SwitchBtn'
 import HorizontalLinearStepper from 'components/parts/Stepper'
-import AbjustModal from 'components/widgets/Modal/Abjustment'
+import IdeaModal from 'components/widgets/Modal/Abjustment'
 import KeepModal from 'components/widgets/Modal/Keep'
 import ReverseIcon from '/public/svg/post_reverse.svg'
 import AbjustIcon from '/public/svg/post_abjust.svg'
@@ -123,7 +123,7 @@ export default function AlnumLayout(props: Props): JSX.Element {
   return (
     <div>
       <div className={style.album_header}>
-        {ideaOpen && <AbjustModal open={ideaOpen} setOpen={setIdeaOpen} />}
+        {ideaOpen && <IdeaModal open={ideaOpen} setOpen={setIdeaOpen} />}
         {keepOpen && <KeepModal open={keepOpen} setOpen={setKeepOpen} />}
         <ReverseIcon onClick={handleReverse} className={style.album_btn} />
         <HorizontalLinearStepper activeStep={activeStep} />
