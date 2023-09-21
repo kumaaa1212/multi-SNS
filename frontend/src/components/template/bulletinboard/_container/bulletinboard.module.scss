@@ -1,3 +1,4 @@
+// main
 .handle_area {
   display: flex;
   justify-content: center;
@@ -30,16 +31,13 @@
   }
 }
 
+// side
 .side {
   margin: 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 400px;
-
-  .side_header {
-    width: 400px;
-  }
 
   .bottom_border {
     display: flex;
@@ -54,12 +52,31 @@
     flex-grow: 1;
     background-color: #666;
   }
-  
+
   .bottom_border:before {
     margin-right: 1rem;
   }
 
   .bottom_border:after {
     margin-left: 1rem;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .side {
+    margin: 20px 0;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    width: 100%;
+    border-top: #7b7b7b 1px solid;
+  }
+
+  .side_header {
+    width: 100%;
+  }
+
+  .side_main {
+    width: 100%;
   }
 }

@@ -1,0 +1,10 @@
+.main {
+  display: flex;
+  padding: 0 10px;
+}
+
+@media screen and (max-width: 900px) {
+  .main {
+    flex-direction: column;
+  }
+}

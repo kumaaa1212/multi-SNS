@@ -6,6 +6,7 @@ import Timeline from 'components/template/bulletinboard/_container/TimeLine'
 import { BoardRoomType, BoardType } from 'types/internal/board'
 import Meta from 'components/layout/Head'
 import ToastBase from 'components/parts/Toast'
+import style from './index.module.scss'
 
 interface Props {
   boardRoom: BoardRoomType
@@ -22,7 +23,7 @@ export default function Board(props: Props): JSX.Element {
   return (
     <Layout>
       <Meta title='Board' />
-      <div className='display_flex ph_10'>
+      <div className={style.main}>
         <Timeline
           boardRooms={boardRooms}
           setBoardRooms={setBoardRooms}

@@ -51,7 +51,7 @@ export default function MessageSidebar(props: Props): JSX.Element {
         </SidebarChatCard>
         <p className={style.bottom_border}>その他の返信</p>
       </div>
-      <div>
+      <div className={style.side_main}>
         {selectBoard?.messages.map((sideChat: BoardMessageType) => (
           <SidebarChatCard contents={sideChat} avater={sideChat.authorAvatar} key={sideChat.id}>
             {sideChat.content}
