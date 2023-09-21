@@ -121,6 +121,12 @@
   }
 }
 
+@media screen and (max-width: 660px) {
+  .input_area {
+    margin-top: 10px;
+  }
+}
+
 // アルバムのheaderのデザイン
 .switch_btn {
   .css-5ryogn-MuiButtonBase-root-MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track {

@@ -3,10 +3,10 @@ import remarkGfm from 'remark-gfm'
 import style from './MarkDown.module.scss'
 
 interface Props {
-  children: any
+  children: React.ReactNode
 }
 
-const MarkDown = (props: Props): JSX.Element => {
+export default function MarkDown(props: Props): JSX.Element {
   const { children } = props
 
   return (
@@ -15,5 +15,3 @@ const MarkDown = (props: Props): JSX.Element => {
     </div>
   )
 }
-
-export default MarkDown

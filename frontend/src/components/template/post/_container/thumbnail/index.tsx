@@ -22,7 +22,7 @@ const Thumbnail = (): JSX.Element => {
   }
 
   return (
-    <Layout>
+    <Layout bgColor='bg_gray'>
       <Meta title='サムネイル' />
       <div className='thumbnail'>
         <AlnumLayout>

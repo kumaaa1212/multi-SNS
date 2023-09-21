@@ -33,19 +33,19 @@ export default function EditModal(props: Props): JSX.Element {
   const [teamURLData, setTeamURLData] = useState<string | undefined>(teamURL)
   const [editName, setEditName] = useState<string>(username)
   const [editIntro, seteditIntro] = useState<string>(bio)
-  const [displayFile, setDisplayFile] = useState<File | string>()
+  const [displayFile, setDisplayFile] = useState<string>()
 
   const openFileInput = (): void => {
     const fileInput = document.getElementById('fileInput')
     fileInput?.click()
   }
 
-  function handleFileSelect(e: ChangeEvent<HTMLInputElement>): void {
+  const handleFileSelect = (e: ChangeEvent<HTMLInputElement>): void => {
     const selectedFile = e.target.files![0]
 
     if (selectedFile) {
       setDisplayFile(URL.createObjectURL(selectedFile))
-      setFile(selectedFile) // setFile の型を修正し、File オブジェクトを受け入れるようにする
+      setFile(selectedFile)
     }
   }
 
@@ -84,7 +84,7 @@ export default function EditModal(props: Props): JSX.Element {
   }
 
   return (
-    <ModalBase open={openEdit} setOpen={setOpenEdit}>
+    <ModalBase open={openEdit} onClose={setOpenEdit}>
       <div className={style.edit_modal}>
         <div className={style.handle_area}>
           <Button

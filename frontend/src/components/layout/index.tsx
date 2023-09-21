@@ -11,6 +11,7 @@ import SaveBar from './SaveBar'
 
 interface Props {
   margin?: string
+  bgColor?: string
   children: React.ReactNode
   isSaveBar?: boolean
   saveAction?: () => void
@@ -20,7 +21,7 @@ interface Props {
 }
 
 export default function Layout(props: Props): JSX.Element {
-  const { margin = 'm_0 p_0', children, isSaveBar } = props
+  const { margin = 'm_0 p_0', bgColor, children, isSaveBar } = props
   const [progress, setProgress] = useState<number>(0)
   const {
     discardModalOpen = false,
@@ -60,7 +61,7 @@ export default function Layout(props: Props): JSX.Element {
         />
       )}
       <ResponsiveAppBar />
-      <div className={margin}>{children}</div>
+      <div className={`${margin} ${bgColor} min_height`}>{children}</div>
       {isSaveBar && <SaveBar discardModalClose={discardModalClose} />}
       <ModalDiscard
         open={discardModalOpen}

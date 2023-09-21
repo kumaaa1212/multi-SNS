@@ -70,44 +70,60 @@ export default function TweetModal(props: Props): JSX.Element {
 
   return (
     <ModalBase open={open} onClose={setOpen}>
-      <div className={style.tweet_modal}>
-        <div className={style.handle_close}>
-          <CloseIcon className={style.close_btn} onClick={(): void => setOpen(!open)} />
-        </div>
-        <div className={style.tweet_content}>
-          <Image src={icon} alt={''} width={50} height={50} className={style.profile_img} />
-          <textarea
-            name=''
-            id=''
-            placeholder='What is happening'
-            className={style.tweet_textarea}
-            onChange={(e): void => setTweetContents(e.target.value)}
-          ></textarea>
-        </div>
-        <div className={style.tweet_img_area}>
-          {dispalayImg && (
-            <Image
-              src={dispalayImg}
-              alt='投稿画像'
-              width={500}
-              height={300}
-              className={style.tweet_img}
-            />
-          )}
-        </div>
-        <div className={style.handle_tweet}>
-          <ImgIcon onClick={(): void => openFileInput()} />
+      <div className={style.handle_close}>
+        <CloseIcon className={style.close_btn} onClick={(): void => setOpen(!open)} />
+      </div>
+      <div className={style.tweet_content}>
+        <Image src={icon} alt={''} width={50} height={50} className={style.profile_img} />
+        <textarea
+          name=''
+          id=''
+          placeholder='What is happening'
+          className={style.tweet_textarea}
+          onChange={(e): void => setTweetContents(e.target.value)}
+        ></textarea>
+      </div>
+      <div className={style.tweet_img_area}>
+        {dispalayImg && (
+          <Image
+            src={dispalayImg}
+            alt='投稿画像'
+            width={500}
+            height={300}
+            className={style.tweet_img}
+          />
+        )}
+      </div>
+      <div className={style.handle_tweet}>
+        <ImgIcon onClick={(): void => openFileInput()} className={style.img_icon} />
+        <input
+          type='file'
+          id='addImg'
+          style={{ display: 'none' }}
+          onChange={(e): void => handleFileSelect(e)}
+        />
+        <Labels
+          labelName='自分のチーム→使いたいラベル順番で選択してください'
+          data={jLeagueTeams}
+          width={400}
+          setSelectedLabels={setSelectedLabels}
+        />
+        <ButtonBase onClick={handleTweet} content='Tweet' weight='weight_600' size='sm' black />
+      </div>
+      <div className={style.handle_tweet_sm}>
+        <Labels
+          labelName='自分のチーム→使いたいラベル順番で選択してください'
+          data={jLeagueTeams}
+          width={300}
+          setSelectedLabels={setSelectedLabels}
+        />
+        <div className={style.handle_tweet_footer}>
+          <ImgIcon onClick={(): void => openFileInput()} className={style.img_icon} />
           <input
             type='file'
             id='addImg'
             style={{ display: 'none' }}
             onChange={(e): void => handleFileSelect(e)}
-          />
-          <Labels
-            labelName='自分のチーム→使いたいラベル順番で選択してください'
-            data={jLeagueTeams}
-            width={400}
-            setSelectedLabels={setSelectedLabels}
           />
           <ButtonBase onClick={handleTweet} content='Tweet' weight='weight_600' size='sm' black />
         </div>

@@ -5,6 +5,7 @@
   margin: 0 auto;
   border: none;
   font-size: 30px;
+  background-color: #f1f5f9;
 }
 
 .input:focus {
@@ -23,6 +24,7 @@
   }
 
   .album_text {
+    background-color: #fbfbfb;
     display: block;
     resize: none;
     min-width: 800px;

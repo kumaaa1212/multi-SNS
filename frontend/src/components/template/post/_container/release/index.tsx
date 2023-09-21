@@ -15,7 +15,7 @@ const Release = (): JSX.Element => {
   }, [])
 
   return (
-    <Layout>
+    <Layout bgColor='bg_gray'>
       <Meta title='投稿完了' />
       <ReactConfetti width={width} height={height} numberOfPieces={400} recycle={false} />
       <div className={style.release_contents}>
