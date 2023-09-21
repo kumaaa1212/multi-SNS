@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import Layout from 'components/layout'
-import { ArticlesType } from 'types/global'
+import { ArticlesType } from 'types/internal'
 import Meta from 'components/layout/Head'
 import LabelArea from 'components/widgets/Label/articles'
 import PostTemPlate from 'components/widgets/Post'

@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Grid } from '@mui/material'
-import { TweetsType } from 'types/global'
+import { TweetsType } from 'types/internal'
 import HomeTweetCard from 'components/parts/Card/Home/Tweet'
 import HomeTweetModal from 'components/widgets/Modal/Home/Tweet'
 import HomeTemplate from 'components/widgets/home'

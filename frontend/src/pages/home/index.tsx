@@ -1,7 +1,7 @@
 import { GetServerSideProps } from 'next'
 import Home from 'components/template/home'
 import apiClient from 'libs/apiClient'
-import { ArticlesType, LabelType, TweetsType } from 'types/global'
+import { ArticlesType, LabelType, TweetsType } from 'types/internal'
 
 export const getServerSideProps: GetServerSideProps = async () => {
   const [albumsData, tweetsData, labelsData] = await Promise.all([

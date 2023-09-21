@@ -5,7 +5,7 @@ import { useRouter } from 'next/router'
 import apiClient from 'libs/apiClient'
 import { RootState } from 'store/store'
 import Icongenerate from 'utils/functions/Avater'
-import { RoomType } from 'types/global'
+import { RoomType } from 'types/internal'
 import style from './Native.module.scss'
 
 interface FrendInfo {

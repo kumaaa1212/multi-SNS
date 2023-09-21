@@ -14,7 +14,7 @@ import Collapse from '@mui/material/Collapse'
 import IconButton from '@mui/material/IconButton'
 import { addThumbnailImg, dispalyThumbnailImg } from 'features/postSlice'
 import { AppDispatch, RootState } from 'store/store'
-import { LabelType } from 'types/global'
+import { LabelType } from 'types/internal'
 import style from '../Card.module.scss'
 import CameraIcon from '/public/svg/post_thubnail_img_camera.svg'
 

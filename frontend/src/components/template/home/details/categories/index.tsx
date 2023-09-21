@@ -2,7 +2,7 @@ import { useState } from 'react'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { Paper } from '@mui/material'
-import { LabelType } from 'types/global'
+import { LabelType } from 'types/internal'
 import HomeTemplate from 'components/widgets/home'
 import style from './Categories.module.scss'
 

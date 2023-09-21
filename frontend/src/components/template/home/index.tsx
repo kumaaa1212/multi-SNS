@@ -1,5 +1,5 @@
 import Layout from 'components/layout'
-import { ArticlesType, LabelType, TweetsType } from 'types/global'
+import { ArticlesType, LabelType, TweetsType } from 'types/internal'
 import AlbumParts from './details/album'
 import CategoriesPart from './details/categories'
 import TweetParts from './details/tweet'

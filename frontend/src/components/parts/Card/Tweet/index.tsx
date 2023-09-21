@@ -8,7 +8,7 @@ import FollowBtn from '../../Button/Follow'
 import { useSelector } from 'react-redux'
 import { RootState } from 'store/store'
 import TweetLikeBtn from '../../Button/Like/Tweet'
-import { TweetsType } from 'types/global'
+import { TweetsType } from 'types/internal'
 import DeleteIcon from '/public/svg/tweet_delete.svg'
 
 interface Props {

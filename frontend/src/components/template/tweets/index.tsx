@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import Layout from 'components/layout'
-import { TweetsType } from 'types/global'
+import { TweetsType } from 'types/internal'
 import Meta from 'components/layout/Head'
 import LabelArea from 'components/widgets/Label/articles'
 import PostTemPlate from 'components/widgets/Post'

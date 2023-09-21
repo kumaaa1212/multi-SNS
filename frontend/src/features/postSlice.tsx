@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { LabelType } from 'types/global'
+import { LabelType } from 'types/internal'
 
 interface PostState {
   titleText: string

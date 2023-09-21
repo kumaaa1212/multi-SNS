@@ -2,7 +2,7 @@ import { useState } from 'react'
 import Autocomplete from '@mui/material/Autocomplete'
 import Stack from '@mui/material/Stack'
 import TextField from '@mui/material/TextField'
-import { TeamDataType } from 'types/global'
+import { TeamDataType } from 'types/internal'
 
 interface Props {
   labelName: string

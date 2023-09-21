@@ -2,7 +2,7 @@ import { GetServerSideProps } from 'next'
 import { useRouter } from 'next/router'
 import Board from 'components/template/bulletinboard'
 import apiClient from 'libs/apiClient'
-import { BoardRoomType } from 'types/global'
+import { BoardRoomType } from 'types/internal'
 import NoUser from 'components/widgets/NoUser'
 
 export const getServerSideProps: GetServerSideProps = async ({ query }) => {

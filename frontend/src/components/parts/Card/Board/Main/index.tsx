@@ -12,7 +12,7 @@ import style from './Board.module.scss'
 import CardLike from '/public/svg/board_like.svg'
 import CardLiked from '/public/svg/board_liked.svg'
 import CardMessage from '/public/svg/board_message.svg'
-import { BoardRoomType, BoardType, BoradLikeType } from 'types/global'
+import { BoardRoomType, BoardType, BoradLikeType } from 'types/internal'
 import DeleteButton from 'components/parts/Button/Delete'
 
 interface Props {

@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import Layout from 'components/layout'
-import { RoomType } from 'types/global'
+import { RoomType } from 'types/internal'
 import Meta from 'components/layout/Head'
 import style from './Chat.module.scss'
 import ChatArea from './_container/main/ChatArea'

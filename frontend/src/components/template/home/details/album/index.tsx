@@ -1,5 +1,5 @@
 import { Grid } from '@mui/material'
-import { ArticlesType } from 'types/global'
+import { ArticlesType } from 'types/internal'
 import HomeAlbumCard from 'components/parts/Card/Home/Album'
 import HomeTemplate from 'components/widgets/home'
 

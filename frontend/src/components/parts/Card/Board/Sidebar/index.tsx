@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import Icongenerate from 'utils/functions/Avater'
-import { BoardMessageType, BoardType } from 'types/global'
+import { BoardMessageType, BoardType } from 'types/internal'
 import style from './Sidebar.module.scss'
 
 interface Props {

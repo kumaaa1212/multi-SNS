@@ -4,7 +4,7 @@ import Layout from 'components/layout'
 import { addLabels, addThumbnail } from 'features/postSlice'
 import { AppDispatch, RootState } from 'store/store'
 import { jLeagueTeams } from 'utils/TeamData'
-import { TeamDataType } from 'types/global'
+import { TeamDataType } from 'types/internal'
 import Meta from 'components/layout/Head'
 import ThumbnailCard from 'components/parts/Card/Post/thumbnail'
 import Labels from 'components/widgets/Label'
@@ -20,7 +20,6 @@ const Thumbnail = (): JSX.Element => {
     dispatch(addThumbnail(e.target.value))
     dispatch(addLabels(selectedLabels))
   }
-  
 
   return (
     <Layout>

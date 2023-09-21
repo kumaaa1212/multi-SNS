@@ -2,7 +2,7 @@ import React from 'react'
 import AlbumMore from 'components/template/AlbumMore'
 import apiClient from 'libs/apiClient'
 import { marked } from 'marked'
-import { ArticlesType } from 'types/global'
+import { ArticlesType } from 'types/internal'
 
 export const getServerSideProps = async (context: { params: { id: any } }) => {
   try {

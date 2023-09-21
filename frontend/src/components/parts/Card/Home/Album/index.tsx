@@ -2,7 +2,7 @@ import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { Paper } from '@mui/material'
 import { formatTimestamp } from 'utils/functions/Time'
-import { ArticlesType } from 'types/global'
+import { ArticlesType } from 'types/internal'
 import style from './index.module.scss'
 
 interface Props {

@@ -1,5 +1,5 @@
 import React from 'react'
-import { TweetsType } from 'types/global'
+import { TweetsType } from 'types/internal'
 import TweetCard from 'components/parts/Card/Tweet'
 import ArticleArea from 'components/widgets/Article'
 

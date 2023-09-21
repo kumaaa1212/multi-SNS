@@ -4,7 +4,7 @@ import BookMarkIcon from '/public/svg/card_bookmark.svg'
 import BookMarkedIcon from '/public/svg/card_bookmarked.svg'
 import apiClient from 'libs/apiClient'
 import { RootState } from 'store/store'
-import { ArticlesType } from 'types/global'
+import { ArticlesType } from 'types/internal'
 
 interface Props {
   album: ArticlesType

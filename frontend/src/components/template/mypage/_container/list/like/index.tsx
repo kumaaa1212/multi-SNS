@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import apiClient from 'libs/apiClient'
 import { RootState } from 'store/store'
-import { ArticlesType } from 'types/global'
+import { ArticlesType } from 'types/internal'
 import ArticleCard from 'components/parts/Card/Album'
 import style from '../index.module.scss'
 

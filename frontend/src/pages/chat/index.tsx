@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux'
 import Chat from 'components/template/chat'
 import apiClient from 'libs/apiClient'
 import { RootState } from 'store/store'
-import { RoomType } from 'types/global'
+import { RoomType } from 'types/internal'
 import NoUser from 'components/widgets/NoUser'
 
 interface Props {

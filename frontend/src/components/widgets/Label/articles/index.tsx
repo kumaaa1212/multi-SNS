@@ -2,7 +2,7 @@ import React from 'react'
 import { useRouter } from 'next/router'
 import { Chip } from '@mui/material'
 import { jLeagueTeams } from 'utils/TeamData'
-import { TeamDataType } from 'types/global'
+import { TeamDataType } from 'types/internal'
 import style from './Label.module.scss'
 
 const LabelArea = (): JSX.Element => {

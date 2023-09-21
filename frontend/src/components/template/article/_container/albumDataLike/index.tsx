@@ -1,5 +1,5 @@
 import React from 'react'
-import { ArticlesType } from 'types/global'
+import { ArticlesType } from 'types/internal'
 import ArticleCard from 'components/parts/Card/Album'
 import ArticleArea from 'components/widgets/Article'
 

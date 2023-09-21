@@ -17,7 +17,7 @@ import apiClient from 'libs/apiClient'
 import { v4 as uuidv4 } from 'uuid'
 import { jLeagueTeams } from 'utils/TeamData'
 import CloseIcon from '/public/svg/modal_close.svg'
-import { AccountType } from 'types/global'
+import { AccountType } from 'types/internal'
 import Meta from 'components/layout/Head'
 import style from './SignUp.module.scss'
 

@@ -3,7 +3,7 @@ import { useToast } from 'components/hooks/useToast'
 import Layout from 'components/layout'
 import MessageSidebar from 'components/template/bulletinboard/_container/SideBar'
 import Timeline from 'components/template/bulletinboard/_container/TimeLine'
-import { BoardRoomType, BoardType } from 'types/global'
+import { BoardRoomType, BoardType } from 'types/internal'
 import Meta from 'components/layout/Head'
 import ToastBase from 'components/parts/Toast'
 
