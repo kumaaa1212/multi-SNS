@@ -1,6 +1,6 @@
 import { GetServerSideProps } from 'next'
 import { useRouter } from 'next/router'
-import Board from 'components/template/bulletinboard'
+import Board from 'components/template/board'
 import apiClient from 'libs/apiClient'
 import { BoardRoomType } from 'types/internal/board'
 import NoUser from 'components/widgets/NoUser'
