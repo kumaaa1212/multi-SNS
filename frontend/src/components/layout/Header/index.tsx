@@ -179,7 +179,7 @@ export default function Header(): JSX.Element {
               open={Boolean(anchorElUser)}
               onClose={(): void => setAnchorElUser(null)}
             >
-              {/* <DropDown /> */}
+              <DropDown />
             </Menu>
           </Box>
         </Toolbar>

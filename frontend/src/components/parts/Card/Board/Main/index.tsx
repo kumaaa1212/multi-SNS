@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import Image from 'next/image'
+import { useRouter } from 'next/router'
 import { Badge, Card } from '@mui/material'
 import { HttpStatusCode } from 'axios'
 import apiClient from 'libs/apiClient'
@@ -12,7 +13,7 @@ import style from './Board.module.scss'
 import CardLike from '/public/svg/board_like.svg'
 import CardLiked from '/public/svg/board_liked.svg'
 import CardMessage from '/public/svg/board_message.svg'
-import { BoardRoomType, BoardType, BoradLikeType } from 'types/internal'
+import { BoardRoomType, BoardType, BoradLikeType } from 'types/internal/board'
 import DeleteButton from 'components/parts/Button/Delete'
 
 interface Props {
@@ -30,6 +31,7 @@ export default function BulletinboardCard(props: Props): JSX.Element {
   const { children, sideMessagrBar, setSideMessagrBar, board } = props
   const { selectBoard, setSelectBoard, setBoardRooms, toastFunc } = props
 
+  const router = useRouter()
   const { userId, team } = useSelector((state: RootState) => state.user)
   const [likeCount, setLikeCount] = useState<number>(board.likes?.length)
   const [like, setLike] = useState<boolean>(
@@ -58,6 +60,7 @@ export default function BulletinboardCard(props: Props): JSX.Element {
     } else {
       setSelectBoard(undefined)
       setSideMessagrBar(false)
+      router.reload()
     }
   }
 
@@ -102,6 +105,7 @@ export default function BulletinboardCard(props: Props): JSX.Element {
           toastFunc('削除に失敗しました', true)
         } else {
           setBoardRooms(res.data.boardRoom)
+          setSideMessagrBar(false)
         }
       })
   }
@@ -122,7 +126,12 @@ export default function BulletinboardCard(props: Props): JSX.Element {
               <span className={style.user_name}>{board.authorName}</span>
               <span className={style.publish_time}>{formatTimestamp(board.createdAt)}</span>
               {board.authorId === userId && (
-                <DeleteButton content='削除' board onClick={handleClick} />
+                <DeleteButton
+                  content='削除'
+                  board
+                  onClick={handleClick}
+                  inversion={sideMessagrBar}
+                />
               )}
             </div>
             <div className={style.card_contents}>{children}</div>
@@ -133,11 +142,9 @@ export default function BulletinboardCard(props: Props): JSX.Element {
             badgeContent={board.messages?.length}
             color='primary'
             className={style.message_btn}
+            onClick={handleSelectBoard}
           >
-            <CardMessage
-              onClick={handleSelectBoard}
-              stroke={board.id === selectBoard?.id ? '#ffffff' : '#000000'}
-            />
+            <CardMessage stroke={board.id === selectBoard?.id ? '#ffffff' : '#000000'} />
           </Badge>
           <Badge badgeContent={likeCount} color='error' className={style.like_btn}>
             {like ? (

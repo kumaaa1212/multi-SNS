@@ -1,4 +1,5 @@
-export const formatTimestamp = (timestamp: string): string => {
+export const formatTimestamp = (timestamp: string | undefined): string => {
+  if (!timestamp) return ''
   const date = new Date(timestamp)
   const month = date.getMonth() + 1
   const day = date.getDate()

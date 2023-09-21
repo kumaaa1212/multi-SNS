@@ -4,7 +4,7 @@ import { HttpStatusCode } from 'axios'
 import { useToast } from 'components/hooks/useToast'
 import apiClient from 'libs/apiClient'
 import { RootState } from 'store/store'
-import { BoardType, BoardMessageType } from 'types/internal'
+import { BoardMessageType, BoardType } from 'types/internal/board'
 import SidebarChatCard from 'components/parts/Card/Board/Sidebar'
 import SendInput from 'components/parts/Input/Send'
 import ToastBase from 'components/parts/Toast'
@@ -18,11 +18,8 @@ interface Props {
 export default function MessageSidebar(props: Props): JSX.Element {
   const { selectBoard, setSelectBoard } = props
 
-  const { userId, username, iconPath } = useSelector((state: RootState) => state.user)
+  const { userId, username, iconPath, icon } = useSelector((state: RootState) => state.user)
   const { toastContent, isError, isToast, toastFunc } = useToast()
-  const [sideMessagrBar, setSideMessagrBar] = useState<BoardMessageType[]>(
-    selectBoard?.messages || [],
-  )
   const [input, setInput] = useState<string>('')
 
   const handleSubmit = async (): Promise<void> => {
@@ -32,14 +29,13 @@ export default function MessageSidebar(props: Props): JSX.Element {
           content: input,
           authorId: userId,
           authorName: username,
-          authorAvatar: iconPath,
+          authorAvatar: iconPath ? iconPath : icon,
         })
         .then((res) => {
           if (res.status !== HttpStatusCode.Ok) {
             toastFunc('メッセージの送信に失敗しました', true)
             setInput('')
           } else {
-            setSideMessagrBar(res.data.board.messages)
             setSelectBoard(res.data.board)
             setInput('')
           }
@@ -56,7 +52,7 @@ export default function MessageSidebar(props: Props): JSX.Element {
         <p className={style.bottom_border}>その他の返信</p>
       </div>
       <div>
-        {sideMessagrBar?.map((sideChat: BoardMessageType) => (
+        {selectBoard?.messages.map((sideChat: BoardMessageType) => (
           <SidebarChatCard contents={sideChat} avater={sideChat.authorAvatar} key={sideChat.id}>
             {sideChat.content}
           </SidebarChatCard>

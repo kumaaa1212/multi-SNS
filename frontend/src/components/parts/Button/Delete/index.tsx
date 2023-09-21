@@ -11,10 +11,11 @@ interface Posioton {
 interface Props extends Posioton {
   content: string
   onClick?: () => void
+  inversion?: boolean
 }
 
 export default function DeleteButton(props: Props): JSX.Element {
-  const { album, board, onClick } = props
+  const { album, board, onClick, inversion } = props
   const { content } = props
 
   const [moreOver, setMoreOver] = useState<boolean>(false)
@@ -24,7 +25,7 @@ export default function DeleteButton(props: Props): JSX.Element {
   }
 
   return (
-    <div>
+    <div className={inversion ? style.inversion : ''}>
       <MoreHorizRoundedIcon
         onClick={(): void => setMoreOver((prev) => !prev)}
         className={style.more_icon}

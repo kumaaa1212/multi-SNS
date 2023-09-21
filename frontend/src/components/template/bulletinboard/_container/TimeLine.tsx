@@ -4,7 +4,7 @@ import { HttpStatusCode } from 'axios'
 import apiClient from 'libs/apiClient'
 import { RootState } from 'store/store'
 import { jLeagueTeams } from 'utils/TeamData'
-import { BoardRoomType, BoardType } from 'types/internal'
+import { BoardRoomType, BoardType } from 'types/internal/board'
 import BulletinboardCard from 'components/parts/Card/Board/Main'
 import SendInput from 'components/parts/Input/Send'
 import BasicPagination from 'components/parts/Pagenation'
@@ -51,7 +51,7 @@ export default function Timeline(props: Props): JSX.Element {
   }
 
   return (
-    <div className='full_width'>
+    <div className='full_width borad_page'>
       <div>
         {boardRooms?.board?.slice(currentPage, currentPage + 6).map((board: BoardType) => (
           <BulletinboardCard

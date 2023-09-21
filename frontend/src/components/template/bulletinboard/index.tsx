@@ -3,7 +3,7 @@ import { useToast } from 'components/hooks/useToast'
 import Layout from 'components/layout'
 import MessageSidebar from 'components/template/bulletinboard/_container/SideBar'
 import Timeline from 'components/template/bulletinboard/_container/TimeLine'
-import { BoardRoomType, BoardType } from 'types/internal'
+import { BoardRoomType, BoardType } from 'types/internal/board'
 import Meta from 'components/layout/Head'
 import ToastBase from 'components/parts/Toast'
 
@@ -21,7 +21,7 @@ export default function Board(props: Props): JSX.Element {
 
   return (
     <Layout>
-      <Meta title='BulletinBoard' />
+      <Meta title='Board' />
       <div className='display_flex ph_10'>
         <Timeline
           boardRooms={boardRooms}
