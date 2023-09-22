@@ -26,10 +26,6 @@ interface ExpandMoreProps extends IconButtonProps {
   expand: boolean
 }
 
-interface Props {
-  album: ArticlesType
-}
-
 const ExpandMore = styled((props: ExpandMoreProps) => {
   const { expand, ...other } = props
   return <IconButton {...other} />
@@ -40,6 +36,10 @@ const ExpandMore = styled((props: ExpandMoreProps) => {
     duration: theme.transitions.duration.shortest,
   }),
 }))
+
+interface Props {
+  album: ArticlesType
+}
 
 export default function AlbumCard(props: Props): JSX.Element {
   const { album } = props

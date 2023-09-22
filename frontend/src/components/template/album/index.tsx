@@ -16,7 +16,7 @@ interface Props {
 export default function Albums(props: Props): JSX.Element {
   const { articlesLike, articlesNew } = props
 
-  const [click, setClicked] = useState<boolean>(true)
+  const [click, setClicked] = useState<boolean>(false)
   const [albumserch, setAlbumserch] = useState<string>('')
 
   return (

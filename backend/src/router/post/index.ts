@@ -223,50 +223,6 @@ router.get("/all/tweet/top", async (req: Request, res: Response) => {
   }
 });
 
-// 投稿全の取得(いいね順)
-router.get("/all/content/order/like", async (req: Request, res: Response) => {
-  try {
-    const posts = await prisma.post.findMany({
-      orderBy: {
-        createdAt: "desc",
-      },
-      include: {
-        labels: true,
-        likes: true,
-        bookmarks: true,
-      },
-    });
-
-    const topLikedContent = posts.sort(
-      (a, b) => b.likes.length - a.likes.length
-    );
-
-    return res.json({ topLikedContent });
-  } catch (err: any) {
-    res.json({ error: err.message });
-  }
-});
-
-// 投稿全の取得(投稿順)
-router.get("/all/content/order/new", async (req: Request, res: Response) => {
-  try {
-    const posts = await prisma.post.findMany({
-      orderBy: {
-        createdAt: "desc",
-      },
-      include: {
-        labels: true,
-        likes: true,
-        bookmarks: true,
-      },
-    });
-
-    return res.json({ posts });
-  } catch (err: any) {
-    res.json({ error: err.message });
-  }
-});
-
 // 特定の投稿を取得する
 router.get("/album/:postId", async (req: Request, res: Response) => {
   const { postId } = req.params;
@@ -387,6 +343,9 @@ router.post("/album/like/delete", async (req: Request, res: Response) => {
             set: updatedLikes,
           },
         },
+        include: {
+          likes: true, // Include likes in the response
+        },
       });
 
       return res.json({ updatedPost });
@@ -399,14 +358,14 @@ router.post("/album/like/delete", async (req: Request, res: Response) => {
 });
 
 // いいねをしているかを確認する
-router.post("/album/like/check", async (req: Request, res: Response) => {
-  const { postId, authorId } = req.body;
+router.get("/album/like/check", async (req: Request, res: Response) => {
+  const { postId, authorId } = req.query;
 
   try {
     const like = await prisma.like.findFirst({
       where: {
-        postId,
-        authorId,
+        postId: Number(postId),
+        authorId: authorId as string,
       },
     });
 
@@ -415,6 +374,32 @@ router.post("/album/like/check", async (req: Request, res: Response) => {
     return res.json({ hasLiked });
   } catch (error) {
     res.status(500).json({ error: "Failed to check like status." });
+  }
+});
+
+// 特定のlikeの配列を返す
+router.get("/like/count", async (req, res) => {
+  const { postId } = req.query;
+
+  try {
+    const post = await prisma.post.findUnique({
+      where: {
+        id: Number(postId),
+      },
+      include: {
+        likes: true,
+      },
+    });
+
+    if (!post) {
+      return res.status(404).json({ error: "Post not found." });
+    }
+
+    const likeCount = post.likes.length;
+
+    return res.json({ likeCount });
+  } catch (error) {
+    res.status(500).json({ error: "Failed to fetch like count." });
   }
 });
 
@@ -474,9 +459,12 @@ router.post("/album/bookmark/add", async (req, res) => {
       },
     });
 
-    await prisma.post.update({
+    const updatedPost = await prisma.post.update({
       where: {
         id: postId,
+      },
+      include: {
+        bookmarks: true, // ブックマークの情報を含める
       },
       data: {
         bookmarks: {
@@ -487,7 +475,7 @@ router.post("/album/bookmark/add", async (req, res) => {
       },
     });
 
-    return res.json({ newBookmark });
+    return res.json({ updatedPost });
   } catch (error) {
     console.error("Failed to add bookmark:", error);
     return res.status(500).json({ error: "Failed to add bookmark." });
@@ -495,10 +483,11 @@ router.post("/album/bookmark/add", async (req, res) => {
 });
 
 // bookmarkを削除する
-router.post("/album/bookmark/delete", async (req: Request, res: Response) => {
+router.delete("/album/bookmark/delete", async (req: Request, res: Response) => {
   const { postId, authorId } = req.body;
+
   try {
-    // まずはいいねを削除
+    // まずはブックマークを削除
     await prisma.bookmark.deleteMany({
       where: {
         postId,
@@ -506,7 +495,7 @@ router.post("/album/bookmark/delete", async (req: Request, res: Response) => {
       },
     });
 
-    // 削除されたいいねに関連するPostを取得
+    // 削除されたブックマークに関連するPostを取得
     const relatedPost = await prisma.post.findUnique({
       where: {
         id: postId,
@@ -516,32 +505,13 @@ router.post("/album/bookmark/delete", async (req: Request, res: Response) => {
       },
     });
 
-    if (relatedPost) {
-      const updatedBookmarks = relatedPost.bookmarks.filter(
-        (bookmark) => bookmark.authorId !== authorId
-      );
-
-      const updatedPost = await prisma.post.update({
-        where: {
-          id: postId,
-        },
-        data: {
-          bookmarks: {
-            set: updatedBookmarks,
-          },
-        },
-      });
-
-      return res.json({ updatedPost });
-    }
-
-    return res.status(404).json({ error: "Post not found." });
+    return res.json({ relatedPost });
   } catch (error) {
-    res.status(500).json({ error: "Failed to remove like." });
+    console.error("Failed to remove bookmark:", error);
+    return res.status(500).json({ error: "Failed to remove bookmark." });
   }
 });
 
-// いいねをしているかを確認する
 router.post("/album/like/check", async (req: Request, res: Response) => {
   const { postId, authorId } = req.body;
 
@@ -562,14 +532,14 @@ router.post("/album/like/check", async (req: Request, res: Response) => {
 });
 
 // ブックマークの状態を確認する
-router.post("/album/bookmark/check", async (req: Request, res: Response) => {
-  const { postId, authorId } = req.body;
+router.get("/album/bookmark/check", async (req: Request, res: Response) => {
+  const { postId, authorId } = req.query;
 
   try {
     const bookmark = await prisma.bookmark.findFirst({
       where: {
-        postId,
-        authorId,
+        postId: Number(postId),
+        authorId: String(authorId),
       },
     });
 
@@ -577,12 +547,35 @@ router.post("/album/bookmark/check", async (req: Request, res: Response) => {
 
     return res.json({ hasLiked });
   } catch (error) {
-    res.status(500).json({ error: "Failed to check like status." });
+    res.status(500).json({ error: "Failed to check bookmark status." });
+  }
+});
+
+// 特定のbookmarkの配列を返す
+router.get("/album/bookmark/get", async (req, res) => {
+  const { postId, authorId } = req.query;
+
+  try {
+    const bookmarks = await prisma.bookmark.findMany({
+      where: {
+        postId: Number(postId),
+        authorId: String(authorId),
+      },
+    });
+
+    const bookmarkCount = bookmarks.length;
+
+    return res.json({ bookmarkCount });
+  } catch (error) {
+    console.error("Failed to fetch bookmarks:", error);
+    return res.status(500).json({ error: "Failed to fetch bookmarks." });
   }
 });
 
 // 自分がbookmarkした投稿の取得
-router.get("/album/bookmarked/:authorId", async (req: Request, res: Response) => {
+router.get(
+  "/album/bookmarked/:authorId",
+  async (req: Request, res: Response) => {
     const { authorId } = req.params;
 
     try {

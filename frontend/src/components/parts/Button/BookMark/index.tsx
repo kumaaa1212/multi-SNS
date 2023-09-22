@@ -2,9 +2,10 @@ import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import BookMarkIcon from '/public/svg/card_bookmark.svg'
 import BookMarkedIcon from '/public/svg/card_bookmarked.svg'
+import { HttpStatusCode } from 'axios'
 import apiClient from 'libs/apiClient'
 import { RootState } from 'store/store'
-import { ArticlesType } from 'types/internal'
+import { ArticlesType } from 'types/internal/album'
 
 interface Props {
   album: ArticlesType
@@ -15,44 +16,57 @@ const BookMarkBtn = (props: Props): JSX.Element => {
   const { album, setCountBookmarks } = props
 
   const { userId } = useSelector((state: RootState) => state.user)
-
   const [bookmark, setBookmark] = useState<boolean>(false)
 
   useEffect(() => {
-    const fetchLike = async (): Promise<void> => {
-      try {
-        const res = await apiClient.post('/post/album/bookmark/check', {
-          postId: album.id,
-          authorId: userId,
-        })
-        setBookmark(res.data.hasLiked)
-      } catch {
-        console.log('error')
-      }
+    const fetchBookmark = async (): Promise<void> => {
+      const [likeCheckRes, likeCountRes] = await Promise.all([
+        apiClient.get('/post/album/bookmark/check', {
+          params: {
+            postId: album.id,
+            authorId: userId,
+          },
+        }),
+        apiClient.get('/post/album/bookmark/get', {
+          params: {
+            postId: album.id,
+            authorId: userId,
+          },
+        }),
+      ])
+      if (likeCheckRes.status !== HttpStatusCode.Ok || likeCountRes.status !== HttpStatusCode.Ok)
+        throw Error
+      setBookmark(likeCheckRes.data.hasLiked)
+      setCountBookmarks(likeCountRes.data.bookmarkCount)
     }
-
-    fetchLike()
-  }, [album?.id, userId])
+    fetchBookmark()
+  }, [album, setCountBookmarks, userId])
 
   const handleBookMark = async (): Promise<void> => {
-    try {
-      if (bookmark) {
-        await apiClient.post('/post/album/bookmark/delete', {
+    if (bookmark) {
+      const res = await apiClient
+        .delete('/post/album/bookmark/delete', {
+          data: {
+            postId: album.id,
+            authorId: userId,
+          },
+        })
+        .then((res) => {
+          if (res.status !== HttpStatusCode.Ok) throw Error
+          setCountBookmarks(res.data.relatedPost.bookmarks.length)
+          setBookmark(false)
+        })
+    } else {
+      const res = await apiClient
+        .post('/post/album/bookmark/add', {
           postId: album.id,
           authorId: userId,
         })
-        setCountBookmarks((prev: number) => prev - 1)
-        setBookmark(false)
-      } else {
-        await apiClient.post('/post/album/bookmark/add', {
-          postId: album.id,
-          authorId: userId,
+        .then((res) => {
+          if (res.status !== HttpStatusCode.Ok) throw Error
+          setCountBookmarks(res.data.updatedPost.bookmarks.length)
+          setBookmark(true)
         })
-        setCountBookmarks((prev: number) => prev + 1)
-        setBookmark(true)
-      }
-    } catch {
-      alert('情報の取得に失敗しました')
     }
   }
 

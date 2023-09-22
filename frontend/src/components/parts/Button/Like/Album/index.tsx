@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
+import { HttpStatusCode } from 'axios'
 import apiClient from 'libs/apiClient'
+import LikeBtn from '/public/svg/album_likeBtn.svg'
+import LikedBtn from '/public/svg/album_likedBtn.svg'
 import { RootState } from 'store/store'
 import { ArticlesType } from 'types/internal/album'
 
@@ -9,87 +12,60 @@ interface Props {
   setCountLikes: React.Dispatch<React.SetStateAction<number>>
 }
 
-const AlbumLikeBtn = (props: Props): JSX.Element => {
+export default function AlbumLikeBtn(props: Props): JSX.Element {
   const { album, setCountLikes } = props
-  const { userId } = useSelector((state: RootState) => state.user)
 
+  const { userId } = useSelector((state: RootState) => state.user)
   const [likeBtn, setLikeBtn] = useState<boolean>(false)
 
   useEffect(() => {
-    const fetchLike = async (): Promise<void> => {
-      try {
-        const res = await apiClient.post('/post/album/like/check', {
-          postId: album.id,
-          authorId: userId,
-        })
-        setLikeBtn(res.data.hasLiked)
-      } catch {
-        console.log('error')
-      }
+    const fetchData = async (): Promise<void> => {
+      const [likeCheckRes, likeCountRes] = await Promise.all([
+        apiClient.get('/post/album/like/check', {
+          params: {
+            postId: album.id,
+            authorId: userId,
+          },
+        }),
+        apiClient.get('/post/like/count', {
+          params: {
+            postId: album.id,
+          },
+        }),
+      ])
+      if (likeCheckRes.status !== HttpStatusCode.Ok || likeCountRes.status !== HttpStatusCode.Ok)
+        throw Error
+      setLikeBtn(likeCheckRes.data.hasLiked)
+      setCountLikes(likeCountRes.data.likeCount)
     }
-
-    fetchLike()
-  }, [album?.id, userId])
+    fetchData()
+  }, [album.id, setCountLikes, userId])
 
   const handleLike = async (): Promise<void> => {
-    try {
-      if (likeBtn) {
-        await apiClient.post('/post/album/like/delete', {
+    if (likeBtn) {
+      await apiClient
+        .post('/post/album/like/delete', {
           postId: album.id,
           authorId: userId,
         })
-        setCountLikes((prev: number) => prev - 1)
-        setLikeBtn(false)
-      } else {
-        await apiClient.post('/post/album/like/add', {
+        .then((res) => {
+          if (res.status !== HttpStatusCode.Ok) throw Error
+          setCountLikes(res.data.updatedPost.likes.length)
+          setLikeBtn(false)
+        })
+    } else {
+      await apiClient
+        .post('/post/album/like/add', {
           postId: album.id,
           authorId: userId,
         })
-        setLikeBtn(true)
-        setCountLikes((prev: number) => prev + 1)
-      }
-    } catch {
-      alert('エラーが発生しました')
+        .then((res) => {
+          if (res.status !== HttpStatusCode.Ok) throw Error
+          setLikeBtn(true)
+          setCountLikes(res.data.updatedPost.likes.length)
+        })
     }
   }
 
-  return (
-    <>
-      {likeBtn ? (
-        <svg
-          xmlns='http://www.w3.org/2000/svg'
-          width='40'
-          height='40'
-          viewBox='0 0 24 24'
-          strokeWidth='3'
-          stroke='#ff4500'
-          fill='none'
-          strokeLinecap='round'
-          strokeLinejoin='round'
-          onClick={handleLike}
-        >
-          <path stroke='none' d='M0 0h24v24H0z' fill='none' />
-          <path d='M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572' />
-        </svg>
-      ) : (
-        <svg
-          xmlns='http://www.w3.org/2000/svg'
-          width='40'
-          height='40'
-          viewBox='0 0 24 24'
-          strokeWidth='1'
-          stroke='#000000'
-          fill='none'
-          strokeLinecap='round'
-          strokeLinejoin='round'
-          onClick={handleLike}
-        >
-          <path stroke='none' d='M0 0h24v24H0z' fill='none' />
-          <path d='M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572' />
-        </svg>
-      )}
-    </>
-  )
+  return <>{likeBtn ? <LikedBtn handleLike={handleLike} /> : <LikeBtn handleLike={handleLike} />}</>
 }
-
-export default AlbumLikeBtn
