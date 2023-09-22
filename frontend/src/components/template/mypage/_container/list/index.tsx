@@ -28,7 +28,7 @@ function CustomTabPanel(props: TabPanelProps): JSX.Element {
       {...other}
     >
       {value === index && (
-        <Box sx={{ p: 3 }}>
+        <Box sx={{ p: 0 }}>
           <div>{children}</div>
         </Box>
       )}

@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import apiClient from 'libs/apiClient'
 import { RootState } from 'store/store'
-import { ArticlesType } from 'types/internal'
+import { ArticlesType } from 'types/internal/album'
 import ArticleCard from 'components/parts/Card/Album'
 import HomeAlbumCard from 'components/parts/Card/Home/Album'
 import style from '../index.module.scss'
@@ -24,11 +24,16 @@ export default function MypageAlbum(): JSX.Element {
   return (
     <div className={style.album}>
       <div className={style.wide}>
-        {albumsData && albumsData.map((album, index) => <ArticleCard key={index} album={album} />)}
+        <div className={style.contents}>
+          {albumsData &&
+            albumsData.map((album, index) => <ArticleCard key={index} album={album} />)}
+        </div>
       </div>
-      <div className={style.team_card}>
-        {albumsData &&
-          albumsData.map((album, index) => <HomeAlbumCard key={index} album={album} />)}
+      <div className={style.small}>
+        <div className={style.contents}>
+          {albumsData &&
+            albumsData.map((album, index) => <HomeAlbumCard key={index} album={album} />)}
+        </div>
       </div>
     </div>
   )

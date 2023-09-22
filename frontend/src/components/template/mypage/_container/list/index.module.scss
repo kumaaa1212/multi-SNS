@@ -1,46 +1,89 @@
 .album {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 20px;
+  margin-top: 20px;
 }
-.team_card{
+
+.wide {
   display: block;
-}
-@media screen and (min-width: 1000px) {
-  .album {
+
+  .contents {
+    width: 100%;
+    display: grid;
     grid-template-columns: 1fr 1fr;
+    gap: 10px;
   }
 }
 
-@media screen and (min-width: 1900px) {
-  .album {
-    grid-template-columns: 1fr 1fr 1fr;
-  }
+.small {
+  display: none;
 }
 
-@media screen and (max-width: 1000px) {
-  .wide {
-    display: none;
-  }
-  .team_card {
-    display: block;
-  }
-}
-@media screen and (min-width: 1000px) {
+@media screen and (max-width: 1200px) {
   .wide {
     display: block;
+
+    .contents {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
   }
-  .team_card {
+  
+  .small {
     display: none;
   }
 }
 
-.team_card {
-  width: 400px;
-  height: 100px;
-  padding-top: 10px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
+@media screen and (max-width: 1150px) {
+  .wide {
+    display: none;
+  }
+
+  .small {
+    display: block;
+
+    .contents {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      place-items: center;
+      gap: 5px;
+    }
+  }
+}
+@media screen and (max-width: 1050px) {
+  .wide {
+    display: none;
+  }
+
+  .small {
+    display: block;
+
+    .contents {
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      place-items: center;
+      gap: 5px;
+    }
+  }
+}
+
+@media screen and (max-width: 740px) {
+  .wide {
+    display: none;
+
+    .contents {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 5px;
+    }
+  }
+  .small {
+    display: block;
+
+    .contents {
+      display: flex;
+      flex-flow: column;
+      align-items: center;
+      gap: 10px;
+    }
+  }
 }

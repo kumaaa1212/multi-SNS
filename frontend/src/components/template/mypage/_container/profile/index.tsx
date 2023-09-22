@@ -4,14 +4,14 @@ import Image from 'next/image'
 import { HttpStatusCode } from 'axios'
 import apiClient from 'libs/apiClient'
 import { RootState } from 'store/store'
-import { ArticlesLikeType } from 'types/internal'
+import { ArticlesLikeType } from 'types/internal/album'
 import ActiveLink from 'components/parts/Button/ActiveLink'
 import Button from 'components/parts/Button/Base'
 import PostBtn from 'components/parts/Button/Post/addbtn'
 import Noavater from '/public/noavater.jpg'
+import style from './Prolife.module.scss'
 import EditModal from 'components/widgets/Modal/Edit'
 import TweetModal from 'components/widgets/Modal/Tweet'
-import style from './Prolife.module.scss'
 import TwitterIcon from '/public/svg/mypage_twitter.svg'
 import TeamIcon from '/public/svg/mypage_team.svg'
 
@@ -34,7 +34,7 @@ export default function Profile(): JSX.Element {
   }, [userId])
 
   return (
-    <div className='mt_30'>
+    <div className='pt_30'>
       <div className={style.profile_area}>
         <Image
           src={icon ? icon : Noavater}
