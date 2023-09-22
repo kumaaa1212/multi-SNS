@@ -1,7 +1,7 @@
-import { TweetsType } from 'types/internal'
 import TweetCard from 'components/parts/Card/Tweet'
 import ModalBase from 'components/parts/Modal'
 import ModalIcon from '/public/svg/modal_close.svg'
+import { TweetsType } from 'types/internal/tweet'
 
 interface Props {
   open: boolean

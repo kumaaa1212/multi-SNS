@@ -15,12 +15,21 @@
     display: flex;
   }
 }
+@media screen and (max-width: 660px) {
+  .search_area {
+    display: block;
+  }
+  .search_btn_area {
+    margin-bottom: 20px;
+  }
+}
+  
 
 .pagenation {
   margin: 100px 0px;
 }
 
-.main_area {
-  display: grid;
-  grid-template-columns: 1fr 300px;
-}
+// .main_area {
+//   display: grid;
+//   grid-template-columns: 1fr 300px;
+// }

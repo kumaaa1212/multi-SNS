@@ -1,9 +1,9 @@
 import React from 'react'
-import { Grid } from '@mui/material'
-import { ArticlesType } from 'types/internal'
+import { ArticlesType } from 'types/internal/album'
 import ArticleCard from 'components/parts/Card/Album'
-import ArticleArea from 'components/widgets/Article'
-
+import HomeAlbumCard from 'components/parts/Card/Home/Album'
+import AlbumArea from 'components/widgets/Article/Album'
+import style from '../index.module.scss'
 interface Props {
   albumserch: string
   articlesNew: ArticlesType[]
@@ -17,12 +17,17 @@ export default function AlbumNew(props: Props): JSX.Element {
   )
 
   return (
-    <ArticleArea>
-      {articlesNewFilter?.map((album: ArticlesType, index: number) => (
-        <Grid xs={1} sm={1} md={1} key={index}>
-          <ArticleCard album={album} key={album.id} />
-        </Grid>
+    <AlbumArea>
+      {articlesNewFilter?.map((tweet) => (
+        <>
+          <div className={style.large}>
+            <ArticleCard album={tweet} key={tweet.id} />
+          </div>
+          <div className={style.small}>
+            <HomeAlbumCard album={tweet} />
+          </div>
+        </>
       ))}
-    </ArticleArea>
+    </AlbumArea>
   )
 }

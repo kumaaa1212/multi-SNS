@@ -1,7 +1,9 @@
 import React from 'react'
-import { ArticlesType } from 'types/internal'
+import { ArticlesType } from 'types/internal/album'
 import ArticleCard from 'components/parts/Card/Album'
-import ArticleArea from 'components/widgets/Article'
+import HomeAlbumCard from 'components/parts/Card/Home/Album'
+import AlbumArea from 'components/widgets/Article/Album'
+import style from '../index.module.scss'
 
 interface Props {
   albumserch: string
@@ -16,8 +18,17 @@ export default function AlbumLike(props: Props): JSX.Element {
   )
 
   return (
-    <ArticleArea>
-      {articlesNewFilter?.map((album) => <ArticleCard album={album} key={album.id} />)}
-    </ArticleArea>
+    <AlbumArea>
+      {articlesNewFilter?.map((tweet) => (
+        <>
+          <div className={style.large}>
+            <ArticleCard album={tweet} key={tweet.id} />
+          </div>
+          <div className={style.small}>
+            <HomeAlbumCard album={tweet} />
+          </div>
+        </>
+      ))}
+    </AlbumArea>
   )
 }

@@ -5,11 +5,17 @@ import { jLeagueTeams } from 'utils/TeamData'
 import { TeamDataType } from 'types/internal'
 import style from './Label.module.scss'
 
-const LabelArea = (): JSX.Element => {
+interface Props {
+  small?: boolean
+}
+
+const LabelArea = (props: Props): JSX.Element => {
+  const { small } = props
+
   const router = useRouter()
 
   return (
-    <div className={style.label}>
+    <div className={small ? style.label_small : style.label}>
       <div className={style.label_areas}>
         <h3 className={style.label_title}>J1リーグ</h3>
         <div className={style.label_contents}>

@@ -1,11 +1,12 @@
 import { useState } from 'react'
 import Layout from 'components/layout'
-import { ArticlesType } from 'types/internal'
+import { ArticlesType } from 'types/internal/album'
 import Meta from 'components/layout/Head'
 import LabelArea from 'components/widgets/Label/articles'
 import PostTemPlate from 'components/widgets/Post'
 import AlbumLike from './_container/albumDataLike'
 import AlbumNew from './_container/albumDataNew'
+import style from './index.module.scss'
 
 interface Props {
   articlesLike: ArticlesType[]
@@ -30,12 +31,23 @@ export default function Albums(props: Props): JSX.Element {
         albumserch={albumserch}
         setAlbumserch={setAlbumserch}
       >
-        {click ? (
-          <AlbumNew albumserch={albumserch} articlesNew={articlesNew} />
-        ) : (
-          <AlbumLike albumserch={albumserch} articlesLike={articlesLike} />
-        )}
-        <LabelArea />
+        <div className={style.large}>
+          {click ? (
+            <AlbumNew albumserch={albumserch} articlesNew={articlesNew} />
+          ) : (
+            <AlbumLike albumserch={albumserch} articlesLike={articlesLike} />
+          )}
+          <LabelArea />
+        </div>
+        <div className={style.small}>
+          <LabelArea small />
+
+          {click ? (
+            <AlbumNew albumserch={albumserch} articlesNew={articlesNew} />
+          ) : (
+            <AlbumLike albumserch={albumserch} articlesLike={articlesLike} />
+          )}
+        </div>
       </PostTemPlate>
     </Layout>
   )

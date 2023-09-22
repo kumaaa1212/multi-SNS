@@ -1,5 +1,5 @@
 import React from 'react'
-import { TweetsType } from 'types/internal'
+import { TweetsType } from 'types/internal/tweet'
 import TweetCard from 'components/parts/Card/Tweet'
 import ArticleArea from 'components/widgets/Article'
 
@@ -10,9 +10,12 @@ interface Props {
 
 export default function TweetLike(props: Props): JSX.Element {
   const { tweetsLike, albumserch } = props
+
+  const tweetsLikeFilter = tweetsLike.filter((tweet) => tweet.content.includes(albumserch))
+
   return (
     <ArticleArea>
-      {tweetsLike?.map((tweet) => <TweetCard tweet={tweet} key={tweet.id} />)}
+      {tweetsLikeFilter?.map((tweet) => <TweetCard tweet={tweet} key={tweet.id} />)}
     </ArticleArea>
   )
 }

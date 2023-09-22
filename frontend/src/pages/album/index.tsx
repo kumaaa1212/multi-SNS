@@ -2,7 +2,7 @@ import { GetServerSideProps } from 'next'
 import { HttpStatusCode } from 'axios'
 import Albums from 'components/template/article'
 import apiClient from 'libs/apiClient'
-import { ArticlesType } from 'types/internal'
+import { ArticlesType } from 'types/internal/album'
 
 export const getServerSideProps: GetServerSideProps = async () => {
   const [resLike, resnew] = await Promise.all([

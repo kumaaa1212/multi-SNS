@@ -1,11 +1,12 @@
 import { useState } from 'react'
 import Layout from 'components/layout'
-import { TweetsType } from 'types/internal'
+import TweetLike from 'components/template/tweets/_container/tweetsDataLike'
+import TweetNew from 'components/template/tweets/_container/tweetsDataNew'
+import { TweetsType } from 'types/internal/tweet'
 import Meta from 'components/layout/Head'
 import LabelArea from 'components/widgets/Label/articles'
 import PostTemPlate from 'components/widgets/Post'
-import TweetLike from './_container/tweetsDataLike'
-import TweetNew from './_container/tweetsDataNew'
+import style from './index.module.scss'
 
 interface Props {
   tweetsLike: TweetsType[]
@@ -30,14 +31,23 @@ export default function Tweets(props: Props): JSX.Element {
           albumserch={albumserch}
           setAlbumserch={setAlbumserch}
         >
-          <div>
+          <div className={style.large}>
+            {click ? (
+              <TweetNew albumserch={albumserch} tweetsNew={tweetsNew} />
+            ) : (
+              <TweetLike albumserch={albumserch} tweetsLike={tweetsLike} />
+            )}
+            <LabelArea />
+          </div>
+          <div className={style.small}>
+            <LabelArea small />
+
             {click ? (
               <TweetNew albumserch={albumserch} tweetsNew={tweetsNew} />
             ) : (
               <TweetLike albumserch={albumserch} tweetsLike={tweetsLike} />
             )}
           </div>
-          <LabelArea />
         </PostTemPlate>
       </div>
     </Layout>

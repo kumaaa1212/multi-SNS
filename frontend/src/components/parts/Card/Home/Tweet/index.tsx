@@ -2,7 +2,7 @@ import Image from 'next/image'
 import { Paper } from '@mui/material'
 import { jLeagueTeams } from 'utils/TeamData'
 import { formatTimestamp } from 'utils/functions/Time'
-import { TweetsType } from 'types/internal'
+import { TweetsType } from 'types/internal/tweet'
 import style from './index.module.scss'
 
 interface Props {
