@@ -19,7 +19,7 @@ import DropDown from './DropDown'
 
 export default function Header(): JSX.Element {
   const router = useRouter()
-  const { icon } = useSelector((state: RootState) => state.user)
+  const { icon, team } = useSelector((state: RootState) => state.user)
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null)
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null)
 
@@ -32,7 +32,7 @@ export default function Header(): JSX.Element {
       return 'active'
     } else if (url === 'MYPAGE' && router.asPath.includes('/mypage')) {
       return 'active'
-    } else if (url === 'BOARD' && router.asPath.includes('/board')) {
+    } else if (url === 'BOARD' && router.asPath.includes(`/board/${team}`)) {
       return 'active'
     }
     return ''
@@ -48,10 +48,10 @@ export default function Header(): JSX.Element {
       } else if (name === 'CHAT') {
         router.push('/chat')
       } else if (name === 'BOARD') {
-        router.push('/board/YokohamaFC')
+        router.push(`/board/${team}`)
       }
     },
-    [router],
+    [router, team],
   )
 
   return (
@@ -179,7 +179,7 @@ export default function Header(): JSX.Element {
               open={Boolean(anchorElUser)}
               onClose={(): void => setAnchorElUser(null)}
             >
-              {/* <DropDown /> */}
+              <DropDown />
             </Menu>
           </Box>
         </Toolbar>

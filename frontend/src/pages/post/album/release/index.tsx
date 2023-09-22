@@ -1,5 +1,4 @@
-import React from 'react'
-import Release from 'components/template/post/release'
+import Release from 'components/template/post/_container/release'
 
 export default function ReleasePage(): JSX.Element {
   return <Release />

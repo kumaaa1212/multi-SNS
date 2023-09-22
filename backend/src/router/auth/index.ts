@@ -57,12 +57,17 @@ router.post("/login", async (req: Request, res: Response) => {
 
 // ユーザー情報取得
 router.get("/me", middleware, async (req: any, res: Response) => {
-  const user = await prisma.user.findUnique({
-    where: {
-      id: Number(req.userId),
-    },
-  });
-  res.json({ user });
+  try {
+    const user = await prisma.user.findUnique({
+      where: {
+        id: Number(req.userId),
+      },
+    });
+    res.json({ user });
+  } catch (error) {
+    console.error("Error fetching user:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
 });
 
 router.put("/update/:id", async (req, res) => {
@@ -109,6 +114,19 @@ router.post("/follow", async (req: Request, res: Response) => {
       },
     });
 
+    // 更新前に関連するデータの存在を確認
+    const existingAuthor = await prisma.user.findUnique({
+      where: { id: Number(authorId) },
+    });
+
+    const existingUser = await prisma.user.findUnique({
+      where: { id: Number(userId) },
+    });
+
+    if (!existingAuthor || !existingUser) {
+      return res.status(404).json({ error: "ユーザーが見つかりません" });
+    }
+
     await prisma.user.update({
       where: { id: Number(authorId) },
       data: {
@@ -122,21 +140,20 @@ router.post("/follow", async (req: Request, res: Response) => {
       where: { id: Number(userId) },
       data: {
         follower: {
-          connect: { id: Number(authorId) },
+          connect: { id: newFollow.id },  // 更新対象を newFollow.id に変更
         },
       },
     });
 
-    // 正常なレスポンスを返す
     res.status(200).json({ message: "フォローが正常に作成されました。" });
   } catch (error) {
-    // エラーが発生した場合、エラーレスポンスを返す
     console.error("フォロー情報の保存中にエラーが発生しました:", error);
     res
       .status(500)
       .json({ error: "フォロー情報の保存中にエラーが発生しました。" });
   }
 });
+
 
 router.delete("/unfollow", async (req: Request, res: Response) => {
   const { authorId, userId } = req.params;

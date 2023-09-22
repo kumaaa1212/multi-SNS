@@ -30,7 +30,7 @@ const Thumbnail = (): JSX.Element => {
             <ThumbnailCard className='600' />
             <div className={style.thumbnail_delail}>
               <Labels
-                labelName='チームを選択'
+                labelName='自分の応援しているチーム→関連するチームの順で選択してください'
                 data={jLeagueTeams}
                 margin='mb_24'
                 setSelectedLabels={setSelectedLabels}

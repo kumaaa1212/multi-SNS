@@ -1,14 +1,36 @@
-.use_btn{
-  margin-top: 10px;
+.titile {
+  font-weight: 700;
+}
+
+.time {
+  font-weight: 700;
+  margin-left: 50px;
+}
+
+.use_btn {
+  margin-top: 20px;
   display: flex;
-  justify-content:  flex-end;
-  button{
+  justify-content: space-between;
+
+  .delete_btn {
     display: block;
     width: 100px;
     height: 40px;
     font-weight: bold;
-    background-color: black;
-    color:white;
+    background-color: rgb(208, 0, 0);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  .btn {
+    display: block;
+    width: 100px;
+    height: 40px;
+    font-weight: bold;
+    background-color: #1876d2;
+    color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;

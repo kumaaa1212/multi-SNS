@@ -2,7 +2,9 @@ import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import apiClient from 'libs/apiClient'
 import { RootState } from 'store/store'
-import { ArticlesType, FrendInfo, TweetsType } from 'types/internal'
+import { FrendInfo } from 'types/internal'
+import { ArticlesType } from 'types/internal/album'
+import { TweetsType } from 'types/internal/tweet'
 import style from './FollowBtn.module.scss'
 interface Props {
   posts: ArticlesType | TweetsType

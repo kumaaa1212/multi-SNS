@@ -2,7 +2,7 @@ import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { Paper } from '@mui/material'
 import { formatTimestamp } from 'utils/functions/Time'
-import { ArticlesType } from 'types/internal'
+import { ArticlesType } from 'types/internal/album'
 import style from './index.module.scss'
 
 interface Props {
@@ -22,7 +22,7 @@ export default function HomeAlbumCard(props: Props): JSX.Element {
     <div className={style.card} onClick={handlePath}>
       <Paper className={style.team_card}>
         <Image
-          src='/images/profile.jpg'
+          src={album?.labels[0].img}
           alt='チームのエンブレム'
           width={100}
           height={70}
@@ -35,7 +35,7 @@ export default function HomeAlbumCard(props: Props): JSX.Element {
         <h1>{album?.title}</h1>
         <div className={style.detail_area}>
           <Image
-            src='/images/profile.jpg'
+            src={album?.authorAvatar}
             alt='me'
             width={40}
             height={40}

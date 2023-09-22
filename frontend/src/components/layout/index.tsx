@@ -22,7 +22,7 @@ interface Props {
 
 export default function Layout(props: Props): JSX.Element {
   const { margin = 'm_0 p_0', bgColor, children, isSaveBar } = props
-  const [progress, setProgress] = useState<number>(0)
+  const [progress, setProgress] = useState<number>(100)
   const {
     discardModalOpen = false,
     discardModalClose = (): void => {},
