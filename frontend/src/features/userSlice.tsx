@@ -13,6 +13,7 @@ interface UserState {
   follower: FrendInfo[]
   twitterURL?: string
   teamURL?: string
+  userLikeCount?: number
 }
 
 const initialState: UserState = {
@@ -26,6 +27,7 @@ const initialState: UserState = {
   follower: [],
   twitterURL: '',
   teamURL: '',
+  userLikeCount: 0,
 }
 
 const userSlice = createSlice({
@@ -68,9 +70,15 @@ const userSlice = createSlice({
         teamURL: action.payload.user.teamURL,
       }
     },
+    updataLikeCount: (state, action) => {
+      return {
+        ...state,
+        userLikeCount: action.payload.userLikeCount,
+      }
+    },
   },
 })
 
-export const { loginUser, logoutUser, updateUser } = userSlice.actions
+export const { loginUser, logoutUser, updateUser, updataLikeCount } = userSlice.actions
 
 export default userSlice.reducer

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import apiClient from 'libs/apiClient'
 import { RootState } from 'store/store'
-import { ArticlesType } from 'types/internal'
+import { ArticlesType } from 'types/internal/album'
 
 interface Props {
   album: ArticlesType

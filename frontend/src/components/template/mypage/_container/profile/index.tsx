@@ -4,7 +4,6 @@ import Image from 'next/image'
 import { HttpStatusCode } from 'axios'
 import apiClient from 'libs/apiClient'
 import { RootState } from 'store/store'
-import { ArticlesLikeType } from 'types/internal/album'
 import ActiveLink from 'components/parts/Button/ActiveLink'
 import Button from 'components/parts/Button/Base'
 import PostBtn from 'components/parts/Button/Post/addbtn'
@@ -16,18 +15,17 @@ import TwitterIcon from '/public/svg/mypage_twitter.svg'
 import TeamIcon from '/public/svg/mypage_team.svg'
 
 export default function Profile(): JSX.Element {
-  const { username, icon, bio, follow, follower, userId, twitterURL, teamURL } = useSelector(
-    (state: RootState) => state.user,
-  )
+  const { username, icon, bio, follow, follower, userId, twitterURL, teamURL, userLikeCount } =
+    useSelector((state: RootState) => state.user)
   const [openEdit, setOpenEdit] = useState<boolean>(false)
   const [openTweet, setOpenTweet] = useState<boolean>(false)
-  const [likeCount, setLikeCount] = useState<ArticlesLikeType[]>()
+  const [likeCount, setLikeCount] = useState<number>()
 
   useEffect(() => {
     const llikeDeta = async (): Promise<void> => {
       await apiClient.get(`/post/album/likes/${userId}`).then((res) => {
         if (res.status !== HttpStatusCode.Ok) return
-        setLikeCount(res.data.likes)
+        setLikeCount(res.data.likes.length)
       })
     }
     llikeDeta()
@@ -58,7 +56,7 @@ export default function Profile(): JSX.Element {
           <div className={style.profile_bio}>{bio}</div>
           <div className={style.profile_info}>
             <button>
-              <span>{likeCount ? likeCount.length : 0}Likes</span>
+              <span>{likeCount ? likeCount : userLikeCount}Likes</span>
             </button>
             <button>
               <span>{follow?.length}Follow</span>

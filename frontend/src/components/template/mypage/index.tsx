@@ -5,7 +5,7 @@ import Profile from './_container/profile'
 
 export default function Mapage(): JSX.Element {
   return (
-    <Layout margin='ph_20' bgColor='bg_gray'>
+    <Layout margin='p_20' bgColor='bg_gray'>
       <Meta title='マイページ' />
       <Profile />
       <BasicTabs />

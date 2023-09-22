@@ -69,6 +69,7 @@ router.post("/tweet", async (req: Request, res: Response) => {
   }
 });
 
+// albumを追加する
 router.post("/album", async (req: Request, res: Response) => {
   const {
     title,
@@ -198,6 +199,7 @@ router.get("/all/album/top", async (req: Request, res: Response) => {
     res.json({ error: err.message });
   }
 });
+
 // 全tweetの取得(いいね順上位6個)
 router.get("/all/tweet/top", async (req: Request, res: Response) => {
   try {
@@ -220,6 +222,7 @@ router.get("/all/tweet/top", async (req: Request, res: Response) => {
     res.json({ error: err.message });
   }
 });
+
 // 投稿全の取得(いいね順)
 router.get("/all/content/order/like", async (req: Request, res: Response) => {
   try {
@@ -243,6 +246,7 @@ router.get("/all/content/order/like", async (req: Request, res: Response) => {
     res.json({ error: err.message });
   }
 });
+
 // 投稿全の取得(投稿順)
 router.get("/all/content/order/new", async (req: Request, res: Response) => {
   try {
@@ -536,7 +540,6 @@ router.post("/album/bookmark/delete", async (req: Request, res: Response) => {
     res.status(500).json({ error: "Failed to remove like." });
   }
 });
-// 配列としてfindUniqueして、その値をsetする。からの配列をsetしている
 
 // いいねをしているかを確認する
 router.post("/album/like/check", async (req: Request, res: Response) => {
@@ -579,9 +582,7 @@ router.post("/album/bookmark/check", async (req: Request, res: Response) => {
 });
 
 // 自分がbookmarkした投稿の取得
-router.get(
-  "/album/bookmarked/:authorId",
-  async (req: Request, res: Response) => {
+router.get("/album/bookmarked/:authorId", async (req: Request, res: Response) => {
     const { authorId } = req.params;
 
     try {
@@ -635,6 +636,7 @@ router.get("/album/team/:label", async (req: Request, res: Response) => {
   }
 });
 
+// tweetのlikeを確認する
 router.post("/tweet/like/check", async (req: Request, res: Response) => {
   const { tweetId, authorId } = req.body;
 
@@ -654,6 +656,7 @@ router.post("/tweet/like/check", async (req: Request, res: Response) => {
   }
 });
 
+// tweetのlikeを削除する
 router.post("/tweet/like/delete", async (req: Request, res: Response) => {
   const { tweetId, authorId } = req.body;
 
@@ -701,6 +704,7 @@ router.post("/tweet/like/delete", async (req: Request, res: Response) => {
   }
 });
 
+// tweetにlikeを追加する
 router.post("/tweet/like/add", async (req: Request, res: Response) => {
   const { tweetId, authorId } = req.body;
 
@@ -733,6 +737,7 @@ router.post("/tweet/like/add", async (req: Request, res: Response) => {
   }
 });
 
+// 自分がlikeしたtweetの取得
 router.get("/tweet/like/:authorId", async (req: Request, res: Response) => {
   const { authorId } = req.params;
 
