@@ -15,6 +15,7 @@ import Toolbar from '@mui/material/Toolbar'
 import Tooltip from '@mui/material/Tooltip'
 import Typography from '@mui/material/Typography'
 import { RootState } from 'store/store'
+import { jLeagueTeams } from 'utils/TeamData'
 import DropDown from './DropDown'
 
 export default function Header(): JSX.Element {
@@ -25,6 +26,8 @@ export default function Header(): JSX.Element {
 
   const pages = useMemo(() => ['HOME', 'CHAT', 'MYPAGE', 'BOARD'], [])
 
+  const myTeam = jLeagueTeams.find((jLeagueTeam) => jLeagueTeam.name === team)
+
   const activeLink = (url: string): string => {
     if (url === 'HOME' && router.asPath.includes('/home')) {
       return 'active'
@@ -32,7 +35,7 @@ export default function Header(): JSX.Element {
       return 'active'
     } else if (url === 'MYPAGE' && router.asPath.includes('/mypage')) {
       return 'active'
-    } else if (url === 'BOARD' && router.asPath.includes(`/board/${team}`)) {
+    } else if (url === 'BOARD' && router.asPath.includes(`/board/${myTeam?.label}`)) {
       return 'active'
     }
     return ''
@@ -48,10 +51,10 @@ export default function Header(): JSX.Element {
       } else if (name === 'CHAT') {
         router.push('/chat')
       } else if (name === 'BOARD') {
-        router.push(`/board/${team}`)
+        router.push(`/board/${myTeam?.label}`)
       }
     },
-    [router, team],
+    [myTeam, router],
   )
 
   return (

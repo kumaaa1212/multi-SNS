@@ -17,7 +17,7 @@ const Chat = (props: Props): JSX.Element => {
   const [selectRoom, setSelectRoom] = useState<RoomType[]>([])
 
   return (
-    <Layout>
+    <Layout bgColor='bg_blue'>
       <Meta title='Chat' />
       <div className={style.chat}>
         <SideBar
