@@ -19,6 +19,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
     },
   }
 }
+
 interface Props {
   albums: ArticlesType[]
   tweets: TweetsType[]

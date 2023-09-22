@@ -9,7 +9,7 @@ interface Props {
   tweets: TweetsType[]
 }
 
-const TweetParts = (props: Props): JSX.Element => {
+export default function TweetParts(props: Props): JSX.Element {
   const { tweets } = props
   const [showTweets, setShowTweets] = useState<TweetsType>(tweets[0])
   const [open, setOpen] = useState<boolean>(false)
@@ -40,5 +40,3 @@ const TweetParts = (props: Props): JSX.Element => {
     </>
   )
 }
-
-export default TweetParts

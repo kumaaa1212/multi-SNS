@@ -6,6 +6,7 @@ import { updateUser } from 'features/userSlice'
 import apiClient from 'libs/apiClient'
 import { AppDispatch } from 'store/store'
 import ModalDiscard from 'components/widgets/Modal/Discard '
+import Footer from './Footer'
 import ResponsiveAppBar from './Header'
 import SaveBar from './SaveBar'
 
@@ -68,6 +69,7 @@ export default function Layout(props: Props): JSX.Element {
         setOpen={discardModalClose}
         discardModalRefresh={discardModalRefresh}
       />
+      <Footer />
     </div>
   )
 }

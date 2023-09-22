@@ -2,7 +2,7 @@ import { useState } from 'react'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { Paper } from '@mui/material'
-import { LabelType } from 'types/internal'
+import { LabelType } from 'types/internal/album'
 import HomeTemplate from 'components/widgets/home'
 import style from './Categories.module.scss'
 
@@ -10,7 +10,7 @@ interface Props {
   labels: LabelType[]
 }
 
-const CategoriesPart = (props: Props): JSX.Element => {
+export default function CategoriesPart(props: Props): JSX.Element {
   const { labels } = props
 
   const router = useRouter()
@@ -48,5 +48,3 @@ const CategoriesPart = (props: Props): JSX.Element => {
     </HomeTemplate>
   )
 }
-
-export default CategoriesPart

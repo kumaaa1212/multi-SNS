@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { Paper } from '@mui/material'
-import { formatTimestamp } from 'utils/functions/Time'
+import { useFormattedTimestamp } from 'components/hooks/useTime'
 import { ArticlesType } from 'types/internal/album'
 import style from './index.module.scss'
 
@@ -13,6 +13,7 @@ export default function HomeAlbumCard(props: Props): JSX.Element {
   const { album } = props
 
   const router = useRouter()
+  const formattedTimestamp = useFormattedTimestamp(album?.createdAt)
 
   const handlePath = (): void => {
     router.push(`/home`)
@@ -44,10 +45,8 @@ export default function HomeAlbumCard(props: Props): JSX.Element {
           />
           <div className='ml_10 fw_700'>
             <p>{album?.authorName}</p>
-            <div className='display_flex'>
-              <p>{formatTimestamp(album?.createdAt)}</p>
-              <p>{album?.likes?.length}</p>
-            </div>
+            <p>{formattedTimestamp}</p>
+            <p>{album?.likes?.length}Likes</p>
           </div>
         </div>
       </div>
