@@ -2,10 +2,11 @@ import Image from 'next/image'
 import { useRouter } from 'next/router'
 import Layout from 'components/layout'
 import { jLeagueTeams } from 'utils/TeamData'
-import { ArticlesType, TeamDataType } from 'types/internal'
+import { TeamDataType } from 'types/internal'
+import { ArticlesType } from 'types/internal/album'
 import Meta from 'components/layout/Head'
-import ArticleArea from 'components/widgets/Article'
-import LabelArea from 'components/widgets/Label/articles'
+import AlbumArea from 'components/widgets/Article/Album'
+import LabelArea from 'components/widgets/Label/Select'
 import style from './ArticleDetail.module.scss'
 
 interface Props {
@@ -35,9 +36,9 @@ export default function Team(props: Props): JSX.Element {
           </div>
           <div>
             {data?.length ? (
-              <ArticleArea>
+              <AlbumArea>
                 <div></div>
-              </ArticleArea>
+              </AlbumArea>
             ) : (
               <div className={style.not_article}>
                 <h1 className={style.not_article_title}>Not Found Album</h1>

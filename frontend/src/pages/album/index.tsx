@@ -1,6 +1,6 @@
 import { GetServerSideProps } from 'next'
 import { HttpStatusCode } from 'axios'
-import Albums from 'components/template/article'
+import Albums from 'components/template/album'
 import apiClient from 'libs/apiClient'
 import { ArticlesType } from 'types/internal/album'
 

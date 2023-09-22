@@ -4,6 +4,7 @@ import ArticleCard from 'components/parts/Card/Album'
 import HomeAlbumCard from 'components/parts/Card/Home/Album'
 import AlbumArea from 'components/widgets/Article/Album'
 import style from '../index.module.scss'
+
 interface Props {
   albumserch: string
   articlesNew: ArticlesType[]

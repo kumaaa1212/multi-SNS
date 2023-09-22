@@ -95,14 +95,16 @@ export default function AlbumCard(props: Props): JSX.Element {
             <DeleteIcon />
           </div>
         )}
-        <Image
-          src={album?.thumbnailImg ? album.thumbnailImg : '/thumbnail.png'}
-          alt={''}
-          priority
-          className={style.main_img}
-          width={550}
-          height={250}
-        />
+        <div className={style.img_area}>
+          <Image
+            src={album?.thumbnailImg ? album.thumbnailImg : '/thumbnail.png'}
+            alt={''}
+            priority
+            className={style.main_img}
+            width={550}
+            height={250}
+          />
+        </div>
         <CardContent>
           <span className={style.thumbnail_text}>{album?.thumbnailText}</span>
           <div className={style.label_area}>

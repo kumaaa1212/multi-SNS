@@ -1,5 +1,5 @@
 import React from 'react'
-import styled from './Article.module.scss'
+import styled from './Album.module.scss'
 interface Props {
   children: React.ReactNode
 }

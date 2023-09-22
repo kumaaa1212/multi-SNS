@@ -1,4 +1,3 @@
-import React from 'react'
 import { useRouter } from 'next/router'
 import { Chip } from '@mui/material'
 import { jLeagueTeams } from 'utils/TeamData'
@@ -9,7 +8,7 @@ interface Props {
   small?: boolean
 }
 
-const LabelArea = (props: Props): JSX.Element => {
+export default function LabelArea(props: Props): JSX.Element {
   const { small } = props
 
   const router = useRouter()
@@ -22,7 +21,7 @@ const LabelArea = (props: Props): JSX.Element => {
           {jLeagueTeams.map((team: TeamDataType) => (
             <span
               onClick={(): void => {
-                router.push(`/categories/details/${team.label}`)
+                router.push(`/categories/${team.label}`)
               }}
               key={team.label}
             >
@@ -34,5 +33,3 @@ const LabelArea = (props: Props): JSX.Element => {
     </div>
   )
 }
-
-export default LabelArea

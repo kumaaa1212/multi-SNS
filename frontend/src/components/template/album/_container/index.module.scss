@@ -1,0 +1,17 @@
+.large {
+  display: block;
+}
+
+.small {
+  display: none;
+}
+
+@media screen and (max-width: 1430px) {
+  .large {
+    display: none;
+  }
+  .small {
+    display: block;
+  }
+}
+  

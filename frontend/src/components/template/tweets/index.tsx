@@ -4,7 +4,7 @@ import TweetLike from 'components/template/tweets/_container/tweetsDataLike'
 import TweetNew from 'components/template/tweets/_container/tweetsDataNew'
 import { TweetsType } from 'types/internal/tweet'
 import Meta from 'components/layout/Head'
-import LabelArea from 'components/widgets/Label/articles'
+import LabelArea from 'components/widgets/Label/Select'
 import PostTemPlate from 'components/widgets/Post'
 import style from './index.module.scss'
 

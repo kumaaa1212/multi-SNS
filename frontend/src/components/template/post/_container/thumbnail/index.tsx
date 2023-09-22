@@ -7,7 +7,7 @@ import { jLeagueTeams } from 'utils/TeamData'
 import { TeamDataType } from 'types/internal'
 import Meta from 'components/layout/Head'
 import ThumbnailCard from 'components/parts/Card/Post/thumbnail'
-import Labels from 'components/widgets/Label'
+import Labels from 'components/widgets/Label/Input'
 import style from './Thumbnail.module.scss'
 import AlnumLayout from '../albumLayout/AlbumLayout'
 
