@@ -76,7 +76,7 @@ export default function Header(): JSX.Element {
               textDecoration: 'none',
             }}
           >
-            LOGO
+            <Image src='/logo.png' alt='logo' width={280} height={60} className='logo_img' />
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
