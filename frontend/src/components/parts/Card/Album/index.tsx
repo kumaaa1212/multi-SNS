@@ -12,7 +12,9 @@ import CardHeader from '@mui/material/CardHeader'
 import Collapse from '@mui/material/Collapse'
 import IconButton, { IconButtonProps } from '@mui/material/IconButton'
 import { styled } from '@mui/material/styles'
+import { HttpStatusCode } from 'axios'
 import { useFormattedTimestamp } from 'components/hooks/useTime'
+import apiClient from 'libs/apiClient'
 import { RootState } from 'store/store'
 import Icongenerate from 'utils/functions/Avater'
 import { ArticlesType, LabelType } from 'types/internal/album'
@@ -39,10 +41,11 @@ const ExpandMore = styled((props: ExpandMoreProps) => {
 
 interface Props {
   album: ArticlesType
+  handleDelete: (album: ArticlesType) => void
 }
 
 export default function AlbumCard(props: Props): JSX.Element {
-  const { album } = props
+  const { album, handleDelete } = props
 
   const { username } = useSelector((state: RootState) => state.user)
   const [expanded, setExpanded] = useState<boolean>(false)
@@ -53,14 +56,6 @@ export default function AlbumCard(props: Props): JSX.Element {
 
   const handleExpandClick = (): void => {
     setExpanded(!expanded)
-  }
-
-  const handleDelete = async (): Promise<void> => {
-    try {
-      setMoreover(false)
-    } catch {
-      alert('削除に失敗しました')
-    }
   }
 
   return (
@@ -93,7 +88,7 @@ export default function AlbumCard(props: Props): JSX.Element {
         {moreover && (
           <div className={style.moreover_area}>
             <p>削除</p>
-            <DeleteIcon />
+            <DeleteIcon onClick={(): void => handleDelete(album)} />
           </div>
         )}
         <div className={style.img_area}>

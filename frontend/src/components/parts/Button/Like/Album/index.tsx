@@ -67,5 +67,5 @@ export default function AlbumLikeBtn(props: Props): JSX.Element {
     }
   }
 
-  return <>{likeBtn ? <LikedBtn handleLike={handleLike} /> : <LikeBtn handleLike={handleLike} />}</>
+  return <>{likeBtn ? <LikedBtn onClick={handleLike} /> : <LikeBtn onClick={handleLike} />}</>
 }

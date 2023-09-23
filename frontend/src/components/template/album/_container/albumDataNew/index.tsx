@@ -29,12 +29,25 @@ export default function AlbumNew(props: Props): JSX.Element {
     detaFetch()
   }, [])
 
+  const handleDelete = async (album: ArticlesType): Promise<void> => {
+    await apiClient
+      .delete('/post/Newalbum/delete', {
+        params: {
+          postId: album.id,
+        },
+      })
+      .then((res) => {
+        if (res.status !== HttpStatusCode.Ok) throw Error
+        setAlbumNewData(res.data.remainAlbums)
+      })
+  }
+
   return (
     <AlbumArea>
       {articlesNewFilter?.map((album) => (
         <div key={album.id}>
           <div className={style.large}>
-            <ArticleCard album={album} />
+            <ArticleCard album={album} handleDelete={handleDelete} />
           </div>
           <div className={style.small}>
             <HomeAlbumCard album={album} />

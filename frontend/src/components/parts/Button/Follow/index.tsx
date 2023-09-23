@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
+import { HttpStatusCode } from 'axios'
 import apiClient from 'libs/apiClient'
 import { RootState } from 'store/store'
 import { FrendInfo } from 'types/internal'
@@ -11,7 +12,7 @@ interface Props {
   content: string
 }
 
-const FollowButton = (props: Props): JSX.Element => {
+export default function FollowButton(props: Props): JSX.Element {
   const { posts, content } = props
 
   const { follow, userId, iconPath, bio, team, twitterURL, teamURL, username } = useSelector(
@@ -20,7 +21,7 @@ const FollowButton = (props: Props): JSX.Element => {
   const [followBtn, setFollowBtn] = useState<boolean>()
 
   const followUser = async (
-    _authorId: string,
+    authorId: string,
     userId: string,
     username: string,
     iconPath: string,
@@ -29,20 +30,26 @@ const FollowButton = (props: Props): JSX.Element => {
     twitterURL: string | undefined,
     teamURL: string | undefined,
   ): Promise<void> => {
-    await apiClient.post('/auth/follow', {
-      authorId: _authorId,
-      userId,
-      name: username,
-      iconpath: iconPath,
-      bio,
-      team,
-      twitterURL,
-      teamURL,
-    })
+    await apiClient
+      .post('/follow', {
+        authorId,
+        userId,
+        name: username,
+        iconpath: iconPath,
+        bio,
+        team,
+        twitterURL,
+        teamURL,
+      })
+      .then((res) => {
+        if (res.status !== HttpStatusCode.Ok) throw Error
+      })
   }
 
   const unFollowUser = async (_authorId: string, userId: string): Promise<void> => {
-    await apiClient.delete(`/auth/unfollow?authorId=${_authorId}&userId=${userId}`)
+    await apiClient.delete(`/auth/unfollow?authorId=${_authorId}&userId=${userId}`).then((res) => {
+      if (res.status !== HttpStatusCode.Ok) throw Error
+    })
   }
 
   useEffect(() => {
@@ -51,12 +58,12 @@ const FollowButton = (props: Props): JSX.Element => {
   }, [posts?.authorId, follow])
 
   const handleFrends = (): void => {
-    setFollowBtn(!followBtn)
     if (!follow?.some((user: FrendInfo) => user.userId === posts.authorId)) {
       followUser(posts.authorId, userId, username, iconPath, bio, team, twitterURL, teamURL)
     } else {
       unFollowUser(posts.authorId, userId)
     }
+    setFollowBtn(!followBtn)
   }
 
   return (
@@ -65,5 +72,3 @@ const FollowButton = (props: Props): JSX.Element => {
     </button>
   )
 }
-
-export default FollowButton

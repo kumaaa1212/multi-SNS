@@ -114,19 +114,6 @@ router.post("/follow", async (req: Request, res: Response) => {
       },
     });
 
-    // 更新前に関連するデータの存在を確認
-    const existingAuthor = await prisma.user.findUnique({
-      where: { id: Number(authorId) },
-    });
-
-    const existingUser = await prisma.user.findUnique({
-      where: { id: Number(userId) },
-    });
-
-    if (!existingAuthor || !existingUser) {
-      return res.status(404).json({ error: "ユーザーが見つかりません" });
-    }
-
     await prisma.user.update({
       where: { id: Number(authorId) },
       data: {
@@ -140,7 +127,7 @@ router.post("/follow", async (req: Request, res: Response) => {
       where: { id: Number(userId) },
       data: {
         follower: {
-          connect: { id: newFollow.id },  // 更新対象を newFollow.id に変更
+          connect: { id: newFollow.id }, 
         },
       },
     });
@@ -154,7 +141,7 @@ router.post("/follow", async (req: Request, res: Response) => {
   }
 });
 
-
+// unfollow
 router.delete("/unfollow", async (req: Request, res: Response) => {
   const { authorId, userId } = req.params;
 
