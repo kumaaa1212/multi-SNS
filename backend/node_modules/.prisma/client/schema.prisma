@@ -11,45 +11,44 @@ datasource db {
 }
 
 model User {
-    id     Int    @id @default(autoincrement())
-    email  String @unique
-    name   String
-    password String
-    team   String
-    icon   String
-    bio    String
-    follow Follow[]
-    follower Follower[]
-    twitterURL String
-    teamURL String
-    createdAt DateTime @default(now())
+  id         Int       @id @default(autoincrement())
+  email      String    @unique
+  name       String
+  password   String
+  team       String
+  icon       String
+  bio        String
+  followers  Follower[] // Follower モデルとのリレーション
+  follows    Follow[]   // Follow モデルとのリレーション
+  twitterURL String
+  teamURL    String
+  createdAt  DateTime  @default(now())
 }
 
 model Follow {
-  id     Int    @id @default(autoincrement())
-  userId Int
-  bio   String
-  name   String
-  icon   String
-  team   String
+  id        Int     @id @default(autoincrement())
+  bio       String
+  name      String
+  icon      String
+  team      String
   twitterURL String
-  teamURL String
-  frendId Int
-  frend User @relation(fields: [frendId], references: [id])
+  teamURL   String
+  user      User    @relation(fields: [userId], references: [id]) // User モデルへのリレーション
+  userId    Int
 }
 
 model Follower {
-  id     Int    @id @default(autoincrement())
-  userId Int
-  bio   String
-  name   String
-  icon   String
-  team   String
+  id        Int     @id @default(autoincrement())
+  bio       String
+  name      String
+  icon      String
+  team      String
   twitterURL String
-  teamURL String
-  frendId Int
-  frend User @relation(fields: [frendId], references: [id])
+  teamURL   String
+  user      User    @relation(fields: [userId], references: [id]) // User モデルへのリレーション
+  userId    Int
 }
+
 
 model Post{
   id Int @id @default(autoincrement())

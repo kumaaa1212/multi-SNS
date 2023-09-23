@@ -41,6 +41,10 @@ router.post("/login", async (req: Request, res: Response) => {
     where: {
       email: email,
     },
+    include: {
+      followers: true,
+      follows: true,
+    },
   });
   if (!user) {
     return res.status(404).json({ error: "User not found" });
@@ -61,6 +65,10 @@ router.get("/me", middleware, async (req: any, res: Response) => {
     const user = await prisma.user.findUnique({
       where: {
         id: Number(req.userId),
+      },
+      include: {
+        followers: true,
+        follows: true,
       },
     });
     res.json({ user });
@@ -97,25 +105,24 @@ router.put("/update/:id", async (req, res) => {
 
 // follow
 router.post("/follow", async (req: Request, res: Response) => {
-  const { authorId, userId, bio, name, icon, team, twitterURL, teamURL } =
-    req.body;
-    console.log(userId, authorId)
+  const { authorId, userId, bio, name, icon, team, twitterURL, teamURL } = req.body;
 
   try {
     // Ensure the users exist
     const authorUser = await prisma.user.findUnique({
-      where: { id: Number(userId) },
+      where: { id: Number(authorId) },
     });
 
     const followerUser = await prisma.user.findUnique({
-      where: { id: Number(authorId) },
+      where: { id: Number(userId) },
     });
 
     if (!authorUser || !followerUser) {
       return res.status(404).json({ error: "User not found." });
     }
 
-    const newFollow = await prisma.follow.create({
+    // Create a new Follow entry for the authorUser
+    const follow = await prisma.follow.create({
       data: {
         userId: Number(userId),
         bio,
@@ -124,76 +131,90 @@ router.post("/follow", async (req: Request, res: Response) => {
         team,
         twitterURL,
         teamURL,
-        frendId: Number(authorId),
+      },
+    });
+
+    // Create a new Follower entry for the followerUser
+    const follower = await prisma.follower.create({
+      data: {
+        userId: Number(authorId),
+        bio,
+        name,
+        icon,
+        team,
+        twitterURL,
+        teamURL,
+      },
+    });
+
+    // Update the user entities to associate the follow and follower
+    await prisma.user.update({
+      where: { id: Number(userId) },
+      data: {
+        follows: {
+          connect: { id: follow.id },
+        },
       },
     });
 
     await prisma.user.update({
       where: { id: Number(authorId) },
       data: {
-        follow: {
-          connect: { id: newFollow.id },
+        followers: {
+          connect: { id: follower.id },
         },
       },
     });
-    
-    await prisma.user.update({
-      where: { id: Number(userId) },
-      data: {
-        follower: {
-          connect: { id: newFollow.id },
-        },
-      },
-    });
+
     res.status(200).json({ message: "フォローが正常に作成されました。" });
   } catch (error) {
     console.error("フォロー情報の保存中にエラーが発生しました:", error);
-    res
-      .status(500)
-      .json({ error: "フォロー情報の保存中にエラーが発生しました。" });
+    res.status(500).json({ error: "フォロー情報の保存中にエラーが発生しました。" });
   }
 });
+
+
 
 // unfollow
-router.delete("/unfollow", async (req: Request, res: Response) => {
-  const { authorId, userId } = req.params;
+// router.delete("/unfollow", async (req: Request, res: Response) => {
+//   const { authorId, userId } = req.params;
 
-  try {
-    // フォローを削除
-    await prisma.follow.deleteMany({
-      where: {
-        userId: Number(authorId),
-        frendId: Number(userId),
-      },
-    });
+//   try {
+//     // フォローを削除
+//     await prisma.follow.deleteMany({
+//       where: {
+//         userId: Number(authorId),
+//         frendId: Number(userId),
+//       },
+//     });
 
-    // フォローを削除したユーザーの follow 関連フィールドから削除
-    await prisma.user.update({
-      where: { id: Number(authorId) },
-      data: {
-        follow: {
-          disconnect: { id: Number(userId) },
-        },
-      },
-    });
+//     // フォローを削除したユーザーの follow 関連フィールドから削除
+//     await prisma.user.update({
+//       where: { id: Number(authorId) },
+//       data: {
+//         follow: {
+//           disconnect: { id: Number(userId) },
+//         },
+//       },
+//     });
 
-    // フォローされたユーザーの follower 関連フィールドから削除
-    await prisma.user.update({
-      where: { id: Number(userId) },
-      data: {
-        follower: {
-          disconnect: { id: Number(authorId) },
-        },
-      },
-    });
+//     // フォローされたユーザーの follower 関連フィールドから削除
+//     await prisma.user.update({
+//       where: { id: Number(userId) },
+//       data: {
+//         follower: {
+//           disconnect: { id: Number(authorId) },
+//         },
+//       },
+//     });
 
-    // 正常なレスポンスを返す
-    res.status(200).json({ message: "フォローが正常に削除されました。" });
-  } catch (error) {
-    // エラーが発生した場合、エラーレスポンスを返す
-    console.error("フォローの削除中にエラーが発生しました:", error);
-    res.status(500).json({ error: "フォローの削除中にエラーが発生しました。" });
-  }
-});
+//     // 正常なレスポンスを返す
+//     res.status(200).json({ message: "フォローが正常に削除されました。" });
+//   } catch (error) {
+//     // エラーが発生した場合、エラーレスポンスを返す
+//     console.error("フォローの削除中にエラーが発生しました:", error);
+//     res.status(500).json({ error: "フォローの削除中にエラーが発生しました。" });
+//   }
+// });
 
 export default router;

@@ -52,9 +52,6 @@ export default function FollowButton(props: Props): JSX.Element {
     }
   }
 
-  console.log(posts.authorId)
-  console.log(userId)
-
   const unFollowUser = async (_authorId: string, userId: string): Promise<void> => {
     await apiClient.delete(`/auth/unfollow?authorId=${_authorId}&userId=${userId}`).then((res) => {
       if (res.status !== HttpStatusCode.Ok) throw Error

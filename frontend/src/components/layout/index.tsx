@@ -41,7 +41,7 @@ export default function Layout(props: Props): JSX.Element {
           apiClient.defaults.headers.common['Authorization'] = `Bearer ${token}`
           await apiClient.get('/auth/me').then((res) => {
             if (res.status !== 200) throw Error
-            dispatch(updateUser(res.data))
+            dispatch(updateUser(res.data.user))
           })
         }
       } catch {

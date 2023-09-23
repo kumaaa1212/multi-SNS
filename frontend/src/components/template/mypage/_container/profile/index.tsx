@@ -31,6 +31,8 @@ export default function Profile(): JSX.Element {
     llikeDeta()
   }, [userId])
 
+  console.log(follower)
+
   return (
     <div className='pt_30'>
       <div className={style.profile_area}>
