@@ -78,6 +78,7 @@ router.get("/me", middleware, async (req: any, res: Response) => {
   }
 });
 
+// ユーザーの情報を更新
 router.put("/update/:id", async (req, res) => {
   const { name, bio, iconPath, twitterURL, teamURL } = req.body;
   const { id } = req.params;
@@ -105,7 +106,8 @@ router.put("/update/:id", async (req, res) => {
 
 // follow
 router.post("/follow", async (req: Request, res: Response) => {
-  const { authorId, userId, bio, name, icon, team, twitterURL, teamURL } = req.body;
+  const { authorId, userId, bio, name, icon, team, twitterURL, teamURL } =
+    req.body;
 
   try {
     // Ensure the users exist
@@ -125,6 +127,7 @@ router.post("/follow", async (req: Request, res: Response) => {
     const follow = await prisma.follow.create({
       data: {
         userId: Number(userId),
+        frendId: Number(authorId),
         bio,
         name,
         icon,
@@ -138,6 +141,7 @@ router.post("/follow", async (req: Request, res: Response) => {
     const follower = await prisma.follower.create({
       data: {
         userId: Number(authorId),
+        frendId: Number(userId),
         bio,
         name,
         icon,
@@ -169,52 +173,84 @@ router.post("/follow", async (req: Request, res: Response) => {
     res.status(200).json({ message: "フォローが正常に作成されました。" });
   } catch (error) {
     console.error("フォロー情報の保存中にエラーが発生しました:", error);
-    res.status(500).json({ error: "フォロー情報の保存中にエラーが発生しました。" });
+    res
+      .status(500)
+      .json({ error: "フォロー情報の保存中にエラーが発生しました。" });
   }
 });
 
-
-
 // unfollow
-// router.delete("/unfollow", async (req: Request, res: Response) => {
-//   const { authorId, userId } = req.params;
+router.delete("/unfollow", async (req: Request, res: Response) => {
+  const { authorId, userId } = req.query;
 
-//   try {
-//     // フォローを削除
-//     await prisma.follow.deleteMany({
-//       where: {
-//         userId: Number(authorId),
-//         frendId: Number(userId),
-//       },
-//     });
+  try {
+    const authorUser = await prisma.user.findUnique({
+      where: { id: Number(authorId) },  // Corrected: Use authorId here
+    });
 
-//     // フォローを削除したユーザーの follow 関連フィールドから削除
-//     await prisma.user.update({
-//       where: { id: Number(authorId) },
-//       data: {
-//         follow: {
-//           disconnect: { id: Number(userId) },
-//         },
-//       },
-//     });
+    const followerUser = await prisma.user.findUnique({
+      where: { id: Number(userId) },
+    });
 
-//     // フォローされたユーザーの follower 関連フィールドから削除
-//     await prisma.user.update({
-//       where: { id: Number(userId) },
-//       data: {
-//         follower: {
-//           disconnect: { id: Number(authorId) },
-//         },
-//       },
-//     });
+    if (!authorUser || !followerUser) {
+      return res.status(404).json({ error: "User not found." });
+    }
 
-//     // 正常なレスポンスを返す
-//     res.status(200).json({ message: "フォローが正常に削除されました。" });
-//   } catch (error) {
-//     // エラーが発生した場合、エラーレスポンスを返す
-//     console.error("フォローの削除中にエラーが発生しました:", error);
-//     res.status(500).json({ error: "フォローの削除中にエラーが発生しました。" });
-//   }
-// });
+    await prisma.follow.deleteMany({
+      where: { userId: Number(userId) },
+    });
+
+    await prisma.follower.deleteMany({
+      where: { userId: Number(authorId) },
+    });
+
+    await prisma.user.update({
+      where: { id: Number(authorId) },
+      data: {
+        followers: {
+          disconnect: { id: followerUser.id },
+        },
+      },
+    });
+    
+    await prisma.user.update({
+      where: { id: Number(userId) },
+      data: {
+        follows: {
+          disconnect: { id: authorUser.id },
+        },
+      },
+    });
+
+    res.status(200).json({ message: "フォローが正常に削除されました。" });
+  } catch (error) {
+    console.error("フォローの削除中にエラーが発生しました:", error);
+    res.status(500).json({ error: "フォローの削除中にエラーが発生しました。" });
+  }
+});
+
+// followの状態を確認する
+router.get("/follow/check", async (req: Request, res: Response) => {
+  const { userId, authorId } = req.query;
+
+  try {
+    const user = await prisma.user.findUnique({
+      where: { id: Number(authorId) },
+      include: { followers: true },
+    });
+
+    if (!user) {
+      return res.status(404).json({ error: "User not found." });
+    }
+
+    console.log(user);
+    const isFollowing = user.followers.some((follow) => follow.frendId === Number(userId));
+
+    return res.json({ isFollowing });
+  } catch (error) {
+    console.error("Error checking follow status:", error);
+    return res.status(500).json({ error: "Failed to check follow status." });
+  }
+});
 
 export default router;

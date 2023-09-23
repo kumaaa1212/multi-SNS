@@ -347,6 +347,7 @@ router.post("/album/like/add", async (req: Request, res: Response) => {
   }
 });
 
+
 // いいねを取り除く
 router.post("/album/like/delete", async (req: Request, res: Response) => {
   const { postId, authorId } = req.body;

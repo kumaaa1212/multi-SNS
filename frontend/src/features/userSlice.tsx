@@ -35,15 +35,12 @@ const userSlice = createSlice({
   initialState,
   reducers: {
     loginUser: (state, action) => {
-      console.log(action.payload)
       return {
         ...state,
         username: action.payload.name,
         userId: String(action.payload.id),
         team: action.payload.team,
-        icon: Icongenerate(
-          action.payload.icon ? action.payload.icon : 'bbdbdfklbnbfpbisnasdpvmavdsmvd',
-        ),
+        icon: Icongenerate('bbdbdfklbnbfpbisnasdpvmavdsmvd'),
         bio: action.payload.bio,
         follow: action.payload.follows.length > 0 ? action.payload.follows : [],
         follower: action.payload.followers.length > 0 ? action.payload.followers : [],

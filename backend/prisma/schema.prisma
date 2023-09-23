@@ -33,6 +33,7 @@ model Follow {
   team      String
   twitterURL String
   teamURL   String
+  frendId   Int
   user      User    @relation(fields: [userId], references: [id]) // User モデルへのリレーション
   userId    Int
 }
@@ -45,6 +46,7 @@ model Follower {
   team      String
   twitterURL String
   teamURL   String
+  frendId   Int
   user      User    @relation(fields: [userId], references: [id]) // User モデルへのリレーション
   userId    Int
 }

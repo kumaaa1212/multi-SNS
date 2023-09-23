@@ -67,7 +67,7 @@ export default function AlnumLayout(props: Props): JSX.Element {
   }
 
   const handleRelease = async (): Promise<void> => {
-    if (!(thumbnailText && titleText && labels && contentText)) {
+    if (!(thumbnailText && titleText && labels.length > 0 && contentText)) {
       alert('必要な情報が入力されていません')
     } else {
       try {
