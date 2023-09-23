@@ -15,9 +15,10 @@ interface Props {
 export default function FollowButton(props: Props): JSX.Element {
   const { posts, content } = props
 
-  const { follow, userId, iconPath, bio, team, twitterURL, teamURL, username } = useSelector(
+  const { follow, userId, iconPath, icon, bio, team, twitterURL, teamURL, username } = useSelector(
     (state: RootState) => state.user,
   )
+  console.log(iconPath)
   const [followBtn, setFollowBtn] = useState<boolean>()
 
   const followUser = async (
@@ -30,21 +31,29 @@ export default function FollowButton(props: Props): JSX.Element {
     twitterURL: string | undefined,
     teamURL: string | undefined,
   ): Promise<void> => {
-    await apiClient
-      .post('/follow', {
+    try {
+      const response = await apiClient.post('/auth/follow', {
         authorId,
         userId,
         name: username,
-        iconpath: iconPath,
+        icon: iconPath ? iconPath : icon,
         bio,
         team,
         twitterURL,
         teamURL,
       })
-      .then((res) => {
-        if (res.status !== HttpStatusCode.Ok) throw Error
-      })
+
+      if (response.status !== HttpStatusCode.Ok) {
+        throw new Error('Failed to follow user')
+      }
+    } catch (error) {
+      console.error('Error:', error)
+      // Handle error
+    }
   }
+
+  console.log(posts.authorId)
+  console.log(userId)
 
   const unFollowUser = async (_authorId: string, userId: string): Promise<void> => {
     await apiClient.delete(`/auth/unfollow?authorId=${_authorId}&userId=${userId}`).then((res) => {

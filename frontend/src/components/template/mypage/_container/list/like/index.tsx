@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 import { useSelector } from 'react-redux'
+import { HttpStatusCode } from 'axios'
 import apiClient from 'libs/apiClient'
 import { RootState } from 'store/store'
 import { ArticlesType } from 'types/internal/album'
@@ -21,12 +22,27 @@ export default function MypageLikes(): JSX.Element {
     myAlbum()
   }, [userId])
 
+  const handleDelete = async (album: ArticlesType): Promise<void> => {
+    await apiClient
+      .delete('/post/Newalbum/delete', {
+        params: {
+          postId: album.id,
+        },
+      })
+      .then((res) => {
+        if (res.status !== HttpStatusCode.Ok) throw Error
+        setAlbumsData(res.data.remainAlbums)
+      })
+  }
+
   return (
     <div className={style.album}>
       <div className={style.wide}>
         <div className={style.contents}>
           {albumsData &&
-            albumsData.map((album, index) => <ArticleCard key={index} album={album} />)}
+            albumsData.map((album, index) => (
+              <ArticleCard key={index} album={album} handleDelete={handleDelete} />
+            ))}
         </div>
       </div>
       <div className={style.small}>

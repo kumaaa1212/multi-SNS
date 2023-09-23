@@ -77,7 +77,7 @@ router.put("/update/:id", async (req, res) => {
   try {
     const user = await prisma.user.update({
       where: {
-        id: parseInt(id), // 文字列から数値に変換
+        id: Number(id), // 文字列から数値に変換
       },
       data: {
         name: name,
@@ -97,20 +97,34 @@ router.put("/update/:id", async (req, res) => {
 
 // follow
 router.post("/follow", async (req: Request, res: Response) => {
-  const { authorId, userId, bio, name, iconpath, team, twitterURL, teamURL } =
+  const { authorId, userId, bio, name, icon, team, twitterURL, teamURL } =
     req.body;
+    console.log(userId, authorId)
 
   try {
+    // Ensure the users exist
+    const authorUser = await prisma.user.findUnique({
+      where: { id: Number(userId) },
+    });
+
+    const followerUser = await prisma.user.findUnique({
+      where: { id: Number(authorId) },
+    });
+
+    if (!authorUser || !followerUser) {
+      return res.status(404).json({ error: "User not found." });
+    }
+
     const newFollow = await prisma.follow.create({
       data: {
-        userId: Number(authorId),
+        userId: Number(userId),
         bio,
         name,
-        icon: iconpath,
+        icon,
         team,
         twitterURL,
         teamURL,
-        frendId: Number(userId),
+        frendId: Number(authorId),
       },
     });
 
@@ -122,16 +136,15 @@ router.post("/follow", async (req: Request, res: Response) => {
         },
       },
     });
-
+    
     await prisma.user.update({
       where: { id: Number(userId) },
       data: {
         follower: {
-          connect: { id: newFollow.id }, 
+          connect: { id: newFollow.id },
         },
       },
     });
-
     res.status(200).json({ message: "フォローが正常に作成されました。" });
   } catch (error) {
     console.error("フォロー情報の保存中にエラーが発生しました:", error);

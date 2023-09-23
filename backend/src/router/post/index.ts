@@ -145,7 +145,7 @@ router.delete("/Newalbum/delete", async (req, res) => {
     // Fetch remaining posts in creation order
     const remainAlbums = await prisma.post.findMany({
       orderBy: {
-        createdAt: "asc",
+        createdAt: "desc",
       },
       include: {
         likes: true,

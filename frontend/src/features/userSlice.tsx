@@ -70,15 +70,25 @@ const userSlice = createSlice({
         teamURL: action.payload.user.teamURL,
       }
     },
+
     updataLikeCount: (state, action) => {
       return {
         ...state,
         userLikeCount: action.payload.userLikeCount,
       }
     },
+
+    updataFrends: (state, action) => {
+      // console.log(action.payload)
+      // return {
+      //   ...state,
+      //   follow: action.payload.follow,
+      // }
+    },
   },
 })
 
-export const { loginUser, logoutUser, updateUser, updataLikeCount } = userSlice.actions
+export const { loginUser, logoutUser, updateUser, updataLikeCount, updataFrends } =
+  userSlice.actions
 
 export default userSlice.reducer
