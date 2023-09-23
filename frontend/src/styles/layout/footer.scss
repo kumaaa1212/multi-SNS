@@ -23,3 +23,11 @@
   text-decoration: none;
   color: inherit;
 }
+@media screen and (max-width: 800px) {
+  .footer{
+    ul{
+      flex-direction: column;
+      gap: 20px;
+    }
+  }
+}
