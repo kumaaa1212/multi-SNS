@@ -243,7 +243,6 @@ router.get("/follow/check", async (req: Request, res: Response) => {
       return res.status(404).json({ error: "User not found." });
     }
 
-    console.log(user);
     const isFollowing = user.followers.some((follow) => follow.frendId === Number(userId));
 
     return res.json({ isFollowing });

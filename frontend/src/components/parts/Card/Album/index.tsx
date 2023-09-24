@@ -84,9 +84,9 @@ export default function AlbumCard(props: Props): JSX.Element {
           subheader={formattedTimestamp}
         />
         {moreover && (
-          <div className={style.moreover_area}>
+          <div className={style.moreover_area} onClick={(): void => handleDelete(album)}>
             <p>削除</p>
-            <DeleteIcon onClick={(): void => handleDelete(album)} />
+            <DeleteIcon />
           </div>
         )}
         <div className={style.img_area}>

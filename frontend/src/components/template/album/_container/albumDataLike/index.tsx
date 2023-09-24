@@ -16,7 +16,7 @@ export default function AlbumLike(props: Props): JSX.Element {
   const { articlesLike, albumserch } = props
 
   const [albumLikeData, setAlbumLikeData] = useState<ArticlesType[]>(articlesLike)
-  const articlesNewFilter = albumLikeData.filter(
+  const articlesNewFilter = albumLikeData?.filter(
     (article) => article.title.includes(albumserch) || article.content.includes(albumserch),
   )
 

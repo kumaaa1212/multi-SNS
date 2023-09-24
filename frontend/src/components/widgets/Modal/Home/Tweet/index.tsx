@@ -7,10 +7,11 @@ interface Props {
   open: boolean
   setOpen: (open: boolean) => void
   showTweets: TweetsType
+  handleDelete: (album: TweetsType) => void
 }
 
 export default function HomeTweetModal(props: Props): JSX.Element {
-  const { open, setOpen, showTweets } = props
+  const { open, setOpen, showTweets, handleDelete } = props
 
   return (
     <ModalBase open={open} onClose={setOpen}>
@@ -18,7 +19,7 @@ export default function HomeTweetModal(props: Props): JSX.Element {
         <div>
           <ModalIcon onClick={(): void => setOpen(false)} className='cursor_pointer' />
         </div>
-        <TweetCard tweet={showTweets} />
+        <TweetCard tweet={showTweets} handleDelete={handleDelete} />
       </div>
     </ModalBase>
   )

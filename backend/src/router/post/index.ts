@@ -347,7 +347,6 @@ router.post("/album/like/add", async (req: Request, res: Response) => {
   }
 });
 
-
 // いいねを取り除く
 router.post("/album/like/delete", async (req: Request, res: Response) => {
   const { postId, authorId } = req.body;
@@ -793,6 +792,99 @@ router.get("/tweet/like/:authorId", async (req: Request, res: Response) => {
     return res.json({ likedTweets });
   } catch (error) {
     res.status(500).json({ error: "Failed to check like status." });
+  }
+});
+
+// 削除して、albumの投稿順に返す
+router.delete("/newTweet/delete", async (req, res) => {
+  const { tweetId } = req.query;
+
+  try {
+    // Delete tweet likes
+    await prisma.tweetLike.deleteMany({
+      where: {
+        tweetId: Number(tweetId),
+      },
+    });
+
+    // Delete the tweet
+    const deletedTweet = await prisma.tweet.delete({
+      where: {
+        id: Number(tweetId),
+      },
+    });
+
+    if (!deletedTweet) {
+      return res.status(404).json({ error: "Tweet not found." });
+    }
+
+    // Fetch remaining tweets in creation order
+    const remainingTweets = await prisma.tweet.findMany({
+      orderBy: {
+        createdAt: "desc",
+      },
+      include: {
+        likes: true,
+      },
+    });
+
+    return res.json({ remainingTweets });
+  } catch (err) {
+    console.error(err);
+    return res
+      .status(500)
+      .json({ error: "An error occurred while deleting the tweet." });
+  }
+});
+
+// 削除して、albumのlikeの順に返す
+router.delete("/likeTweet/delete", async (req, res) => {
+  const { tweetId } = req.query;
+
+  try {
+    // Delete tweet labels
+    await prisma.postLabel.deleteMany({
+      where: {
+        postId: Number(tweetId),
+      },
+    });
+
+    // Delete tweet likes
+    await prisma.tweetLike.deleteMany({
+      where: {
+        tweetId: Number(tweetId),
+      },
+    });
+
+    // Delete the tweet
+    const deletedTweet = await prisma.tweet.delete({
+      where: {
+        id: Number(tweetId),
+      },
+    });
+
+    if (!deletedTweet) {
+      return res.status(404).json({ error: "Tweet not found." });
+    }
+
+    // Fetch remaining tweets in order of likes count
+    const remainingTweets = await prisma.tweet.findMany({
+      include: {
+        likes: true,
+      },
+    });
+
+    // Sort the tweets by likes count in descending order
+    const sortedTweets = remainingTweets.sort(
+      (a, b) => b.likes.length - a.likes.length
+    );
+
+    return res.json({ sortedTweets });
+  } catch (err) {
+    console.error(err);
+    return res
+      .status(500)
+      .json({ error: "An error occurred while deleting the tweet." });
   }
 });
 

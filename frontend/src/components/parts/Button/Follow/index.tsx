@@ -29,7 +29,7 @@ export default function FollowButton(props: Props): JSX.Element {
     twitterURL: string | undefined,
     teamURL: string | undefined,
   ): Promise<void> => {
-    const response = await apiClient
+    await apiClient
       .post('/auth/follow', {
         authorId,
         userId,

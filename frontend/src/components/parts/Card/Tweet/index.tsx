@@ -7,16 +7,17 @@ import MoreVertIcon from '@mui/icons-material/MoreVert'
 import FollowBtn from '../../Button/Follow'
 import { useSelector } from 'react-redux'
 import { RootState } from 'store/store'
+import { TweetsType } from 'types/internal/tweet'
 import TweetLikeBtn from '../../Button/Like/Tweet'
-import { TweetsType } from 'types/internal'
 import DeleteIcon from '/public/svg/tweet_delete.svg'
 
 interface Props {
   tweet: TweetsType
+  handleDelete: (album: TweetsType) => void
 }
 
 export default function TweetCard(props: Props): JSX.Element {
-  const { tweet } = props
+  const { tweet, handleDelete } = props
 
   const { userId } = useSelector((state: RootState) => state.user)
   const [moreover, setMoreover] = useState<boolean>(false)
@@ -53,7 +54,7 @@ export default function TweetCard(props: Props): JSX.Element {
               <FollowBtn posts={tweet} content='follow' />
             )}
             {moreover && (
-              <div className={style.moreover_area}>
+              <div className={style.moreover_area} onClick={(): void => handleDelete(tweet)}>
                 <p>削除</p>
                 <DeleteIcon />
               </div>
