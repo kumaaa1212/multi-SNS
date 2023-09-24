@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useForm, SubmitHandler, Controller } from 'react-hook-form'
+import { useDispatch } from 'react-redux'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { CircularProgress, FormControl, FormHelperText } from '@mui/material'
@@ -14,6 +15,7 @@ import Typography from '@mui/material/Typography'
 import { createTheme, ThemeProvider } from '@mui/material/styles'
 import Layout from 'components/layout'
 import apiClient from 'libs/apiClient'
+import { AppDispatch } from 'store/store'
 import { v4 as uuidv4 } from 'uuid'
 import { jLeagueTeams } from 'utils/TeamData'
 import CloseIcon from '/public/svg/modal_close.svg'
@@ -25,6 +27,7 @@ const defaultTheme = createTheme()
 
 export default function SignUp(): JSX.Element {
   const router = useRouter()
+  const dispatch: AppDispatch = useDispatch()
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [open, setOpen] = useState<boolean>(false)
 

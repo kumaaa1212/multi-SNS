@@ -59,26 +59,32 @@ export default function EditModal(props: Props): JSX.Element {
           throw storegeError
         } else {
           const { data: urlData } = supabase.storage.from('avatars').getPublicUrl(storageData.path)
-          const res = await apiClient.put(`/auth/update/${userId}`, {
-            name: editName,
-            bio: editIntro,
-            icon: urlData.publicUrl,
-            twitterURL: twitterURLData,
-            teamURL: teamURLData,
-          })
-          dispatch(updateUser(res.data))
+          await apiClient
+            .put(`/auth/update/${userId}`, {
+              name: editName,
+              bio: editIntro,
+              icon: urlData.publicUrl,
+              twitterURL: twitterURLData,
+              teamURL: teamURLData,
+            })
+            .then((res) => {
+              dispatch(updateUser(res.data.user))
+            })
         }
       } catch {
         alert('画像のアップロードに失敗しました。')
       }
     } else {
-      const res = await apiClient.put(`/auth/update/${userId}`, {
-        name: editName,
-        bio: editIntro,
-        twitterURL: twitterURLData,
-        teamURL: teamURLData,
-      })
-      dispatch(updateUser(res.data))
+      await apiClient
+        .put(`/auth/update/${userId}`, {
+          name: editName,
+          bio: editIntro,
+          twitterURL: twitterURLData,
+          teamURL: teamURLData,
+        })
+        .then((res) => {
+          dispatch(updateUser(res.data.user))
+        })
     }
     setOpenEdit(!openEdit)
   }

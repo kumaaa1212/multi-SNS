@@ -1,27 +1,26 @@
 import { Dispatch, SetStateAction } from 'react'
-import styles from './ChatContent.module.scss'
-import Image from 'next/image'
-import Icongenerate from '../../../utils/functions/Avater'
-import { RoomType } from '@/types/global'
 import { useSelector } from 'react-redux'
-import { RootState } from '@/store/store'
+import Image from 'next/image'
+import { RootState } from 'store/store'
+import styles from './ChatContent.module.scss'
 import noavater from '/public/noavater.jpg'
+import { RoomType } from 'types/internal'
+import Icongenerate from '../../../utils/functions/Avater'
 
 interface Props {
   selectChatRoom: boolean
   setSelectChatRoom: Dispatch<SetStateAction<boolean>>
   myRooms: RoomType[]
   room: RoomType
-  setSelectRoom: Dispatch<SetStateAction<RoomType[]>>
+  setSelectRoom: Dispatch<SetStateAction<RoomType>>
 }
 
-const Chatlist = (props: Props) => {
+export default function Chatlist(props: Props): JSX.Element {
   const { selectChatRoom, setSelectChatRoom, myRooms, room, setSelectRoom } = props
   const { userId } = useSelector((state: RootState) => state.user)
 
-  const handleShowChatRoom = async (id: string) => {
-    const selecredRoom: RoomType[] = myRooms?.filter((room: RoomType) => room.id === id)
-    setSelectRoom(selecredRoom)
+  const handleShowChatRoom = async (room: RoomType): any => {
+    setSelectRoom(room)
     setSelectChatRoom(!selectChatRoom)
   }
 
@@ -32,7 +31,7 @@ const Chatlist = (props: Props) => {
     userId === room.user1Id ? room.user2Name : userId === room.user2Id ? room.user1Name : null
 
   return (
-    <div className={styles.person_area} onClick={() => handleShowChatRoom(room.id)}>
+    <div className={styles.person_area} onClick={(): void => handleShowChatRoom(room)}>
       <div className={styles.pserson_detail}>
         <Image
           src={userIcon ? Icongenerate(userIcon) : noavater}
@@ -50,5 +49,3 @@ const Chatlist = (props: Props) => {
     </div>
   )
 }
-
-export default Chatlist

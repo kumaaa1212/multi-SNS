@@ -39,12 +39,15 @@ export default function Login(): JSX.Element {
   const onSubmit: SubmitHandler<LoginType> = async () => {
     const value = getValues()
     try {
-      const res = await apiClient.post('/auth/login', {
-        email: value.email,
-        password: value.password,
-      })
-      localStorage.setItem('auth_token', res.data.token)
-      dispatch(loginUser(res.data.user))
+      const res = await apiClient
+        .post('/auth/login', {
+          email: value.email,
+          password: value.password,
+        })
+        .then((res) => {
+          localStorage.setItem('auth_token', res.data.token)
+          dispatch(loginUser(res.data.user))
+        })
       router.push('/home')
     } catch {
       toastFunc('ログインに失敗しました', true)

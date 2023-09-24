@@ -80,7 +80,7 @@ router.get("/me", middleware, async (req: any, res: Response) => {
 
 // ユーザーの情報を更新
 router.put("/update/:id", async (req, res) => {
-  const { name, bio, iconPath, twitterURL, teamURL } = req.body;
+  const { name, bio, icon, twitterURL, teamURL } = req.body;
   const { id } = req.params;
 
   try {
@@ -91,7 +91,7 @@ router.put("/update/:id", async (req, res) => {
       data: {
         name: name,
         bio: bio,
-        icon: iconPath,
+        icon: icon,
         twitterURL: twitterURL,
         teamURL: teamURL,
       },
@@ -128,12 +128,12 @@ router.post("/follow", async (req: Request, res: Response) => {
       data: {
         userId: Number(userId),
         frendId: Number(authorId),
-        bio,
-        name,
-        icon,
-        team,
-        twitterURL,
-        teamURL,
+        bio: authorUser.bio,
+        name : authorUser.name,
+        icon: authorUser.icon,
+        team: authorUser.team,
+        twitterURL: authorUser.twitterURL,
+        teamURL : authorUser.teamURL,
       },
     });
 
@@ -152,7 +152,7 @@ router.post("/follow", async (req: Request, res: Response) => {
     });
 
     // Update the user entities to associate the follow and follower
-    await prisma.user.update({
+   const updateUser = await prisma.user.update({
       where: { id: Number(userId) },
       data: {
         follows: {
@@ -170,7 +170,7 @@ router.post("/follow", async (req: Request, res: Response) => {
       },
     });
 
-    res.status(200).json({ message: "フォローが正常に作成されました。" });
+    res.status(200).json({ updateUser });
   } catch (error) {
     console.error("フォロー情報の保存中にエラーが発生しました:", error);
     res
@@ -204,7 +204,7 @@ router.delete("/unfollow", async (req: Request, res: Response) => {
       where: { userId: Number(authorId) },
     });
 
-    await prisma.user.update({
+   const updateUser = await prisma.user.update({
       where: { id: Number(authorId) },
       data: {
         followers: {
@@ -222,7 +222,7 @@ router.delete("/unfollow", async (req: Request, res: Response) => {
       },
     });
 
-    res.status(200).json({ message: "フォローが正常に削除されました。" });
+    res.status(200).json({ updateUser });
   } catch (error) {
     console.error("フォローの削除中にエラーが発生しました:", error);
     res.status(500).json({ error: "フォローの削除中にエラーが発生しました。" });

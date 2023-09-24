@@ -3,11 +3,11 @@ import { useSelector } from 'react-redux'
 import { Badge } from '@mui/material'
 import { RootState } from 'store/store'
 import { RoomType } from 'types/internal'
+import Chatlist from 'components/parts/Chat/ChatSide'
 import ChatSearch from 'components/parts/Search'
 import NewChatIcon from '/public/svg/newChat.svg'
 import ChatSetting from '/public/svg/chat_setting.svg'
 import MultipleSelectNative from 'components/parts/Select'
-import Chatlist from 'components/parts/Chat/ChatSide'
 import SettingsIcon from '/public/svg/message_settings.svg'
 import RequestIcon from '/public/svg/message_request.svg'
 import style from './Sidebar.module.scss'
@@ -16,28 +16,27 @@ interface Props {
   rooms: RoomType[]
   selectChatRoom: boolean
   setSelectChatRoom: Dispatch<SetStateAction<boolean>>
-  setSelectRoom: Dispatch<SetStateAction<RoomType[]>>
+  setSelectRoom: Dispatch<SetStateAction<RoomType>>
 }
 
-const SideBar = (props: Props): JSX.Element => {
+export default function SideBar(props: Props): JSX.Element {
   const { setSelectChatRoom, setSelectRoom, rooms, selectChatRoom } = props
-  const { userId, follow } = useSelector((state: RootState) => state.user)
 
+  const { userId, follow } = useSelector((state: RootState) => state.user)
   const [followListm, setFollowList] = useState<boolean>(false)
   const [settingArea, setSettingArea] = useState<boolean>(false)
-  const [myRooms, setMyRooms] = useState<RoomType[]>([])
-  const [roomsData, setRoomsData] = useState<RoomType[]>(rooms)
+  const [myRooms, setMyRooms] = useState<RoomType[]>(rooms)
 
-  useEffect(() => {
-    const filterMyRooms = rooms?.filter((room: RoomType) =>
-      follow.some(
-        (person) =>
-          (person.userId === room.user1Id && room.user2Id === userId) ||
-          (person.userId === room.user2Id && room.user1Id === userId),
-      ),
-    )
-    setMyRooms(filterMyRooms)
-  }, [follow, rooms, userId])
+  // useEffect(() => {
+  //   const filterMyRooms = rooms?.filter((room: RoomType) =>
+  //     follow.some(
+  //       (person) =>
+  //         (person.userId === room.user1Id && person.frendId === room.user2Id) ||
+  //         (person.userId === room.user2Id && person.frendId === room.user1Id),
+  //     ),
+  //   )
+  //   setMyRooms(filterMyRooms)
+  // }, [follow, rooms, userId])
 
   return (
     <div className='chat_sidebar'>
@@ -91,5 +90,3 @@ const SideBar = (props: Props): JSX.Element => {
     </div>
   )
 }
-
-export default SideBar

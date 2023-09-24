@@ -40,34 +40,48 @@ const userSlice = createSlice({
         username: action.payload.name,
         userId: String(action.payload.id),
         team: action.payload.team,
-        icon: Icongenerate('bbdbdfklbnbfpbisnasdpvmavdsmvd'),
+        icon: Icongenerate(action.payload.icon),
         bio: action.payload.bio,
-        follow: action.payload.follows.length > 0 ? action.payload.follows : [],
-        follower: action.payload.followers.length > 0 ? action.payload.followers : [],
+        follow: action.payload.follows || [],
+        follower: action.payload.followers || [],
+        twitterURL: action.payload.twitterURL,
+        teamURL: action.payload.teamURL,
+      }
+    },
+    singUpUser: (state, action) => {
+      return {
+        ...state,
+        username: action.payload.name,
+        userId: String(action.payload.id),
+        team: action.payload.team,
+        icon: Icongenerate(action.payload.icon),
+        bio: action.payload.bio,
+        follow: action.payload.follows || [],
+        follower: action.payload.followers || [],
         twitterURL: action.payload.twitterURL,
         teamURL: action.payload.teamURL,
       }
     },
 
-    logoutUser: (state) => {
-      return {
-        ...initialState,
-      }
-    },
+    // logoutUser: (state) => {
+    //   return {
+    //     ...initialState,
+    //   }
+    // },
 
     updateUser: (state, action) => {
       return {
         ...state,
-        username: action.payload.user.name,
-        userId: String(action.payload.user.id),
-        team: action.payload.user.team,
-        icon: Icongenerate(action.payload.user.icon),
-        iconPath: action.payload.user.icon,
-        bio: action.payload.user.bio,
-        follow: action.payload.follows.length > 0 ? action.payload.follows : [],
-        follower: action.payload.followers.length > 0 ? action.payload.followers : [],
-        twitterURL: action.payload.user.twitterURL,
-        teamURL: action.payload.user.teamURL,
+        username: action.payload.name,
+        userId: String(action.payload.id),
+        team: action.payload.team,
+        icon: Icongenerate(action.payload.icon),
+        iconPath: action.payload.icon,
+        bio: action.payload.bio,
+        follow: action.payload.follows || [],
+        follower: action.payload.followers || [],
+        twitterURL: action.payload.twitterURL,
+        teamURL: action.payload.teamURL,
       }
     },
 
@@ -78,17 +92,15 @@ const userSlice = createSlice({
       }
     },
 
-    updataFrends: (state, action) => {
-      // console.log(action.payload)
-      // return {
-      //   ...state,
-      //   follow: action.payload.follow,
-      // }
-    },
+    // updataFrends: (state, action) => {
+    //   return {
+    //     ...state,
+    //     follow: action.payload.follow,
+    //   }
+    // },
   },
 })
 
-export const { loginUser, logoutUser, updateUser, updataLikeCount, updataFrends } =
-  userSlice.actions
+export const { loginUser, updateUser, updataLikeCount, singUpUser } = userSlice.actions
 
 export default userSlice.reducer

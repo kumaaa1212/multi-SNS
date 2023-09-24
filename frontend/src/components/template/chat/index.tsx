@@ -10,11 +10,11 @@ interface Props {
   rooms: RoomType[]
 }
 
-const Chat = (props: Props): JSX.Element => {
+export default function Chat(props: Props): JSX.Element {
   const { rooms } = props
 
   const [selectChatRoom, setSelectChatRoom] = useState<boolean>(true)
-  const [selectRoom, setSelectRoom] = useState<RoomType[]>([])
+  const [selectRoom, setSelectRoom] = useState<RoomType>(rooms[0])
 
   return (
     <Layout bgColor='bg_blue'>
@@ -27,7 +27,7 @@ const Chat = (props: Props): JSX.Element => {
           setSelectRoom={setSelectRoom}
         />
         <ChatArea
-          selectRoom={selectRoom[0]}
+          selectRoom={selectRoom}
           setSelectRoom={setSelectRoom}
           selectChatRoom={selectChatRoom}
         />
@@ -35,5 +35,3 @@ const Chat = (props: Props): JSX.Element => {
     </Layout>
   )
 }
-
-export default Chat

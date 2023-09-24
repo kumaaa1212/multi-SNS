@@ -15,7 +15,7 @@ router.post("/newroom", async (req: Request, res: Response) => {
         user1Id,
         user1Name,
         user1Icon,
-        user2Id,
+        user2Id: String(user2Id),
         user2Name,
         user2Icon,
       },

@@ -59,6 +59,7 @@ export interface FrendInfo {
   team: string
   twitterURL: string
   teamURL: string
+  frendId: string
 }
 
 export interface AccountType {

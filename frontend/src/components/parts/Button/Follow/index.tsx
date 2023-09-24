@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { HttpStatusCode } from 'axios'
+import { updataFrends } from 'features/userSlice'
 import apiClient from 'libs/apiClient'
-import { RootState } from 'store/store'
+import { AppDispatch, RootState } from 'store/store'
 import { ArticlesType } from 'types/internal/album'
 import { TweetsType } from 'types/internal/tweet'
 import style from './FollowBtn.module.scss'
@@ -14,6 +15,7 @@ interface Props {
 export default function FollowButton(props: Props): JSX.Element {
   const { posts, content } = props
 
+  const dispatch: AppDispatch = useDispatch()
   const { follow, userId, iconPath, icon, bio, team, twitterURL, teamURL, username } = useSelector(
     (state: RootState) => state.user,
   )
@@ -44,6 +46,7 @@ export default function FollowButton(props: Props): JSX.Element {
         if (res.status !== HttpStatusCode.Ok) {
           throw new Error('Failed to follow user')
         }
+        // dispatch(updataFrends(res.data.updateUser))
       })
   }
 
@@ -57,6 +60,7 @@ export default function FollowButton(props: Props): JSX.Element {
       })
       .then((res) => {
         if (res.status !== HttpStatusCode.Ok) throw Error
+        // dispatch(updataFrends(res.data.updateUser))
       })
   }
 

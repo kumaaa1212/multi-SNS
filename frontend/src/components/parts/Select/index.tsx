@@ -5,14 +5,14 @@ import { useRouter } from 'next/router'
 import apiClient from 'libs/apiClient'
 import { RootState } from 'store/store'
 import Icongenerate from 'utils/functions/Avater'
-import { RoomType } from 'types/internal'
+import { FrendInfo, RoomType } from 'types/internal'
 import style from './Native.module.scss'
 
-interface FrendInfo {
-  icon: string
-  username: string
-  authorId: string
-}
+// interface FrendInfo {
+//   icon: string
+//   username: string
+//   authorId: string
+// }
 
 interface Props {
   myRooms: RoomType[]
@@ -22,39 +22,35 @@ interface Props {
 export default function MultipleSelectNative(props: Props): JSX.Element {
   const { myRooms, setMyRooms } = props
 
-  const { userId, iconPath, username, follow } = useSelector((state: RootState) => state.user)
+  const { userId, iconPath, icon, username, follow } = useSelector((state: RootState) => state.user)
   const [selectFrend, setSelectFrend] = useState<FrendInfo[]>([])
   const router = useRouter()
 
-  const handleSelectFrend = () => {
-    const filterFrend = follow.filter(
-      (person) =>
-        !myRooms?.some(
-          (room) =>
-            (room.user1Id === person.authorId && room.user2Id === userId) ||
-            (room.user2Id === person.authorId && room.user1Id === userId),
-        ),
-    )
-    setSelectFrend(filterFrend)
-  }
-
   useEffect(() => {
+    const handleSelectFrend = (): void => {
+      const filterFrend = follow.filter((person) => {
+        return myRooms.some(
+          (room) =>
+            (person.userId === room.user1Id && person.frendId === room.user2Id) ||
+            (person.userId === room.user2Id && person.frendId === room.user1Id),
+        )
+      })
+      setSelectFrend(filterFrend)
+    }
     handleSelectFrend()
-  }, [])
+  }, [follow, myRooms])
 
-  const handleAddNewPerson = async (info: FrendInfo) => {
+  const handleAddNewPerson = async (info: FrendInfo): Promise<void> => {
     try {
       const newChatRoom = await apiClient.post('/chat/newroom', {
         user1Id: userId,
         user1Name: username,
-        user1Icon: iconPath,
-        user2Id: info.authorId,
-        user2Name: info.username,
+        user1Icon: icon || iconPath,
+        user2Id: info.frendId,
+        user2Name: info.name,
         user2Icon: info.icon,
       })
-      handleSelectFrend()
-      setMyRooms(newChatRoom.data.room)
-      // setMyRooms((prev) => [...prev, newChatRoom.data.room])
+      setMyRooms((prev) => [...prev, newChatRoom.data.room])
     } catch {
       alert('チャットルームの作成に失敗しました')
     }
@@ -72,7 +68,7 @@ export default function MultipleSelectNative(props: Props): JSX.Element {
                 onClick={(): void => {
                   handleAddNewPerson(person)
                 }}
-                key={person.authorId}
+                key={person.userId}
               >
                 <Image
                   src={Icongenerate(person.icon)}
@@ -81,7 +77,7 @@ export default function MultipleSelectNative(props: Props): JSX.Element {
                   height={40}
                   className={style.new_chat_person_img}
                 />
-                <span>{person.username}</span>
+                <span>{person.name}</span>
               </div>
             ))}
           </div>

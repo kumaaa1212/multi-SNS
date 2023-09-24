@@ -27,7 +27,7 @@ export default function TweetParts(props: Props): JSX.Element {
         },
       })
       .then((res) => {
-        if (res.status !== HttpStatusCode.Ok) throw Error
+        // if (res.status !== HttpStatusCode.Ok) throw Error
         setTweetsData(res.data.remainingTweets)
       })
   }

@@ -37,7 +37,7 @@ export default function AlnumLayout(props: Props): JSX.Element {
   const { thumbnailText, titleText, labels, contentText, thumbnailImg } = useSelector(
     (state: RootState) => state.post,
   )
-  const { username, userId, iconPath } = useSelector((state: RootState) => state.user)
+  const { username, userId, iconPath, icon } = useSelector((state: RootState) => state.user)
 
   useEffect(() => {
     if (router.pathname === '/post/album/thumbnail') {
@@ -80,7 +80,7 @@ export default function AlnumLayout(props: Props): JSX.Element {
               thumbnailText: thumbnailText,
               authorId: userId,
               authorName: username,
-              authorAvatar: iconPath,
+              authorAvatar: icon,
               thumbnailImg: '',
             })
             dispatch(stateReset())

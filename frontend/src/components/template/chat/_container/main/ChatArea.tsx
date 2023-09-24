@@ -1,16 +1,15 @@
 import { useState } from 'react'
 import { useSelector } from 'react-redux'
-import { useRouter } from 'next/router'
 import apiClient from 'libs/apiClient'
 import { RootState } from 'store/store'
 import { MessageType, RoomType } from 'types/internal'
-import SendInput from 'components/parts/Input/Send'
 import ChatContent from 'components/parts/Chat/ChatContent'
+import SendInput from 'components/parts/Input/Send'
 import style from './Main.module.scss'
 
 interface Props {
   selectRoom: RoomType
-  setSelectRoom: React.Dispatch<React.SetStateAction<RoomType[]>>
+  setSelectRoom: React.Dispatch<React.SetStateAction<RoomType>>
   selectChatRoom: boolean
 }
 
@@ -20,7 +19,6 @@ const ChatArea = (props: Props): JSX.Element => {
 
   const { userId } = useSelector((state: RootState) => state.user)
   const [input, setInput] = useState<string>('')
-  const router = useRouter()
 
   const handleSend = async (): Promise<void> => {
     if (!input) return
