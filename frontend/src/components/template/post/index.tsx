@@ -56,7 +56,7 @@ export default function Album(): JSX.Element {
             <div className={style.preview_area}>
               {preview ? (
                 <Paper elevation={3}>
-                  <MarkDown>{contentText}</MarkDown>
+                  <MarkDown content={contentText} className='album_post' />
                 </Paper>
               ) : (
                 <Paper elevation={3}>

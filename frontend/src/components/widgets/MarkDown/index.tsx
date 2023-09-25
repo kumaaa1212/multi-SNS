@@ -3,15 +3,18 @@ import remarkGfm from 'remark-gfm'
 import style from './MarkDown.module.scss'
 
 interface Props {
-  children: React.ReactNode
+  content: string
+  className?: string
 }
 
 export default function MarkDown(props: Props): JSX.Element {
-  const { children } = props
+  const { content, className } = props
 
   return (
     <div className={style.markdown}>
-      <ReactMarkdown remarkPlugins={[remarkGfm]}>{children}</ReactMarkdown>
+      <ReactMarkdown remarkPlugins={[remarkGfm]} className='markdown-body'>
+        {content}
+      </ReactMarkdown>
     </div>
   )
 }
