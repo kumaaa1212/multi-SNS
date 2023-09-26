@@ -13,7 +13,7 @@ interface Props {
 export default function Chat(props: Props): JSX.Element {
   const { rooms } = props
 
-  const [selectChatRoom, setSelectChatRoom] = useState<boolean>(true)
+  const [selectChatRoom, setSelectChatRoom] = useState<boolean>(false)
   const [selectRoom, setSelectRoom] = useState<RoomType>(rooms[0])
 
   return (

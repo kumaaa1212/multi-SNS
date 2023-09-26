@@ -1,7 +1,6 @@
 import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import Image from 'next/image'
-import { useRouter } from 'next/router'
 import apiClient from 'libs/apiClient'
 import { RootState } from 'store/store'
 import Icongenerate from 'utils/functions/Avater'
@@ -9,17 +8,27 @@ import { FrendInfo, RoomType } from 'types/internal'
 import style from './Native.module.scss'
 
 interface Props {
-  myRooms: RoomType[]
-  setMyRooms: Dispatch<SetStateAction<RoomType[]>>
+  myListRooms: RoomType[]
+  setMyListRooms: Dispatch<SetStateAction<RoomType[]>>
 }
 
 export default function MultipleSelectNative(props: Props): JSX.Element {
-  const { myRooms, setMyRooms } = props
+  const { myListRooms, setMyListRooms } = props
 
   const { userId, iconPath, icon, username, follow } = useSelector((state: RootState) => state.user)
   const [selectFrend, setSelectFrend] = useState<FrendInfo[]>(follow)
 
-  useEffect(() => {}, [follow, myRooms])
+  useEffect(() => {
+    const filterRoomas = follow.filter((person) => {
+      return !myListRooms.some((room) => {
+        return (
+          (room.user1Id === person.userId && room.user2Id === userId) ||
+          (room.user2Id === person.userId && room.user1Id === userId)
+        )
+      })
+    })
+    setSelectFrend(filterRoomas)
+  }, [follow, myListRooms, userId])
 
   const handleAddNewPerson = async (info: FrendInfo): Promise<void> => {
     try {
@@ -39,6 +48,7 @@ export default function MultipleSelectNative(props: Props): JSX.Element {
       alert('チャットルームの作成に失敗しました')
     }
   }
+
   return (
     <div className={style.chat_new_area}>
       {selectFrend.length === 0 ? (

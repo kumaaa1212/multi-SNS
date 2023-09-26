@@ -28,6 +28,54 @@ router.post("/newroom", async (req: Request, res: Response) => {
   }
 });
 
+// チャットルームを削除する
+router.delete("/room/delete", async (req: Request, res: Response) => {
+  const { roomId, authorId } = req.query;
+
+  try {
+    // 関連するメッセージを削除
+    await prisma.message.deleteMany({
+      where: {
+        roomId: String(roomId),
+      },
+    });
+
+    // チャットルームを削除
+    await prisma.room.delete({
+      where: {
+        id: String(roomId),
+      },
+    });
+
+    const rooms = await prisma.room.findMany({
+      where: {
+        OR: [
+          {
+            user1Id: String(authorId),
+          },
+          {
+            user2Id: String(authorId),
+          },
+        ],
+      },
+      include: {
+        messages: {
+          orderBy: {
+            createdAt: "asc",
+          },
+        },
+      },
+    });
+
+    return res.json({ rooms });
+  } catch (error) {
+    console.error(error);
+    return res
+      .status(500)
+      .json({ error: "Failed to delete room and associated messages." });
+  }
+});
+
 // チャットルームの一覧を取得する
 router.get("/room/chat", async (req: Request, res: Response) => {
   const { userId } = req.body;
@@ -48,10 +96,10 @@ router.get("/allrooms/:authorId", async (req: Request, res: Response) => {
       where: {
         OR: [
           {
-            user1Id: authorId,
+            user1Id: String(authorId),
           },
           {
-            user2Id: authorId,
+            user2Id: String(authorId),
           },
         ],
       },
@@ -112,9 +160,12 @@ router.post("/room/add/message", async (req: Request, res: Response) => {
           },
         },
       },
+      include: {
+        messages: { orderBy: { createdAt: "asc" } },
+      },
     });
 
-    return res.json({ message: newMessage, room: updatedRoom });
+    return res.json({ updatedRoom });
   } catch (error) {
     res.status(500).json({ error: "Failed to add message to room." });
   }

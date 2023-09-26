@@ -3,7 +3,14 @@ import IconButton from '@mui/material/IconButton'
 import InputBase from '@mui/material/InputBase'
 import Paper from '@mui/material/Paper'
 
-export default function ChatSearch(): JSX.Element {
+interface Props {
+  serchInput: string
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
+}
+
+export default function ChatSearch(props: Props): JSX.Element {
+  const { serchInput, onChange } = props
+
   return (
     <Paper
       component='form'
@@ -11,8 +18,10 @@ export default function ChatSearch(): JSX.Element {
     >
       <InputBase
         sx={{ ml: 1, flex: 1 }}
-        placeholder='Search Google Maps'
-        inputProps={{ 'aria-label': 'search google maps' }}
+        placeholder='Ssearch person'
+        value={serchInput}
+        inputProps={{ 'aria-label': 'search person' }}
+        onChange={onChange}
       />
       <IconButton type='button' sx={{ p: '10px' }} aria-label='search'>
         <SearchIcon />

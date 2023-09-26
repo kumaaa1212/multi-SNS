@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { HttpStatusCode } from 'axios'
-import { updataFrends } from 'features/userSlice'
 import apiClient from 'libs/apiClient'
 import { AppDispatch, RootState } from 'store/store'
 import { ArticlesType } from 'types/internal/album'
@@ -36,7 +35,8 @@ export default function FollowButton(props: Props): JSX.Element {
         authorId,
         userId,
         name: username,
-        icon: iconPath ? iconPath : icon,
+        icon: iconPath || icon,
+
         bio,
         team,
         twitterURL,

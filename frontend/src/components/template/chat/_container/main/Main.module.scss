@@ -1,11 +1,32 @@
 .chat_area_scroll {
   margin: 0px 20px;
+  margin-bottom: 200px;
+  height: 100%;
+  overflow: auto;
+}
+
+.contents {
   position: relative;
-  min-height: 100vh;
+  height: 80vh;
   .input_area {
     position: absolute;
     width: 100%;
-    bottom: 100px;
-    left: 0;
   }
+}
+
+.handle_btn {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.message_area {
+  display: flex;
+  align-items: center;
+  margin: 20px 0;
+}
+
+.alart_area {
+  position: fixed;
+  top: 100px;
 }
