@@ -13,19 +13,21 @@
     justify-content: center;
     gap: 120px;
     list-style: none;
-  }
-  li{
-    cursor: pointer;
+
+    li {
+      cursor: pointer;
+    }
   }
 }
 
-.contact_link{
+.contact_link {
   text-decoration: none;
   color: inherit;
 }
+
 @media screen and (max-width: 800px) {
-  .footer{
-    ul{
+  .footer {
+    ul {
       flex-direction: column;
       gap: 20px;
     }
