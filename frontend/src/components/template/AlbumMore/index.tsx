@@ -50,7 +50,7 @@ export default function AlbumMore(props: Props): JSX.Element {
           </Paper>
           <div className={style.main_right}>
             <Profile album={album} />
-            <TableContent contents={album.content} />
+            <TableContent />
           </div>
         </div>
       </div>

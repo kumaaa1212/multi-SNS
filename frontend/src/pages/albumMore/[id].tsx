@@ -1,11 +1,12 @@
 import React from 'react'
+import { GetServerSideProps } from 'next'
 import AlbumMore from 'components/template/AlbumMore'
 import apiClient from 'libs/apiClient'
 import { ArticlesType } from 'types/internal/album'
 
-export const getServerSideProps = async (context: { params: { id: any } }) => {
+export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   try {
-    const res = await apiClient.get(`/post/album/${context.params.id}`)
+    const res = await apiClient.get(`/post/album/${params?.id}`)
     const album = await res.data.post
     return {
       props: {

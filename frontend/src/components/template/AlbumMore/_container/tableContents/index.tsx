@@ -3,13 +3,7 @@ import { Paper } from '@mui/material'
 import tocbot from 'tocbot'
 import style from './TableContent.module.scss'
 
-interface Props {
-  contents: string
-}
-
-export default function TableContent(props: Props): JSX.Element {
-  const { contents } = props
-
+export default function TableContent(): JSX.Element {
   useEffect(() => {
     tocbot.init({
       tocSelector: '.toc',
@@ -20,10 +14,11 @@ export default function TableContent(props: Props): JSX.Element {
 
     return () => tocbot.destroy()
   }, [])
+
   return (
     <Paper elevation={3} className={style.table}>
       <div className='markdown' />
-      <div className='toc is-position-fixed is-position-fixed' />
+      <div className='toc is-position-fixed' />
       <style jsx global>{`
         .toc {
           background-color: var(--content-bg-primary);
