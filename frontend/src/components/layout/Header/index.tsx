@@ -120,7 +120,11 @@ export default function Header(): JSX.Element {
             >
               {pages.map((page) => (
                 <MenuItem key={page}>
-                  <Typography textAlign='center' className='link'>
+                  <Typography
+                    textAlign='center'
+                    className='link'
+                    onClick={(): void => handleCloseNavMenu(page)}
+                  >
                     {page}
                   </Typography>
                 </MenuItem>
@@ -173,6 +177,7 @@ export default function Header(): JSX.Element {
                   width={50}
                   height={50}
                   className='header_img'
+                  priority
                 />
               </IconButton>
             </Tooltip>
