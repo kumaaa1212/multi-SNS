@@ -23,6 +23,7 @@ export default function NoUser(props: Props): JSX.Element {
           height={500}
           alt='404の画像'
           className={style.no_user_img}
+          priority
         />
       </div>
     </Layout>

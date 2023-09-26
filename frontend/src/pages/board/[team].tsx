@@ -6,12 +6,16 @@ import { BoardRoomType } from 'types/internal/board'
 import NoUser from 'components/widgets/NoUser'
 
 export const getServerSideProps: GetServerSideProps = async ({ query }) => {
-  const data = await apiClient.get(`/board/boardRooms/${query.team}`).then((res) => {
-    if (res.status !== 200) throw Error
-    return res.data.boardRoom
-  })
-  return {
-    props: { boardRoom: data },
+  try {
+    const res = await apiClient.get(`/board/boardRooms/${query.team}`)
+    const data = res.data.boardRoom
+    return {
+      props: { boardRoom: data },
+    }
+  } catch {
+    return {
+      props: { boardRoom: [] },
+    }
   }
 }
 
@@ -27,9 +31,9 @@ export default function BoardPage(props: Props): JSX.Element {
   return (
     <>
       {router.query.team !== undefined ? (
-        <Board boardRoom={boardRoom} />
-      ) : (
         <NoUser contens='自分のTeamの掲示板' />
+      ) : (
+        <Board boardRoom={boardRoom} />
       )}
     </>
   )
