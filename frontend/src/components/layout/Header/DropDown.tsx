@@ -1,21 +1,24 @@
 import { useCallback } from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useRouter } from 'next/router'
 import LoginIcon from '@mui/icons-material/Login'
 import LogoutIcon from '@mui/icons-material/Logout'
 import PersonIcon from '@mui/icons-material/Person'
 import PersonAddIcon from '@mui/icons-material/PersonAdd'
 import { MenuItem, Typography } from '@mui/material'
-import { RootState } from 'store/store'
+import { logoutUser } from 'features/userSlice'
+import { AppDispatch, RootState } from 'store/store'
 
 export default function DropDown(): JSX.Element {
   const router = useRouter()
   const { userId } = useSelector((state: RootState) => state.user)
+  const dispatch: AppDispatch = useDispatch()
 
   const Logout = useCallback(async (): Promise<void> => {
     localStorage.removeItem('auth_token')
+    dispatch(logoutUser())
     router.reload
-  }, [router])
+  }, [dispatch, router])
 
   return (
     <div>
@@ -51,7 +54,7 @@ export default function DropDown(): JSX.Element {
           >
             <Typography textAlign='center' className='drop_menu'>
               <LogoutIcon />
-              <div onClick={Logout}>ログアウト</div>
+              <span onClick={Logout}>ログアウト</span>
             </Typography>
           </MenuItem>
           <MenuItem
@@ -61,7 +64,7 @@ export default function DropDown(): JSX.Element {
           >
             <Typography textAlign='center' className='drop_menu'>
               <PersonIcon />
-              <div>アカウント</div>
+              <span>アカウント</span>
             </Typography>
           </MenuItem>
         </>

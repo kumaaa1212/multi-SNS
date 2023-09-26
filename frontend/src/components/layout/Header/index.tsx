@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useState } from 'react'
+import { useCallback, useMemo, useState } from 'react'
 import { useSelector } from 'react-redux'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
@@ -21,12 +21,14 @@ import DropDown from './DropDown'
 export default function Header(): JSX.Element {
   const router = useRouter()
   const { icon, team } = useSelector((state: RootState) => state.user)
-  const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null)
-  const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null)
+  const [anchorElNav, setAnchorElNav] = useState<HTMLElement | null>(null)
+  const [anchorElUser, setAnchorElUser] = useState<HTMLElement | null>(null)
 
   const pages = useMemo(() => ['HOME', 'CHAT', 'MYPAGE', 'BOARD'], [])
 
-  const myTeam = jLeagueTeams.find((jLeagueTeam) => jLeagueTeam.name === team)
+  const myTeam = useMemo(() => {
+    return jLeagueTeams.find((jLeagueTeam) => jLeagueTeam.name === team)
+  }, [team])
 
   const activeLink = (url: string): string => {
     if (url === 'HOME' && router.asPath.includes('/home')) {
@@ -35,7 +37,7 @@ export default function Header(): JSX.Element {
       return 'active'
     } else if (url === 'MYPAGE' && router.asPath.includes('/mypage')) {
       return 'active'
-    } else if (url === 'BOARD' && router.asPath.includes(`/board/${myTeam?.label}`)) {
+    } else if (url === 'BOARD' && myTeam && router.asPath.includes(`/board/${myTeam.label}`)) {
       return 'active'
     }
     return ''
@@ -76,7 +78,14 @@ export default function Header(): JSX.Element {
               textDecoration: 'none',
             }}
           >
-            <Image src='/logo.png' alt='logo' width={280} height={60} className='logo_img' />
+            <Image
+              src='/logo.png'
+              alt='logo'
+              width={280}
+              height={60}
+              className='logo_img'
+              priority
+            />
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
@@ -159,7 +168,7 @@ export default function Header(): JSX.Element {
                 sx={{ p: 0 }}
               >
                 <Image
-                  src={icon ? icon : '/noavater.jpg'}
+                  src={icon || '/noavater.jpg'}
                   alt='icon'
                   width={50}
                   height={50}

@@ -63,11 +63,22 @@ const userSlice = createSlice({
       }
     },
 
-    // logoutUser: (state) => {
-    //   return {
-    //     ...initialState,
-    //   }
-    // },
+    logoutUser: (state) => {
+      return {
+        ...state,
+        username: '',
+        userId: '',
+        team: '',
+        icon: '',
+        iconPath: '',
+        bio: '',
+        follow: [],
+        follower: [],
+        twitterURL: '',
+        teamURL: '',
+        userLikeCount: 0,
+      }
+    },
 
     updateUser: (state, action) => {
       return {
@@ -101,6 +112,6 @@ const userSlice = createSlice({
   },
 })
 
-export const { loginUser, updateUser, updataLikeCount, singUpUser } = userSlice.actions
+export const { loginUser, logoutUser, updateUser, updataLikeCount, singUpUser } = userSlice.actions
 
 export default userSlice.reducer
