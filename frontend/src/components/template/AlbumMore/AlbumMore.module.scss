@@ -1,6 +1,58 @@
 .content {
-  margin-top: 100px;
-  h1 {
-    text-align: center;
+  display: flex;
+  align-items: center;
+  flex-flow: column;
+  padding: 20px;
+  .header {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    h1 {
+      font-size: 40px;
+    }
+    p {
+      margin-top: 10px;
+    }
+  }
+
+  .main {
+    margin-top: 20px;
+    display: grid;
+    grid-template-columns: 1fr 4fr 300px;
+    gap: 20px;
+  }
+  .main_left {
+    display: flex;
+    justify-content: flex-end;
+    .left_content{
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      flex-flow: column;
+      margin-right: 20px;
+    }
+    .like_btn{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: white;
+      height: 60px;
+      width: 60px;
+      border-radius: 50%;
+      p{
+        color:  gray;
+        text-align: end;
+      }
+    }
+  }
+
+  .main_center {
+    padding: 10px;
+  }
+  .main_right {
+    width: 100%;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
   }
 }

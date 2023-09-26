@@ -5,9 +5,7 @@ import '../styles/layout/header.scss'
 import '../styles/layout/footer.scss'
 import '../styles/Material/styles.scss'
 import '../styles/layout/notFound.scss'
-import 'swiper/css'
-import 'swiper/css/bundle'
-import 'swiper/css/navigation'
+import '../styles/MarkDown/MarkDown.scss'
 import store from 'store/store'
 
 export default function App({ Component, pageProps }: AppProps): JSX.Element {

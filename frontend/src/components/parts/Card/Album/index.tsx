@@ -45,7 +45,7 @@ interface Props {
 export default function AlbumCard(props: Props): JSX.Element {
   const { album, handleDelete } = props
 
-  const { username } = useSelector((state: RootState) => state.user)
+  const { userId } = useSelector((state: RootState) => state.user)
   const [expanded, setExpanded] = useState<boolean>(false)
   const [moreover, setMoreover] = useState<boolean>(false)
   const [countLikes, setCountLikes] = useState<number>(album?.likes.length)
@@ -71,7 +71,7 @@ export default function AlbumCard(props: Props): JSX.Element {
             />
           }
           action={
-            album?.authorName === username ? (
+            album?.authorId === userId ? (
               <MoreVertIcon
                 onClick={(): void => setMoreover(!moreover)}
                 className={style.moreover_btn}

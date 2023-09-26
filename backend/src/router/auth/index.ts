@@ -151,24 +151,9 @@ router.post("/follow", async (req: Request, res: Response) => {
       },
     });
 
-    // Update the user entities to associate the follow and follower
-   const updateUser = await prisma.user.update({
+    const updateUser = await prisma.user.findFirst({
       where: { id: Number(userId) },
-      data: {
-        follows: {
-          connect: { id: follow.id },
-        },
-      },
-    });
-
-    await prisma.user.update({
-      where: { id: Number(authorId) },
-      data: {
-        followers: {
-          connect: { id: follower.id },
-        },
-      },
-    });
+    })
 
     res.status(200).json({ updateUser });
   } catch (error) {
@@ -185,7 +170,7 @@ router.delete("/unfollow", async (req: Request, res: Response) => {
 
   try {
     const authorUser = await prisma.user.findUnique({
-      where: { id: Number(authorId) },  // Corrected: Use authorId here
+      where: { id: Number(authorId) }, 
     });
 
     const followerUser = await prisma.user.findUnique({
@@ -204,30 +189,18 @@ router.delete("/unfollow", async (req: Request, res: Response) => {
       where: { userId: Number(authorId) },
     });
 
-   const updateUser = await prisma.user.update({
-      where: { id: Number(authorId) },
-      data: {
-        followers: {
-          disconnect: { id: followerUser.id },
-        },
-      },
-    });
-    
-    await prisma.user.update({
+    // Disconnect follower from the author
+    const updateUser = await prisma.user.findFirst({
       where: { id: Number(userId) },
-      data: {
-        follows: {
-          disconnect: { id: authorUser.id },
-        },
-      },
-    });
+    })
 
-    res.status(200).json({ updateUser });
+    res.status(200).json({ updateUser});
   } catch (error) {
     console.error("フォローの削除中にエラーが発生しました:", error);
     res.status(500).json({ error: "フォローの削除中にエラーが発生しました。" });
   }
 });
+
 
 // followの状態を確認する
 router.get("/follow/check", async (req: Request, res: Response) => {

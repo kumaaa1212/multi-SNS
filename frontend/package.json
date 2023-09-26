@@ -49,6 +49,7 @@
     "react-use": "^17.4.0",
     "remark-gfm": "^3.0.1",
     "swiper": "^10.0.4",
+    "tocbot": "^4.21.1",
     "uuid": "^9.0.0"
   },
   "devDependencies": {

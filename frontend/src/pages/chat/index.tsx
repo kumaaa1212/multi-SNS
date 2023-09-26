@@ -14,7 +14,6 @@ export default function ChatPage(): JSX.Element {
     if (userId.length === 0) return
     const roomFetch = async (): Promise<void> => {
       await apiClient.get(`/chat/allrooms/${userId}`).then((res) => {
-        // if (res.status !== 200) throw Error
         setRoomState(res.data.rooms)
       })
     }

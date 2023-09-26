@@ -13,7 +13,7 @@ interface Props {
   selectChatRoom: boolean
 }
 
-const ChatArea = (props: Props): JSX.Element => {
+export default function ChatArea(props: Props): JSX.Element {
   const { selectRoom, setSelectRoom, selectChatRoom } = props
   const [newMessage, setNewMessage] = useState<RoomType>()
 
@@ -65,5 +65,3 @@ const ChatArea = (props: Props): JSX.Element => {
     </div>
   )
 }
-
-export default ChatArea

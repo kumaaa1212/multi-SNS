@@ -16,7 +16,7 @@ export default function HomeAlbumCard(props: Props): JSX.Element {
   const formattedTimestamp = useFormattedTimestamp(album?.createdAt)
 
   const handlePath = (): void => {
-    router.push(`/home`)
+    router.push(`/albumMore/${album?.id}`)
   }
 
   return (

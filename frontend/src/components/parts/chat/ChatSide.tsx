@@ -16,10 +16,10 @@ interface Props {
 }
 
 export default function Chatlist(props: Props): JSX.Element {
-  const { selectChatRoom, setSelectChatRoom, myRooms, room, setSelectRoom } = props
+  const { selectChatRoom, setSelectChatRoom, room, setSelectRoom } = props
   const { userId } = useSelector((state: RootState) => state.user)
 
-  const handleShowChatRoom = async (room: RoomType): any => {
+  const handleShowChatRoom = async (room: RoomType) => {
     setSelectRoom(room)
     setSelectChatRoom(!selectChatRoom)
   }
@@ -44,7 +44,6 @@ export default function Chatlist(props: Props): JSX.Element {
       </div>
       <div className={styles.pserson_subDetail}>
         <span className={styles.chat_time}>2023.11.3</span>
-        <span className={styles.chat_content}>dvdvdvdvdvdvdvdvdvd</span>
       </div>
     </div>
   )

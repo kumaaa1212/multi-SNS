@@ -2,19 +2,31 @@ import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import style from './MarkDown.module.scss'
 
-interface Props {
+interface Size {
+  post?: boolean
+  detail?: boolean
+}
+
+interface Props extends Size {
   content: string
-  className?: string
 }
 
 export default function MarkDown(props: Props): JSX.Element {
-  const { content, className } = props
+  const { content, post, detail } = props
+
+  const sizeCheck = (name: string, size?: boolean): string => {
+    return size ? ' ' + style[name] : ''
+  }
 
   return (
-    <div className={style.markdown}>
-      <ReactMarkdown remarkPlugins={[remarkGfm]} className='markdown-body'>
-        {content}
-      </ReactMarkdown>
-    </div>
+    <ReactMarkdown
+      remarkPlugins={[remarkGfm]}
+      className={`markdown ${style.markdown} + ${sizeCheck('post', post)} + ${sizeCheck(
+        'detail',
+        detail,
+      )}`}
+    >
+      {content}
+    </ReactMarkdown>
   )
 }

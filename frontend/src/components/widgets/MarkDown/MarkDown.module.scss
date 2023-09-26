@@ -1,4 +1,4 @@
-.markdown{
+.markdown.post{
   height: 400px;
   width: 800px;
   overflow-y: scroll;
@@ -6,6 +6,11 @@
   padding: 5px;
   outline: none;
   border: none;
+  background-color: in;
+}
+
+.markdown.detail{
+  margin: 10px;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -206,7 +211,7 @@
 
  .markdown img {
   border-style: none;
-  max-width: 100%;
+  max-width: 50%;
   box-sizing: content-box;
   background-color: var(--color-canvas-default);
 }
@@ -247,8 +252,9 @@
  .markdown [type=button],
  .markdown [type=reset],
  .markdown [type=submit] {
-  -webkit-appearance: button;
-}
+    -webkit-appearance: button;
+    appearance: button;
+  }
 
  .markdown [type=checkbox],
  .markdown [type=radio] {

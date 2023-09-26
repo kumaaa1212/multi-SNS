@@ -216,6 +216,48 @@ router.delete("/Likealbum/delete", async (req, res) => {
   }
 });
 
+// albumMoreのアルバムを削除する
+router.delete("/album/more/delete", async (req, res) => {
+  const { postId } = req.query;
+
+  try {
+    await prisma.postLabel.deleteMany({
+      where: {
+        postId: Number(postId),
+      },
+    });
+
+    await prisma.like.deleteMany({
+      where: {
+        postId: Number(postId),
+      },
+    });
+
+    await prisma.bookmark.deleteMany({
+      where: {
+        postId: Number(postId),
+      },
+    });
+
+    const deletedPost = await prisma.post.delete({
+      where: {
+        id: Number(postId),
+      },
+    });
+
+    if (!deletedPost) {
+      return res.status(404).json({ error: "Post not found." });
+    }
+
+    return res.json( 'success' );
+  } catch (err) {
+    console.error(err);
+    return res
+      .status(500)
+      .json({ error: "An error occurred while deleting the post." });
+  }
+});
+
 // 全アルバムの取得(いいね順上位6個)
 router.get("/all/album/top", async (req: Request, res: Response) => {
   try {

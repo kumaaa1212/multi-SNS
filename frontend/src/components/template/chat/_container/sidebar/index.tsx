@@ -1,6 +1,7 @@
 import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { Badge } from '@mui/material'
+import apiClient from 'libs/apiClient'
 import { RootState } from 'store/store'
 import { RoomType } from 'types/internal'
 import Chatlist from 'components/parts/Chat/ChatSide'
@@ -37,6 +38,15 @@ export default function SideBar(props: Props): JSX.Element {
   //   )
   //   setMyRooms(filterMyRooms)
   // }, [follow, rooms, userId])
+
+  useEffect(() => {
+    const roomFetch = async (): Promise<void> => {
+      await apiClient.get(`/chat/allrooms/${userId}`).then((res) => {
+        setMyRooms(res.data.rooms)
+      })
+    }
+    roomFetch()
+  }, [userId])
 
   return (
     <div className='chat_sidebar'>
