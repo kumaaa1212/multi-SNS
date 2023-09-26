@@ -11,7 +11,7 @@ export default function SaveBar(props: Props): JSX.Element {
 
   return (
     <div className='save_bar'>
-      <Image src='/images/save_bar.png' alt='save_bar' width={50} height={50} className='img' />
+      <Image src='/logo.png' alt='save_bar' width={280} height={60} className='img' />
       <h2>保存していない内容があります。</h2>
       <div className='btn_area'>
         <ButtonBase

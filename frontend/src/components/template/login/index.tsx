@@ -117,9 +117,9 @@ export default function Login(): JSX.Element {
                 </Button>
                 <Grid container>
                   <Grid item xs>
-                    <Link href='/' variant='body2' className={styles.link}>
-                      パスワードを忘れた場合はこちら
-                    </Link>
+                    <a href='mailto:kuma.soccer1225@gmail.com' className={styles.link}>
+                      お問い合わせはこちら
+                    </a>
                   </Grid>
                   <Grid item>
                     <Link href='/signup' variant='body2' className={styles.link}>

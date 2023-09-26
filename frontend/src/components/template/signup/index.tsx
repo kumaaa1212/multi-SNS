@@ -1,9 +1,6 @@
-import { useState } from 'react'
 import { useForm, SubmitHandler, Controller } from 'react-hook-form'
-import { useDispatch } from 'react-redux'
-import Image from 'next/image'
 import { useRouter } from 'next/router'
-import { CircularProgress, FormControl, FormHelperText } from '@mui/material'
+import { FormControl, FormHelperText } from '@mui/material'
 import { InputLabel, MenuItem, Select } from '@mui/material'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
@@ -15,21 +12,15 @@ import Typography from '@mui/material/Typography'
 import { createTheme, ThemeProvider } from '@mui/material/styles'
 import Layout from 'components/layout'
 import apiClient from 'libs/apiClient'
-import { AppDispatch } from 'store/store'
 import { v4 as uuidv4 } from 'uuid'
 import { jLeagueTeams } from 'utils/TeamData'
-import CloseIcon from '/public/svg/modal_close.svg'
 import { AccountType } from 'types/internal'
 import Meta from 'components/layout/Head'
-import style from './SignUp.module.scss'
 
 const defaultTheme = createTheme()
 
 export default function SignUp(): JSX.Element {
   const router = useRouter()
-  const dispatch: AppDispatch = useDispatch()
-  const [isLoading, setIsLoading] = useState<boolean>(false)
-  const [open, setOpen] = useState<boolean>(false)
 
   const { control, handleSubmit } = useForm<AccountType>({
     defaultValues: {
@@ -48,8 +39,8 @@ export default function SignUp(): JSX.Element {
   })
 
   const onSubmit: SubmitHandler<AccountType> = async (data) => {
-    try {
-      await apiClient.post('/auth/register', {
+    await apiClient
+      .post('/auth/register', {
         email: data.email,
         password: data.password,
         name: data.name,
@@ -57,45 +48,16 @@ export default function SignUp(): JSX.Element {
         bio: '自己紹介文を入力してください',
         icon: String(uuidv4() + 'iconImg'),
       })
-      setIsLoading(true)
-    } catch (error) {
-      alert('エラーが発生しました')
-    }
-    setOpen(true)
-  }
-
-  const handleClose = (): void => {
-    setOpen(false)
-    router.push('/login')
+      .then((res) => {
+        if (res.status !== 200) throw Error
+        router.push('/login')
+      })
   }
 
   return (
     <Layout>
       <Meta title='新規登録' />
       <ThemeProvider theme={defaultTheme}>
-        {/* {isLoading && (
-            <ModalBase open={open} onClose={handleClose}>
-              <div className={style.modal}>
-                {open ? (
-                  <>
-                    <CloseIcon
-                      className={style.modal_close_icon}
-                      onCLick={(): void => {
-                        setOpen(false)
-                      }}
-                    />
-                    <div className={style.modal_contents}>
-                      <p>会員登録が完了しました。</p>
-                      <p>ログインしてさっそく始めましょう！！</p>
-                      <Image src='/soccer.jpg' alt='close' width={100} height={76} />
-                    </div>
-                  </>
-                ) : (
-                  <CircularProgress color='inherit' />
-                )}
-              </div>
-            </ModalBase>
-          )} */}
         <Container component='main' maxWidth='xs'>
           <CssBaseline />
           <Box
