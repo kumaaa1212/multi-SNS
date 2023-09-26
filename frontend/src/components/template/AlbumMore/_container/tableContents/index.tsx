@@ -26,6 +26,7 @@ export default function TableContent(): JSX.Element {
           border-radius: 0.25rem;
           padding: 1rem;
           font-size: 0.875rem;
+          pointer-events: none;
         }
 
         .toc-list .toc-list {
