@@ -2,20 +2,23 @@ import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Paper, Tooltip } from '@mui/material'
 import Layout from 'components/layout'
-import { addImgcontents, createContentText, createTitleText } from 'features/postSlice'
+import { addDisplayImgcontents, addImgcontents, createDisplayContentText } from 'features/postSlice'
+import { createContentText, createTitleText } from 'features/postSlice'
 import ReproductionIcon from '/public/svg/post_ reproduction.svg'
 import PreviewIcon from '/public/svg/post_ reproduction.svg'
 import QuestionIcon from '/public/svg/post_question.svg'
 import AddImgIcon from '/public/svg/post_add_img.svg'
 import { AppDispatch, RootState } from 'store/store'
-import Meta from 'components/layout/Head'
+import { v4 as uuidv4 } from 'uuid'
+import { supabase } from 'utils/supabaseClient'
 import style from './Album.module.scss'
 import AlnumLayout from './_container/albumLayout/AlbumLayout'
 import MarkDown from 'components/widgets/MarkDown'
 
 export default function Album(): JSX.Element {
   const dispatch: AppDispatch = useDispatch()
-  const { titleText, contentText } = useSelector((state: RootState) => state.post)
+  const { titleText, displayContentText } = useSelector((state: RootState) => state.post)
+  const { userId } = useSelector((state: RootState) => state.user)
   const [preview, setPreview] = useState<boolean>(false)
   const [isSaveBar, setIsSaveBar] = useState<boolean>(false)
   const [open, setOpen] = useState<boolean>(false)
@@ -25,11 +28,18 @@ export default function Album(): JSX.Element {
     fileInput?.click()
   }
 
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
+  const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>): Promise<void> => {
     const selectedFile = event.target.files?.[0]
     if (selectedFile) {
       const imageMarkdown = `![](${URL.createObjectURL(selectedFile)})`
-      dispatch(addImgcontents(imageMarkdown))
+      const { data: storageData, error: storegeError } = await supabase.storage
+        .from('thumbnail')
+        .upload(`${userId}/${uuidv4()}`, selectedFile ? selectedFile : '')
+      if (!storegeError) {
+        const { data: urlData } = supabase.storage.from('thumbnail').getPublicUrl(storageData.path)
+        dispatch(addImgcontents(urlData))
+        dispatch(addDisplayImgcontents(imageMarkdown))
+      }
     }
   }
 
@@ -56,17 +66,18 @@ export default function Album(): JSX.Element {
             <div className={style.preview_area}>
               {preview ? (
                 <Paper elevation={3}>
-                  <MarkDown content={contentText} post />
+                  <MarkDown content={displayContentText} post />
                 </Paper>
               ) : (
                 <Paper elevation={3}>
                   <textarea
                     name=''
                     placeholder='マークダウン形式で入力してください'
-                    value={contentText}
+                    value={displayContentText}
                     className={style.album_text}
                     onChange={(e): void => {
                       dispatch(createContentText(e.target.value))
+                      dispatch(createDisplayContentText(e.target.value))
                     }}
                   />
                 </Paper>
@@ -98,7 +109,7 @@ export default function Album(): JSX.Element {
                     type='file'
                     id='markdown_file_input'
                     style={{ display: 'none' }}
-                    onChange={(e): void => handleFileChange(e)}
+                    onChange={(e): Promise<void> => handleFileChange(e)}
                   />
                 </div>
               </Tooltip>

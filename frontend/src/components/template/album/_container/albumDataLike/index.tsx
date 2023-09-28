@@ -8,6 +8,7 @@ import AlbumArea from 'components/widgets/Article/Album'
 import style from '../index.module.scss'
 
 interface Props {
+  currentPage: number
   albumserch: string
   articlesLike: ArticlesType[]
 }

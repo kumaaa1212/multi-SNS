@@ -32,7 +32,7 @@ export default function AlbumMore(props: Props): JSX.Element {
         </div>
         <div className={style.main}>
           <div className={style.main_left}>
-            <div className={style.left_content_like}>
+            <div className={style.left_content}>
               <div className={style.like_btn}>
                 <AlbumLikeBtn album={album} setCountLikes={setCountLikes} />
               </div>

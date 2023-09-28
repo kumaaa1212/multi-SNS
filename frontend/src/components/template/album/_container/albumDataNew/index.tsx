@@ -10,10 +10,11 @@ import style from '../index.module.scss'
 interface Props {
   albumserch: string
   articlesNew: ArticlesType[]
+  currentPage: number
 }
 
 export default function AlbumNew(props: Props): JSX.Element {
-  const { articlesNew, albumserch } = props
+  const { articlesNew, albumserch, currentPage } = props
 
   const [albumNewData, setAlbumNewData] = useState<ArticlesType[]>(articlesNew)
   const articlesNewFilter = albumNewData?.filter(
@@ -44,7 +45,7 @@ export default function AlbumNew(props: Props): JSX.Element {
 
   return (
     <AlbumArea>
-      {articlesNewFilter?.map((album) => (
+      {articlesNewFilter?.slice(currentPage, currentPage + 6).map((album) => (
         <div key={album.id}>
           <div className={style.large}>
             <ArticleCard album={album} handleDelete={handleDelete} />

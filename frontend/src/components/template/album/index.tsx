@@ -18,11 +18,14 @@ export default function Albums(props: Props): JSX.Element {
 
   const [click, setClicked] = useState<boolean>(false)
   const [albumserch, setAlbumserch] = useState<string>('')
+  const [currentPage, setCurrentPage] = useState<number>(1)
 
   return (
     <Layout>
       <Meta title='アルバム' />
       <PostTemPlate
+        albums={articlesLike}
+        setCurrentPage={setCurrentPage}
         newButton='新着アルバム'
         popularButton='人気アルバム'
         inputName='アルバムを検索'
@@ -33,9 +36,13 @@ export default function Albums(props: Props): JSX.Element {
       >
         <div className={style.large}>
           {click ? (
-            <AlbumNew albumserch={albumserch} articlesNew={articlesNew} />
+            <AlbumNew albumserch={albumserch} articlesNew={articlesNew} currentPage={currentPage} />
           ) : (
-            <AlbumLike albumserch={albumserch} articlesLike={articlesLike} />
+            <AlbumLike
+              albumserch={albumserch}
+              articlesLike={articlesLike}
+              currentPage={currentPage}
+            />
           )}
           <LabelArea />
         </div>
@@ -43,9 +50,13 @@ export default function Albums(props: Props): JSX.Element {
           <LabelArea small />
 
           {click ? (
-            <AlbumNew albumserch={albumserch} articlesNew={articlesNew} />
+            <AlbumNew albumserch={albumserch} articlesNew={articlesNew} currentPage={currentPage} />
           ) : (
-            <AlbumLike albumserch={albumserch} articlesLike={articlesLike} />
+            <AlbumLike
+              albumserch={albumserch}
+              articlesLike={articlesLike}
+              currentPage={currentPage}
+            />
           )}
         </div>
       </PostTemPlate>

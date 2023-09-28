@@ -1,10 +1,13 @@
 import { useState } from 'react'
+import { ArticlesType } from 'types/internal/album'
 import Button from 'components/parts/Button/Base'
 import SerchInput from 'components/parts/Input/Serch'
 import BasicPagination from 'components/parts/Pagenation'
 import style from './Post.module.scss'
 
 interface Props {
+  albums: ArticlesType[]
+  setCurrentPage: React.Dispatch<React.SetStateAction<number>>
   newButton: string
   popularButton: string
   inputName: string
@@ -16,10 +19,9 @@ interface Props {
 }
 
 export default function PostTemPlate(props: Props): JSX.Element {
+  const { albums, setCurrentPage } = props
   const { newButton, popularButton, inputName, children } = props
   const { albumserch, setAlbumserch, click, setClicked } = props
-
-  const [currentPage, setCurrentPage] = useState<number>(1)
 
   return (
     <div className={style.article_contents}>
@@ -51,9 +53,17 @@ export default function PostTemPlate(props: Props): JSX.Element {
       <div className={style.main_area}>{children}</div>
       <div className={style.pagenation}>
         {click ? (
-          <BasicPagination setCurrentPage={setCurrentPage} pagelenght={0} clasName='mv_64' />
+          <BasicPagination
+            setCurrentPage={setCurrentPage}
+            pagelenght={albums ? albums?.length : 0}
+            clasName='mv_64'
+          />
         ) : (
-          <BasicPagination setCurrentPage={setCurrentPage} pagelenght={0} clasName='mv_64' />
+          <BasicPagination
+            setCurrentPage={setCurrentPage}
+            pagelenght={albums ? albums?.length : 0}
+            clasName='mv_64'
+          />
         )}
       </div>
     </div>

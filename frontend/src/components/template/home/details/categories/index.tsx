@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { Paper } from '@mui/material'
@@ -14,7 +13,6 @@ export default function CategoriesPart(props: Props): JSX.Element {
   const { labels } = props
 
   const router = useRouter()
-  const [teamData, setTeamData] = useState<LabelType[]>(labels)
 
   return (
     <HomeTemplate
@@ -25,7 +23,7 @@ export default function CategoriesPart(props: Props): JSX.Element {
       color='blue'
     >
       <div className={style.home_categories}>
-        {teamData.map((team: LabelType, index: number) => (
+        {labels.map((team: LabelType, index: number) => (
           <Paper
             key={index}
             className={style.team_card}

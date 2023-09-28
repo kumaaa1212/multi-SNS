@@ -20,19 +20,43 @@
     display: grid;
     grid-template-columns: 1fr 4fr 300px;
     gap: 20px;
+    @media screen and (max-width: 1100px) {
+      display: flex;
+      justify-content: center;
+      .main_left {
+        display: none;
+      }
+      .main_center {
+        width: 700px;
+      }
+      .main_right {
+        display: none;
+      }
+    }
+    @media screen and (max-width: 700px) {
+      .main_center {
+        width: 400px;
+      }
+    }
+    @media screen and (max-width: 500px) {
+      .main_center {
+        width: 300px;
+      }
+    }
   }
-  
+
   .main_left {
     display: flex;
     justify-content: flex-end;
-    .left_content{
+    .left_content {
       display: flex;
       justify-content: flex-start;
       align-items: center;
       flex-flow: column;
       margin-right: 20px;
     }
-    .like_btn{
+    .like_btn {
+      cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -40,8 +64,8 @@
       height: 60px;
       width: 60px;
       border-radius: 50%;
-      p{
-        color:  gray;
+      p {
+        color: gray;
         text-align: end;
       }
     }

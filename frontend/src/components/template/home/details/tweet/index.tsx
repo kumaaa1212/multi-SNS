@@ -36,9 +36,9 @@ export default function TweetParts(props: Props): JSX.Element {
     <>
       <HomeTemplate
         titile='人気のTweet'
-        showAll='Show All Tweets'
+        showAll='すべてのTweetを見る'
         href='/tweet'
-        footerShowAll='Show All Tweets'
+        footerShowAll='すべてのTweetを見る'
         color='gray'
       >
         <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 1, sm: 1, md: 3, lg: 3, xl: 3 }}>

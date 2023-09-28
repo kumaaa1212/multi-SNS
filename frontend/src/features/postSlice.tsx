@@ -1,9 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { LabelType } from 'types/internal'
+import { LabelType } from 'types/internal/album'
 
 interface PostState {
   titleText: string
   contentText: string
+  displayContentText: string
   labels: LabelType[]
   thumbnailText: string
   thumbnailImg: string
@@ -13,6 +14,7 @@ interface PostState {
 const initialState: PostState = {
   titleText: '',
   contentText: '',
+  displayContentText: '',
   labels: [],
   thumbnailText: '',
   thumbnailImg: '',
@@ -26,27 +28,42 @@ const modalSlice = createSlice({
     createTitleText: (state, action) => {
       state.titleText = action.payload
     },
+
     createContentText: (state, action) => {
       state.contentText = action.payload
     },
+
+    createDisplayContentText: (state, action) => {
+      state.displayContentText = action.payload
+    },
+
     addImgcontents: (state, action) => {
       state.contentText += action.payload
     },
+
+    addDisplayImgcontents: (state, action) => {
+      state.displayContentText += action.payload
+    },
+
     addLabels: (state, action) => {
       return {
         ...state,
         labels: action.payload,
       }
     },
+
     addThumbnail: (state, action) => {
       state.thumbnailText = action.payload
     },
+
     addThumbnailImg: (state, action) => {
       state.thumbnailImg = action.payload
     },
+
     dispalyThumbnailImg: (state, action) => {
       state.displayThumbnailImg = URL.createObjectURL(action.payload)
     },
+
     stateReset: (state) => {
       state.titleText = ''
       state.contentText = ''
@@ -59,7 +76,9 @@ const modalSlice = createSlice({
 export const {
   createTitleText,
   createContentText,
+  createDisplayContentText,
   addImgcontents,
+  addDisplayImgcontents,
   addLabels,
   addThumbnail,
   addThumbnailImg,
