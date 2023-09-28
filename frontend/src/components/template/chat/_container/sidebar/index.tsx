@@ -5,7 +5,7 @@ import apiClient from 'libs/apiClient'
 import { RootState } from 'store/store'
 import { RoomType } from 'types/internal'
 import ChatSearch from 'components/parts/Search'
-import NewChatIcon from '/public/svg/newChat.svg'
+import NewChatIcon from '/public/svg/newchat.svg'
 import MultipleSelectNative from 'components/parts/Select'
 import style from './Sidebar.module.scss'
 
