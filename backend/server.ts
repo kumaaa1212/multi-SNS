@@ -14,7 +14,7 @@ app.use(express.json());
 dotenv.config();
 
 const corsOptions = {
-  origin: "http://localhost:3002",
+  origin: "https://tokotokoj.vercel.app",
   methods: ["GET", "POST", "DELETE", "PUT"],
   optionsSuccessStatus: 200,
 };
