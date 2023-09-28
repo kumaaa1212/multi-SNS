@@ -17,7 +17,7 @@ export default function Meta(props: Props): JSX.Element {
     <Head>
       <meta charSet='UTF-8' key='charset' />
       <meta name='viewport' content='width=device-width, initial-scale=1' key='viewport' />
-      <link rel='icon' sizes='32x32' href='soccer_favicon.png' />
+      <link rel='icon' sizes='32x32' href='/soccer_favicon.png' />
       <base href='/home' />
       <title>{title ? title : 'TOKOTOKO=J'}</title>
       <NextSeo

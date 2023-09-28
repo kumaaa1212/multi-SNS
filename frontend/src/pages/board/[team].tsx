@@ -30,7 +30,7 @@ export default function BoardPage(props: Props): JSX.Element {
 
   return (
     <>
-      {router.query.team !== undefined ? (
+      {router.query.team === undefined ? (
         <NoUser contens='自分のTeamの掲示板' />
       ) : (
         <Board boardRoom={boardRoom} />

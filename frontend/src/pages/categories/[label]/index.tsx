@@ -2,18 +2,18 @@ import React from 'react'
 import { GetServerSideProps } from 'next'
 import Team from 'components/template/details'
 import apiClient from 'libs/apiClient'
-import { ArticlesType } from 'types/internal'
+import { ArticlesType } from 'types/internal/album'
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   try {
     const { label } = context.query
     const res = await apiClient.get(`/post/album/team/${label}`)
-    const data = res.data
-    return { props: { data } }
+    const post = res.data
+    return { props: post }
   } catch {
     return {
       props: {
-        data: null,
+        data: [],
       },
     }
   }
@@ -22,6 +22,8 @@ interface Props {
   post: ArticlesType[]
 }
 
-export default function TeamPage({ data }: { data: Props }): JSX.Element {
-  return <Team data={data.post} />
+export default function TeamPage(props: Props): JSX.Element {
+  const { post } = props
+
+  return <Team post={post} />
 }

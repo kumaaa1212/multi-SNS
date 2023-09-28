@@ -48,8 +48,8 @@ export default function AlbumCard(props: Props): JSX.Element {
   const { userId } = useSelector((state: RootState) => state.user)
   const [expanded, setExpanded] = useState<boolean>(false)
   const [moreover, setMoreover] = useState<boolean>(false)
-  const [countLikes, setCountLikes] = useState<number>(album?.likes.length)
-  const [countBookmarks, setCountBookmarks] = useState<number>(album?.bookmarks.length)
+  const [countLikes, setCountLikes] = useState<number>(album?.likes?.length)
+  const [countBookmarks, setCountBookmarks] = useState<number>(album?.bookmarks?.length)
   const formattedTimestamp = useFormattedTimestamp(album?.createdAt)
 
   const handleExpandClick = (): void => {

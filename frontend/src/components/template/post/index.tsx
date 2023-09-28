@@ -46,7 +46,7 @@ export default function Album(): JSX.Element {
           <input
             className={style.input}
             type='text'
-            placeholder='title'
+            placeholder='title (10文字以内で入力してください)'
             value={titleText}
             onChange={(e): void => {
               dispatch(createTitleText(e.target.value))

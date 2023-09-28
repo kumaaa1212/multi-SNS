@@ -70,11 +70,11 @@ router.get("/all/tweets/order/new", async (req: Request, res: Response) => {
   try {
     const tweetsTopNew = await prisma.tweet.findMany({
       orderBy: {
-        createdAt: "desc"
+        createdAt: "desc",
       },
       include: {
-        likes: true
-      }
+        likes: true,
+      },
     });
 
     return res.json({ tweetsTopNew });

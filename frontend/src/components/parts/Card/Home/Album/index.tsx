@@ -30,10 +30,10 @@ export default function HomeAlbumCard(props: Props): JSX.Element {
           className={style.team_img}
           priority
         />
-        <span>FC東京</span>
+        <span>{album?.labels[0].name}</span>
       </Paper>
       <div className='ml_10'>
-        <h1>{album?.title}</h1>
+        <h3>{album?.title}</h3>
         <div className={style.detail_area}>
           <Image
             src={album?.authorAvatar}
@@ -43,7 +43,7 @@ export default function HomeAlbumCard(props: Props): JSX.Element {
             className={style.img}
             priority
           />
-          <div className='ml_10 fw_700'>
+          <div className={style.info}>
             <p>{album?.authorName}</p>
             <p>{formattedTimestamp}</p>
             <p>{album?.likes?.length}Likes</p>

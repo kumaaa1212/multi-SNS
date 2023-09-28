@@ -44,7 +44,7 @@ export default function Profile(): JSX.Element {
         />
         <div className={style.profile_details}>
           <div className={style.profile_header}>
-            <h1>{username}</h1>
+            <h1 className={style.username}>{username}</h1>
             <Button
               content='編集'
               onClick={(): void => setOpenEdit(true)}

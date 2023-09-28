@@ -1,23 +1,42 @@
+import { useState } from 'react'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
+import { HttpStatusCode } from 'axios'
 import Layout from 'components/layout'
+import apiClient from 'libs/apiClient'
 import { jLeagueTeams } from 'utils/TeamData'
 import { TeamDataType } from 'types/internal'
 import { ArticlesType } from 'types/internal/album'
 import Meta from 'components/layout/Head'
+import ArticleCard from 'components/parts/Card/Album'
+import HomeAlbumCard from 'components/parts/Card/Home/Album'
 import AlbumArea from 'components/widgets/Article/Album'
 import LabelArea from 'components/widgets/Label/Select'
 import style from './ArticleDetail.module.scss'
 
 interface Props {
-  data: ArticlesType[] | undefined
+  post: ArticlesType[] | []
 }
 
 export default function Team(props: Props): JSX.Element {
-  const { data } = props
+  const { post } = props
 
+  const [albumNewData, setAlbumNewData] = useState<ArticlesType[]>(post)
   const router = useRouter()
   const teamfilter = jLeagueTeams.filter((team: TeamDataType) => team.label === router.query.label)
+
+  const handleDelete = async (album: ArticlesType): Promise<void> => {
+    await apiClient
+      .delete('/post/Newalbum/delete', {
+        params: {
+          postId: album.id,
+        },
+      })
+      .then((res) => {
+        if (res.status !== HttpStatusCode.Ok) throw Error
+        setAlbumNewData(res.data.remainAlbums)
+      })
+  }
 
   return (
     <Layout>
@@ -35,9 +54,18 @@ export default function Team(props: Props): JSX.Element {
             <h2>{`"${teamfilter[0].name}"に関するまとめ`}</h2>
           </div>
           <div>
-            {data?.length ? (
+            {post?.length ? (
               <AlbumArea>
-                <div></div>
+                {albumNewData?.map((album) => (
+                  <div key={album.id}>
+                    <div className={style.large}>
+                      <ArticleCard album={album} handleDelete={handleDelete} />
+                    </div>
+                    <div className={style.small}>
+                      <HomeAlbumCard album={album} />
+                    </div>
+                  </div>
+                ))}
               </AlbumArea>
             ) : (
               <div className={style.not_article}>
