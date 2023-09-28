@@ -9,7 +9,7 @@ import Meta from 'components/layout/Head'
 import SerchInput from 'components/parts/Input/Serch'
 import style from './Categories.module.scss'
 
-const Categories = (): JSX.Element => {
+export default function Categories(): JSX.Element {
   const router = useRouter()
   const [teamData, setTeamData] = useState<TeamDataType[]>(jLeagueTeams)
   const [search, setSearch] = useState<string>('')
@@ -38,7 +38,14 @@ const Categories = (): JSX.Element => {
                 router.push(`/categories/${team.label}`)
               }}
             >
-              <Image src={team.img} alt={''} width={100} height={70} className={style.team_img} />
+              <Image
+                src={team.img}
+                alt={''}
+                width={100}
+                height={70}
+                className={style.team_img}
+                priority
+              />
               <span>{team.name}</span>
             </Paper>
           ))}
@@ -47,5 +54,3 @@ const Categories = (): JSX.Element => {
     </Layout>
   )
 }
-
-export default Categories

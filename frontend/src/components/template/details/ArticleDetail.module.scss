@@ -30,6 +30,13 @@
       display: block;
       margin: 0 auto;
     }
+    
+    @media screen and (max-width: 1000px) {
+      .not_article_img{
+        display: none;
+        border: 1px red solid;
+      }
+    }
   }
 
   .labels_area {
