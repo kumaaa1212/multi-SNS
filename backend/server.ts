@@ -25,4 +25,4 @@ app.use("/api/auth", authRoute);
 app.use("/api/board", boardRoute);
 app.use("/api/article", articleRoute);
 
-app.listen(port, () => console.log(`Listening on port ${port}`));
+app.listen("https://backend-dgjc.onrender.com/api", () => console.log(`Listening on port ${port}`));
