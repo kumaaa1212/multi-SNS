@@ -12,9 +12,9 @@ import CardHeader from '@mui/material/CardHeader'
 import Collapse from '@mui/material/Collapse'
 import IconButton, { IconButtonProps } from '@mui/material/IconButton'
 import { styled } from '@mui/material/styles'
-import { useFormattedTimestamp } from 'components/hooks/useTime'
 import { RootState } from 'store/store'
 import Icongenerate from 'utils/functions/Avater'
+import { formatTimestamp } from 'utils/functions/Time'
 import { ArticlesType, LabelType } from 'types/internal/album'
 import BookMarkBtn from 'components/parts/Button/BookMark'
 import FollowButton from 'components/parts/Button/Follow'
@@ -50,7 +50,6 @@ export default function AlbumCard(props: Props): JSX.Element {
   const [moreover, setMoreover] = useState<boolean>(false)
   const [countLikes, setCountLikes] = useState<number>(album?.likes?.length)
   const [countBookmarks, setCountBookmarks] = useState<number>(album?.bookmarks?.length)
-  const formattedTimestamp = useFormattedTimestamp(album?.createdAt)
 
   const handleExpandClick = (): void => {
     setExpanded(!expanded)
@@ -81,7 +80,7 @@ export default function AlbumCard(props: Props): JSX.Element {
             )
           }
           title={album?.title}
-          subheader={formattedTimestamp}
+          subheader={formatTimestamp(album?.createdAt)}
         />
         {moreover && (
           <div className={style.moreover_area} onClick={(): void => handleDelete(album)}>

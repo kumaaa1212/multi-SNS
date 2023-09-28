@@ -10,7 +10,6 @@ import AlbumLikeBtn from 'components/parts/Button/Like/Album'
 import MarkDown from 'components/widgets/MarkDown'
 import style from './AlbumMore.module.scss'
 import Profile from './_container/Profile'
-import TwitterIcon from '/public/svg/twitter.svg'
 import TableContent from './_container/tableContents'
 
 interface Props {
@@ -21,8 +20,6 @@ export default function AlbumMore(props: Props): JSX.Element {
   const { album } = props
 
   const [countLikes, setCountLikes] = useState<number>(album?.likes.length)
-
-  const handleTweet = (): void => {}
 
   return (
     <Layout padding='pv_20' bgColor='bg_blue'>
@@ -40,9 +37,6 @@ export default function AlbumMore(props: Props): JSX.Element {
                 <AlbumLikeBtn album={album} setCountLikes={setCountLikes} />
               </div>
               <p>{countLikes}</p>
-            </div>
-            <div className={style.left_content_twitter}>
-              <TwitterIcon onClick={handleTweet} />
             </div>
           </div>
           <Paper elevation={3} className={style.main_center}>

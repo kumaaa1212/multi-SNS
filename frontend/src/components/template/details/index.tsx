@@ -41,6 +41,7 @@ export default function Team(props: Props): JSX.Element {
   return (
     <Layout>
       <Meta title={`${teamfilter[0].name}に関するまとめ`} />
+
       <div className={style.articles_details}>
         <div>
           <div className={style.articles_details_header}>
@@ -52,6 +53,9 @@ export default function Team(props: Props): JSX.Element {
               className={style.team_img}
             />
             <h2>{`"${teamfilter[0].name}"に関するまとめ`}</h2>
+          </div>
+          <div className={style.labels_area_small}>
+            <LabelArea small />
           </div>
           <div>
             {post?.length ? (
@@ -84,7 +88,7 @@ export default function Team(props: Props): JSX.Element {
             )}
           </div>
         </div>
-        <div className={style.labels_area}>
+        <div className={style.labels_area_large}>
           <LabelArea />
         </div>
       </div>

@@ -1,6 +1,6 @@
 import Image from 'next/image'
-import { useFormattedTimestamp } from 'components/hooks/useTime'
 import Icongenerate from 'utils/functions/Avater'
+import { formatTimestamp } from 'utils/functions/Time'
 import { BoardMessageType, BoardType } from 'types/internal/board'
 import style from './Sidebar.module.scss'
 
@@ -12,8 +12,6 @@ interface Props {
 
 export default function SidebarChatCard(props: Props): JSX.Element {
   const { children, avater, contents } = props
-
-  const formattedTimestamp = useFormattedTimestamp(contents?.createdAt)
 
   return (
     <div className={style.timeline_user}>
@@ -27,7 +25,7 @@ export default function SidebarChatCard(props: Props): JSX.Element {
       <div className={style.card_info}>
         <div className='fw_700'>
           <span className={style.user_name}>{contents?.authorName}</span>
-          <span className={style.publish_time}>{formattedTimestamp}</span>
+          <span className={style.publish_time}>{formatTimestamp(contents?.createdAt)}</span>
         </div>
         <div className={style.card_content}>{children}</div>
       </div>

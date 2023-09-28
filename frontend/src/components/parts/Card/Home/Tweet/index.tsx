@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import { Paper } from '@mui/material'
-import { useFormattedTimestamp } from 'components/hooks/useTime'
 import { jLeagueTeams } from 'utils/TeamData'
+import { formatTimestamp } from 'utils/functions/Time'
 import { TweetsType } from 'types/internal/tweet'
 import style from './index.module.scss'
 
@@ -14,7 +14,6 @@ interface Props {
 export default function HomeTweetCard(props: Props): JSX.Element {
   const { tweet, setShowTweets, setOpen } = props
 
-  const formattedTimestamp = useFormattedTimestamp(tweet?.createdAt)
 
   const label = jLeagueTeams.filter((team) => team.name === tweet?.label)[0]
 
@@ -42,7 +41,7 @@ export default function HomeTweetCard(props: Props): JSX.Element {
           <Image src={tweet.authorAvatar} alt='me' width={40} height={40} className={style.img} />
           <div className='ml_10 fw_700'>
             <p>{tweet?.authorName}</p>
-            <p>{formattedTimestamp}</p>
+            <p>{formatTimestamp(tweet.createdAt)}</p>
             <p>{tweet?.likes?.length}Likes</p>
           </div>
         </div>

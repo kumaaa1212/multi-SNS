@@ -2,12 +2,22 @@
   display: grid;
   grid-template-columns: 1fr 300px;
   margin-top: 30px;
+  @media screen and (max-width: 750px) {
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+  }
 
   .articles_details_header {
     margin-bottom: 30px;
     display: flex;
     justify-content: center;
     align-items: center;
+    @media screen and (max-width: 500px) {
+      flex-flow: column;
+      gap: 20px;
+    }
+
   }
 
   .team_img {
@@ -39,10 +49,23 @@
     }
   }
 
-  .labels_area {
-    width: 300px;
-    display: flex;
-    justify-content: center;
+  .labels_area_large {
+    margin-left: 20px;
+    display: block;
+  }
+
+  .labels_area_small {
+    display: none;
+    padding: 0 20px;
+  }
+
+  @media screen and (max-width: 750px) {
+    .labels_area_large {
+      display: none;
+    }
+    .labels_area_small {
+      display: block;
+    }
   }
 }
 
