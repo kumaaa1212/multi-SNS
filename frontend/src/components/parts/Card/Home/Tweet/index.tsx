@@ -14,7 +14,6 @@ interface Props {
 export default function HomeTweetCard(props: Props): JSX.Element {
   const { tweet, setShowTweets, setOpen } = props
 
-
   const label = jLeagueTeams.filter((team) => team.name === tweet?.label)[0]
 
   const handleShow = (): void => {
