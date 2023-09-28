@@ -15,6 +15,7 @@ dotenv.config();
 const corsOptions = {
   origin: "https://tokotokoj.vercel.app",
   methods: ["GET", "POST", "DELETE", "PUT"],
+  credentials: true,
   optionsSuccessStatus: 200,
 };
 
