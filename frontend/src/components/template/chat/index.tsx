@@ -1,9 +1,9 @@
 import { useState } from 'react'
 import Layout from 'components/layout'
+import ChatArea from 'components/template/chat/_container/main'
 import { RoomType } from 'types/internal'
 import Meta from 'components/layout/Head'
 import style from './Chat.module.scss'
-import ChatArea from './_container/main'
 import SideBar from './_container/sidebar'
 
 interface Props {
