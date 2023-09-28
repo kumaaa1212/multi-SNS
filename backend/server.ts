@@ -9,7 +9,6 @@ import dotenv from "dotenv";
 
 const app = express();
 const port = process.env.PORT  || 10000;
-// ミドルウェアの設定
 app.use(express.json());
 dotenv.config();
 
@@ -26,4 +25,4 @@ app.use("/api/auth", authRoute);
 app.use("/api/board", boardRoute);
 app.use("/api/article", articleRoute);
 
-app.listen(port, () => console.log(`Listening on port ${port}`));
+app.listen(port, () => console.log(`Listenings on port ${port}`));
