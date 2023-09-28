@@ -45,7 +45,7 @@
           "external",
           "internal",
           ["parent", "sibling", "index"],
-          "unknown" // Add an "unknown" group for unmatched imports
+          "unknown"
         ],
         "alphabetize": { "order": "asc", "caseInsensitive": false },
         "newlines-between": "never",

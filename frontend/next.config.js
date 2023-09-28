@@ -1,16 +1,21 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
 /** @type {import('next').NextConfig} */
+
 const nextConfig = {
   images: {
     domains: ['rzdzcpquxmwuusgpppri.supabase.co', 'adoraxymvctdnwofvyep.supabase.co'],
   },
-  // 画像のドメインを許可する
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
   reactStrictMode: true,
   async redirects() {
     return [
       {
-        source: '/', // リダイレクト元のURL
-        destination: '/home', // リダイレクト先のURL
-        permanent: true, // 永続的なリダイレクトかのフラグ
+        source: '/',
+        destination: '/home',
+        permanent: true,
       },
     ]
   },
