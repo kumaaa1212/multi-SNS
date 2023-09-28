@@ -24,7 +24,7 @@ export default function Albums(props: Props): JSX.Element {
     <Layout>
       <Meta title='アルバム' />
       <PostTemPlate
-        albums={articlesLike}
+        post={articlesLike}
         setCurrentPage={setCurrentPage}
         newButton='新着アルバム'
         popularButton='人気アルバム'

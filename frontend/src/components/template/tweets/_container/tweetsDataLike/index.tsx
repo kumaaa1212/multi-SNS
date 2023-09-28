@@ -11,9 +11,10 @@ import style from '../index.module.scss'
 interface Props {
   albumserch: string
   tweetsLike: TweetsType[]
+  currentPage: number
 }
 export default function TweetLike(props: Props): JSX.Element {
-  const { tweetsLike, albumserch } = props
+  const { tweetsLike, albumserch, currentPage } = props
 
   const [tweetsData, setTweetsData] = useState<TweetsType[]>(tweetsLike)
   const [open, setOpen] = useState<boolean>(false)
@@ -46,7 +47,7 @@ export default function TweetLike(props: Props): JSX.Element {
 
   return (
     <TweetArea>
-      {tweetsLikeFilter?.map((tweet) => (
+      {tweetsLikeFilter?.slice(currentPage, currentPage + 6).map((tweet) => (
         <>
           <div className={style.large}>
             <TweetCard tweet={tweet} key={tweet.id} handleDelete={handleDelete} />

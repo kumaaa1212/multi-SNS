@@ -1,12 +1,12 @@
-import { useState } from 'react'
 import { ArticlesType } from 'types/internal/album'
+import { TweetsType } from 'types/internal/tweet'
 import Button from 'components/parts/Button/Base'
 import SerchInput from 'components/parts/Input/Serch'
 import BasicPagination from 'components/parts/Pagenation'
 import style from './Post.module.scss'
 
 interface Props {
-  albums: ArticlesType[]
+  post: ArticlesType[] | TweetsType[]
   setCurrentPage: React.Dispatch<React.SetStateAction<number>>
   newButton: string
   popularButton: string
@@ -19,7 +19,7 @@ interface Props {
 }
 
 export default function PostTemPlate(props: Props): JSX.Element {
-  const { albums, setCurrentPage } = props
+  const { post, setCurrentPage } = props
   const { newButton, popularButton, inputName, children } = props
   const { albumserch, setAlbumserch, click, setClicked } = props
 
@@ -55,13 +55,13 @@ export default function PostTemPlate(props: Props): JSX.Element {
         {click ? (
           <BasicPagination
             setCurrentPage={setCurrentPage}
-            pagelenght={albums ? albums?.length : 0}
+            pagelenght={post ? post?.length : 0}
             clasName='mv_64'
           />
         ) : (
           <BasicPagination
             setCurrentPage={setCurrentPage}
-            pagelenght={albums ? albums?.length : 0}
+            pagelenght={post ? post?.length : 0}
             clasName='mv_64'
           />
         )}

@@ -11,10 +11,11 @@ import style from '../index.module.scss'
 interface Props {
   albumserch: string
   tweetsNew: TweetsType[]
+  currentPage: number
 }
 
 export default function TweetNew(props: Props): JSX.Element {
-  const { tweetsNew, albumserch } = props
+  const { tweetsNew, albumserch, currentPage } = props
 
   const [open, setOpen] = useState(false)
   const [tweetsData, setTweetsData] = useState<TweetsType[]>(tweetsNew)
@@ -46,7 +47,7 @@ export default function TweetNew(props: Props): JSX.Element {
 
   return (
     <TweetArea>
-      {tweetsNewFilter?.map((tweet) => (
+      {tweetsNewFilter?.slice(currentPage, currentPage + 6).map((tweet) => (
         <>
           <div className={style.large}>
             <TweetCard tweet={tweet} key={tweet.id} handleDelete={handleDelete} />
