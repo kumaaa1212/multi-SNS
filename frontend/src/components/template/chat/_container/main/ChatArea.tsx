@@ -6,7 +6,7 @@ import apiClient from 'libs/apiClient'
 import { RootState } from 'store/store'
 import { MessageType, RoomType } from 'types/internal'
 import ButtonBase from 'components/parts/Button/Base'
-import ChatContent from 'components/parts/Chat/ChatContent'
+import ChatContent from 'components/parts/Chat'
 import SendInput from 'components/parts/Input/Send'
 import style from './Main.module.scss'
 

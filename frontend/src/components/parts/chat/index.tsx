@@ -11,7 +11,7 @@ interface Props {
   selectRoom: RoomType
 }
 
-const ChatContent = (props: Props): JSX.Element => {
+export default function ChatContent(props: Props): JSX.Element {
   const { message, selectRoom } = props
 
   const { userId } = useSelector((state: RootState) => state.user)
@@ -53,5 +53,3 @@ const ChatContent = (props: Props): JSX.Element => {
     </div>
   )
 }
-
-export default ChatContent
