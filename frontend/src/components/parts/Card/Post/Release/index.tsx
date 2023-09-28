@@ -11,9 +11,14 @@ import CardContent from '@mui/material/CardContent'
 import CardHeader from '@mui/material/CardHeader'
 import IconButton from '@mui/material/IconButton'
 import { RootState } from 'store/store'
+import { LabelType } from 'types/internal/album'
 import style from '../Card.module.scss'
 
-export default function ReleaseCard(props: any): JSX.Element {
+interface Props {
+  className?: string
+}
+
+export default function ReleaseCard(props: Props): JSX.Element {
   const { className } = props
 
   const { titleText, labels, thumbnailText, displayThumbnailImg } = useSelector(
@@ -21,7 +26,7 @@ export default function ReleaseCard(props: any): JSX.Element {
   )
   const { icon } = useSelector((state: RootState) => state.user)
 
-  const formatDate = (date: any): string => {
+  const formatDate = (date: Date): string => {
     const year = date.getFullYear()
     const month = String(date.getMonth() + 1).padStart(2, '0')
     const day = String(date.getDate()).padStart(2, '0')
@@ -57,7 +62,7 @@ export default function ReleaseCard(props: any): JSX.Element {
         <CardContent>
           <span>{thumbnailText}</span>
           <div className={style.labels}>
-            {labels.map((label: any) => (
+            {labels.map((label: LabelType) => (
               <Chip label={label.name} key={label.label} />
             ))}
           </div>

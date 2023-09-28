@@ -1,27 +1,23 @@
-import { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
-import apiClient from 'libs/apiClient'
-import { RootState } from 'store/store'
+import { useState } from 'react'
 import ModalBase from 'components/parts/Modal'
 import style from './Discard.module.scss'
 import ControlledAccordions from '../../../parts/Accordion'
 
 interface Props {
   open: boolean
-  setOpen: any
+  setOpen: (open: boolean) => void
   discardModalRefresh?: () => void
 }
 
-const ModalDiscard = (props: Props) => {
+export default function ModalDiscard(props: Props): JSX.Element {
   const { open, setOpen, discardModalRefresh } = props
-  const { username, userId, iconPath } = useSelector((state: RootState) => state.user)
 
-  const [keepPost, setKeepPost] = useState<any[]>([])
+  const [keepPost, setKeepPost] = useState<[]>([])
   return (
-    <ModalBase open={open} setOpen={setOpen}>
+    <ModalBase open={open} onClose={setOpen}>
       <div className={style.keep_modal}>
         <div className={style.modal_header}>
-          <button onClick={() => setOpen(!open)} className={style.close_btn}>
+          <button onClick={(): void => setOpen(!open)} className={style.close_btn}>
             <svg
               xmlns='http://www.w3.org/2000/svg'
               className='icon icon-tabler icon-tabler-x'
@@ -46,5 +42,3 @@ const ModalDiscard = (props: Props) => {
     </ModalBase>
   )
 }
-
-export default ModalDiscard

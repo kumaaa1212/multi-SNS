@@ -40,7 +40,13 @@
     "import/order": [
       "error",
       {
-        "groups": ["builtin", "external", "internal", ["parent", "sibling", "index"]],
+        "groups": [
+          "builtin",
+          "external",
+          "internal",
+          ["parent", "sibling", "index"],
+          "unknown" // Add an "unknown" group for unmatched imports
+        ],
         "alphabetize": { "order": "asc", "caseInsensitive": false },
         "newlines-between": "never",
         "pathGroupsExcludedImportTypes": ["builtin"],

@@ -76,7 +76,7 @@ export default function TweetCard(props: Props): JSX.Element {
         </div>
         <div className={style.footer}>
           <IconButton aria-label='add to favorites'>
-            <TweetLikeBtn article={tweet} setCountLikes={setCountLikes} />
+            <TweetLikeBtn tweet={tweet} setCountLikes={setCountLikes} />
             <span>{countLikes}</span>
           </IconButton>
         </div>

@@ -1,27 +1,30 @@
+import { useState } from 'react'
+import { useRouter } from 'next/router'
 import PhotoLibraryIcon from '@mui/icons-material/PhotoLibrary'
 import PostAddIcon from '@mui/icons-material/PostAdd'
-import StackedBarChartIcon from '@mui/icons-material/StackedBarChart'
 import Box from '@mui/material/Box'
 import SpeedDial from '@mui/material/SpeedDial'
 import SpeedDialAction from '@mui/material/SpeedDialAction'
 import SpeedDialIcon from '@mui/material/SpeedDialIcon'
-import { useState } from 'react'
 import style from './PostBtn.module.scss'
-import { useRouter } from 'next/router'
 
 const actions = [
   { icon: <PostAddIcon />, name: 'Tweet', href: 'Tweet' },
   { icon: <PhotoLibraryIcon />, name: 'Album', href: 'Album' },
 ]
 
-export default function PostBtn(props: any) {
+interface Props {
+  setOpen: (open: boolean) => void
+}
+
+export default function PostBtn(props: Props): JSX.Element {
   const { setOpen } = props
 
   const router = useRouter()
   const [addBtn, setaddBtn] = useState(false)
-  const handleOpen = () => setaddBtn(true)
-  const handleClose = () => setaddBtn(false)
-  const handleAdd = (key: any) => {
+  const handleOpen = (): void => setaddBtn(true)
+  const handleClose = (): void => setaddBtn(false)
+  const handleAdd = (key: string): void => {
     if (key === 'Album') {
       router.push('/post')
     } else if (key === 'Tweet') {
@@ -44,7 +47,7 @@ export default function PostBtn(props: any) {
               key={action.name}
               icon={action.icon}
               tooltipTitle={action.name}
-              onClick={() => handleAdd(action.href)}
+              onClick={(): void => handleAdd(action.href)}
             />
           ))}
         </SpeedDial>

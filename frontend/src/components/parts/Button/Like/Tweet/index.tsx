@@ -1,21 +1,26 @@
-import React, { use, useEffect, useMemo, useState } from 'react'
-import apiClient from 'libs/apiClient'
-import FavoriteIcon from '@mui/icons-material/Favorite'
+import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
+import apiClient from 'libs/apiClient'
 import { RootState } from 'store/store'
-const TweetLikeBtn = (props: any) => {
+import { TweetsType } from 'types/internal/tweet'
+
+interface Props {
+  tweet: TweetsType
+  setCountLikes: React.Dispatch<React.SetStateAction<number>>
+}
+
+const TweetLikeBtn = (props: Props): JSX.Element => {
   const { userId } = useSelector((state: RootState) => state.user)
 
-  const { article, setCountLikes } = props
-  const { id } = article
+  const { tweet, setCountLikes } = props
 
   const [likeBtn, setLikeBtn] = useState<boolean>(false)
 
   useEffect(() => {
-    const fetchLike = async () => {
+    const fetchLike = async (): Promise<void> => {
       try {
         const res = await apiClient.post('/post/tweet/like/check', {
-          tweetId: id,
+          tweetId: tweet.id,
           authorId: userId,
         })
         setLikeBtn(res.data.hasLiked)
@@ -25,20 +30,20 @@ const TweetLikeBtn = (props: any) => {
     }
 
     fetchLike()
-  }, [id, userId])
+  }, [tweet, userId])
 
-  const handleLike = async () => {
+  const handleLike = async (): Promise<void> => {
     try {
       if (likeBtn) {
         await apiClient.post('/post/tweet/like/delete', {
-          tweetId: id,
+          tweetId: tweet.id,
           authorId: userId,
         })
         setCountLikes((prev: number) => prev - 1)
         setLikeBtn(false)
       } else {
         await apiClient.post('/post/tweet/like/add', {
-          tweetId: id,
+          tweetId: tweet.id,
           authorId: userId,
         })
         setCountLikes((prev: number) => prev + 1)

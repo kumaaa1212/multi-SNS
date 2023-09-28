@@ -1,11 +1,2 @@
-node_modules/
-.next/
-.nuxt/
-build/
-dist/
-out/
-public/
-package-lock.json
-yarn.lock
 next.config.js
 tsconfig.json
