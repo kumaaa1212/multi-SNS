@@ -1,9 +1,9 @@
 import express from "express";
-import postRoute from "./router/post";
-import chatRoute from "./router/chat";
-import authRoute from "./router/auth";
-import boardRoute from "./router/board";
-import articleRoute from "./router/article";
+import postRoute from "./src/router/post";
+import chatRoute from "./src/router/chat";
+import authRoute from "./src/router/auth";
+import boardRoute from "./src/router/board";
+import articleRoute from "./src/router/article";
 import cors from "cors";
 import dotenv from "dotenv";
 
