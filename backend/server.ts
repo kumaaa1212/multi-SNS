@@ -8,7 +8,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 
 const app = express();
-const port = process.env.PORT;
+const port = process.env.PORT  || 10000;
 // ミドルウェアの設定
 app.use(express.json());
 dotenv.config();
@@ -18,6 +18,7 @@ const corsOptions = {
   methods: ["GET", "POST", "DELETE", "PUT"],
   optionsSuccessStatus: 200,
 };
+
 app.use(cors(corsOptions));
 app.use("/api/post", postRoute);
 app.use("/api/chat", chatRoute);
@@ -25,4 +26,4 @@ app.use("/api/auth", authRoute);
 app.use("/api/board", boardRoute);
 app.use("/api/article", articleRoute);
 
-app.listen("https://backend-dgjc.onrender.com/api", () => console.log(`Listening on port ${port}`));
+app.listen(port, () => console.log(`Listening on port ${port}`));
