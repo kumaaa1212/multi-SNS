@@ -3,10 +3,10 @@ import { useSelector } from 'react-redux'
 import Image from 'next/image'
 import { RootState } from 'store/store'
 import { formatTimestamp } from 'utils/functions/Time'
-import styles from './ChatContent.module.scss'
+import style from './ChatList.module.scss'
 import noavater from '/public/noavater.jpg'
 import { RoomType } from 'types/internal'
-import Icongenerate from '../../../utils/functions/Avater'
+import Icongenerate from '../../../../../../utils/functions/Avater'
 
 interface Props {
   selectChatRoom: boolean
@@ -31,19 +31,19 @@ export default function Chatlist(props: Props): JSX.Element {
     userId === room.user1Id ? room.user2Name : userId === room.user2Id ? room.user1Name : null
 
   return (
-    <div className={styles.person_area} onClick={(): Promise<void> => handleShowChatRoom(room)}>
-      <div className={styles.pserson_detail}>
+    <div className={style.person_area} onClick={(): Promise<void> => handleShowChatRoom(room)}>
+      <div className={style.pserson_detail}>
         <Image
           src={userIcon ? Icongenerate(userIcon) : noavater}
-          alt={''}
+          alt={'プロフィール画像'}
           width={40}
           height={40}
-          className={styles.person_icon}
+          className={style.person_icon}
         />
         <span>{userName}</span>
       </div>
-      <div className={styles.pserson_subDetail}>
-        <span className={styles.chat_time}>{formatTimestamp(room.createdAt)}</span>
+      <div className={style.pserson_subDetail}>
+        <span className={style.chat_time}>{formatTimestamp(room.createdAt)}</span>
       </div>
     </div>
   )

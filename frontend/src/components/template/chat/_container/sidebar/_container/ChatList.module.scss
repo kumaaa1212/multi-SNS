@@ -1,0 +1,34 @@
+.person_area {
+  cursor: pointer;
+  height: 60px;
+  display: flex;
+  justify-content: space-between;
+  .pserson_detail {
+    display: flex;
+    align-items: center;
+    span {
+      width: 70%;
+      font-size: 20px;
+      margin-left: 10px;
+    }
+  }
+  .pserson_subDetail {
+    padding-right: 5px;
+    display: flex;
+    flex-flow: column;
+    justify-content: space-between;
+    .chat_content {
+      opacity: 0.4;
+    }
+    .chat_time {
+      text-align: end;
+    }
+  }
+}
+.person_area:hover {
+  background-color: #d5d5d5;
+}
+
+.person_icon {
+  object-fit: cover;
+}

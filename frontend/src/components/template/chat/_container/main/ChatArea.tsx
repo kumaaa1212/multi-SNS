@@ -46,7 +46,7 @@ export default function ChatArea(props: Props): JSX.Element {
 
   useEffect(() => {
     if (!selectRoom) return
-    const filterFrend = follow.some((frend) => {
+    const filterFrend: boolean = follow.some((frend) => {
       return selectRoom.user1Id === frend.userId
     })
     setFilterFrend(!filterFrend)

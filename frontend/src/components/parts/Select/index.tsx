@@ -19,7 +19,7 @@ export default function MultipleSelectNative(props: Props): JSX.Element {
   const [selectFrend, setSelectFrend] = useState<FrendInfo[]>(follow)
 
   useEffect(() => {
-    const filterRoomas = follow.filter((person) => {
+    const filterFreds = follow.filter((person) => {
       return !myListRooms.some((room) => {
         return (
           (room.user1Id === person.userId && room.user2Id === userId) ||
@@ -27,7 +27,7 @@ export default function MultipleSelectNative(props: Props): JSX.Element {
         )
       })
     })
-    setSelectFrend(filterRoomas)
+    setSelectFrend(filterFreds)
   }, [follow, myListRooms, userId])
 
   const handleAddNewPerson = async (info: FrendInfo): Promise<void> => {
@@ -42,6 +42,7 @@ export default function MultipleSelectNative(props: Props): JSX.Element {
           user2Icon: info.icon,
         })
         .then((res) => {
+          if (res.status !== 200) return
           setSelectFrend((prev) => prev.filter((person) => person.frendId !== info.userId))
         })
     } catch {
@@ -56,13 +57,13 @@ export default function MultipleSelectNative(props: Props): JSX.Element {
       ) : (
         <div>
           <div>
-            {selectFrend.map((person) => (
+            {selectFrend.map((person, index) => (
               <div
                 className={style.new_chat_person}
                 onClick={(): void => {
                   handleAddNewPerson(person)
                 }}
-                key={person.userId}
+                key={index}
               >
                 <Image
                   src={Icongenerate(person.icon)}
