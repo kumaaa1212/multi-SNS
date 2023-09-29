@@ -8,7 +8,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 
 const app = express();
-const port = process.env.PORT  || 10000;
+const port = process.env.PORT || 10000;
 app.use(express.json());
 dotenv.config();
 
@@ -25,5 +25,10 @@ app.use("/api/chat", chatRoute);
 app.use("/api/auth", authRoute);
 app.use("/api/board", boardRoute);
 app.use("/api/article", articleRoute);
+
+app.use((err, req, res, next) => {
+  console.error("Error occurred:", err);
+  res.status(500).json({ error: "Internal Server Error" });
+});
 
 app.listen(port, () => console.log(`Listenings on port ${port}`));
