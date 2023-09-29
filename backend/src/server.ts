@@ -8,7 +8,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 
 const app = express();
-const port = "https://tokotokoj.onrender.com" || 10000;
+const port = 8000;
 app.use(express.json());
 dotenv.config();
 
