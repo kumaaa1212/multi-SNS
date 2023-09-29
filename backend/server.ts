@@ -13,10 +13,16 @@ app.use(express.json());
 dotenv.config();
 
 const corsOptions = {
-  origin: "https://tokotokoj.vercel.app",
+  origin: "https://tokotokoj-8vqdxztli-kumaaa1212.vercel.app",
   methods: ["GET", "POST", "DELETE", "PUT"],
   credentials: true,
   optionsSuccessStatus: 200,
+  Headers:{
+    "Access-Control-Allow-Origin": "https://tokotokoj-8vqdxztli-kumaaa1212.vercel.app",
+    "Access-Control-Allow-Headers":
+    "Origin, X-Requested-With, Content-Type, Accept",
+    "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+  }
 };
 
 app.use(cors(corsOptions));
