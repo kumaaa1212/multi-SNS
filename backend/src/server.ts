@@ -12,14 +12,14 @@ const port = process.env.PORT || 10000;
 app.use(express.json());
 dotenv.config();
 
-// const corsOptions = {
-//   origin: "https://tokotokoj-pmr6m0goj-kumaaa1212.vercel.app",
-//   methods: ["GET", "POST", "DELETE", "PUT"],
-//   credentials: true,
-//   optionsSuccessStatus: 200,
-// };
+const corsOptions = {
+  origin: "https://tokotokoj-pmr6m0goj-kumaaa1212.vercel.app",
+  methods: ["GET", "POST", "DELETE", "PUT"],
+  credentials: true,
+  optionsSuccessStatus: 200,
+};
 
-app.use(cors());
+app.use(cors(corsOptions));
 app.use("/api/post", postRoute);
 app.use("/api/chat", chatRoute);
 app.use("/api/auth", authRoute);

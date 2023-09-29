@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const apiClient = axios.create({
-  baseURL: 'https://backend-dgjc.onrender.com/api',
+  baseURL: process.env.NEXT_PUBLIC_AUTH_API_URL,
   withCredentials: true,
   headers: {
     'Content-Type': 'application/json',
