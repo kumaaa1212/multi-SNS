@@ -8,7 +8,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 
 const app = express();
-const port = process.env.PORT || 10000;
+const port = "https://tokotokoj.onrender.com" || 10000;
 app.use(express.json());
 dotenv.config();
 
@@ -26,10 +26,17 @@ app.use("/api/auth", authRoute);
 app.use("/api/board", boardRoute);
 app.use("/api/article", articleRoute);
 
-app.use((err: Error, req: express.Request, res: express.Response, next: express.NextFunction) => {
-  // エラーハンドリングの処理
-  console.error(err);
-  res.status(500).send('Something broke!');
-});
+app.use(
+  (
+    err: Error,
+    req: express.Request,
+    res: express.Response,
+    next: express.NextFunction
+  ) => {
+    // エラーハンドリングの処理
+    console.error(err);
+    res.status(500).send("Something broke!");
+  }
+);
 
 app.listen(port, () => console.log(`Listenings on port ${port}`));
