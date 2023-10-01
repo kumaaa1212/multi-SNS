@@ -2,7 +2,6 @@ import { useCallback, useMemo, useState } from 'react'
 import { useSelector } from 'react-redux'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
-import AdbIcon from '@mui/icons-material/Adb'
 import MenuIcon from '@mui/icons-material/Menu'
 import AppBar from '@mui/material/AppBar'
 import Box from '@mui/material/Box'
@@ -131,14 +130,12 @@ export default function Header(): JSX.Element {
               ))}
             </Menu>
           </Box>
-          <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
           <Typography
             variant='h5'
             noWrap
             component='a'
             href='/'
             sx={{
-              mr: 2,
               display: { xs: 'flex', md: 'none' },
               flexGrow: 1,
               fontFamily: 'monospace',
@@ -148,7 +145,7 @@ export default function Header(): JSX.Element {
               textDecoration: 'none',
             }}
           >
-            LOGO
+            TOKOTOKO
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (

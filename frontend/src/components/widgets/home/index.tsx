@@ -12,7 +12,7 @@ interface Props {
   color?: string
 }
 
-const HomeTemplate = (props: Props): JSX.Element => {
+export default function HomeTemplate(props: Props): JSX.Element {
   const { titile, showAll, href, footerShowAll, children, color = 'white' } = props
   const router = useRouter()
 
@@ -40,5 +40,3 @@ const HomeTemplate = (props: Props): JSX.Element => {
     </div>
   )
 }
-
-export default HomeTemplate

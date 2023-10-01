@@ -1,11 +1,11 @@
 import { useState } from 'react'
-import { Grid } from '@mui/material'
 import { HttpStatusCode } from 'axios'
 import apiClient from 'libs/apiClient'
 import { TweetsType } from 'types/internal/tweet'
 import HomeTweetCard from 'components/parts/Card/Home/Tweet'
 import HomeTweetModal from 'components/widgets/Modal/Home/Tweet'
 import HomeTemplate from 'components/widgets/home'
+import stlye from './Tweet.module.scss'
 
 interface Props {
   tweets: TweetsType[]
@@ -27,7 +27,7 @@ export default function TweetParts(props: Props): JSX.Element {
         },
       })
       .then((res) => {
-        // if (res.status !== HttpStatusCode.Ok) throw Error
+        if (res.status !== HttpStatusCode.Ok) throw Error
         setTweetsData(res.data.remainingTweets)
       })
   }
@@ -41,18 +41,16 @@ export default function TweetParts(props: Props): JSX.Element {
         footerShowAll='すべてのTweetを見る'
         color='gray'
       >
-        <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 1, sm: 1, md: 3, lg: 3, xl: 3 }}>
-          {tweetsData?.map((tweet) => (
-            <Grid item xs={1} sm={1} md={1} key={tweet.id} className='aaaaa'>
-              <HomeTweetCard
-                tweet={tweet}
-                key={tweet.id}
-                setShowTweets={setShowTweets}
-                setOpen={setOpen}
-              />
-            </Grid>
+        <div className={stlye.main}>
+          {tweetsData.map((album) => (
+            <HomeTweetCard
+              tweet={album}
+              key={album.id}
+              setShowTweets={setShowTweets}
+              setOpen={setOpen}
+            />
           ))}
-        </Grid>
+        </div>
         <HomeTweetModal
           open={open}
           setOpen={setOpen}

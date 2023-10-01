@@ -14,7 +14,7 @@
     grid-template-columns: 1fr 1fr 1fr 1fr;
   }
   @media screen and (max-width: 500px) {
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
   }
 
   .team_card {
@@ -30,6 +30,10 @@
       border-radius: 10px;
       object-fit: cover;
       margin-bottom: 10px;
+      @media screen and (max-width: 500px) {
+        width: 70px;
+        height: 50px;
+      }
     }
   }
 

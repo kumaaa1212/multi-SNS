@@ -34,7 +34,6 @@ https://tokotokoj.vercel.app/home
 | MYPAGE(マイページ) |　BOARD |
 | ---- | ---- |
 | <img width="1457" alt="スクリーンショット 2023-09-30 2 49 45" src="https://github.com/kumaaa1212/multi-SNS/assets/116778080/82256745-8f2f-46d6-aa87-14ffe81773ee"> | <img width="1443" alt="スクリーンショット 2023-09-30 2 32 31" src="https://github.com/kumaaa1212/multi-SNS/assets/116778080/dc28dd72-6a3f-4988-88ca-c6a103ec4c3e">
- |
 | 登録済みの複数の事業者の中から、請求書を作成したい事業者を選択する機能を実装しました。 | 請求書の作成機能・マスタデータの呼び出し機能・税率変更機能・税率別内訳の計算機能、合計金額の計算機能を実装しました。 |
 
 | ログイン |　サインアップ |
@@ -72,42 +71,22 @@ https://tokotokoj.vercel.app/home
 
 ## 使用技術
 
-| Category          | Technology Stack                                     |
+|     言語・ライブラリ      | バージョン・用途                                   |
 | ----------------- | --------------------------------------------------   |
-| Frontend          | TypeScript, Next.js, Storybook                       |
-| Backend           | TypeScript, NestJS, Prisma                           |
-| Infrastructure    | Amazon Web Services, Vercel                          |
-| Database          | PostgreSQL                                           |
-| Monitoring        | Sentry, UptimeRobot                                  |
-| Environment setup | Docker                                               |
-| CI/CD             | GitHub Actions                                       |
-| Design            | Figma, Lucid                                         |
-| etc.              | Stylelint, ESLint, Prettier, Husky Jest, Git, GitHub |
+| Typescript        | TypeScript, Next.js, Storybook                       |
+| React           　　| TypeScript, NestJS, Prisma                           |
+| Redux    　　　　　　| Amazon Web Services, Vercel                          |
+| axois          　　| PostgreSQL                                           |
+| Next.js        　　| Sentry, UptimeRobot                                  |
+|  Node.js          | Docker                                               |
+| Express            | GitHub Actions                                       |
+| Prisma            | Figma, Lucid                                         |
+| EsLint              | Stylelint, ESLint, Prettier, Husky Jest, Git, GitHub |
+| Material ui              | Stylelint, ESLint, Prettier, Husky Jest, Git, GitHub |
+| Scss              | Stylelint, ESLint, Prettier, Husky Jest, Git, GitHub |
+| Supabase              | Stylelint, ESLint, Prettier, Husky Jest, Git, GitHub |
 
 <br />
-
-### 機能
-- 投稿機能(Tweet,Album)
-  - 投稿機能にはTweet機能とAlbum機能を設置
-  - 
-+ いいね機能
-+ 保存機能
-+ フォロー、アンフォロー機能
-+ チャット機能
-+ 掲示板機能
-
-## 使用技術
-+ Typescript
-+ React
-+ Redux
-+ axois
-+ Next.js
-+ Node.js
-+ Express
-+ Prisma
-+ EsLint
-+ Material ui
-+ Supabase
 
 ## フォルダ構成
 ### フロントエンド
@@ -141,7 +120,8 @@ src/
 
 ```
 
-## 技術選定
+# 力を入れたところ
+
 ### React-hooks-form
 →ログイン、サインアップ画面で使っています。
 →バリデーションチェックもReact-hooks-formで行っています。

@@ -3,11 +3,14 @@
   display: flex;
   align-items: center;
   cursor: pointer;
-  width: 350px;
   border-radius: 10px;
+  @media screen and (max-width: 500px) {
+    padding: 5px;
+  }
 }
+
 .card:hover {
-  background-color: #f1f1f1;
+  background-color: #d7d7d7;
 }
 
 .team_card {
@@ -23,6 +26,11 @@
     border-radius: 10px;
     object-fit: cover;
     margin-bottom: 10px;
+    @media screen and (max-width: 500px) {
+      width: 70px;
+      height: 50px;
+      margin:0 5px;
+    }
   }
 }
 
@@ -38,6 +46,5 @@
 
 .content {
   display: block;
-  width: 200px;
   overflow: hidden;
 }

@@ -15,6 +15,9 @@
   justify-content: space-between;
   align-items: center;
   margin: 0 auto;
+  @media screen and (max-width: 768px) {
+    width: 90%;
+  }
 }
 
 .show_all {
@@ -28,7 +31,10 @@
 
 .main {
   width: 70%;
-  margin: 40px auto;
+  margin: 20px auto;
+  @media screen and (max-width: 768px) {
+    width: 90%;
+  }
 }
 
 .footer_show_all {
@@ -42,4 +48,7 @@
   border-right: none;
   background-color: transparent;
   cursor: pointer;
+  @media screen and (max-width: 768px) {
+    width: 90%;
+  }
 }

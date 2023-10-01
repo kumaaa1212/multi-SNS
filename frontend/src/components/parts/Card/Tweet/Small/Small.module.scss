@@ -1,0 +1,80 @@
+.tweet_card_continer {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+}
+.tweet_card {
+  // width: 500px;
+  margin: 0 auto;
+  padding: 10px;
+  .tweet_header {
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+
+    .profile_img {
+      border-radius: 10px;
+      object-fit: cover;
+    }
+
+    .tweet_header_details {
+      width: 100%;
+      margin-left: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: relative;
+
+      .moreover_btn {
+        cursor: pointer;
+      }
+
+      .moreover_area {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        width: 100px;
+        height: 40px;
+        background-color: #fafbfb;
+        position: absolute;
+        right: 0;
+        top: 40px;
+        border-radius: 10px;
+        padding: 0px 5px;
+
+        p {
+          font-size: 20px;
+          font-weight: bold;
+          margin: 0;
+        }
+      }
+    }
+  }
+
+  .tweet_contents {
+    margin-top: 10px;
+    .tweet_img_md {
+      display: block;
+      object-fit: cover;
+      border-radius: 10px;
+      margin: 0 auto;
+    }
+    .tweet_img_small {
+      display: none;
+    }
+    .scroll_area {
+      margin-top: 10px;
+      overflow: scroll;
+    }
+  }
+}
+
+@media screen and (max-width: 550px) {
+  .tweet_img_md {
+    display: none;
+  }
+  .tweet_img_small {
+    display: block;
+  }
+}

@@ -1,18 +1,41 @@
 .categories_serch_area {
-  width: 800px;
   margin: 0px auto;
-  padding: 30px 0;
+  padding: 30px 20px;
 }
 
 .categories_area {
-  width: 800px;
+  width: 70%;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
   row-gap: 20px;
-  column-gap: 20px;
+  column-gap: 10px;
   place-items: center;
+
+  @media screen and (max-width: 1400px) {
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
+  }
+
+  @media screen and (max-width: 1100px) {
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
+  }
+
+  @media screen and (max-width: 700px) {
+    width: 100%;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
+    row-gap: 10px;
+    column-gap: 10px;
+  }
+
+  @media screen and (max-width: 450px) {
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
+  }
+  
   .team_card {
     position: relative;
     height: 150px;
@@ -24,6 +47,11 @@
     flex-flow: column;
     justify-content: center;
     align-items: center;
+    @media screen and (max-width: 700px) {
+      padding-top: 10px;
+      height: 100px;
+      width: 100px;
+    }
   }
 
   .team_card:hover {
@@ -34,5 +62,9 @@
     border-radius: 10px;
     object-fit: cover;
     margin-bottom: 10px;
+    @media screen and (max-width: 700px) {
+      height: 50px;
+      width: 70px;
+    }
   }
 }

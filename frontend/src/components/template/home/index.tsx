@@ -16,7 +16,6 @@ export default function Home(props: Props): JSX.Element {
 
   return (
     <Layout>
-      <div></div>
       <CategoriesPart labels={labels} />
       <TweetParts tweets={tweets} />
       <AlbumParts albums={albums} />

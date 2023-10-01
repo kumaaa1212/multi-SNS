@@ -25,7 +25,7 @@ export default function Categories(): JSX.Element {
   return (
     <Layout>
       <Meta title='カテゴリー' />
-      <div className='bg_blue min_height'>
+      <div className='bg_blue min_height pb_20'>
         <div className={style.categories_serch_area}>
           <SerchInput value={search} placeholder='キーワードを入力...' onChange={handleSearch} />
         </div>
