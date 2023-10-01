@@ -25,7 +25,7 @@ const TweetLikeBtn = (props: Props): JSX.Element => {
         })
         setLikeBtn(res.data.hasLiked)
       } catch {
-        alert('gggg')
+        alert('エラーが発生しました')
       }
     }
 
