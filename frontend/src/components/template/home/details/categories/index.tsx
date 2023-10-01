@@ -14,6 +14,29 @@ export default function CategoriesPart(props: Props): JSX.Element {
 
   const router = useRouter()
 
+  const labelCounts: { [label: string]: number } = {}
+
+  labels.forEach((item) => {
+    const { label } = item
+    if (labelCounts[label]) {
+      labelCounts[label]++
+    } else {
+      labelCounts[label] = 1
+    }
+  })
+
+  const uniqueLabels: Set<string> = new Set()
+
+  const sortedArray: LabelType[] = labels
+    .filter((item) => {
+      if (uniqueLabels.has(item.label)) {
+        return false
+      }
+      uniqueLabels.add(item.label)
+      return true
+    })
+    .sort((a, b) => labelCounts[b.label] - labelCounts[a.label])
+
   return (
     <HomeTemplate
       titile='人気のチーム'
@@ -23,7 +46,7 @@ export default function CategoriesPart(props: Props): JSX.Element {
       color='blue'
     >
       <div className={style.home_categories}>
-        {labels.map((team: LabelType, index: number) => (
+        {sortedArray.map((team: LabelType, index: number) => (
           <Paper
             key={index}
             className={style.team_card}
