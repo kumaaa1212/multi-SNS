@@ -40,9 +40,9 @@ export default function CategoriesPart(props: Props): JSX.Element {
   return (
     <HomeTemplate
       titile='人気のチーム'
-      showAll='すべてのチームを見る'
+      showAll='全てのチームを見る'
       href='/categories'
-      footerShowAll='すべてのチームを見る'
+      footerShowAll='全てのチームを見る'
       color='blue'
     >
       <div className={style.home_categories}>

@@ -36,9 +36,9 @@ export default function TweetParts(props: Props): JSX.Element {
     <>
       <HomeTemplate
         titile='人気のTweet'
-        showAll='すべてのTweetを見る'
+        showAll='全てのTweetを見る'
         href='/tweet'
-        footerShowAll='すべてのTweetを見る'
+        footerShowAll='全てのTweetを見る'
         color='gray'
       >
         <div className={stlye.main}>
