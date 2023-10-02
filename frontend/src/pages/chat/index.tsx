@@ -21,7 +21,7 @@ export default function ChatPage(): JSX.Element {
   }, [userId])
 
   return (
-    <div suppressHydrationWarning={false}>
+    <div suppressHydrationWarning={true}>
       {userId.length > 0 ? <Chat rooms={roomState} /> : <NoUser contens='Chat' />}
     </div>
   )

@@ -23,7 +23,7 @@ export default function Board(props: Props): JSX.Element {
   return (
     <Layout>
       <Meta title='Board' />
-      <div className={style.main}>
+      <div className={style.main} suppressHydrationWarning={true}>
         <Timeline
           boardRooms={boardRooms}
           setBoardRooms={setBoardRooms}
