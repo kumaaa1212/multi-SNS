@@ -4,7 +4,6 @@
   padding: 10px;
 }
 .tweet_card {
-  // width: 500px;
   margin: 0 auto;
   padding: 10px;
   .tweet_header {
@@ -60,21 +59,9 @@
       border-radius: 10px;
       margin: 0 auto;
     }
-    .tweet_img_small {
-      display: none;
-    }
     .scroll_area {
       margin-top: 10px;
       overflow: scroll;
     }
-  }
-}
-
-@media screen and (max-width: 550px) {
-  .tweet_img_md {
-    display: none;
-  }
-  .tweet_img_small {
-    display: block;
   }
 }

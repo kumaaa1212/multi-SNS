@@ -66,17 +66,9 @@ export default function SmallTweetCard(props: Props): JSX.Element {
             src={tweet.img.length === 0 ? tweet.img : '/thumbnail.png'}
             alt='tweetのmain画像'
             priority
-            width={400}
-            height={250}
+            width={300}
+            height={200}
             className={style.tweet_img_md}
-          />
-          <Image
-            src={tweet.img.length === 0 ? tweet.img : '/thumbnail.png'}
-            alt='tweetのmain画像'
-            priority
-            width={200}
-            height={150}
-            className={style.tweet_img_small}
           />
           <div className={style.scroll_area}>
             <div className={style.tweet_content}>{tweet.content}</div>

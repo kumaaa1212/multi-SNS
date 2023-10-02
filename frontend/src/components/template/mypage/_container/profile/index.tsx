@@ -10,7 +10,7 @@ import PostBtn from 'components/parts/Button/Post/addbtn'
 import Noavater from '/public/noavater.jpg'
 import style from './Prolife.module.scss'
 import EditModal from 'components/widgets/Modal/Edit'
-import TweetModal from 'components/widgets/Modal/Tweet'
+import TweetModal from 'components/widgets/Modal/Tweet/Tweets'
 import TwitterIcon from '/public/svg/mypage_twitter.svg'
 import TeamIcon from '/public/svg/mypage_team.svg'
 

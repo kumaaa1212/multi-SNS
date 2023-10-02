@@ -3,7 +3,7 @@ import { HttpStatusCode } from 'axios'
 import apiClient from 'libs/apiClient'
 import { TweetsType } from 'types/internal/tweet'
 import HomeTweetCard from 'components/parts/Card/Home/Tweet'
-import HomeTweetModal from 'components/widgets/Modal/Home/Tweet'
+import HomeTweetModal from 'components/widgets/Modal/Tweet/Home'
 import HomeTemplate from 'components/widgets/home'
 import stlye from './Tweet.module.scss'
 

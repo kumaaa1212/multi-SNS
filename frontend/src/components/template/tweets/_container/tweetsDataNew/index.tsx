@@ -5,7 +5,7 @@ import { TweetsType } from 'types/internal/tweet'
 import HomeTweetCard from 'components/parts/Card/Home/Tweet'
 import TweetCard from 'components/parts/Card/Tweet'
 import TweetArea from 'components/widgets/Article/Tweet'
-import HomeTweetModal from 'components/widgets/Modal/Home/Tweet'
+import HomeTweetModal from 'components/widgets/Modal/Tweet/Home'
 import style from '../index.module.scss'
 
 interface Props {
