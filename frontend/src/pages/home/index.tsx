@@ -10,7 +10,8 @@ export const getServerSideProps: GetServerSideProps = async () => {
     apiClient.get('/post/all/tweet/top'),
     apiClient.get('/post/album/labels'),
   ])
-
+  if (albumsData.status !== 200 || tweetsData.status !== 200 || labelsData.status !== 200)
+    throw Error
   return {
     props: {
       albums: albumsData.data.topAlbumLikedContent,
