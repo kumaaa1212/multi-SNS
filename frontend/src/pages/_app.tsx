@@ -1,4 +1,3 @@
-import { useEffect } from 'react'
 import { Provider } from 'react-redux'
 import type { AppProps } from 'next/app'
 import '../styles/global/globals.scss'
@@ -7,19 +6,30 @@ import '../styles/layout/footer.scss'
 import '../styles/Material/styles.scss'
 import '../styles/layout/notFound.scss'
 import '../styles/MarkDown/MarkDown.scss'
+import Head from 'next/head'
+import { CacheProvider, EmotionCache } from '@emotion/react'
+import CssBaseline from '@mui/material/CssBaseline'
 import store from 'store/store'
+import createEmotionCache from '../createEmotionCache'
 
-export default function App({ Component, pageProps }: AppProps): JSX.Element {
-  useEffect(() => {
-    // Remove the server-side injected CSS.
-    const jssStyles = document.querySelector('#jss-server-side')
-    if (jssStyles) {
-      jssStyles.parentElement!.removeChild(jssStyles)
-    }
-  }, [])
+const clientSideEmotionCache = createEmotionCache()
+interface MyAppProps extends AppProps {
+  emotionCache?: EmotionCache
+}
+
+function MyApp(props: MyAppProps): JSX.Element {
+  const { Component, emotionCache = clientSideEmotionCache, pageProps } = props
   return (
-    <Provider store={store}>
-      <Component {...pageProps} />
-    </Provider>
+    <CacheProvider value={emotionCache}>
+      <Head>
+        <meta name='viewport' content='initial-scale=1, width=device-width' />
+      </Head>
+      <Provider store={store}>
+        <CssBaseline />
+        <Component {...pageProps} />
+      </Provider>
+    </CacheProvider>
   )
 }
+
+export default MyApp
