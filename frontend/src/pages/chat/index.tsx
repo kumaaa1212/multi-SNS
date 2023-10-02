@@ -20,5 +20,9 @@ export default function ChatPage(): JSX.Element {
     roomFetch()
   }, [userId])
 
-  return <>{userId.length > 0 ? <Chat rooms={roomState} /> : <NoUser contens='Chat' />}</>
+  return (
+    <div suppressHydrationWarning={true}>
+      {userId.length > 0 ? <Chat rooms={roomState} /> : <NoUser contens='Chat' />}
+    </div>
+  )
 }
