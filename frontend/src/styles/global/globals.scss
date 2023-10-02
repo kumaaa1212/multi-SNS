@@ -35,11 +35,11 @@
 }
 
 .bg_blue {
-  background-color: #ECF5FF;
+  background-color: #ecf5ff;
 }
 
 .bg_gray {
-  background-color: #F1F5F9;
+  background-color: #f1f5f9;
 }
 
 .bg_white {
@@ -179,6 +179,19 @@ $values: 0, 1, 2, 4, 6, 8, 9, 10, 12, 14, 16, 18, 20, 22, 24, 25, 26, 28, 30, 32
 
 .display_block {
   display: block;
+}
+
+.item_center_x {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.item_center_y {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-flow: column;
 }
 
 .full_width {

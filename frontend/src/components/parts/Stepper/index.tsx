@@ -2,6 +2,7 @@ import Box from '@mui/material/Box'
 import Step from '@mui/material/Step'
 import StepLabel from '@mui/material/StepLabel'
 import Stepper from '@mui/material/Stepper'
+import style from './Stepper.module.scss'
 
 interface Props {
   activeStep: number
@@ -15,7 +16,7 @@ export default function HorizontalLinearStepper(props: Props): JSX.Element {
   return (
     <Box sx={{ width: '60%' }}>
       <div className='stepper'>
-        <Stepper activeStep={activeStep}>
+        <Stepper activeStep={activeStep} className={style.main}>
           {steps.map((label) => {
             const stepProps: { completed?: boolean } = {}
             const labelProps: {

@@ -1,4 +1,8 @@
-.MuiStepper-root{
-  display: flex;
-  align-items: center;
-}
+
+  @media screen and (max-width: 1000px) {
+    .main{
+      display: none;
+    }
+  }
+
+
