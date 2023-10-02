@@ -15,6 +15,7 @@
   }
 
   .tweet_textarea {
+    border: 1px red solid;
     resize: none;
     margin-left: 20px;
     display: block;
@@ -45,7 +46,6 @@
 .handle_tweet {
   display: block;
   margin-top: 10px;
-  width: 600px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -60,20 +60,12 @@
 }
 
 @media screen and (max-width: 660px) {
-  .handle_close {
-    margin-bottom: 10px;
-
-    .close_btn {
-      cursor: pointer;
-    }
-  }
 
   .tweet_content {
     display: flex;
 
     .profile_img {
-      object-fit: cover;
-      border-radius: 50%;
+      display: none;
     }
 
     .tweet_textarea {
@@ -83,8 +75,8 @@
       width: 100%;
       min-height: 150px;
       max-height: 150px;
-      min-width: 300px;
-      max-width: 300px;
+      min-width: 350px;
+      max-width: 350px;
       border: none;
       font-size: 20px;
     }
@@ -130,7 +122,7 @@
   }
 }
 
-@media screen and (max-width: 660px) {
+@media screen and (max-width: 480px) {
   .handle_close {
     margin-bottom: 10px;
 
@@ -143,19 +135,18 @@
     display: flex;
 
     .profile_img {
-      object-fit: cover;
-      border-radius: 50%;
+      display: none;
     }
 
     .tweet_textarea {
       resize: none;
       margin-left: 20px;
       display: block;
-      width: 100%;
-      min-height: 150px;
-      max-height: 150px;
       min-width: 300px;
       max-width: 300px;
+      min-height: 150px;
+      max-height: 150px;
+      width: 100%;
       border: none;
       font-size: 20px;
     }
