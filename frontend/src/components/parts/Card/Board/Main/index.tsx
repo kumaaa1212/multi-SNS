@@ -111,7 +111,7 @@ export default function BulletinboardCard(props: Props): JSX.Element {
   }
 
   return (
-    <Card className={`${board.id === selectBoard?.id ? `${style.click}` : ''}`}>
+    <Card className={`${board.id === selectBoard?.id ? `${style.click_board}` : ''}`}>
       <div className={style.bulletin_board_Card}>
         <div className={style.timeline_user}>
           <Image

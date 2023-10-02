@@ -1,5 +1,5 @@
 .timeline_user {
-  width: 400px;
+  width: 350px;
   display: flex;
   margin: 20px 0;
 
@@ -15,10 +15,6 @@
       margin-left: 5px;
     }
 
-    .card_content {
-      width: 400px;
-      height: auto;
-    }
   }
 }
 
@@ -36,10 +32,6 @@
 
       .publish_time {
         margin-left: 5px;
-      }
-
-      .card_content {
-        height: auto;
       }
     }
   }
