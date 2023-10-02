@@ -8,12 +8,12 @@ import cors from "cors";
 import dotenv from "dotenv";
 
 const app = express();
-const port = 8000;
+const port = 8000 || process.env.PORT;
 app.use(express.json());
 dotenv.config();
 
 const corsOptions = {
-  origin: 'https://tokotokoj.vercel.app',
+  origin: process.env.BASE_URL || "http://localhost:3002",
   methods: ["GET", "POST", "DELETE", "PUT"],
   credentials: true,
   optionsSuccessStatus: 200,
