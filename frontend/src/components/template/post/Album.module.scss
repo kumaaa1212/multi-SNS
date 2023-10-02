@@ -19,7 +19,6 @@
   justify-content: center;
 
   .preview_area {
-    width: 800px;
     height: 400px;
   }
 
@@ -51,6 +50,172 @@
 
     svg:hover {
       background-color: black;
+    }
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .input {
+    display: block;
+    width: 600px;
+    height: 50px;
+    margin: 0 auto;
+    border: none;
+    font-size: 30px;
+    background-color: #f1f5f9;
+  }
+
+  .input:focus {
+    outline: none;
+  }
+
+  .content {
+    margin-top: 30px;
+    margin-left: 50px;
+    display: flex;
+    justify-content: center;
+
+    .preview_area {
+      height: 400px;
+    }
+    .album_text_area {
+      width: 600px;
+    }
+    .album_text {
+      background-color: #fbfbfb;
+      display: block;
+      resize: none;
+      min-width: 600px;
+      max-width: 600px;
+      min-height: 400px;
+      max-height: 400px;
+      font-size: 20px;
+      outline: none;
+      border: none;
+      padding: 5px 0px;
+    }
+
+    .content_btn {
+      margin-left: 20px;
+      display: flex;
+      flex-direction: column;
+
+      svg {
+        cursor: pointer;
+        margin-top: 30px;
+        background-color: gray;
+        border-radius: 50%;
+      }
+
+      svg:hover {
+        background-color: black;
+      }
+    }
+  }
+}
+@media screen and (max-width: 760px) {
+  .input {
+    display: block;
+    width: 450px;
+    height: 50px;
+    margin: 0 auto;
+    border: none;
+    font-size: 25px;
+    background-color: #f1f5f9;
+  }
+
+  .content {
+    margin-top: 30px;
+    margin-left: 50px;
+    display: flex;
+    justify-content: center;
+    flex-flow: column;
+
+    .preview_area {
+      height: 400px;
+    }
+
+    .album_text_area {
+      width: 400px;
+    }
+
+    .album_text {
+      background-color: #fbfbfb;
+      display: block;
+      resize: none;
+      min-width: 400px;
+      max-width: 400px;
+      min-height: 400px;
+      max-height: 400px;
+      font-size: 20px;
+      outline: none;
+      border: none;
+      padding: 5px 0px;
+    }
+
+    .content_btn {
+      margin-left: 20px;
+      display: flex;
+      flex-flow: row;
+      justify-content: center;
+      gap: 50px;
+    }
+  }
+}
+@media screen and (max-width: 480px) {
+  .input {
+    display: block;
+    width: 200px;
+    height: 50px;
+    margin: 0 auto;
+    border: none;
+    font-size: 20px;
+    background-color: #f1f5f9;
+  }
+
+  .content {
+    display: flex;
+    justify-content: center;
+    flex-flow: column;
+
+    .preview_area {
+      height: 250px;
+    }
+
+    .album_text_area {
+      width: 250px;
+    }
+
+    .album_text {
+      background-color: #fbfbfb;
+      display: block;
+      resize: none;
+      min-width: 250px;
+      max-width: 250px;
+      min-height: 300px;
+      max-height: 300px;
+      font-size: 20px;
+      outline: none;
+      border: none;
+      padding: 5px 0px;
+    }
+
+    .content_btn {
+      margin-left: 20px;
+      display: flex;
+      flex-flow: row;
+      justify-content: center;
+      width: 300px;
+      svg {
+        cursor: pointer;
+        margin-top: 100px;
+        background-color: gray;
+        border-radius: 50%;
+      }
+  
+      svg:hover {
+        background-color: black;
+      }
     }
   }
 }

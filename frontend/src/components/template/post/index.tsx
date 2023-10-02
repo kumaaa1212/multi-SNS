@@ -53,11 +53,11 @@ export default function Album(): JSX.Element {
     >
       <Meta title='アルバム' />
       <AlnumLayout setIsSaveBar={setIsSaveBar}>
-        <div className='full_width'>
+        <div className='full_width item_center_y'>
           <input
             className={style.input}
             type='text'
-            placeholder='title (10文字以内で入力してください)'
+            placeholder='title(10文字以内)'
             value={titleText}
             onChange={(e): void => {
               dispatch(createTitleText(e.target.value))
@@ -70,7 +70,7 @@ export default function Album(): JSX.Element {
                   <MarkDown content={displayContentText} post />
                 </Paper>
               ) : (
-                <Paper elevation={3}>
+                <Paper elevation={3} className={style.album_text_area}>
                   <textarea
                     name=''
                     placeholder='マークダウン形式で入力してください'
@@ -85,19 +85,21 @@ export default function Album(): JSX.Element {
               )}
             </div>
             <div className={style.content_btn}>
-              {preview ? (
-                <Tooltip title='プレビュー'>
-                  <ReproductionIcon
-                    onClick={(): void => {
-                      setPreview(!preview)
-                    }}
-                  />
-                </Tooltip>
-              ) : (
-                <Tooltip title='プレビュー'>
-                  <PreviewIcon onClick={(): void => setPreview(!preview)} />
-                </Tooltip>
-              )}
+              <div>
+                {preview ? (
+                  <Tooltip title='プレビュー'>
+                    <ReproductionIcon
+                      onClick={(): void => {
+                        setPreview(!preview)
+                      }}
+                    />
+                  </Tooltip>
+                ) : (
+                  <Tooltip title='プレビュー'>
+                    <PreviewIcon onClick={(): void => setPreview(!preview)} />
+                  </Tooltip>
+                )}
+              </div>
               <Tooltip title='書き方'>
                 <a href='https://docs.github.com/ja/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax'>
                   <QuestionIcon />
