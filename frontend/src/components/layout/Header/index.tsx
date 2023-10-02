@@ -60,7 +60,7 @@ export default function Header(): JSX.Element {
 
   return (
     <AppBar position='static' className='m_0 p_0' color='inherit'>
-      <Container className='breakpoint'>
+      {/* <Container className='breakpoint'>
         <Toolbar disableGutters className='full_width'>
           <Typography
             variant='h6'
@@ -197,7 +197,7 @@ export default function Header(): JSX.Element {
             </Menu>
           </Box>
         </Toolbar>
-      </Container>
+      </Container> */}
     </AppBar>
   )
 }
