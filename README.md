@@ -1,7 +1,7 @@
 # TOKOTOKO=J
 ![logo](https://github.com/kumaaa1212/multi-SNS/assets/116778080/5bea87ea-1a38-4e9b-a418-461c4e31f79a)
 
-- 10年間国内サッカーリーグを応援し続けた私が、必要だと思った機能を詰め込んだSNSアプリ。
+- 10年間国内サッカーリーグを応援し続けた私が、今後もっと**国内サッカーリーグを盛り上げるため**に作成したSNSアプリ。
 - 制作期間約2~3か月
 
 https://tokotokoj.vercel.app/home
@@ -13,7 +13,7 @@ https://tokotokoj.vercel.app/home
 ```
 # TOKOTOKO=Jとは？、
 - **国内サッカーリーグ(Jリーグ)応援するSNSアプリです。**
-- 国内サッカーリーグ(Jリーグ)が他のスポーツの違うところは**各地域に沢山のチームがあります(58チーム)**。そして**地方に遠征に行くことも国内サッカーリーグ(Jリーグ)の醍醐味**です。J各地域にトコトコ足を運び、思い出を投稿してほしい。思い出を今後同じ場所にいく人の参考になってほしいと言う願いからTOKOTOKO=Jと命名しました。
+- 国内サッカーリーグ(Jリーグ)が他のスポーツの違うところは**各地域に沢山のチームがあります(58チーム)**。そして**地方に遠征に行くことも国内サッカーリーグ(Jリーグ)の醍醐味**です。J各地域にトコトコ足を運び、思い出が投稿できる、思い出を今後同じ場所にいく人の参考になると言うからTOKOTOKO=Jと命名しました。
   
 ### きっかけ
 - 国内サッカーリーグを10年間応援し続け、**サッカー専用**のSNSアプリがないと感じた。特定のチーム専用の掲示板やX(旧 Twitter)やInstagramなど分散してしまっています。そして**様々な種類の投稿**をできるものはなかった。
@@ -23,6 +23,59 @@ https://tokotokoj.vercel.app/home
 - チームの情報を共有しやすくする。それによりチームの活性化、そしてチームがある地域が活性化させたい。
 - 他の人の前例を確認しやすくし、地方の試合を見に行くことの難易度を下げたい。
 - 他のチームの人々との繋がりを深めることを助け、国内サッカーリーグ(Jリーグ)を盛り上げたい。
+
+## 使用技術
+
+|     言語・ライブラリ      | バージョン・用途                                   |
+| ----------------- | --------------------------------------------------   |
+| Typescript        | v 5.2.2             |
+| React           　　| v 18.2.0                      |
+| Redux    　　　　　　| v 8.1.2                     |
+| axois          　　| 1.4.0                                           |
+| Next.js        　　| v 13.4.7 (App Routerで作成していません。)                    |
+|  Node.js          | v 18.14.0                                               |
+| Express            | v 4.18.2                                    |
+| Prisma            | v 5.3.1                                   |
+| EsLint              | v 8.48.0 (importOrderなどの設定を行っています。)  |
+| Scss              |v 1.63.6 |
+| Material ui              |v 5.14.11  |
+| Supabase              | supabaseを使用し、Postgresでデータを管理しています。 |
+| Vercel              | フロントエンドをデプロイしています。 |
+| Render              |バックエンドをデプロイしています。 |
+
+<br />
+
+## フォルダ構成
+### フロントエンド (TypeScript,React,Next.js,Redux,Scss)
+```
+src/
+├─ pages/               # ページ遷移用（fetch処理やSSRを含む）
+├─ template/            # ページの主要部分
+├─ widgets/             # ページの一部分の再利用可能コンポーネント
+├─ part/                # 最小単位の再利用可能コンポーネント
+├─ hooks/               # カスタムフック
+├─ layout/              # ページ共通のレイアウト
+├─ libs/                # ライブラリの初期設定
+├─ utils/               # 便利関数
+├─ style/               # レイアウトやMaterial UIのCSS
+└─ types/               # Props以外の型定義
+
+```
+### バックエンド (Node.js,Express,TypeScript,Prisma)
+```
+src/
+├─ pages/               # ページ遷移用（fetch処理やSSRを含む）
+├─ template/            # ページの主要部分
+├─ widgets/             # ページの一部分の再利用可能コンポーネント
+├─ part/                # 最小単位の再利用可能コンポーネント
+├─ hooks/               # カスタムフック
+├─ layout/              # ページ共通のレイアウト
+├─ libs/                # ライブラリの初期設定
+├─ utils/               # 便利関数
+├─ style/               # レイアウトやMaterial UIのCSS
+└─ types/               # Props以外の型定義
+
+```
 
 
 ## 機能一覧・詳細
@@ -82,67 +135,5 @@ https://tokotokoj.vercel.app/home
 
 <br />
 
-## 使用技術
-
-|     言語・ライブラリ      | バージョン・用途                                   |
-| ----------------- | --------------------------------------------------   |
-| Typescript        | TypeScript, Next.js, Storybook                       |
-| React           　　| TypeScript, NestJS, Prisma                           |
-| Redux    　　　　　　| Amazon Web Services, Vercel                          |
-| axois          　　| PostgreSQL                                           |
-| Next.js        　　| Sentry, UptimeRobot                                  |
-|  Node.js          | Docker                                               |
-| Express            | GitHub Actions                                       |
-| Prisma            | Figma, Lucid                                         |
-| EsLint              | Stylelint, ESLint, Prettier, Husky Jest, Git, GitHub |
-| Material ui              | Stylelint, ESLint, Prettier, Husky Jest, Git, GitHub |
-| Scss              | Stylelint, ESLint, Prettier, Husky Jest, Git, GitHub |
-| Supabase              | Stylelint, ESLint, Prettier, Husky Jest, Git, GitHub |
-
-<br />
-
-## フォルダ構成
-### フロントエンド
-```
-src/
-├─ pages/               # ページ遷移用（fetch処理やSSRを含む）
-├─ template/            # ページの主要部分
-├─ widgets/             # ページの一部分の再利用可能コンポーネント
-├─ part/                # 最小単位の再利用可能コンポーネント
-├─ hooks/               # カスタムフック
-├─ layout/              # ページ共通のレイアウト
-├─ libs/                # ライブラリの初期設定
-├─ utils/               # 便利関数
-├─ style/               # レイアウトやMaterial UIのCSS
-└─ types/               # Props以外の型定義
-
-```
-### バックエンド
-```
-src/
-├─ pages/               # ページ遷移用（fetch処理やSSRを含む）
-├─ template/            # ページの主要部分
-├─ widgets/             # ページの一部分の再利用可能コンポーネント
-├─ part/                # 最小単位の再利用可能コンポーネント
-├─ hooks/               # カスタムフック
-├─ layout/              # ページ共通のレイアウト
-├─ libs/                # ライブラリの初期設定
-├─ utils/               # 便利関数
-├─ style/               # レイアウトやMaterial UIのCSS
-└─ types/               # Props以外の型定義
-
-```
-
-# 力を入れたところ
-
-### React-hooks-form
-→ログイン、サインアップ画面で使っています。
-→バリデーションチェックもReact-hooks-formで行っています。
-
-### scss
-<img width="676" alt="スクリーンショット 2023-09-29 19 12 10" src="https://github.com/kumaaa1212/multi-SNS/assets/116778080/d691510d-811c-4675-a23a-a096c7a0c036">
-→global.scssで頻度の高いcssを記述し、使えるようにしています。
-
-### MarkDown
 
 
