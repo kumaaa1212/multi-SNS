@@ -1,5 +1,5 @@
 .abjust_modal {
-  height: 700px;
+  height: 600px;
   width: 800px;
   overflow: scroll;
   min-height: 700px;
@@ -34,5 +34,17 @@
   
   .text_color {
     color: blue;
+  }
+
+  @media screen and (max-width: 1000px) {
+    width: 600px;
+  }
+  
+  @media screen and (max-width: 700px) {
+    width: 400px;
+  }
+  
+  @media screen and (max-width: 450px) {
+    width: 300px;
   }
 }

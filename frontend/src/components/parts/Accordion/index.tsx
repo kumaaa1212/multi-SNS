@@ -28,29 +28,35 @@ export default function ControlledAccordions(props: Props): JSX.Element {
 
   return (
     <div>
-      {keepPost.map((post, index) => (
-        <Accordion key={index}>
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
-            aria-controls={`panel${index}bh-content`}
-            id={`panel${index}bh-header`}
-          >
-            <p className={style.titile}>{post.title}</p>
-            <p className={style.time}>{formatTimestamp(post.createdAt)}</p>
-          </AccordionSummary>
-          <AccordionDetails>
-            <Typography>{post.content}</Typography>
-            <div className={style.use_btn}>
-              <button onClick={handleDelete} className={style.delete_btn}>
-                削除
-              </button>
-              <button onClick={(): void => handleUse(index)} className={style.btn}>
-                適用
-              </button>
-            </div>
-          </AccordionDetails>
-        </Accordion>
-      ))}
+      {keepPost.length === 0 ? (
+        <h1 className={style.no_keep}>保存されている投稿はありません</h1>
+      ) : (
+        <div>
+          {keepPost.map((post, index) => (
+            <Accordion key={index}>
+              <AccordionSummary
+                expandIcon={<ExpandMoreIcon />}
+                aria-controls={`panel${index}bh-content`}
+                id={`panel${index}bh-header`}
+              >
+                <p className={style.titile}>{post.title}</p>
+                <p className={style.time}>{formatTimestamp(post.createdAt)}</p>
+              </AccordionSummary>
+              <AccordionDetails>
+                <Typography>{post.content}</Typography>
+                <div className={style.use_btn}>
+                  <button onClick={handleDelete} className={style.delete_btn}>
+                    削除
+                  </button>
+                  <button onClick={(): void => handleUse(index)} className={style.btn}>
+                    適用
+                  </button>
+                </div>
+              </AccordionDetails>
+            </Accordion>
+          ))}
+        </div>
+      )}
     </div>
   )
 }

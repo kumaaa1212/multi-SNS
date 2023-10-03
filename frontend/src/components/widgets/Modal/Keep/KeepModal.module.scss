@@ -1,5 +1,5 @@
 .keep_modal{
-  width: 700px;
+  width: 600px;
   height: 500px;
   .modal_header{
     margin-bottom: 20px;
@@ -15,6 +15,13 @@
       cursor: pointer;
       border: none;
   }
+  }
 
+  @media screen and (max-width: 800px) {
+    width: 400px;
+  }
+  
+  @media screen and (max-width: 450px) {
+    width: 300px;
   }
 }

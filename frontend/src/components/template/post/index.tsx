@@ -6,7 +6,6 @@ import { addDisplayImgcontents, addImgcontents, createDisplayContentText } from 
 import { createContentText, createTitleText } from 'features/postSlice'
 import ReproductionIcon from '/public/svg/post_ reproduction.svg'
 import PreviewIcon from '/public/svg/post_ reproduction.svg'
-import QuestionIcon from '/public/svg/post_question.svg'
 import AddImgIcon from '/public/svg/post_add_img.svg'
 import { AppDispatch, RootState } from 'store/store'
 import { v4 as uuidv4 } from 'uuid'
@@ -100,22 +99,17 @@ export default function Album(): JSX.Element {
                   </Tooltip>
                 )}
               </div>
-              <Tooltip title='書き方'>
-                <a href='https://docs.github.com/ja/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax'>
-                  <QuestionIcon />
-                </a>
-              </Tooltip>
-              <Tooltip title='写真を追加'>
-                <div onClick={(): void => openFileInput()}>
-                  <AddImgIcon />
-                  <input
-                    type='file'
-                    id='markdown_file_input'
-                    style={{ display: 'none' }}
-                    onChange={(e): Promise<void> => handleFileChange(e)}
-                  />
-                </div>
-              </Tooltip>
+              <div>
+                <Tooltip title='写真を追加'>
+                  <AddImgIcon onClick={(): void => openFileInput()} />
+                </Tooltip>
+                <input
+                  type='file'
+                  id='markdown_file_input'
+                  style={{ display: 'none' }}
+                  onChange={(e): Promise<void> => handleFileChange(e)}
+                />
+              </div>
             </div>
           </div>
         </div>

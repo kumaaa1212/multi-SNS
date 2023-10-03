@@ -11,7 +11,7 @@ import Labels from 'components/widgets/Label/Input'
 import style from './Thumbnail.module.scss'
 import AlnumLayout from '../albumLayout/AlbumLayout'
 
-const Thumbnail = (): JSX.Element => {
+export default function Thumbnail(): JSX.Element {
   const dispatch: AppDispatch = useDispatch()
   const { thumbnailText } = useSelector((state: RootState) => state.post)
   const [selectedLabels, setSelectedLabels] = useState<TeamDataType[]>([])
@@ -33,6 +33,7 @@ const Thumbnail = (): JSX.Element => {
                 labelName='自分の応援しているチーム→関連するチームの順で選択してください'
                 data={jLeagueTeams}
                 margin='mb_24'
+                width={370}
                 setSelectedLabels={setSelectedLabels}
               />
               <textarea
@@ -50,5 +51,3 @@ const Thumbnail = (): JSX.Element => {
     </Layout>
   )
 }
-
-export default Thumbnail
