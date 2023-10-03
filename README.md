@@ -1,6 +1,8 @@
 # TOKOTOKO=J
 <img width="1457" alt="スクリーンショット 2023-09-30 2 49 45" src="https://github.com/kumaaa1212/multi-SNS/assets/116778080/e86e355e-2257-47c3-bcf2-0d98e6fe2117">
 
+<br />
+
 - 10年間国内サッカーリーグを応援し続けた私が、今後もっと**国内サッカーリーグを盛り上げるため**に作成したSNSアプリ。
 - 制作期間約2~3か月
 
@@ -8,57 +10,66 @@ https://tokotokoj.vercel.app
 
 **テストユーザー** 
 + 右上のユーザーアイコンからログインできます。
-+ ログインするといいね機能、フォロー機能、そしてMYPAGEが確認できます。
++ ログインすると**いいね機能、フォロー機能、そしてMYPAGE**が確認できます。
 ```
 [email] test.user2023@gmail.com
 [password] 123456
 ```
 # TOKOTOKO=Jとは？
 - **国内サッカーリーグ(Jリーグ)応援するSNSアプリです。**
-- 国内サッカーリーグ(Jリーグ)が他のスポーツの違うところは**各地域に沢山のチームがあります(58チーム)**。そして**地方に遠征に行くことも国内サッカーリーグ(Jリーグ)の醍醐味**。各地域にトコトコ足を運び、【思い出が投稿・共有できるよ様にしたい】、【もっとスタジアムに足を運んでほしい】言う願いから**TOKOTOKO=J**と命名した。
+- 国内サッカーリーグ(Jリーグ)と他の国内スポーツリーグの違いは**各地域に沢山のチームがあることだ(58チーム)**。そのため**地方に遠征に行くことが国内サッカーリーグ(Jリーグ)の醍醐味**とも言える。各地域にトコトコ足を運び、【思い出が投稿・共有できるよ様にしたい】、【もっとスタジアムに足を運んでほしい】言う願いから**TOKOTOKO=J**と命名した。
   
-### きっかけ
-- 国内サッカーリーグを10年間応援し続け、**サッカー専用**のSNSアプリがないと感じた。特定のチーム専用の掲示板やX(旧 Twitter)やInstagramなど分散している。そして**様々な種類の投稿機能(ブログ形式投稿、短文投稿、画像付き投稿)**全てを備えているものがない。
+## きっかけ
+- 国内サッカーリーグを10年間応援し続け、**サッカー専用**のSNSアプリがないと感じた。サッカーファンが使用しているSNSは特定のチーム専用の掲示板やX(旧 Twitter)やInstagramなど分散しているのが現状だ。そして **様々な種類の投稿機能(ブログ形式投稿、短文投稿、画像付き投稿)** 全てを備えているものがない。
 - **サッカーを応援している人口は多い。これらの機能を一つにまとめたら最高のSNSアプリが作れる**、そしてもっと国内サッカーリーグ(Jリーグ)を活性化できると思った。
 
-### 目指した課題解決
-- チームの情報を共有しやすくする。それによりチームの活性化、そしてチームがある地域が活性化させたい。
-- 他の人の前例を確認しやすくし、試合を見に行くことの難易度を下げたい。
-- 他のチームの人々との繋がりを深めることを助け、国内サッカーリーグ(Jリーグ)を盛り上げたい。
+## 目指した課題解決
+- チームの情報を共有しやすくする。それにより**応援の熱を活性化させ、チームを盛り上げる**。
+- 情報を共有により、遠征先の情報を確認しやすくし、**試合を見に行くことの難易度を下げたい。**
+- 他のチームの人々との繋がりを深めることを助け、**国内サッカーリーグ(Jリーグ)を盛り上げたい。**
+
 
 ## 技術選定・使用技術
-技術選定を行う際の基準は、自分が【使いこなせるもの】だ。</br>
+技術選定を行った際の基準は、自分が【使いこなせるもの】だ。</br>
 ここでの【使いこなせるもの】は、エラーや不明点があった際に**解決の糸口を自分で探すことができること**。</br>
 歴が1年と短く、日々新たなものに触れる状況。その中で「新たに登場したライブラリだから」「人気と言われているから」などの**軽薄な理由での技術選定は開発を円滑に進めることは困難になる**と考えた。</br>
 以上の理由で今回下記の技術選定を行った。現在参加している長期インターンシップで使用しているものを中心に選ぶことで、実務に沿ったプロダクト開発を行えると考えた。
 
+<br />
+
+### フロントエンド
+ これまだ一番長く触れてきたReactをベースとしたNext.jsで作成した。Next.jsはページ遷移の速さ・pathの指定のし易さなど機能面での優位点がReact単体よりもあるほか、現在の長期インターンシップ先で使用していることから、実務に沿ったプロダクト開発を行えると考えた。
+
+### バックエンド
+バックエンド技術選定を行う際に選択肢として、Node.jsとRuby(Ruby on Rails)があった。しかし今回の技術選定の全体の軸として【使いこなせるもの】としていたため、フロント側でも使用しているTypeScriptを使用できるNode.jsを選択した。そして今回のプロダクトはフォルダ数、データベースともにこれまで自身で開発していたものと比べ、複雑になってしまうことが想定できた。これまでFirebaseなどのNoSQLを使用した開発を行っていたが、今回はプロダクトの大きさやデータベースの複雑性を予想し、RDBで設計を行うことにした。そしてこれまで使用経験が多いPrismaを使い、RDBを設計した。
++ 
 
 |     言語・ライブラリ      | バージョン・用途                                   |
 | ----------------- | --------------------------------------------------   |
 | Typescript        | v 5.2.2             |
-| React           　　| v 18.2.0                      |
-| Redux    　　　　　　| v 8.1.2                     |
-| react-hook-form    　　　　　　| v 7.45.4                 |
-| react-markdown   　　　　　　| v 8.0.7              |
+| React           　 | v 18.2.0                      |
+| Redux    　　　　　 | v 8.1.2                     |
+| react-hook-form   | v 7.45.4                 |
+| react-markdown    | v 8.0.7              |
 | axois          　　| 1.4.0                                           |
 | Next.js        　　| v 13.4.7 (App Routerで作成していません。)                    |
 |  Node.js          | v 18.14.0 (TypeScriptを使用しています。)                                            |
-| Express.js            | v 4.18.2                                    |
+| Express.js        | v 4.18.2                                    |
 | Prisma            | v 5.3.1                                   |
-| JSON Web Token            | v 9.0.2                      |
-| bcrypt           | v 5.1.1                     |
-| EsLint              | v 8.48.0 (import orderなどの設定を行っています。)  |
+| JSON Web Token    | v 9.0.2                      |
+| bcrypt            | v 5.1.1                     |
+| EsLint            | v 8.48.0 (import orderなどの設定を行っています。)  |
 | Scss              |v 1.63.6 |
-| Material UI            |v 5.14.11  |
-| Supabase              | supabaseを使用し、Postgresでデータを管理しています。 |
-| Vercel              | フロントエンドをデプロイしています。 |
-| Render              |バックエンドをデプロイしています。 |
-| jest, testing-library              |テストツールです。 |
+| Material UI       |v 5.14.11  |
+| Supabase          | supabaseを使用し、PostgreSQLでデータを管理 |
+| Vercel            | フロントエンドのデプロイ先 |
+| Render            |バックエンドのデプロイ先 |
+| Jest, testing-library   |テストツール |
 
 <br />
 
 ## フォルダ構成
-### フロントエンド (TypeScript,React,Next.js,Redux,Scss)
+### フロントエンド
 ```
 src/
 ├─ componets
@@ -88,21 +99,199 @@ src/
 + componets配下に機能ごとのフォルダを設置。(再利用が可能なものは、partとwidgetsに記述、実際のページの核となる部分はtemplateに記述。)
 + templateには書くpathごとのフォルダを設置。
 
-### バックエンド (Node.js,Express,TypeScript,Prisma)
+### バックエンド
 ```
 src/
-├─ Prisma             # ページ遷移用（fetch処理やSSRを含む）
+├─ Prisma             
 ├─ src
-│    ├─ server.ts          # カスタムフック
-│    ├─ middleware.ts      # カスタムフック
-│    ├─ router             # ページ共通のレイアウト
-│    │  ├─ article         # 最小単位の再利用可能コンポーネント (Buttonなど)
-│    │  ├─ auth            # ページの主要部分
+│    ├─ server.ts          
+│    ├─ middleware.ts
+│    ├─ router            
+│    │  ├─ article        
 │    │  ├─ board  
 │    │  ├─ chat  
 │    │  ├─ post
 
 ```
+```mermaid
+erDiagram
+
+  "User" {
+    Int id "🗝️"
+    String email 
+    String name 
+    String password 
+    String team 
+    String icon 
+    String bio 
+    String twitterURL 
+    String teamURL 
+    DateTime createdAt 
+    }
+  
+
+  "Follow" {
+    Int id "🗝️"
+    String bio 
+    String name 
+    String icon 
+    String team 
+    String twitterURL 
+    String teamURL 
+    Int frendId 
+    }
+  
+
+  "Follower" {
+    Int id "🗝️"
+    String bio 
+    String name 
+    String icon 
+    String team 
+    String twitterURL 
+    String teamURL 
+    Int frendId 
+    }
+  
+
+  "Post" {
+    Int id "🗝️"
+    String content 
+    String title 
+    DateTime createdAt 
+    String authorId "❓"
+    String authorName 
+    String authorAvatar 
+    String thumbnailText 
+    String thumbnailImg 
+    }
+  
+
+  "Like" {
+    Int id "🗝️"
+    String authorId 
+    }
+  
+
+  "Bookmark" {
+    Int id "🗝️"
+    String authorId 
+    }
+  
+
+  "PostLabel" {
+    Int id "🗝️"
+    String label 
+    String name 
+    String league 
+    String img 
+    }
+  
+
+  "Tweet" {
+    Int id "🗝️"
+    String content 
+    DateTime createdAt 
+    String img "❓"
+    String authorId "❓"
+    String authorName 
+    String authorAvatar 
+    String label 
+    }
+  
+
+  "TweetLike" {
+    Int id "🗝️"
+    String authorId 
+    }
+  
+
+  "BoardRoom" {
+    Int roomId "🗝️"
+    String team 
+    DateTime createdAt 
+    }
+  
+
+  "Board" {
+    Int id "🗝️"
+    String content 
+    DateTime createdAt 
+    String authorId "❓"
+    String authorName 
+    String authorAvatar 
+    }
+  
+
+  "BoardLike" {
+    Int id "🗝️"
+    String authorId 
+    }
+  
+
+  "BoardMessage" {
+    Int id "🗝️"
+    String content 
+    DateTime createdAt 
+    String authorId "❓"
+    String authorName 
+    String authorAvatar 
+    }
+  
+
+  "Room" {
+    String id "🗝️"
+    String user1Id 
+    String user1Name 
+    String user1Icon 
+    String user2Id 
+    String user2Icon 
+    String user2Name 
+    DateTime createdAt 
+    }
+  
+
+  "Message" {
+    Int id "🗝️"
+    String content 
+    DateTime createdAt 
+    String authorId "❓"
+    String senderId 
+    }
+  
+
+  "KeepPost" {
+    Int id "🗝️"
+    String title 
+    String content 
+    String authorId 
+    DateTime createdAt 
+    }
+  
+    "User" o{--}o "Follower" : "followers"
+    "User" o{--}o "Follow" : "follows"
+    "Follow" o|--|| "User" : "user"
+    "Follower" o|--|| "User" : "user"
+    "Post" o{--}o "PostLabel" : "labels"
+    "Post" o{--}o "Like" : "likes"
+    "Post" o{--}o "Bookmark" : "bookmarks"
+    "Like" o|--|| "Post" : "post"
+    "Bookmark" o|--|| "Post" : "post"
+    "PostLabel" o|--|| "Post" : "post"
+    "Tweet" o{--}o "TweetLike" : "likes"
+    "TweetLike" o|--|| "Tweet" : "tweet"
+    "BoardRoom" o{--}o "Board" : "board"
+    "Board" o{--}o "BoardLike" : "likes"
+    "Board" o{--}o "BoardMessage" : "messages"
+    "Board" o|--|| "BoardRoom" : "room"
+    "BoardLike" o|--|| "Board" : "board"
+    "BoardMessage" o|--|| "Board" : "board"
+    "Room" o{--}o "Message" : "messages"
+    "Message" o|--|o "Room" : "room"
+```
+
+
+
 フロント側と同じ様にフォルダ構成の軸としたはが**機能ごとの分割**だ。
 APIを使用している部分ごとに分けることで、**APIの発見のしやすさ、修正の際の影響範囲を簡単に見積もること**を可能にする。
 コードの質を上げるためにも、似たAPIをフォルダごとに集約することができる。
@@ -114,7 +303,7 @@ APIを使用している部分ごとに分けることで、**APIの発見のし
 + ページごとの**概要**と**注力した点(ポイント)** と **その他の機能**を説明しています。
 + 4つの基本ページ以外のページは**その他**でまとめて紹介しています。
 
-### HOME画面 (ホーム)
+## HOME画面 (ホーム)
 
 | 全体 |　ポイント　|
 | ---- | ---- |
@@ -126,7 +315,7 @@ APIを使用している部分ごとに分けることで、**APIの発見のし
 | ![スクリーンショット 2023-10-02 21 52 07](https://github.com/kumaaa1212/multi-SNS/assets/116778080/b960305a-16ba-42b2-91ca-d51720216673) |  <img width="912" alt="スクリーンショット 2023-10-03 9 12 44" src="https://github.com/kumaaa1212/multi-SNS/assets/116778080/095f0832-e35f-4cf0-a3e9-44227dc53be8">
 |**情報量の多さはUXが下がると思いました。** Tweetの場合本文の一部を表示させ、詳細はModalで表示されます。 | **レスポンシブ対応(375px~)** もしており、スマートフォンなどの小さな画面でも快適に投稿された内容を確認できる様になっています。 |
 
-### CHAT (チャット)
+## CHAT (チャット)
 
 | 全体 |　詳細|
 | ---- | ---- |
@@ -138,7 +327,7 @@ APIを使用している部分ごとに分けることで、**APIの発見のし
 | <img width="1443" alt="スクリーンショット 2023-09-30 2 32 31" src="https://github.com/kumaaa1212/multi-SNS/assets/116778080/cabb809b-3d19-4742-825c-0f4b82f0718a"> | <img width="909" alt="スクリーンショット 2023-10-03 8 58 06" src="https://github.com/kumaaa1212/multi-SNS/assets/116778080/221a60b6-50bc-4d5a-a3a5-ff7aa297ebc3">|
 | 一つの投稿に対して**話題を深掘りできる様**に、一つの投稿に対しても返信を行えるようにしています。 | **レスポンシブ対応(375px~)** もしており、スマートフォンなどの小さな画面でも快適に投稿された内容を確認できる様になっています。 |
 
-### BOARD (掲示板)
+## BOARD (掲示板)
 
 | 全体 | ポイント　|
 | ---- | ---- |
@@ -150,7 +339,7 @@ APIを使用している部分ごとに分けることで、**APIの発見のし
 | <img width="1443" alt="スクリーンショット 2023-09-30 2 32 31" src="https://github.com/kumaaa1212/multi-SNS/assets/116778080/cabb809b-3d19-4742-825c-0f4b82f0718a"> | <img width="909" alt="スクリーンショット 2023-10-03 8 58 06" src="https://github.com/kumaaa1212/multi-SNS/assets/116778080/221a60b6-50bc-4d5a-a3a5-ff7aa297ebc3">|
  一つの投稿に対して**話題を深掘りできる様**に、一つの投稿に対しても返信を行えるようにしています。 | **レスポンシブ対応(375px~)** もしており、スマートフォンなどの小さな画面でも快適に投稿された内容を確認できる様になっています。 |
 
-### MYPAGE (掲示板)
+## MYPAGE (掲示板)
 
 | 全体 | ポイント　|
 | ---- | ---- |
@@ -162,7 +351,7 @@ APIを使用している部分ごとに分けることで、**APIの発見のし
 | <img width="1455" alt="スクリーンショット 2023-10-03 11 11 12" src="https://github.com/kumaaa1212/multi-SNS/assets/116778080/17721d25-c909-4b88-a968-ad4933e1ade5"> | <img width="332" alt="スクリーンショット 2023-10-03 11 12 36" src="https://github.com/kumaaa1212/multi-SNS/assets/116778080/08eab715-6ae6-477c-aad7-30f1dc36526c">|
 | 一つの投稿に対して**話題を深掘りできる様**に、一つの投稿に対しても返信を行えるようにしています。 | 右下のボタンをhoverすると二つのボタンが出現します。このボタンは**投稿ボタン**です。ここから投稿ページに遷移します。(本プロダクトでは二種類の投稿機能があります。Tweet投稿とAlbum投稿です。下記で詳細に説明しています。) |
 
-### その他のページ
+## その他のページ
 | Album投稿ページ | ポイント　|
 | ---- | ---- |
 | <img width="1466" alt="スクリーンショット 2023-10-03 11 20 38" src="https://github.com/kumaaa1212/multi-SNS/assets/116778080/bdff7e04-d7b5-4009-9769-ba677957198c"> |  <img width="1470" alt="スクリーンショット 2023-10-03 11 21 33" src="https://github.com/kumaaa1212/multi-SNS/assets/116778080/f011cb17-2376-4cdd-bc91-2617749e52b4"> |
@@ -190,5 +379,9 @@ APIを使用している部分ごとに分けることで、**APIの発見のし
 |  **チーム検索画面**です。現在は一つのカテゴリーに所属するチームしか登録していません。しかし今後、**国内サッカーリーグに所属する全チーム**を登録したいと考えています。| チーム数が多いため、検索機能をつけました。**検索したチームをロゴをクリックするとそのチームに関連したAlbum一覧ページに遷移します。** |
 
 # 今回の反省と今後の展開
+- フロントエンド、バックエンドともに**要件定義を疎かにしてしまった。**
+  - フロントエンドではコンポーネント同士の依存関係が強くなってしまい、修正に時間がかかった。また共通のデザインをあらかじめ理解していなかったために、CSSでの不必要なデザインやMaterial UIからのimportが増えてしまい一貫したデザインにすることに時間を要した。
+  - バックエンドでは上記のER図からも分かるように**正確にスキーマのリレーションが行われていない。** バックエンドの知識が乏しいことが再確認された。フロントを円滑に行うためにもバックエンドの知識の再確認が必要だ。
+- 登録されているチームからチーム数を増やす。機能面絵はGoogle Maps API Keyなどを使用し、自分が行ったことがあるスタジアムなどを記録できるようにしたい。これらのアップデートを行うことでより自身が目指す **【目指した課題解決】** を達成できると考える。
 
 
