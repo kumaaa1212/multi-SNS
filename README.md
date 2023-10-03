@@ -1,12 +1,14 @@
 # TOKOTOKO=J
-![logo](https://github.com/kumaaa1212/multi-SNS/assets/116778080/5bea87ea-1a38-4e9b-a418-461c4e31f79a)
+<img width="1457" alt="スクリーンショット 2023-09-30 2 49 45" src="https://github.com/kumaaa1212/multi-SNS/assets/116778080/e86e355e-2257-47c3-bcf2-0d98e6fe2117">
 
 - 10年間国内サッカーリーグを応援し続けた私が、今後もっと**国内サッカーリーグを盛り上げるため**に作成したSNSアプリ。
 - 制作期間約2~3か月
 
 https://tokotokoj.vercel.app
 
-**テストユーザー**
+**テストユーザー** 
++ 右上のユーザーアイコンからログインできます。
++ ログインするといいね機能、フォロー機能、そしてMYPAGEが確認できます。
 ```
 [email] test.user2023@gmail.com
 [password] 123456
@@ -143,22 +145,29 @@ APIを使用している部分ごとに分けることで、**APIの発見のし
 | <img width="1443" alt="スクリーンショット 2023-09-30 2 32 31" src="https://github.com/kumaaa1212/multi-SNS/assets/116778080/cabb809b-3d19-4742-825c-0f4b82f0718a"> | <img width="909" alt="スクリーンショット 2023-10-03 8 58 06" src="https://github.com/kumaaa1212/multi-SNS/assets/116778080/221a60b6-50bc-4d5a-a3a5-ff7aa297ebc3">|
 | 一つの投稿に対して**話題を深掘りできる様**に、一つの投稿に対しても返信を行えるようにしています。 | **レスポンシブ対応(375px~)** もしており、スマートフォンなどの小さな画面でも快適に投稿された内容を確認できる様になっています。 |
 
+### MYPAGE (掲示板)
 
-
-| Album投稿 |　その他(Album一時保存) |
+| 全体 | ポイント　|
 | ---- | ---- |
-| ![請求書詳細画面](/docs/img/app-view/select-master_1.1.png) | ![　PDF出力画面](/docs/img/app-view/master-register-form_1.1.png) |
-| 事業者情報と備考欄情報のマスタ登録機能を実装しました。 | マスタ情報の登録をすることで、請求書の作成時にデータを呼び出すことができます。 |
+| <img width="1457" alt="スクリーンショット 2023-09-30 2 49 45" src="https://github.com/kumaaa1212/multi-SNS/assets/116778080/c8f6104d-fc09-41e8-ad41-da068babffab"> | <img width="907" alt="スクリーンショット 2023-10-03 11 05 36" src="https://github.com/kumaaa1212/multi-SNS/assets/116778080/87f08c54-c3c1-4db9-a661-0a4a6f463b71"> |
+| MYPAGEでは**二種類の投稿(TweetとAlbum)、自身のプロフィール編集、そして保存・いいね・自身が投稿した投稿を一覧**できます。*二種類の投稿(Tweet投稿とAlbum投稿)のうち、**Album投稿**しかMYPAGEのTabには掲載されません。| Tabでは保存・いいね・自身が投稿した投稿を切り替えできます。Tabを切り替えるごとに即座に反映される様に実装しています。 |
 
-| その他(未保存時エラー)  |　その他(サムネイルページ) |
+| その他(プロフィール編集機能) |　その他(投稿機能) |
 | ---- | ---- |
-| ![請求書詳細画面](/docs/img/app-view/select-master_1.1.png) | ![　PDF出力画面](/docs/img/app-view/master-register-form_1.1.png) |
-| 事業者情報と備考欄情報のマスタ登録機能を実装しました。 | マスタ情報の登録をすることで、請求書の作成時にデータを呼び出すことができます。 |
+| <img width="1455" alt="スクリーンショット 2023-10-03 11 11 12" src="https://github.com/kumaaa1212/multi-SNS/assets/116778080/17721d25-c909-4b88-a968-ad4933e1ade5"> | <img width="332" alt="スクリーンショット 2023-10-03 11 12 36" src="https://github.com/kumaaa1212/multi-SNS/assets/116778080/08eab715-6ae6-477c-aad7-30f1dc36526c">|
+| 一つの投稿に対して**話題を深掘りできる様**に、一つの投稿に対しても返信を行えるようにしています。 | 右下のボタンをhoverすると二つのボタンが出現します。このボタンは**投稿ボタン**です。ここから投稿ページに遷移します。(本プロダクトでは二種類の投稿機能があります。Tweet投稿とAlbum投稿です。下記で詳細に説明しています。) |
 
-| その他(リリースページ)  |　その他(チーム検索) |
+### その他のページ
+| 投稿(Album投稿) | ポイント　|
 | ---- | ---- |
-| ![請求書詳細画面](/docs/img/app-view/select-master_1.1.png) | ![　PDF出力画面](/docs/img/app-view/master-register-form_1.1.png) |
-| 事業者情報と備考欄情報のマスタ登録機能を実装しました。 | マスタ情報の登録をすることで、請求書の作成時にデータを呼び出すことができます。 |
+| <img width="1457" alt="スクリーンショット 2023-09-30 2 49 45" src="https://github.com/kumaaa1212/multi-SNS/assets/116778080/c8f6104d-fc09-41e8-ad41-da068babffab"> | <img width="907" alt="スクリーンショット 2023-10-03 11 05 36" src="https://github.com/kumaaa1212/multi-SNS/assets/116778080/87f08c54-c3c1-4db9-a661-0a4a6f463b71"> |
+| MYPAGEでは**二種類の投稿(TweetとAlbum)、自身のプロフィール編集、そして保存・いいね・自身が投稿した投稿を一覧**できます。*二種類の投稿(Tweet投稿とAlbum投稿)のうち、**Album投稿**しかMYPAGEのTabには掲載されません。| Tabでは保存・いいね・自身が投稿した投稿を切り替えできます。Tabを切り替えるごとに即座に反映される様に実装しています。 |
+
+
+| 投稿(Tweet投稿) |　ポイント |
+| ---- | ---- |
+| <img width="1455" alt="スクリーンショット 2023-10-03 11 11 12" src="https://github.com/kumaaa1212/multi-SNS/assets/116778080/17721d25-c909-4b88-a968-ad4933e1ade5"> | <img width="332" alt="スクリーンショット 2023-10-03 11 12 36" src="https://github.com/kumaaa1212/multi-SNS/assets/116778080/08eab715-6ae6-477c-aad7-30f1dc36526c">|
+| 一つの投稿に対して**話題を深掘りできる様**に、一つの投稿に対しても返信を行えるようにしています。 | 右下のボタンをhoverすると二つのボタンが出現します。このボタンは**投稿ボタン**です。ここから投稿ページに遷移します。(本プロダクトでは二種類の投稿機能があります。Tweet投稿とAlbum投稿です。下記で詳細に説明しています。) |
 
 <br />
 
