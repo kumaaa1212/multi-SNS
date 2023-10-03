@@ -5,7 +5,7 @@ const router: Router = Router();
 const prisma = new PrismaClient();
 
 // 掲示板のルームを作成する
-router.get("/boardRooms/:team", async (req, res) => {
+router.get("/boardRooms/:team", async (req: Request, res: Response) => {
   const team = req.params.team;
 
   try {
@@ -33,17 +33,16 @@ router.get("/boardRooms/:team", async (req, res) => {
     if (!boardRoom) {
       return res
         .status(404)
-        .json({ error: "ボードルームが見つかりませんでした" });
+        .json({ error: "対象の掲示板が見つかりませんでした" });
     }
 
     return res.json({ boardRoom });
   } catch (error) {
-    console.error("Failed to retrieve board room:", error);
-    return res.status(500).json({ error: "ボードルームの取得に失敗しました" });
+    return res.status(500).json({ error: "対象の掲示板の取得に失敗しました" });
   }
 });
-// 掲示板を追加する
-router.post("/boards/add", async (req, res) => {
+// 掲示板に投稿する
+router.post("/boards/add", async (req : Request, res : Response) => {
   const { content, authorId, authorName, authorAvatar, team } = req.body;
 
   try {
@@ -71,7 +70,7 @@ router.post("/boards/add", async (req, res) => {
         likes: true,
         messages: {
           orderBy: {
-            createdAt: "asc", // 古い順に並べ替える
+            createdAt: "asc",
           },
         },
       },
@@ -87,12 +86,12 @@ router.post("/boards/add", async (req, res) => {
             likes: true,
             messages: {
               orderBy: {
-                createdAt: "asc", // 古い順に並べ替える
+                createdAt: "asc", 
               },
             },
           },
           orderBy: {
-            createdAt: "desc", // 新しい順に並べ替える
+            createdAt: "desc",
           },
         },
       },
@@ -100,12 +99,11 @@ router.post("/boards/add", async (req, res) => {
 
     return res.json({ updatedRoom });
   } catch (error) {
-    console.error("Failed to create board:", error);
     return res.status(500).json({ error: "Failed to create board." });
   }
 });
 // 特定の掲示板を取得する
-router.get("/boards/:id", async (req, res) => {
+router.get("/boards/:id", async (req : Request, res : Response) => {
   const boardId = parseInt(req.params.id);
 
   try {
@@ -121,17 +119,16 @@ router.get("/boards/:id", async (req, res) => {
     });
 
     if (!board) {
-      return res.status(404).json({ error: "Board not found." });
+      return res.status(404).json({ error: "掲示板の取得に失敗しました" });
     }
 
     return res.json({ board });
   } catch (error) {
-    console.error("Failed to retrieve board:", error);
-    return res.status(500).json({ error: "Failed to retrieve board." });
+    return res.status(500).json({ error: "掲示板の取得に失敗しました" });
   }
 });
 // 掲示板一覧にいいねを追加する
-router.post("/boards/:boardId/likes", async (req, res) => {
+router.post("/boards/:boardId/likes", async (req : Request, res : Response) => {
   const { boardId } = req.params;
   const { authorId } = req.body;
 
@@ -151,17 +148,15 @@ router.post("/boards/:boardId/likes", async (req, res) => {
 
     return res.json({ board: updatedBoard });
   } catch (error) {
-    console.error("Failed to add like to board:", error);
-    return res.status(500).json({ error: "Failed to add like to board." });
+    return res.status(500).json({ error: "いいねの追加に失敗しました" });
   }
 });
 // 掲示板にメッセージを追加する
-router.post("/boards/:boardId/messages", async (req, res) => {
+router.post("/boards/:boardId/messages", async (req : Request, res : Response) => {
   const { boardId } = req.params;
   const { content, authorId, authorName, authorAvatar } = req.body;
 
   try {
-    // メッセージを作成
     await prisma.boardMessage.create({
       data: {
         content,
@@ -176,7 +171,6 @@ router.post("/boards/:boardId/messages", async (req, res) => {
       },
     });
 
-    // ボードを更新
     const updatedBoard = await prisma.board.findUnique({
       where: {
         id: parseInt(boardId),
@@ -191,10 +185,8 @@ router.post("/boards/:boardId/messages", async (req, res) => {
       },
     });
 
-    // 更新されたボードをレスポンスとして返す
     return res.json({ board: updatedBoard });
   } catch (error) {
-    console.error("Failed to add message to board:", error);
     return res.status(500).json({ error: "Failed to add message to board." });
   }
 });
@@ -210,14 +202,12 @@ router.post("/board/like/add", async (req: Request, res: Response) => {
       },
     });
 
-    // 既存のボードを取得
     const existingBoard = await prisma.board.findUnique({
       where: {
         id: boardId,
       },
     });
 
-    // 既存のボードに新しい「いいね」を追加
     if (existingBoard) {
       const updatedBoard = await prisma.board.update({
         where: {
@@ -267,7 +257,6 @@ router.post("/board/like/delete", async (req: Request, res: Response) => {
   const { boardId, authorId } = req.body;
 
   try {
-    // まずはいいねを削除
     await prisma.boardLike.deleteMany({
       where: {
         boardId: Number(boardId),
@@ -275,7 +264,6 @@ router.post("/board/like/delete", async (req: Request, res: Response) => {
       },
     });
 
-    // 削除されたいいねに関連するBoardを取得
     const relatedBoard = await prisma.board.findUnique({
       where: {
         id: boardId,
@@ -311,7 +299,7 @@ router.post("/board/like/delete", async (req: Request, res: Response) => {
 
     return res.status(404).json({ error: "Board not found." });
   } catch (error) {
-    res.status(500).json({ error: "Failed to remove like." });
+    res.status(500).json({ error: "いいねの削除に失敗しました" });
   }
 });
 // 掲示板の投稿を削除する
@@ -320,28 +308,24 @@ router.delete("/board/:boardId/delete", async (req, res) => {
   const { team } = req.query;
 
   try {
-    // Boardに関連するLikesを削除
     await prisma.boardLike.deleteMany({
       where: {
         boardId: Number(boardId),
       },
     });
 
-    // Boardに関連するMessagesを削除
     await prisma.boardMessage.deleteMany({
       where: {
         boardId: Number(boardId),
       },
     });
 
-    // ボードを削除
     await prisma.board.delete({
       where: {
         id: Number(boardId),
       },
     });
 
-    // ボードが削除された後に新しいBoardRoomを取得
     const boardRoom = await prisma.boardRoom.findFirst({
       where: {
         team: String(team),
@@ -371,7 +355,6 @@ router.delete("/board/:boardId/delete", async (req, res) => {
 
     return res.json({ boardRoom });
   } catch (error) {
-    console.error("Failed to delete board and related data:", error);
     return res
       .status(500)
       .json({ error: "ボードの削除と新しいボードルームの取得に失敗しました" });
