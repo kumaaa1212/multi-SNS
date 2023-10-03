@@ -30,7 +30,7 @@ export default function BoardPage(props: Props): JSX.Element {
 
   return (
     <div suppressHydrationWarning={false}>
-      {router.query.team === undefined ? (
+      {router.query.team === String(undefined) ? (
         <NoUser contens='自分のTeamの掲示板' />
       ) : (
         <Board boardRoom={boardRoom} />

@@ -3,6 +3,10 @@
     font-size: 100px;
     font-weight: bold;
     text-align: center;
+    
+    @media  (max-width: 768px) {
+      font-size: 60px;
+    }
   }
 
   p {
@@ -14,5 +18,11 @@
   .no_user_img {
     display: block;
     margin: 0 auto;
+
+    @media  (max-width: 768px) {
+      width: 100%;
+      height: 100%;
+    }
+      
   }
 }
