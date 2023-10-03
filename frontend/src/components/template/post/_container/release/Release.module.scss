@@ -1,10 +1,17 @@
 .release_contents {
   margin: 0 auto;
-  width: 800px;
+  width: 600px;
+  padding: 0 5px;
+  @media screen and (max-width: 700px) {
+    width: 100%;
+  }
   
   .release_title {
     font-size: 50px;
     text-align: center;
     padding-top: 30px;
+    @media screen and (max-width: 700px) {
+      font-size: 30px;
+    }
   }
 }

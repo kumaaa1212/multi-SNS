@@ -30,7 +30,7 @@ export default function Thumbnail(): JSX.Element {
             <ThumbnailCard className='600' />
             <div className={style.thumbnail_delail}>
               <Labels
-                labelName='自分の応援しているチーム→関連するチームの順で選択してください'
+                labelName='自分の応援しているチーム→関連するチームの順で選択'
                 data={jLeagueTeams}
                 margin='mb_24'
                 width={370}
