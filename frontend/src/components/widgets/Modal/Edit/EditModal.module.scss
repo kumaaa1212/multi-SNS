@@ -165,3 +165,89 @@
     }
   }
 }
+@media screen and (max-width: 480px) {
+  .edit_modal {
+    width: 300px;
+    padding-bottom: 0px;
+
+    .handle_area {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+
+      .close_btn {
+        display: block;
+        background-color: #fff;
+        cursor: pointer;
+        border: none;
+      }
+    }
+    
+    .profle_info {
+      margin-top: 20px;
+      display: flex;
+      flex-flow: column;
+      align-items: center;
+
+      .image_area {
+        position: relative;
+
+        .profile_img {
+          object-fit: cover;
+          border-radius: 50%;
+        }
+
+        .edit_profile {
+          position: absolute;
+          top: 0;
+          background-color: black;
+          color: white;
+          border-radius: 50%;
+          width: 150px;
+          height: 150px;
+          opacity: 0.4;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          cursor: pointer;
+        }
+      }
+
+      .profile_icon {
+        width: 100%;
+        margin-top: 10px;
+        display: flex;
+        gap: 20px;
+        flex-direction: column;
+
+        .twitter_icon {
+          display: flex;
+          align-items: center;
+          gap: 20px;
+        }
+
+        .team_icon {
+          display: flex;
+          align-items: center;
+          gap: 20px;
+        }
+
+        input {
+          display: block;
+          height: 40px;
+          width: 100%;
+        }
+      }
+    }
+
+    .bio_input {
+      display: block;
+      resize: vertical;
+      width: 300px;
+      min-height: 250px;
+      max-height: 250px;
+      font-size: 20px;
+      resize: none;
+    }
+  }
+}
