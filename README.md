@@ -26,7 +26,7 @@ https://tokotokoj.vercel.app/home
 
 
 ## 機能一覧・詳細
-### HOME画面
+### HOME画面 (ホーム)
 
 | 全体 |　ポイント　|
 | ---- | ---- |
@@ -38,24 +38,20 @@ https://tokotokoj.vercel.app/home
 | ![スクリーンショット 2023-10-02 21 52 07](https://github.com/kumaaa1212/multi-SNS/assets/116778080/b960305a-16ba-42b2-91ca-d51720216673) |  ![スクリーンショット 2023-10-02 21 53 38](https://github.com/kumaaa1212/multi-SNS/assets/116778080/3cd79f00-48cb-4b64-bf09-0f0535249b81)
 |**情報量の多さはUXが下がると思いました。** Tweetの場合本文の一部を表示させ、詳細はModalで表示されます。 | **レスポンシブ対応(375px~)** もしており、スマートフォンなどの小さな画面でも快適に投稿された内容を確認できる様になっています。 |
 
-### CHAT
+### BOARD (掲示板)
 
-| 全体 |　ポイント |
+| 全体 |　詳細|
 | ---- | ---- |
-| <img width="568" alt="スクリーンショット 2023-09-29 19 13 49" src="https://github.com/kumaaa1212/multi-SNS/assets/116778080/d199690c-9c73-4d18-9cea-e079ce598609">
- | ![　PDF出力画面](/docs/img/app-view/print-invoice_1.1.png) |
-| 請求書データの表示機能を実装しました。 | PDFでの請求書発行機能を実装しました。 |
+| <img width="1455" alt="スクリーンショット 2023-09-30 2 31 24" src="https://github.com/kumaaa1212/multi-SNS/assets/116778080/8d07b861-3615-4ce5-a36b-4935b537e0f4"> | <img width="1443" alt="スクリーンショット 2023-09-30 2 32 31" src="https://github.com/kumaaa1212/multi-SNS/assets/116778080/3d8e27d1-8cd3-4dad-8ec9-0558c6dc4662"> |
+| サッカーにおいて**主要なSNSツールは掲示板**です。しかし現在ある掲示板はUIが悪く、UXが低いです。今回作成したBOARD(掲示板)はシンプルかつ使いやすい様にしました。| 現在のサッカーの掲示板では対戦相手のチームのファンによる荒らしが多く、本来の機能を果たしていません。この掲示板は**自身の登録したチームにのみアクセスできる様**になっています。 |
 
-
-| 全てのチーム |　全てのTweet|
+| その他(返信機能) |　その他(レスポンシブ) |
 | ---- | ---- |
-| ![請求書詳細画面](/docs/img/app-view/select-master_1.1.png) | ![　PDF出力画面](/docs/img/app-view/master-register-form_1.1.png) |
-| 事業者情報と備考欄情報のマスタ登録機能を実装しました。 | マスタ情報の登録をすることで、請求書の作成時にデータを呼び出すことができます。 |
+| <img width="1443" alt="スクリーンショット 2023-09-30 2 32 31" src="https://github.com/kumaaa1212/multi-SNS/assets/116778080/cabb809b-3d19-4742-825c-0f4b82f0718a"> | <img width="909" alt="スクリーンショット 2023-10-03 8 58 06" src="https://github.com/kumaaa1212/multi-SNS/assets/116778080/221a60b6-50bc-4d5a-a3a5-ff7aa297ebc3">|
+| 一つの投稿に対して**話題を深掘りできる様**に、一つの投稿に対しても返信を行えるようにしています。 | **レスポンシブ対応(375px~)** もしており、スマートフォンなどの小さな画面でも快適に投稿された内容を確認できる様になっています。 |
 
-| 全ての記事 |　Tweet投稿 |
-| ---- | ---- |
-| ![請求書詳細画面](/docs/img/app-view/select-master_1.1.png) | ![　PDF出力画面](/docs/img/app-view/master-register-form_1.1.png) |
-| 事業者情報と備考欄情報のマスタ登録機能を実装しました。 | マスタ情報の登録をすることで、請求書の作成時にデータを呼び出すことができます。 |
+
+
 
 | Album投稿 |　その他(Album一時保存) |
 | ---- | ---- |
