@@ -103,6 +103,185 @@ src/
 │    │  ├─ post
 
 ```
+```mermaid
+erDiagram
+
+  "User" {
+    Int id "🗝️"
+    String email 
+    String name 
+    String password 
+    String team 
+    String icon 
+    String bio 
+    String twitterURL 
+    String teamURL 
+    DateTime createdAt 
+    }
+  
+
+  "Follow" {
+    Int id "🗝️"
+    String bio 
+    String name 
+    String icon 
+    String team 
+    String twitterURL 
+    String teamURL 
+    Int frendId 
+    }
+  
+
+  "Follower" {
+    Int id "🗝️"
+    String bio 
+    String name 
+    String icon 
+    String team 
+    String twitterURL 
+    String teamURL 
+    Int frendId 
+    }
+  
+
+  "Post" {
+    Int id "🗝️"
+    String content 
+    String title 
+    DateTime createdAt 
+    String authorId "❓"
+    String authorName 
+    String authorAvatar 
+    String thumbnailText 
+    String thumbnailImg 
+    }
+  
+
+  "Like" {
+    Int id "🗝️"
+    String authorId 
+    }
+  
+
+  "Bookmark" {
+    Int id "🗝️"
+    String authorId 
+    }
+  
+
+  "PostLabel" {
+    Int id "🗝️"
+    String label 
+    String name 
+    String league 
+    String img 
+    }
+  
+
+  "Tweet" {
+    Int id "🗝️"
+    String content 
+    DateTime createdAt 
+    String img "❓"
+    String authorId "❓"
+    String authorName 
+    String authorAvatar 
+    String label 
+    }
+  
+
+  "TweetLike" {
+    Int id "🗝️"
+    String authorId 
+    }
+  
+
+  "BoardRoom" {
+    Int roomId "🗝️"
+    String team 
+    DateTime createdAt 
+    }
+  
+
+  "Board" {
+    Int id "🗝️"
+    String content 
+    DateTime createdAt 
+    String authorId "❓"
+    String authorName 
+    String authorAvatar 
+    }
+  
+
+  "BoardLike" {
+    Int id "🗝️"
+    String authorId 
+    }
+  
+
+  "BoardMessage" {
+    Int id "🗝️"
+    String content 
+    DateTime createdAt 
+    String authorId "❓"
+    String authorName 
+    String authorAvatar 
+    }
+  
+
+  "Room" {
+    String id "🗝️"
+    String user1Id 
+    String user1Name 
+    String user1Icon 
+    String user2Id 
+    String user2Icon 
+    String user2Name 
+    DateTime createdAt 
+    }
+  
+
+  "Message" {
+    Int id "🗝️"
+    String content 
+    DateTime createdAt 
+    String authorId "❓"
+    String senderId 
+    }
+  
+
+  "KeepPost" {
+    Int id "🗝️"
+    String title 
+    String content 
+    String authorId 
+    DateTime createdAt 
+    }
+  
+    "User" o{--}o "Follower" : "followers"
+    "User" o{--}o "Follow" : "follows"
+    "Follow" o|--|| "User" : "user"
+    "Follower" o|--|| "User" : "user"
+    "Post" o{--}o "PostLabel" : "labels"
+    "Post" o{--}o "Like" : "likes"
+    "Post" o{--}o "Bookmark" : "bookmarks"
+    "Like" o|--|| "Post" : "post"
+    "Bookmark" o|--|| "Post" : "post"
+    "PostLabel" o|--|| "Post" : "post"
+    "Tweet" o{--}o "TweetLike" : "likes"
+    "TweetLike" o|--|| "Tweet" : "tweet"
+    "BoardRoom" o{--}o "Board" : "board"
+    "Board" o{--}o "BoardLike" : "likes"
+    "Board" o{--}o "BoardMessage" : "messages"
+    "Board" o|--|| "BoardRoom" : "room"
+    "BoardLike" o|--|| "Board" : "board"
+    "BoardMessage" o|--|| "Board" : "board"
+    "Room" o{--}o "Message" : "messages"
+    "Message" o|--|o "Room" : "room"
+```
+
+
+
 フロント側と同じ様にフォルダ構成の軸としたはが**機能ごとの分割**だ。
 APIを使用している部分ごとに分けることで、**APIの発見のしやすさ、修正の際の影響範囲を簡単に見積もること**を可能にする。
 コードの質を上げるためにも、似たAPIをフォルダごとに集約することができる。
@@ -190,5 +369,9 @@ APIを使用している部分ごとに分けることで、**APIの発見のし
 |  **チーム検索画面**です。現在は一つのカテゴリーに所属するチームしか登録していません。しかし今後、**国内サッカーリーグに所属する全チーム**を登録したいと考えています。| チーム数が多いため、検索機能をつけました。**検索したチームをロゴをクリックするとそのチームに関連したAlbum一覧ページに遷移します。** |
 
 # 今回の反省と今後の展開
+- フロントエンド、バックエンドともに要件定義を疎かにしてしまった。
+  - フロントエンドではコンポーネント同士の依存関係が強くなってしまい、修正に時間がかかった。また共通のデザインをあらかじめ理解していなかったために、CSSでの不必要なデザインやMaterial UIからのimportが増えてしまい一貫したデザインにすることに時間を要した。
+  - バックエンドでは上記のER図からも分かるように**正確にスキーマのリレーションが行われていない。** バックエンドの知識が乏しいことが再確認された。フロントを円滑に行うためにもバックエンドの知識の再確認が必要だ。
+- 登録されているチームからチーム数を増やす。機能面絵はGoogle Maps API Keyなどを使用し、自分が行ったことがあるスタジアムなどを記録できるようにしたい。これらのアップデートを行うことでより自身が目指す【目指した課題解決】を達成できると考える。
 
 
