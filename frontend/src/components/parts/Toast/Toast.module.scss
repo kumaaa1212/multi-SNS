@@ -1,5 +1,7 @@
 .toast {
-  width: 400px;
+  width: 350px;
   position: fixed;
-  bottom: 100px;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 60px;
 }

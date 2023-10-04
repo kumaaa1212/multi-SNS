@@ -32,7 +32,7 @@ export default function Timeline(props: Props): JSX.Element {
     const filterTeam = jLeagueTeams.filter((item) => item.name === team)
     if (input.length === 0) throw new Error('入力してください')
     await apiClient
-      .post('/board//boards/add', {
+      .post('/board/boards/add', {
         content: input,
         authorId: userId,
         authorName: username,
