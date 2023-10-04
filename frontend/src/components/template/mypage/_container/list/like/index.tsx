@@ -8,19 +8,27 @@ import ArticleCard from 'components/parts/Card/Album'
 import HomeAlbumCard from 'components/parts/Card/Home/Album'
 import style from '../index.module.scss'
 
-export default function MypageLikes(): JSX.Element {
+interface Props {
+  setLoading: React.Dispatch<React.SetStateAction<boolean>>
+}
+
+export default function MypageLikes(props: Props): JSX.Element {
+  const { setLoading } = props
+
   const { userId } = useSelector((state: RootState) => state.user)
   const [albumsData, setAlbumsData] = React.useState<ArticlesType[]>([])
 
   useEffect(() => {
     const myAlbum = async (): Promise<void> => {
+      setLoading(true)
       await apiClient.get(`/post/album/like/${userId}`).then((res) => {
         if (res.status !== 200) throw Error
         setAlbumsData(res.data.likedPosts)
+        setLoading(false)
       })
     }
     myAlbum()
-  }, [userId])
+  }, [setLoading, userId])
 
   const handleDelete = async (album: ArticlesType): Promise<void> => {
     await apiClient

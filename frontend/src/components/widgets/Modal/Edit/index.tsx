@@ -18,10 +18,11 @@ import style from './EditModal.module.scss'
 interface Props {
   openEdit: boolean
   setOpenEdit: React.Dispatch<React.SetStateAction<boolean>>
+  setLoading: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 export default function EditModal(props: Props): JSX.Element {
-  const { openEdit, setOpenEdit } = props
+  const { openEdit, setOpenEdit, setLoading } = props
 
   const dispatch: AppDispatch = useDispatch()
   const { username, bio, icon, userId, twitterURL, teamURL } = useSelector(
@@ -52,6 +53,7 @@ export default function EditModal(props: Props): JSX.Element {
   const handleSubmit = async (): Promise<void> => {
     if (file) {
       try {
+        setLoading(true)
         const { data: storageData, error: storegeError } = await supabase.storage
           .from('avatars')
           .upload(`${uuid4()}/${uuid4()}`, file)
@@ -87,6 +89,7 @@ export default function EditModal(props: Props): JSX.Element {
         })
     }
     setOpenEdit(!openEdit)
+    setLoading(false)
   }
 
   return (

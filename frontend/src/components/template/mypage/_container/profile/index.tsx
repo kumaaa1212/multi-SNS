@@ -4,6 +4,7 @@ import Image from 'next/image'
 import { HttpStatusCode } from 'axios'
 import apiClient from 'libs/apiClient'
 import { RootState } from 'store/store'
+import Loading from 'components/layout/Loading'
 import ActiveLink from 'components/parts/Button/ActiveLink'
 import Button from 'components/parts/Button/Base'
 import PostBtn from 'components/parts/Button/Post/addbtn'
@@ -19,16 +20,19 @@ export default function Profile(): JSX.Element {
     useSelector((state: RootState) => state.user)
   const [openEdit, setOpenEdit] = useState<boolean>(false)
   const [openTweet, setOpenTweet] = useState<boolean>(false)
-  const [likeCount, setLikeCount] = useState<number>()
+  const [likeCount, setLikeCount] = useState<number>(0)
+  const [loading, setLoading] = useState<boolean>(false)
 
   useEffect(() => {
-    const llikeDeta = async (): Promise<void> => {
+    const likeData = async (): Promise<void> => {
+      setLoading(true)
       await apiClient.get(`/post/album/likes/${userId}`).then((res) => {
         if (res.status !== HttpStatusCode.Ok) return
         setLikeCount(res.data.likes.length)
+        setLoading(false)
       })
     }
-    llikeDeta()
+    likeData()
   }, [userId])
 
   return (
@@ -75,8 +79,11 @@ export default function Profile(): JSX.Element {
           </div>
         </div>
       </div>
-      {openEdit && <EditModal openEdit={openEdit} setOpenEdit={setOpenEdit} />}
-      {openTweet && <TweetModal open={openTweet} setOpen={setOpenTweet} />}
+      {openEdit && (
+        <EditModal openEdit={openEdit} setOpenEdit={setOpenEdit} setLoading={setLoading} />
+      )}
+      {openTweet && <TweetModal open={openTweet} setOpen={setOpenTweet} setLoading={setLoading} />}
+      {loading && <Loading />}
       <PostBtn setOpen={setOpenTweet} />
     </div>
   )

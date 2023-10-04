@@ -2,6 +2,7 @@ import { useState } from 'react'
 import Box from '@mui/material/Box'
 import Tab from '@mui/material/Tab'
 import Tabs from '@mui/material/Tabs'
+import Loading from 'components/layout/Loading'
 import MypageAlbum from './album'
 import MypageBooKMark from './bookMark'
 import MypageLikes from './like'
@@ -45,6 +46,7 @@ function a11yProps(index: number): a11yPropsProps {
 
 export default function BasicTabs(): JSX.Element {
   const [value, setValue] = useState<number>(0)
+  const [loading, setLoading] = useState<boolean>(false)
 
   const handleChange = (event: React.SyntheticEvent, newValue: number): void => {
     setValue(newValue)
@@ -60,14 +62,15 @@ export default function BasicTabs(): JSX.Element {
         </Tabs>
       </Box>
       <CustomTabPanel value={value} index={0}>
-        <MypageAlbum />
+        <MypageAlbum setLoading={setLoading} />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
-        <MypageLikes />
+        <MypageLikes setLoading={setLoading} />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={2}>
-        <MypageBooKMark />
+        <MypageBooKMark setLoading={setLoading} />
       </CustomTabPanel>
+      {loading && <Loading />}
     </Box>
   )
 }

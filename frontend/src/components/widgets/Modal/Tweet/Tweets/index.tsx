@@ -17,10 +17,11 @@ import style from './TweetModal.module.scss'
 interface Props {
   open: boolean
   setOpen: React.Dispatch<React.SetStateAction<boolean>>
+  setLoading: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 export default function TweetModal(props: Props): JSX.Element {
-  const { open, setOpen } = props
+  const { open, setOpen, setLoading } = props
 
   const { username, userId, iconPath, icon } = useSelector((state: RootState) => state.user)
   const [tweetContents, setTweetContents] = useState<string>('')
@@ -30,6 +31,7 @@ export default function TweetModal(props: Props): JSX.Element {
 
   const handleTweet = async (): Promise<void> => {
     try {
+      setLoading(true)
       if (tweetContents && fileData && selectedLabels.length === 1) {
         const { data: storageData, error: storegeError } = await supabase.storage
           .from('thumbnail')
@@ -54,6 +56,8 @@ export default function TweetModal(props: Props): JSX.Element {
       }
     } catch {
       alert('ツイートに失敗しました')
+    } finally {
+      setLoading(false)
     }
   }
 
