@@ -21,6 +21,7 @@
 }
 
 .team_card {
+  width: 140px;
   padding-top: 10px;
   background-color: #f8f9fa;
   display: flex;
@@ -28,6 +29,11 @@
   justify-content: center;
   align-items: center;
   cursor: pointer;
+  
+  span{
+    width: 140px;
+    text-align: center;
+  }
 
   .team_img {
     border-radius: 10px;
