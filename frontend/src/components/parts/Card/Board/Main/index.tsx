@@ -41,7 +41,12 @@ export default function BulletinboardCard(props: Props): JSX.Element {
   useEffect(() => {
     const fetchLike = async (): Promise<void> => {
       await apiClient
-        .get(`/board/board/like/check?boardId=${board.id}&authorId=${userId}`)
+        .get(`/board/board/like/check`, {
+          params: {
+            boardId: board.id,
+            authorId: userId,
+          },
+        })
         .then((res) => {
           if (res.status !== HttpStatusCode.Ok) {
             toastFunc('エラーが発生しました', true)
