@@ -10,10 +10,10 @@ import AddImgIcon from '/public/svg/post_add_img.svg'
 import { AppDispatch, RootState } from 'store/store'
 import { v4 as uuidv4 } from 'uuid'
 import { supabase } from 'utils/supabaseClient'
-import MarkDown from 'components/widgets/MarkDown'
-import Meta from 'components/layout/Head'
 import style from './Album.module.scss'
 import AlnumLayout from './_container/albumLayout/AlbumLayout'
+import Meta from 'components/layout/Head'
+import MarkDown from 'components/widgets/MarkDown'
 
 export default function Album(): JSX.Element {
   const dispatch: AppDispatch = useDispatch()
@@ -37,7 +37,7 @@ export default function Album(): JSX.Element {
         .upload(`${userId}/${uuidv4()}`, selectedFile ? selectedFile : '')
       if (!storegeError) {
         const { data: urlData } = supabase.storage.from('thumbnail').getPublicUrl(storageData.path)
-        dispatch(addImgcontents(urlData))
+        dispatch(addImgcontents(urlData.publicUrl))
         dispatch(addDisplayImgcontents(imageMarkdown))
       }
     }

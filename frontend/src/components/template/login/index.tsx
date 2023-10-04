@@ -39,7 +39,7 @@ export default function Login(): JSX.Element {
   const onSubmit: SubmitHandler<LoginType> = async () => {
     const value = getValues()
     try {
-      const res = await apiClient
+      await apiClient
         .post('/auth/login', {
           email: value.email,
           password: value.password,
