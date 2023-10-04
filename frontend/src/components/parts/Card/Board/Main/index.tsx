@@ -9,12 +9,13 @@ import { RootState } from 'store/store'
 import { jLeagueTeams } from 'utils/TeamData'
 import Icongenerate from 'utils/functions/Avater'
 import { formatTimestamp } from 'utils/functions/Time'
+import { BoardRoomType, BoardType, BoradLikeType } from 'types/internal/board'
+import Loading from 'components/layout/Loading'
+import DeleteButton from 'components/parts/Button/Delete'
 import style from './Board.module.scss'
 import CardLike from '/public/svg/board_like.svg'
 import CardLiked from '/public/svg/board_liked.svg'
 import CardMessage from '/public/svg/board_message.svg'
-import { BoardRoomType, BoardType, BoradLikeType } from 'types/internal/board'
-import DeleteButton from 'components/parts/Button/Delete'
 
 interface Props {
   children: React.ReactNode
@@ -34,12 +35,14 @@ export default function BulletinboardCard(props: Props): JSX.Element {
   const router = useRouter()
   const { userId, team } = useSelector((state: RootState) => state.user)
   const [likeCount, setLikeCount] = useState<number>(board.likes?.length)
+  const [loading, setLoading] = useState<boolean>(false)
   const [like, setLike] = useState<boolean>(
     board.likes?.map((like: BoradLikeType) => like.authorId).includes(board.authorId),
   )
 
   useEffect(() => {
     const fetchLike = async (): Promise<void> => {
+      setLoading(true)
       await apiClient
         .get(`/board/board/like/check`, {
           params: {
@@ -52,6 +55,7 @@ export default function BulletinboardCard(props: Props): JSX.Element {
             toastFunc('エラーが発生しました', true)
           } else {
             setLike(res.data.hasLiked)
+            setLoading(false)
           }
         })
     }
@@ -70,6 +74,7 @@ export default function BulletinboardCard(props: Props): JSX.Element {
   }
 
   const handleAddLike = async (): Promise<void> => {
+    setLoading(true)
     await apiClient
       .post('/board/board/like/add', {
         boardId: board.id,
@@ -81,11 +86,13 @@ export default function BulletinboardCard(props: Props): JSX.Element {
         } else {
           setLikeCount(res.data.updatedBoard.likes.length)
           setLike(!like)
+          setLoading(false)
         }
       })
   }
 
   const handleDelateLike = async (): Promise<void> => {
+    setLoading(true)
     await apiClient
       .post('/board/board/like/delete', {
         boardId: board.id,
@@ -97,20 +104,27 @@ export default function BulletinboardCard(props: Props): JSX.Element {
         } else {
           setLikeCount(res.data.updatedBoard.likes.length)
           setLike(!like)
+          setLoading(false)
         }
       })
   }
 
   const handleClick = async (): Promise<void> => {
+    setLoading(true)
     const filterTeam = jLeagueTeams.filter((item) => item.name === team)
     await apiClient
-      .delete(`/board/board/${board.id}/delete?team=${filterTeam[0]?.label}`)
+      .delete(`/board/board/${board.id}/delete`, {
+        params: {
+          team: filterTeam[0]?.label,
+        },
+      })
       .then((res) => {
         if (res.status !== HttpStatusCode.Ok) {
           toastFunc('削除に失敗しました', true)
         } else {
           setBoardRooms(res.data.boardRoom)
           setSideMessagrBar(false)
+          setLoading(false)
         }
       })
   }
@@ -163,6 +177,7 @@ export default function BulletinboardCard(props: Props): JSX.Element {
           </Badge>
         </div>
       </div>
+      {loading && <Loading />}
     </Card>
   )
 }
