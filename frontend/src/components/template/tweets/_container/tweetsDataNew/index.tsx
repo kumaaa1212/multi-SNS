@@ -42,17 +42,24 @@ export default function TweetNew(props: Props): JSX.Element {
   }, [setLoading, toastFunc])
 
   const handleDelete = async (tweet: TweetsType): Promise<void> => {
-    await apiClient
-      .delete('/post/newTweet/delete', {
-        params: {
-          tweetId: tweet.id,
-        },
-      })
-      .then((res) => {
-        if (res.status !== HttpStatusCode.Ok) throw Error
-        setTweetsData(res.data.remainingTweets)
-      })
-    setOpen(false)
+    try {
+      setLoading(true)
+      await apiClient
+        .delete('/post/newTweet/delete', {
+          params: {
+            tweetId: tweet.id,
+          },
+        })
+        .then((res) => {
+          if (res.status !== HttpStatusCode.Ok) throw Error
+          setTweetsData(res.data.remainingTweets)
+        })
+      setOpen(false)
+    } catch {
+      toastFunc('削除に失敗しました', true)
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (

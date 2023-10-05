@@ -41,17 +41,23 @@ export default function TweetLike(props: Props): JSX.Element {
   }, [setLoading, toastFunc])
 
   const handleDelete = async (tweet: TweetsType): Promise<void> => {
-    await apiClient
-      .delete('/post/likeTweet/delete', {
-        params: {
-          tweetId: tweet.id,
-        },
-      })
-      .then((res) => {
-        if (res.status !== HttpStatusCode.Ok) throw Error
-        setTweetsData(res.data.sortedTweets)
-      })
-    setOpen(false)
+    try {
+      await apiClient
+        .delete('/post/likeTweet/delete', {
+          params: {
+            tweetId: tweet.id,
+          },
+        })
+        .then((res) => {
+          if (res.status !== HttpStatusCode.Ok) throw Error
+          setTweetsData(res.data.sortedTweets)
+        })
+      setOpen(false)
+    } catch {
+      toastFunc('削除に失敗しました', true)
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (
