@@ -14,10 +14,11 @@ import FollowButton from 'components/parts/Button/Follow'
 interface Props {
   album: ArticlesType
   setLoading: React.Dispatch<React.SetStateAction<boolean>>
+  toastFunc: (content: string, isError: boolean) => void
 }
 
 export default function Profile(props: Props): JSX.Element {
-  const { album, setLoading } = props
+  const { album, setLoading, toastFunc } = props
   const { userId } = useSelector((state: RootState) => state.user)
   const [moreover, setMoreover] = useState<boolean>(false)
 
@@ -45,7 +46,12 @@ export default function Profile(props: Props): JSX.Element {
               className={style.moreover_btn}
             />
           ) : (
-            <FollowButton posts={album} content='Follow' setLoading={setLoading} />
+            <FollowButton
+              posts={album}
+              content='Follow'
+              setLoading={setLoading}
+              toastFunc={toastFunc}
+            />
           )}
           {moreover && (
             <div className={style.moreover_area} onClick={(): Promise<void> => handleDelete(album)}>

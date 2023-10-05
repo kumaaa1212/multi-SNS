@@ -1,14 +1,17 @@
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useRouter } from 'next/router'
+import { useToast } from 'components/hooks/useToast'
 import { stateReset } from 'features/postSlice'
 import apiClient from 'libs/apiClient'
 import { AppDispatch, RootState } from 'store/store'
 import { v4 as uuidv4 } from 'uuid'
 import { supabase } from 'utils/supabaseClient'
+import Loading from 'components/layout/Loading'
 import Button from 'components/parts/Button/Base'
 import SwitchBtn from 'components/parts/Button/Switch/SwitchBtn'
 import HorizontalLinearStepper from 'components/parts/Stepper'
+import ToastBase from 'components/parts/Toast'
 import IdeaModal from 'components/widgets/Modal/Abjustment'
 import KeepModal from 'components/widgets/Modal/Keep'
 import ReverseIcon from '/public/svg/post_reverse.svg'
@@ -32,12 +35,14 @@ export default function AlnumLayout(props: Props): JSX.Element {
   const [ideaOpen, setIdeaOpen] = useState<boolean>(false)
   const [keepOpen, setKeepOpen] = useState<boolean>(false)
   const [abjustOpen, setAbjustOpen] = useState<boolean>(false)
+  const [loading, setLoading] = useState<boolean>(false)
 
   const dispatch: AppDispatch = useDispatch()
   const { thumbnailText, titleText, labels, contentText, thumbnailImg } = useSelector(
     (state: RootState) => state.post,
   )
   const { username, userId, iconPath, icon } = useSelector((state: RootState) => state.user)
+  const { toastContent, isError, isToast, toastFunc } = useToast()
 
   useEffect(() => {
     if (router.pathname === '/post/album/thumbnail') {
@@ -59,17 +64,23 @@ export default function AlnumLayout(props: Props): JSX.Element {
   }
 
   const handleKeep = async (): Promise<void> => {
-    await apiClient.post('/post/keep-post/save', {
-      title: titleText,
-      content: contentText,
-      authorId: userId,
-    })
+    setLoading(true)
+    await apiClient
+      .post('/post/keep-post/save', {
+        title: titleText,
+        content: contentText,
+        authorId: userId,
+      })
+      .then(() => {
+        setLoading(false)
+      })
   }
 
   const handleRelease = async (): Promise<void> => {
     if (!(thumbnailText && titleText && labels.length > 0 && contentText)) {
-      alert('必要な情報が入力されていません')
+      toastFunc('必要な情報が入力されていません', true)
     } else {
+      setLoading(true)
       try {
         if (thumbnailImg === '') {
           try {
@@ -85,7 +96,7 @@ export default function AlnumLayout(props: Props): JSX.Element {
             })
             dispatch(stateReset())
           } catch {
-            alert('投稿に失敗しました')
+            toastFunc('投稿に失敗しました', true)
           }
         } else {
           try {
@@ -110,12 +121,14 @@ export default function AlnumLayout(props: Props): JSX.Element {
             })
             dispatch(stateReset())
           } catch {
-            alert('投稿に失敗しました')
+            toastFunc('投稿に失敗しました', true)
           }
         }
         router.push('/post/album/release')
       } catch {
-        alert('投稿に失敗しました')
+        toastFunc('投稿に失敗しました', true)
+      } finally {
+        setLoading(false)
       }
     }
   }
@@ -187,6 +200,8 @@ export default function AlnumLayout(props: Props): JSX.Element {
         </div>
       </div>
       <div className={style.album_main}>{children}</div>
+      <ToastBase isError={isError} active={isToast} content={toastContent} />
+      {loading && <Loading />}
     </div>
   )
 }

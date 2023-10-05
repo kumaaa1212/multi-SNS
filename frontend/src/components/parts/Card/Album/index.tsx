@@ -12,6 +12,7 @@ import CardHeader from '@mui/material/CardHeader'
 import Collapse from '@mui/material/Collapse'
 import IconButton, { IconButtonProps } from '@mui/material/IconButton'
 import { styled } from '@mui/material/styles'
+import { useToast } from 'components/hooks/useToast'
 import { RootState } from 'store/store'
 import Icongenerate from 'utils/functions/Avater'
 import { formatTimestamp } from 'utils/functions/Time'
@@ -20,6 +21,7 @@ import BookMarkBtn from 'components/parts/Button/BookMark'
 import FollowButton from 'components/parts/Button/Follow'
 import AlbumLikeBtn from 'components/parts/Button/Like/Album'
 import DeleteIcon from '/public/svg/tweet_delete.svg'
+import ToastBase from 'components/parts/Toast'
 import style from './ArticlesCard.module.scss'
 
 interface ExpandMoreProps extends IconButtonProps {
@@ -49,6 +51,7 @@ export default function AlbumCard(props: Props): JSX.Element {
   const { userId } = useSelector((state: RootState) => state.user)
   const [expanded, setExpanded] = useState<boolean>(false)
   const [moreover, setMoreover] = useState<boolean>(false)
+  const { toastContent, isError, isToast, toastFunc } = useToast()
   const [countLikes, setCountLikes] = useState<number>(album?.likes?.length)
   const [countBookmarks, setCountBookmarks] = useState<number>(album?.bookmarks?.length)
 
@@ -77,7 +80,12 @@ export default function AlbumCard(props: Props): JSX.Element {
                 className={style.moreover_btn}
               />
             ) : (
-              <FollowButton posts={album} content='Follow' setLoading={setLoading} />
+              <FollowButton
+                posts={album}
+                content='Follow'
+                setLoading={setLoading}
+                toastFunc={toastFunc}
+              />
             )
           }
           title={album?.title}
@@ -107,11 +115,15 @@ export default function AlbumCard(props: Props): JSX.Element {
         </CardContent>
         <CardActions disableSpacing>
           <IconButton aria-label='add to favorites'>
-            <AlbumLikeBtn album={album} setCountLikes={setCountLikes} />
+            <AlbumLikeBtn album={album} setCountLikes={setCountLikes} toastFunc={toastFunc} />
             <span>{countLikes}</span>
           </IconButton>
           <IconButton aria-label='share'>
-            <BookMarkBtn album={album} setCountBookmarks={setCountBookmarks} />
+            <BookMarkBtn
+              album={album}
+              setCountBookmarks={setCountBookmarks}
+              toastFunc={toastFunc}
+            />
             <span>{countBookmarks}</span>
           </IconButton>
           <ExpandMore
@@ -131,6 +143,7 @@ export default function AlbumCard(props: Props): JSX.Element {
           </CardContent>
         </Collapse>
       </Card>
+      <ToastBase isError={isError} active={isToast} content={toastContent} />
     </div>
   )
 }

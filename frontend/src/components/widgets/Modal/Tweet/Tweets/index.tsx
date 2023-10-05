@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useSelector } from 'react-redux'
 import Image from 'next/image'
+import { useToast } from 'components/hooks/useToast'
 import apiClient from 'libs/apiClient'
 import { RootState } from 'store/store'
 import { v4 as uuidv4 } from 'uuid'
@@ -9,6 +10,7 @@ import { supabase } from 'utils/supabaseClient'
 import { TeamDataType } from 'types/internal'
 import ButtonBase from 'components/parts/Button/Base'
 import ModalBase from 'components/parts/Modal'
+import ToastBase from 'components/parts/Toast'
 import Labels from 'components/widgets/Label/Input'
 import CloseIcon from '/public/svg/modal_close.svg'
 import ImgIcon from '/public/svg/modal_tweet_img.svg'
@@ -27,12 +29,13 @@ export default function TweetModal(props: Props): JSX.Element {
   const [tweetContents, setTweetContents] = useState<string>('')
   const [dispalayImg, setDisplayImg] = useState<string>('')
   const [selectedLabels, setSelectedLabels] = useState<TeamDataType[]>([])
+  const { toastContent, isError, isToast, toastFunc } = useToast()
   const [fileData, setFile] = useState<File>()
 
   const handleTweet = async (): Promise<void> => {
     try {
       setLoading(true)
-      if (tweetContents && fileData && selectedLabels.length === 1) {
+      if (tweetContents && fileData) {
         const { data: storageData, error: storegeError } = await supabase.storage
           .from('thumbnail')
           .upload(`${userId}/${uuidv4()}`, fileData ? fileData : '')
@@ -40,22 +43,25 @@ export default function TweetModal(props: Props): JSX.Element {
           throw storegeError
         }
         const { data: urlData } = supabase.storage.from('thumbnail').getPublicUrl(storageData.path)
-        await apiClient.post('/post/tweet', {
-          content: tweetContents,
-          authorId: userId,
-          authorName: username,
-          authorAvatar: iconPath,
-          img: urlData.publicUrl ? urlData.publicUrl : '',
-          label: selectedLabels[0].name,
-        })
-        setTweetContents('')
-        setDisplayImg('')
-        setFile(undefined)
-        setSelectedLabels([])
-        setOpen(false)
+        await apiClient
+          .post('/post/tweet', {
+            content: tweetContents,
+            authorId: userId,
+            authorName: username,
+            authorAvatar: iconPath,
+            img: urlData.publicUrl ? urlData.publicUrl : '',
+            label: selectedLabels[0].name,
+          })
+          .then((res) => {
+            setTweetContents('')
+            setDisplayImg('')
+            setFile(undefined)
+            setSelectedLabels([])
+            setOpen(false)
+          })
       }
     } catch {
-      alert('ツイートに失敗しました')
+      toastFunc('投稿に失敗しました', true)
     } finally {
       setLoading(false)
     }
@@ -132,6 +138,7 @@ export default function TweetModal(props: Props): JSX.Element {
           <ButtonBase onClick={handleTweet} content='Tweet' weight='weight_600' size='sm' black />
         </div>
       </div>
+      <ToastBase content={toastContent} isError={isError} active={isToast} />
     </ModalBase>
   )
 }

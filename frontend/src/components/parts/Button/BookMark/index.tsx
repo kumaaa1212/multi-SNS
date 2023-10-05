@@ -10,15 +10,17 @@ import { ArticlesType } from 'types/internal/album'
 interface Props {
   album: ArticlesType
   setCountBookmarks: React.Dispatch<React.SetStateAction<number>>
+  toastFunc: (content: string, isError: boolean) => void
 }
 
 const BookMarkBtn = (props: Props): JSX.Element => {
-  const { album, setCountBookmarks } = props
+  const { album, setCountBookmarks, toastFunc } = props
 
   const { userId } = useSelector((state: RootState) => state.user)
   const [bookmark, setBookmark] = useState<boolean>(false)
 
   useEffect(() => {
+    if (!userId) return
     const fetchBookmark = async (): Promise<void> => {
       const [likeCheckRes, likeCountRes] = await Promise.all([
         apiClient.get('/post/album/bookmark/check', {
@@ -43,8 +45,9 @@ const BookMarkBtn = (props: Props): JSX.Element => {
   }, [album, setCountBookmarks, userId])
 
   const handleBookMark = async (): Promise<void> => {
+    if (!userId) return toastFunc('ログインしてください', true)
     if (bookmark) {
-      const res = await apiClient
+      await apiClient
         .delete('/post/album/bookmark/delete', {
           data: {
             postId: album.id,
@@ -57,7 +60,7 @@ const BookMarkBtn = (props: Props): JSX.Element => {
           setBookmark(false)
         })
     } else {
-      const res = await apiClient
+      await apiClient
         .post('/post/album/bookmark/add', {
           postId: album.id,
           authorId: userId,

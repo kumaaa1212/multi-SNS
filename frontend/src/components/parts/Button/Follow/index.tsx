@@ -10,10 +10,11 @@ interface Props {
   posts: ArticlesType | TweetsType
   content: string
   setLoading: (loading: boolean) => void
+  toastFunc: (content: string, isError: boolean) => void
 }
 
 export default function FollowButton(props: Props): JSX.Element {
-  const { posts, content, setLoading } = props
+  const { posts, content, setLoading, toastFunc } = props
 
   const { follow, userId, iconPath, icon, bio, team, twitterURL, teamURL, username } = useSelector(
     (state: RootState) => state.user,
@@ -46,7 +47,6 @@ export default function FollowButton(props: Props): JSX.Element {
       .then((res) => {
         if (res.status !== HttpStatusCode.Ok) throw Error
         setLoading(false)
-        // dispatch(updataFrends(res.data.updateUser))
       })
   }
 
@@ -62,11 +62,11 @@ export default function FollowButton(props: Props): JSX.Element {
       .then((res) => {
         if (res.status !== HttpStatusCode.Ok) throw Error
         setLoading(false)
-        // dispatch(updataFrends(res.data.updateUser))
       })
   }
 
   useEffect(() => {
+    if (!userId) return
     const ckeckFollow = async (): Promise<void> => {
       await apiClient
         .get(`/auth/follow/check`, {
@@ -84,6 +84,7 @@ export default function FollowButton(props: Props): JSX.Element {
   }, [posts.authorId, follow, userId, setLoading])
 
   const handleFrends = (): void => {
+    if (!userId) return toastFunc('ログインしてください', true)
     if (followBtn) {
       unFollowUser(posts.authorId, userId)
     } else {

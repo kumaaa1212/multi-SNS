@@ -10,16 +10,18 @@ import { ArticlesType } from 'types/internal/album'
 interface Props {
   album: ArticlesType
   setCountLikes: React.Dispatch<React.SetStateAction<number>>
+  toastFunc: (content: string, isError: boolean) => void
 }
 
 export default function AlbumLikeBtn(props: Props): JSX.Element {
-  const { album, setCountLikes } = props
+  const { album, setCountLikes, toastFunc } = props
 
   const { userId } = useSelector((state: RootState) => state.user)
   const [likeBtn, setLikeBtn] = useState<boolean>(false)
 
   useEffect(() => {
     const fetchData = async (): Promise<void> => {
+      if (!userId) return
       const [likeCheckRes, likeCountRes] = await Promise.all([
         apiClient.get('/post/album/like/check', {
           params: {
@@ -42,6 +44,7 @@ export default function AlbumLikeBtn(props: Props): JSX.Element {
   }, [album.id, setCountLikes, userId])
 
   const handleLike = async (): Promise<void> => {
+    if (!userId) return toastFunc('ログインしてください', true)
     if (likeBtn) {
       await apiClient
         .post('/post/album/like/delete', {
