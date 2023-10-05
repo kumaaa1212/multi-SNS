@@ -57,7 +57,7 @@ export default function TweetNew(props: Props): JSX.Element {
 
   return (
     <TweetArea>
-      {tweetsNewFilter?.map((tweet) => (
+      {tweetsNewFilter?.slice(currentPage, currentPage + 6).map((tweet) => (
         <>
           <div className={style.large}>
             <TweetCard

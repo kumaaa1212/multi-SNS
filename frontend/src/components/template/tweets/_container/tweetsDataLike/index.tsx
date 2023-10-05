@@ -56,7 +56,7 @@ export default function TweetLike(props: Props): JSX.Element {
 
   return (
     <TweetArea>
-      {tweetsLikeFilter?.map((tweet) => (
+      {tweetsLikeFilter?.slice(currentPage, currentPage + 6).map((tweet) => (
         <>
           <div className={style.large}>
             <TweetCard
