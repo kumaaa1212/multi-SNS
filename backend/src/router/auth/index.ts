@@ -123,22 +123,20 @@ router.post("/follow", async (req: Request, res: Response) => {
       return res.status(404).json({ error: "User not found." });
     }
 
-    // Create a new Follow entry for the authorUser
-    const follow = await prisma.follow.create({
+    await prisma.follow.create({
       data: {
         userId: Number(userId),
         frendId: Number(authorId),
         bio: authorUser.bio,
-        name : authorUser.name,
+        name: authorUser.name,
         icon: authorUser.icon,
         team: authorUser.team,
         twitterURL: authorUser.twitterURL,
-        teamURL : authorUser.teamURL,
+        teamURL: authorUser.teamURL,
       },
     });
 
-    // Create a new Follower entry for the followerUser
-    const follower = await prisma.follower.create({
+    await prisma.follower.create({
       data: {
         userId: Number(authorId),
         frendId: Number(userId),
@@ -153,7 +151,11 @@ router.post("/follow", async (req: Request, res: Response) => {
 
     const updateUser = await prisma.user.findFirst({
       where: { id: Number(userId) },
-    })
+      include: {
+        follows: true,
+        followers: true,
+      },
+    });
 
     res.status(200).json({ updateUser });
   } catch (error) {
@@ -170,7 +172,7 @@ router.delete("/unfollow", async (req: Request, res: Response) => {
 
   try {
     const authorUser = await prisma.user.findUnique({
-      where: { id: Number(authorId) }, 
+      where: { id: Number(authorId) },
     });
 
     const followerUser = await prisma.user.findUnique({
@@ -189,18 +191,20 @@ router.delete("/unfollow", async (req: Request, res: Response) => {
       where: { userId: Number(authorId) },
     });
 
-    // Disconnect follower from the author
     const updateUser = await prisma.user.findFirst({
       where: { id: Number(userId) },
-    })
+      include: {
+        follows: true,
+        followers: true,
+      },
+    });
 
-    res.status(200).json({ updateUser});
+    res.status(200).json({ updateUser });
   } catch (error) {
     console.error("フォローの削除中にエラーが発生しました:", error);
     res.status(500).json({ error: "フォローの削除中にエラーが発生しました。" });
   }
 });
-
 
 // followの状態を確認する
 router.get("/follow/check", async (req: Request, res: Response) => {
@@ -216,7 +220,9 @@ router.get("/follow/check", async (req: Request, res: Response) => {
       return res.status(404).json({ error: "User not found." });
     }
 
-    const isFollowing = user.followers.some((follow) => follow.frendId === Number(userId));
+    const isFollowing = user.followers.some(
+      (follow) => follow.frendId === Number(userId)
+    );
 
     return res.json({ isFollowing });
   } catch (error) {

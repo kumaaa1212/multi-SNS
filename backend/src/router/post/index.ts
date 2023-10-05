@@ -33,26 +33,28 @@ router.post("/keep-post/save", async (req: Request, res: Response) => {
 });
 
 // 保存したalbumを削除する
-router.delete("/keep-post/delete/album", async (req: Request, res: Response) => {
-  const { postId, authorId } = req.query;
-  try {
-    await prisma.keepPost.delete({
-      where: {
-        id: Number(postId),
-      },
-    });
+router.delete("/keep-post/delete/album",
+  async (req: Request, res: Response) => {
+    const { postId, authorId } = req.query;
+    try {
+      await prisma.keepPost.delete({
+        where: {
+          id: Number(postId),
+        },
+      });
 
-    const keepPosts = await prisma.keepPost.findMany({
-      where: {
-        authorId: String(authorId),
-      },
-    });
+      const keepPosts = await prisma.keepPost.findMany({
+        where: {
+          authorId: String(authorId),
+        },
+      });
 
-    return res.status(200).json({ keepPosts });
-  } catch (error) {
-    return res.status(500).json({ error: "Failed to delete post" });
+      return res.status(200).json({ keepPosts });
+    } catch (error) {
+      return res.status(500).json({ error: "Failed to delete post" });
+    }
   }
-});
+);
 
 // albumを保存した内容を取得する
 router.get("/keep-post/:authorId", async (req: Request, res: Response) => {
@@ -272,7 +274,7 @@ router.delete("/album/more/delete", async (req, res) => {
       return res.status(404).json({ error: "Post not found." });
     }
 
-    return res.json( 'success' );
+    return res.json("success");
   } catch (err) {
     console.error(err);
     return res
@@ -376,6 +378,37 @@ router.get("/album/myalbum/:userId", async (req: Request, res: Response) => {
     return res.json({ posts });
   } catch (err: any) {
     res.json({ error: err.message });
+  }
+});
+
+// 特定のユーザーの投稿を削除する
+router.delete("/album/myalbum/delete", async (req: Request, res: Response) => {
+  const { userId, postId } = req.query;
+  try {
+    await prisma.post.delete({
+      where: {
+        id: Number(postId),
+        authorId: String(userId),
+      },
+    });
+
+    const updatedPosts = await prisma.post.findMany({
+      where: {
+        authorId: String(userId),
+      },
+      orderBy: {
+        createdAt: "desc",
+      },
+      include: {
+        labels: true,
+        likes: true,
+        bookmarks: true,
+      },
+    });
+
+    return res.json({ updatedPosts });
+  } catch (err: any) {
+    return res.status(500).json({ error: err.message });
   }
 });
 
@@ -527,8 +560,8 @@ router.get("/album/likes/:userId", async (req, res) => {
   }
 });
 
-// 自分が保存しているかを確認する
-router.get("/album/like/:authorId", async (req: Request, res: Response) => {
+// 自分がいいねしているかを確認する
+router.get("/myalbum/like/:authorId", async (req: Request, res: Response) => {
   const { authorId } = req.params;
 
   try {
@@ -552,6 +585,41 @@ router.get("/album/like/:authorId", async (req: Request, res: Response) => {
     res.status(500).json({ error: "Failed to check like status." });
   }
 });
+
+// 自分がいいねしているエリアの投稿を削除する
+router.delete("/myalbum/like/delete",
+  async (req: Request, res: Response) => {
+    const { userId, postId } = req.params;
+
+    try {
+      await prisma.post.delete({
+        where: {
+          id: Number(postId),
+          authorId: userId,
+        },
+      });
+
+      const likedPosts = await prisma.post.findMany({
+        where: {
+          likes: {
+            some: {
+              authorId: String(userId),
+            },
+          },
+        },
+        include: {
+          labels: true,
+          likes: true,
+          bookmarks: true,
+        },
+      });
+
+      return res.json({ likedPosts });
+    } catch (err: any) {
+      return res.status(500).json({ error: err.message });
+    }
+  }
+);
 
 // ブックマークを追加する
 router.post("/album/bookmark/add", async (req, res) => {
@@ -677,7 +745,7 @@ router.get("/album/bookmark/get", async (req, res) => {
 });
 
 // 自分がbookmarkした投稿の取得
-router.get( "/album/bookmarked/:authorId",
+router.get("/album/bookmarked/:authorId",
   async (req: Request, res: Response) => {
     const { authorId } = req.params;
 
@@ -686,7 +754,7 @@ router.get( "/album/bookmarked/:authorId",
         where: {
           bookmarks: {
             some: {
-              authorId: authorId,
+              authorId: String(authorId),
             },
           },
         },
@@ -703,6 +771,41 @@ router.get( "/album/bookmarked/:authorId",
       return res
         .status(500)
         .json({ error: "Failed to retrieve bookmarked posts." });
+    }
+  }
+);
+
+// 自分がbookmarkした投稿エリアの削除
+router.delete("/myalbum/bookmark/delete",
+  async (req: Request, res: Response) => {
+    const { userId, postId } = req.params;
+
+    try {
+      await prisma.post.delete({
+        where: {
+          id: Number(postId),
+          authorId: userId,
+        },
+      });
+
+      const bookmarkedPosts = await prisma.post.findMany({
+        where: {
+          bookmarks: {
+            some: {
+              authorId: String(userId),
+            },
+          },
+        },
+        include: {
+          labels: true,
+          likes: true,
+          bookmarks: true,
+        },
+      });
+
+      return res.json({ bookmarkedPosts });
+    } catch (err: any) {
+      return res.status(500).json({ error: err.message });
     }
   }
 );

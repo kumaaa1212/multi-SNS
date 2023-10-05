@@ -103,15 +103,17 @@ const userSlice = createSlice({
       }
     },
 
-    // updataFrends: (state, action) => {
-    //   return {
-    //     ...state,
-    //     follow: action.payload.follow,
-    //   }
-    // },
+    updataFrends: (state, action) => {
+      return {
+        ...state,
+        follow: action.payload.follow,
+        follower: action.payload.followers,
+      }
+    },
   },
 })
 
-export const { loginUser, logoutUser, updateUser, updataLikeCount, singUpUser } = userSlice.actions
+export const { loginUser, logoutUser, updateUser, updataLikeCount, singUpUser, updataFrends } =
+  userSlice.actions
 
 export default userSlice.reducer
