@@ -3,59 +3,61 @@ import { useSelector } from 'react-redux'
 import apiClient from 'libs/apiClient'
 import { RootState } from 'store/store'
 import { TweetsType } from 'types/internal/tweet'
-import Loading from 'components/layout/Loading'
 
 interface Props {
   tweet: TweetsType
   setCountLikes: React.Dispatch<React.SetStateAction<number>>
+  setLoading: (loading: boolean) => void
 }
 
-const TweetLikeBtn = (props: Props): JSX.Element => {
+export default function TweetLikeBtn(props: Props): JSX.Element {
+  const { tweet, setCountLikes, setLoading } = props
+
   const { userId } = useSelector((state: RootState) => state.user)
-
-  const { tweet, setCountLikes } = props
-
   const [likeBtn, setLikeBtn] = useState<boolean>(false)
-  const [loading, setLoading] = useState<boolean>(false)
 
   useEffect(() => {
     const fetchLike = async (): Promise<void> => {
-      try {
-        setLoading(true)
-        const res = await apiClient.post('/post/tweet/like/check', {
+      await apiClient
+        .post('/post/tweet/like/check', {
           tweetId: tweet.id,
           authorId: userId,
         })
-        setLikeBtn(res.data.hasLiked)
-      } catch {
-        alert('エラーが発生しました')
-      } finally {
-        setLoading(false)
-      }
+        .then((res) => {
+          if (res.status !== 200) throw Error
+          setLikeBtn(res.data.hasLiked)
+        })
     }
 
     fetchLike()
-  }, [tweet, userId])
+  }, [setLoading, tweet, userId])
 
   const handleLike = async (): Promise<void> => {
-    try {
-      if (likeBtn) {
-        await apiClient.post('/post/tweet/like/delete', {
+    setLoading(true)
+    if (likeBtn) {
+      await apiClient
+        .post('/post/tweet/like/delete', {
           tweetId: tweet.id,
           authorId: userId,
         })
-        setCountLikes((prev: number) => prev - 1)
-        setLikeBtn(false)
-      } else {
-        await apiClient.post('/post/tweet/like/add', {
+        .then((res) => {
+          if (res.status !== 200) throw Error
+          setCountLikes((prev: number) => prev - 1)
+          setLikeBtn(false)
+          setLoading(false)
+        })
+    } else {
+      await apiClient
+        .post('/post/tweet/like/add', {
           tweetId: tweet.id,
           authorId: userId,
         })
-        setCountLikes((prev: number) => prev + 1)
-        setLikeBtn(true)
-      }
-    } catch {
-      alert('エラーが発生しました')
+        .then((res) => {
+          if (res.status !== 200) throw Error
+          setCountLikes((prev: number) => prev + 1)
+          setLikeBtn(true)
+          setLoading(false)
+        })
     }
   }
 
@@ -94,9 +96,6 @@ const TweetLikeBtn = (props: Props): JSX.Element => {
           <path d='M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572' />
         </svg>
       )}
-      {loading && <Loading />}
     </>
   )
 }
-
-export default TweetLikeBtn

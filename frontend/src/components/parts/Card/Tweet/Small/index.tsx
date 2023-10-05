@@ -14,10 +14,11 @@ import style from './Small.module.scss'
 interface Props {
   tweet: TweetsType
   handleDelete: (album: TweetsType) => void
+  setLoading: (loading: boolean) => void
 }
 
 export default function SmallTweetCard(props: Props): JSX.Element {
-  const { tweet, handleDelete } = props
+  const { tweet, handleDelete, setLoading } = props
 
   const { userId } = useSelector((state: RootState) => state.user)
   const [moreover, setMoreover] = useState<boolean>(false)
@@ -51,7 +52,7 @@ export default function SmallTweetCard(props: Props): JSX.Element {
                 className={style.moreover_btn}
               />
             ) : (
-              <FollowButton posts={tweet} content='follow' />
+              <FollowButton posts={tweet} content='follow' setLoading={setLoading} />
             )}
             {moreover && (
               <div className={style.moreover_area} onClick={(): void => handleDelete(tweet)}>
@@ -76,7 +77,7 @@ export default function SmallTweetCard(props: Props): JSX.Element {
         </div>
         <div className={style.footer}>
           <IconButton aria-label='add to favorites'>
-            <TweetLikeBtn tweet={tweet} setCountLikes={setCountLikes} />
+            <TweetLikeBtn tweet={tweet} setCountLikes={setCountLikes} setLoading={setLoading} />
             <span>{countLikes}</span>
           </IconButton>
         </div>

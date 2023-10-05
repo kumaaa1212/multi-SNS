@@ -26,7 +26,7 @@ router.get("/all/content/order/like", async (req: Request, res: Response) => {
     res.json({ error: err.message });
   }
 });
-// 投稿全の取得(投稿順)
+
 router.get("/all/content/order/new", async (req: Request, res: Response) => {
   try {
     const articleTopNew = await prisma.post.findMany({

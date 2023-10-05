@@ -1,20 +1,20 @@
 import { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { HttpStatusCode } from 'axios'
 import apiClient from 'libs/apiClient'
-import { AppDispatch, RootState } from 'store/store'
+import { RootState } from 'store/store'
 import { ArticlesType } from 'types/internal/album'
 import { TweetsType } from 'types/internal/tweet'
 import style from './FollowBtn.module.scss'
 interface Props {
   posts: ArticlesType | TweetsType
   content: string
+  setLoading: (loading: boolean) => void
 }
 
 export default function FollowButton(props: Props): JSX.Element {
-  const { posts, content } = props
+  const { posts, content, setLoading } = props
 
-  const dispatch: AppDispatch = useDispatch()
   const { follow, userId, iconPath, icon, bio, team, twitterURL, teamURL, username } = useSelector(
     (state: RootState) => state.user,
   )
@@ -30,6 +30,7 @@ export default function FollowButton(props: Props): JSX.Element {
     twitterURL: string | undefined,
     teamURL: string | undefined,
   ): Promise<void> => {
+    setLoading(true)
     await apiClient
       .post('/auth/follow', {
         authorId,
@@ -43,14 +44,14 @@ export default function FollowButton(props: Props): JSX.Element {
         teamURL,
       })
       .then((res) => {
-        if (res.status !== HttpStatusCode.Ok) {
-          throw new Error('Failed to follow user')
-        }
+        if (res.status !== HttpStatusCode.Ok) throw Error
+        setLoading(false)
         // dispatch(updataFrends(res.data.updateUser))
       })
   }
 
   const unFollowUser = async (_authorId: string, userId: string): Promise<void> => {
+    setLoading(true)
     await apiClient
       .delete('/auth/unfollow', {
         params: {
@@ -60,6 +61,7 @@ export default function FollowButton(props: Props): JSX.Element {
       })
       .then((res) => {
         if (res.status !== HttpStatusCode.Ok) throw Error
+        setLoading(false)
         // dispatch(updataFrends(res.data.updateUser))
       })
   }
@@ -79,7 +81,7 @@ export default function FollowButton(props: Props): JSX.Element {
         })
     }
     ckeckFollow()
-  }, [posts.authorId, follow, userId])
+  }, [posts.authorId, follow, userId, setLoading])
 
   const handleFrends = (): void => {
     if (followBtn) {

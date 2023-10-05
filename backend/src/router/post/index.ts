@@ -13,6 +13,7 @@ router.get("/album/labels", async (req, res) => {
     res.status(500).json({ error: "An error occurred while fetching data." });
   }
 });
+
 // albumを保存する
 router.post("/keep-post/save", async (req: Request, res: Response) => {
   const { title, content, authorId } = req.body;
@@ -30,6 +31,22 @@ router.post("/keep-post/save", async (req: Request, res: Response) => {
     res.json({ error: err.message });
   }
 });
+
+// 保存したalbumを削除する
+router.delete("/keep-post/delete/album", async (req: Request, res: Response) => {
+  const { postId } = req.query;
+  try {
+    await prisma.keepPost.delete({
+      where: {
+        id: Number(postId),
+      },
+    });
+    return res.status(200).json({ message: "success" });
+  } catch (error) {
+    return res.status(500).json({ error: "Failed to delete post" });
+  }
+});
+
 // albumを保存した内容を取得する
 router.get("/keep-post/:authorId", async (req: Request, res: Response) => {
   const { authorId } = req.params;
@@ -45,6 +62,7 @@ router.get("/keep-post/:authorId", async (req: Request, res: Response) => {
     res.json({ error: err.message });
   }
 });
+
 // albumを追加する
 router.post("/tweet", async (req: Request, res: Response) => {
   const { content, authorId, authorName, authorAvatar, img, label } = req.body;
@@ -65,6 +83,7 @@ router.post("/tweet", async (req: Request, res: Response) => {
     res.json({ error: err.message });
   }
 });
+
 // albumを追加する
 router.post("/album", async (req: Request, res: Response) => {
   const {
@@ -103,6 +122,7 @@ router.post("/album", async (req: Request, res: Response) => {
     res.json({ error: err.message });
   }
 });
+
 // 削除して、albumの投稿順に返す
 router.delete("/Newalbum/delete", async (req, res) => {
   const { postId } = req.query;
@@ -156,6 +176,8 @@ router.delete("/Newalbum/delete", async (req, res) => {
       .json({ error: "An error occurred while deleting the post." });
   }
 });
+// 削除して、albumの投稿順に返す(mypageの部分)
+
 // 削除して、albumのlikeの順に返す
 router.delete("/Likealbum/delete", async (req, res) => {
   const { postId } = req.query;
@@ -209,6 +231,7 @@ router.delete("/Likealbum/delete", async (req, res) => {
       .json({ error: "An error occurred while deleting the post." });
   }
 });
+
 // albumMoreのアルバムを削除する
 router.delete("/album/more/delete", async (req, res) => {
   const { postId } = req.query;
@@ -250,6 +273,7 @@ router.delete("/album/more/delete", async (req, res) => {
       .json({ error: "An error occurred while deleting the post." });
   }
 });
+
 // 全アルバムの取得(いいね順上位6個)
 router.get("/all/album/top", async (req: Request, res: Response) => {
   try {
@@ -274,6 +298,7 @@ router.get("/all/album/top", async (req: Request, res: Response) => {
     res.json({ error: err.message });
   }
 });
+
 // 全tweetの取得(いいね順上位6個)
 router.get("/all/tweet/top", async (req: Request, res: Response) => {
   try {
@@ -296,6 +321,7 @@ router.get("/all/tweet/top", async (req: Request, res: Response) => {
     res.json({ error: err.message });
   }
 });
+
 // 特定の投稿を取得する
 router.get("/album/:postId", async (req: Request, res: Response) => {
   const { postId } = req.params;
@@ -321,6 +347,7 @@ router.get("/album/:postId", async (req: Request, res: Response) => {
     res.json({ error: err.message });
   }
 });
+
 // 特定のユーザーの投稿を取得する
 router.get("/album/myalbum/:userId", async (req: Request, res: Response) => {
   const { userId } = req.params;
@@ -344,6 +371,7 @@ router.get("/album/myalbum/:userId", async (req: Request, res: Response) => {
     res.json({ error: err.message });
   }
 });
+
 // いいねを追加する
 router.post("/album/like/add", async (req: Request, res: Response) => {
   const { postId, authorId } = req.body;
@@ -376,6 +404,7 @@ router.post("/album/like/add", async (req: Request, res: Response) => {
     res.status(500).json({ error: "Failed to add like." });
   }
 });
+
 // いいねを取り除く
 router.post("/album/like/delete", async (req: Request, res: Response) => {
   const { postId, authorId } = req.body;
@@ -426,6 +455,7 @@ router.post("/album/like/delete", async (req: Request, res: Response) => {
     res.status(500).json({ error: "Failed to remove like." });
   }
 });
+
 // いいねをしているかを確認する
 router.get("/album/like/check", async (req: Request, res: Response) => {
   const { postId, authorId } = req.query;
@@ -445,6 +475,7 @@ router.get("/album/like/check", async (req: Request, res: Response) => {
     res.status(500).json({ error: "Failed to check like status." });
   }
 });
+
 // 特定のlikeの配列を返す
 router.get("/like/count", async (req, res) => {
   const { postId } = req.query;
@@ -470,6 +501,7 @@ router.get("/like/count", async (req, res) => {
     res.status(500).json({ error: "Failed to fetch like count." });
   }
 });
+
 // 自分のいいねの一覧を取得する
 router.get("/album/likes/:userId", async (req, res) => {
   const { userId } = req.params;
@@ -487,6 +519,7 @@ router.get("/album/likes/:userId", async (req, res) => {
     return res.status(500).json({ error: "Failed to retrieve likes." });
   }
 });
+
 // 自分が保存しているかを確認する
 router.get("/album/like/:authorId", async (req: Request, res: Response) => {
   const { authorId } = req.params;
@@ -512,6 +545,7 @@ router.get("/album/like/:authorId", async (req: Request, res: Response) => {
     res.status(500).json({ error: "Failed to check like status." });
   }
 });
+
 // ブックマークを追加する
 router.post("/album/bookmark/add", async (req, res) => {
   const { postId, authorId } = req.body;
@@ -546,6 +580,7 @@ router.post("/album/bookmark/add", async (req, res) => {
     return res.status(500).json({ error: "Failed to add bookmark." });
   }
 });
+
 // bookmarkを削除する
 router.delete("/album/bookmark/delete", async (req: Request, res: Response) => {
   const { postId, authorId } = req.body;
@@ -592,6 +627,7 @@ router.post("/album/like/check", async (req: Request, res: Response) => {
     res.status(500).json({ error: "Failed to check like status." });
   }
 });
+
 // ブックマークの状態を確認する
 router.get("/album/bookmark/check", async (req: Request, res: Response) => {
   const { postId, authorId } = req.query;
@@ -611,6 +647,7 @@ router.get("/album/bookmark/check", async (req: Request, res: Response) => {
     res.status(500).json({ error: "Failed to check bookmark status." });
   }
 });
+
 // 特定のbookmarkの配列を返す
 router.get("/album/bookmark/get", async (req, res) => {
   const { postId, authorId } = req.query;
@@ -631,6 +668,7 @@ router.get("/album/bookmark/get", async (req, res) => {
     return res.status(500).json({ error: "Failed to fetch bookmarks." });
   }
 });
+
 // 自分がbookmarkした投稿の取得
 router.get( "/album/bookmarked/:authorId",
   async (req: Request, res: Response) => {
@@ -661,6 +699,7 @@ router.get( "/album/bookmarked/:authorId",
     }
   }
 );
+
 // ラベルによるチーム別投稿の取得
 router.get("/album/team/:label", async (req: Request, res: Response) => {
   const { label } = req.params;
@@ -685,6 +724,7 @@ router.get("/album/team/:label", async (req: Request, res: Response) => {
     res.json({ error: err.message });
   }
 });
+
 // tweetのlikeを確認する
 router.post("/tweet/like/check", async (req: Request, res: Response) => {
   const { tweetId, authorId } = req.body;
@@ -704,6 +744,7 @@ router.post("/tweet/like/check", async (req: Request, res: Response) => {
     res.status(500).json({ error: "Failed to check like status." });
   }
 });
+
 // tweetのlikeを削除する
 router.post("/tweet/like/delete", async (req: Request, res: Response) => {
   const { tweetId, authorId } = req.body;
@@ -751,6 +792,7 @@ router.post("/tweet/like/delete", async (req: Request, res: Response) => {
     res.status(500).json({ error: "Failed to remove like." });
   }
 });
+
 // tweetにlikeを追加する
 router.post("/tweet/like/add", async (req: Request, res: Response) => {
   const { tweetId, authorId } = req.body;
@@ -783,6 +825,7 @@ router.post("/tweet/like/add", async (req: Request, res: Response) => {
     res.status(500).json({ error: "Failed to add like." });
   }
 });
+
 // 自分がlikeしたtweetの取得
 router.get("/tweet/like/:authorId", async (req: Request, res: Response) => {
   const { authorId } = req.params;
@@ -806,6 +849,7 @@ router.get("/tweet/like/:authorId", async (req: Request, res: Response) => {
     res.status(500).json({ error: "Failed to check like status." });
   }
 });
+
 // 削除して、albumの投稿順に返す
 router.delete("/newTweet/delete", async (req, res) => {
   const { tweetId } = req.query;
@@ -847,6 +891,7 @@ router.delete("/newTweet/delete", async (req, res) => {
       .json({ error: "An error occurred while deleting the tweet." });
   }
 });
+
 // 削除して、albumのlikeの順に返す
 router.delete("/likeTweet/delete", async (req, res) => {
   const { tweetId } = req.query;

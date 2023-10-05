@@ -12,9 +12,11 @@ interface Props {
   albumserch: string
   tweetsLike: TweetsType[]
   currentPage: number
+  setLoading: React.Dispatch<React.SetStateAction<boolean>>
+  toastFunc: (content: string, isError: boolean) => void
 }
 export default function TweetLike(props: Props): JSX.Element {
-  const { tweetsLike, albumserch, currentPage } = props
+  const { tweetsLike, albumserch, currentPage, setLoading, toastFunc } = props
 
   const [tweetsData, setTweetsData] = useState<TweetsType[]>(tweetsLike)
   const [open, setOpen] = useState<boolean>(false)
@@ -23,13 +25,20 @@ export default function TweetLike(props: Props): JSX.Element {
 
   useEffect(() => {
     const detaFetch = async (): Promise<void> => {
-      const resLike = await apiClient.get('/article/all/tweets/order/like')
-
-      if (resLike.status !== HttpStatusCode.Ok) throw Error
-      setTweetsData(resLike.data.tweetsTopLike)
+      setLoading(true)
+      try {
+        await apiClient.get('/article/all/tweets/order/like').then((res) => {
+          if (res.status !== HttpStatusCode.Ok) throw Error
+          setTweetsData(res.data.tweetsTopLike)
+        })
+      } catch {
+        toastFunc('データの取得に失敗しました', true)
+      } finally {
+        setLoading(false)
+      }
     }
     detaFetch()
-  }, [])
+  }, [setLoading, toastFunc])
 
   const handleDelete = async (tweet: TweetsType): Promise<void> => {
     await apiClient
@@ -47,10 +56,15 @@ export default function TweetLike(props: Props): JSX.Element {
 
   return (
     <TweetArea>
-      {tweetsLikeFilter?.slice(currentPage, currentPage + 6).map((tweet) => (
+      {tweetsLikeFilter?.map((tweet) => (
         <>
           <div className={style.large}>
-            <TweetCard tweet={tweet} key={tweet.id} handleDelete={handleDelete} />
+            <TweetCard
+              tweet={tweet}
+              key={tweet.id}
+              handleDelete={handleDelete}
+              setLoading={setLoading}
+            />
           </div>
           <div className={style.small}>
             <HomeTweetCard tweet={tweet} setOpen={setOpen} setShowTweets={setShowTweets} />

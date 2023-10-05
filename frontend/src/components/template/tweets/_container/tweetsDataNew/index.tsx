@@ -12,10 +12,12 @@ interface Props {
   albumserch: string
   tweetsNew: TweetsType[]
   currentPage: number
+  setLoading: React.Dispatch<React.SetStateAction<boolean>>
+  toastFunc: (content: string, isError: boolean) => void
 }
 
 export default function TweetNew(props: Props): JSX.Element {
-  const { tweetsNew, albumserch, currentPage } = props
+  const { tweetsNew, albumserch, currentPage, setLoading, toastFunc } = props
 
   const [open, setOpen] = useState(false)
   const [tweetsData, setTweetsData] = useState<TweetsType[]>(tweetsNew)
@@ -24,12 +26,20 @@ export default function TweetNew(props: Props): JSX.Element {
 
   useEffect(() => {
     const detaFetch = async (): Promise<void> => {
-      const resLike = await apiClient.get('/article/all/tweets/order/new')
-      if (resLike.status !== HttpStatusCode.Ok) throw Error
-      setTweetsData(resLike.data.tweetsTopNew)
+      setLoading(true)
+      try {
+        await apiClient.get('/article/all/tweets/order/new').then((res) => {
+          if (res.status !== HttpStatusCode.Ok) throw Error
+          setTweetsData(res.data.tweetsTopNew)
+        })
+      } catch {
+        toastFunc('データの取得に失敗しました', true)
+      } finally {
+        setLoading(false)
+      }
     }
     detaFetch()
-  }, [])
+  }, [setLoading, toastFunc])
 
   const handleDelete = async (tweet: TweetsType): Promise<void> => {
     await apiClient
@@ -47,10 +57,15 @@ export default function TweetNew(props: Props): JSX.Element {
 
   return (
     <TweetArea>
-      {tweetsNewFilter?.slice(currentPage, currentPage + 6).map((tweet) => (
+      {tweetsNewFilter?.map((tweet) => (
         <>
           <div className={style.large}>
-            <TweetCard tweet={tweet} key={tweet.id} handleDelete={handleDelete} />
+            <TweetCard
+              tweet={tweet}
+              key={tweet.id}
+              handleDelete={handleDelete}
+              setLoading={setLoading}
+            />
           </div>
           <div className={style.small}>
             <HomeTweetCard tweet={tweet} setOpen={setOpen} setShowTweets={setShowTweets} />

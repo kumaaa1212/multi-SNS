@@ -42,4 +42,5 @@ export interface KeepAlbum {
   content: string
   authorId: string
   createdAt: string
+  id: number
 }

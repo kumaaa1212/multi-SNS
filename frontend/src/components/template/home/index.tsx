@@ -1,9 +1,9 @@
 import Layout from 'components/layout'
 import { ArticlesType, LabelType } from 'types/internal/album'
 import { TweetsType } from 'types/internal/tweet'
-import AlbumParts from './details/album'
-import CategoriesPart from './details/categories'
-import TweetParts from './details/tweet'
+import AlbumParts from './_container/album'
+import CategoriesPart from './_container/categories'
+import TweetParts from './_container/tweet'
 
 interface Props {
   albums: ArticlesType[]

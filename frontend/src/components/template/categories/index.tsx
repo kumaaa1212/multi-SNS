@@ -7,7 +7,7 @@ import { jLeagueTeams } from 'utils/TeamData'
 import { TeamDataType } from 'types/internal'
 import Meta from 'components/layout/Head'
 import SerchInput from 'components/parts/Input/Serch'
-import style from './Categories.module.scss'
+import style from './index.module.scss'
 
 export default function Categories(): JSX.Element {
   const router = useRouter()

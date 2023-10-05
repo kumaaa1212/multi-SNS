@@ -1,6 +1,6 @@
 import React from 'react'
 import { GetServerSideProps } from 'next'
-import Team from 'components/template/details'
+import Team from 'components/template/categories/details'
 import apiClient from 'libs/apiClient'
 import { ArticlesType } from 'types/internal/album'
 
