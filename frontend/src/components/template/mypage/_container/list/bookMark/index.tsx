@@ -49,7 +49,12 @@ export default function MypageBooKMark(props: Props): JSX.Element {
         <div className={style.contents}>
           {albumsData &&
             albumsData.map((album, index) => (
-              <ArticleCard key={index} album={album} handleDelete={handleDelete} />
+              <ArticleCard
+                key={index}
+                album={album}
+                handleDelete={handleDelete}
+                setLoading={setLoading}
+              />
             ))}
         </div>
       </div>

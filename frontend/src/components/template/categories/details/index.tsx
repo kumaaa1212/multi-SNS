@@ -22,6 +22,7 @@ export default function Team(props: Props): JSX.Element {
   const { post } = props
 
   const [albumNewData, setAlbumNewData] = useState<ArticlesType[]>(post)
+  const [loading, setLoading] = useState<boolean>(false)
   const router = useRouter()
   const teamfilter = jLeagueTeams.filter((team: TeamDataType) => team.label === router.query.label)
 
@@ -39,7 +40,7 @@ export default function Team(props: Props): JSX.Element {
   }
 
   return (
-    <Layout>
+    <Layout loadingAll={loading}>
       <Meta title={`${teamfilter[0].name}に関するまとめ`} />
 
       <div className={style.articles_details}>
@@ -63,7 +64,11 @@ export default function Team(props: Props): JSX.Element {
                 {albumNewData?.map((album) => (
                   <div key={album.id}>
                     <div className={style.large}>
-                      <ArticleCard album={album} handleDelete={handleDelete} />
+                      <ArticleCard
+                        album={album}
+                        handleDelete={handleDelete}
+                        setLoading={setLoading}
+                      />
                     </div>
                     <div className={style.small}>
                       <HomeAlbumCard album={album} />
