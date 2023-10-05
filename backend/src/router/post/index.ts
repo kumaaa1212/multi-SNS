@@ -34,14 +34,21 @@ router.post("/keep-post/save", async (req: Request, res: Response) => {
 
 // 保存したalbumを削除する
 router.delete("/keep-post/delete/album", async (req: Request, res: Response) => {
-  const { postId } = req.query;
+  const { postId, authorId } = req.query;
   try {
     await prisma.keepPost.delete({
       where: {
         id: Number(postId),
       },
     });
-    return res.status(200).json({ message: "success" });
+
+    const keepPosts = await prisma.keepPost.findMany({
+      where: {
+        authorId: String(authorId),
+      },
+    });
+
+    return res.status(200).json({ keepPosts });
   } catch (error) {
     return res.status(500).json({ error: "Failed to delete post" });
   }

@@ -1,4 +1,4 @@
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import Accordion from '@mui/material/Accordion'
 import AccordionDetails from '@mui/material/AccordionDetails'
@@ -6,7 +6,7 @@ import AccordionSummary from '@mui/material/AccordionSummary'
 import Typography from '@mui/material/Typography'
 import { createContentText, createTitleText } from 'features/postSlice'
 import apiClient from 'libs/apiClient'
-import { AppDispatch } from 'store/store'
+import { AppDispatch, RootState } from 'store/store'
 import { formatTimestamp } from 'utils/functions/Time'
 import { KeepAlbum } from 'types/internal/album'
 import style from './Accordion.module.scss'
@@ -20,6 +20,7 @@ interface Props {
 export default function ControlledAccordions(props: Props): JSX.Element {
   const { keepPost, setKeepPost, setLoading } = props
 
+  const { userId } = useSelector((state: RootState) => state.user)
   const dispatch: AppDispatch = useDispatch()
   const handleUse = (key: number): void => {
     dispatch(createTitleText(keepPost[key].title))
@@ -32,18 +33,19 @@ export default function ControlledAccordions(props: Props): JSX.Element {
       .delete(`/post/keep-post/delete/album`, {
         params: {
           postId: post.id,
+          authorId: userId,
         },
       })
       .then((res) => {
         if (res.status !== 200) throw Error
-        setKeepPost(keepPost?.filter((keep) => keep.id !== post.id))
+        setKeepPost(res.data.keepPosts)
         setLoading(false)
       })
   }
 
   return (
     <div>
-      {keepPost.length === 0 ? (
+      {keepPost?.length === 0 ? (
         <h1 className={style.no_keep}>保存されている投稿はありません</h1>
       ) : (
         <div>
