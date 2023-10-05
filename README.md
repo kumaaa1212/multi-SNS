@@ -52,7 +52,7 @@ https://tokotokoj.vercel.app
 | Redux    　　　　　 | v 8.1.2     グローバルな状態管理                |
 | react-hook-form   | v 7.45.4     ログイン時などのバリデーションチェック           |
 | react-markdown    | v 8.0.7        投稿する際にmarkdownで記入する      |
-| axois          　　| 1.4.0               fetch処理                            |
+| axois          　　| v 1.4.0               fetch処理                            |
 | Next.js        　　| v 13.4.7 (App Routerで作成していません。)                    |
 |  Node.js          | v 18.14.0 (TypeScriptを使用しています。)                                            |
 | Express.js        | v 4.18.2                                    |
