@@ -11,10 +11,11 @@ interface Props {
   albumserch: string
   articlesNew: ArticlesType[]
   currentPage: number
+  setLoading: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 export default function AlbumNew(props: Props): JSX.Element {
-  const { articlesNew, albumserch, currentPage } = props
+  const { articlesNew, albumserch, currentPage, setLoading } = props
 
   const [albumNewData, setAlbumNewData] = useState<ArticlesType[]>(articlesNew)
   const articlesNewFilter = albumNewData?.filter(
@@ -23,12 +24,20 @@ export default function AlbumNew(props: Props): JSX.Element {
 
   useEffect(() => {
     const detaFetch = async (): Promise<void> => {
-      const resLike = await apiClient.get('/article/all/content/order/new')
-      if (resLike.status !== HttpStatusCode.Ok) throw Error
-      setAlbumNewData(resLike.data.articleTopNew)
+      setLoading(true)
+      try {
+        await apiClient.get('/article/all/content/order/new').then((res) => {
+          if (res.status !== HttpStatusCode.Ok) throw Error
+          setAlbumNewData(res.data.articleTopNew)
+        })
+      } catch {
+        // toast
+      } finally {
+        setLoading(false)
+      }
     }
     detaFetch()
-  }, [])
+  }, [setLoading])
 
   const handleDelete = async (album: ArticlesType): Promise<void> => {
     await apiClient
@@ -48,7 +57,7 @@ export default function AlbumNew(props: Props): JSX.Element {
       {articlesNewFilter?.slice(currentPage, currentPage + 6).map((album) => (
         <div key={album.id}>
           <div className={style.large}>
-            <ArticleCard album={album} handleDelete={handleDelete} />
+            <ArticleCard album={album} handleDelete={handleDelete} setLoading={setLoading} />
           </div>
           <div className={style.small}>
             <HomeAlbumCard album={album} />

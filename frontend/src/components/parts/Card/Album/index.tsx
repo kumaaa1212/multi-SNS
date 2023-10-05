@@ -40,10 +40,11 @@ const ExpandMore = styled((props: ExpandMoreProps) => {
 interface Props {
   album: ArticlesType
   handleDelete: (album: ArticlesType) => void
+  setLoading: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 export default function AlbumCard(props: Props): JSX.Element {
-  const { album, handleDelete } = props
+  const { album, handleDelete, setLoading } = props
 
   const { userId } = useSelector((state: RootState) => state.user)
   const [expanded, setExpanded] = useState<boolean>(false)
@@ -76,7 +77,7 @@ export default function AlbumCard(props: Props): JSX.Element {
                 className={style.moreover_btn}
               />
             ) : (
-              <FollowButton posts={album} content='Follow' />
+              <FollowButton posts={album} content='Follow' setLoading={setLoading} />
             )
           }
           title={album?.title}

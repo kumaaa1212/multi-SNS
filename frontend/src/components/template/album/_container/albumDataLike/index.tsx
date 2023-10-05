@@ -11,10 +11,11 @@ interface Props {
   currentPage: number
   albumserch: string
   articlesLike: ArticlesType[]
+  setLoading: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 export default function AlbumLike(props: Props): JSX.Element {
-  const { articlesLike, albumserch } = props
+  const { articlesLike, albumserch, setLoading } = props
 
   const [albumLikeData, setAlbumLikeData] = useState<ArticlesType[]>(articlesLike)
   const articlesNewFilter = albumLikeData?.filter(
@@ -48,7 +49,7 @@ export default function AlbumLike(props: Props): JSX.Element {
       {articlesNewFilter?.map((album) => (
         <div key={album.id}>
           <div className={style.large}>
-            <ArticleCard album={album} handleDelete={handleDelete} />
+            <ArticleCard album={album} handleDelete={handleDelete} setLoading={setLoading} />
           </div>
           <div className={style.small}>
             <HomeAlbumCard album={album} />
