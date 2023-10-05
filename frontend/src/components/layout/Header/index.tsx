@@ -36,7 +36,7 @@ export default function Header(): JSX.Element {
       return 'active'
     } else if (url === 'MYPAGE' && router.asPath.includes('/mypage')) {
       return 'active'
-    } else if (url === 'BOARD' && myTeam && router.asPath.includes(`/board/${myTeam.label}`)) {
+    } else if (url === 'BOARD' && myTeam && router.asPath.includes(`/board`)) {
       return 'active'
     }
     return ''
