@@ -3,11 +3,10 @@ import { Request, Response, NextFunction } from "express";
 import dotenv from "dotenv";
 dotenv.config()
 
-// 新しい型定義を作成して、Request インターフェースを拡張
 declare global {
   namespace Express {
     interface Request {
-      userId?: number; // userId プロパティを追加
+      userId?: number;
     }
   }
 }
