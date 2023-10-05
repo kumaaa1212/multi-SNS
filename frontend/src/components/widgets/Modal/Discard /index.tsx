@@ -1,4 +1,6 @@
 import { useState } from 'react'
+import { KeepAlbum } from 'types/internal/album'
+import Loading from 'components/layout/Loading'
 import ModalBase from 'components/parts/Modal'
 import style from './Discard.module.scss'
 import ControlledAccordions from '../../../parts/Accordion'
@@ -11,8 +13,9 @@ interface Props {
 
 export default function ModalDiscard(props: Props): JSX.Element {
   const { open, setOpen, discardModalRefresh } = props
+  const [keepPost, setKeepPost] = useState<KeepAlbum[]>([])
+  const [loading, setLoading] = useState<boolean>(false)
 
-  const [keepPost, setKeepPost] = useState<[]>([])
   return (
     <ModalBase open={open} onClose={setOpen}>
       <div className={style.keep_modal}>
@@ -37,8 +40,13 @@ export default function ModalDiscard(props: Props): JSX.Element {
           </button>
           <h1>保存済みAlbum一覧</h1>
         </div>
-        <ControlledAccordions keepPost={keepPost} />
+        <ControlledAccordions
+          keepPost={keepPost}
+          setKeepPost={setKeepPost}
+          setLoading={setLoading}
+        />
       </div>
+      {loading && <Loading />}
     </ModalBase>
   )
 }

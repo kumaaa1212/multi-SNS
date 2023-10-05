@@ -1,5 +1,5 @@
-import { styled } from '@mui/material/styles';
-import Switch from '@mui/material/Switch';
+import { Switch } from '@mui/material'
+import { styled } from '@mui/material/styles'
 export const MaterialUISwitch = styled(Switch)(({ theme }) => ({
   width: 62,
   height: 34,
@@ -45,4 +45,4 @@ export const MaterialUISwitch = styled(Switch)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#8796A5' : '#aab4be',
     borderRadius: 20 / 2,
   },
-}));
+}))
