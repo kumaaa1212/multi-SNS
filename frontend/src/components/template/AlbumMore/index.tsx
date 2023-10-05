@@ -20,6 +20,7 @@ export default function AlbumMore(props: Props): JSX.Element {
   const { album } = props
 
   const [countLikes, setCountLikes] = useState<number>(album?.likes.length)
+  const [loading, setLoading] = useState<boolean>(false)
 
   return (
     <Layout padding='pv_20' bgColor='bg_blue'>
@@ -43,7 +44,7 @@ export default function AlbumMore(props: Props): JSX.Element {
             <MarkDown content={album.content} detail />
           </Paper>
           <div className={style.main_right}>
-            <Profile album={album} />
+            <Profile album={album} setLoading={setLoading} />
             <TableContent />
           </div>
         </div>
