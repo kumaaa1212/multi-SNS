@@ -3,12 +3,14 @@ import { useSelector } from 'react-redux'
 import Image from 'next/image'
 import MoreVertIcon from '@mui/icons-material/MoreVert'
 import { Card, IconButton } from '@mui/material'
+import { useToast } from 'components/hooks/useToast'
 import { RootState } from 'store/store'
 import { formatTimestamp } from 'utils/functions/Time'
 import { TweetsType } from 'types/internal/tweet'
 import DeleteIcon from '/public/svg/tweet_delete.svg'
 import FollowButton from 'components/parts/Button/Follow'
 import TweetLikeBtn from 'components/parts/Button/Like/Tweet'
+import ToastBase from 'components/parts/Toast'
 import style from './Small.module.scss'
 
 interface Props {
@@ -20,6 +22,7 @@ interface Props {
 export default function SmallTweetCard(props: Props): JSX.Element {
   const { tweet, handleDelete, setLoading } = props
 
+  const { toastContent, isError, isToast, toastFunc } = useToast()
   const { userId } = useSelector((state: RootState) => state.user)
   const [moreover, setMoreover] = useState<boolean>(false)
   const [countLikes, setCountLikes] = useState<number>(0)
@@ -52,7 +55,12 @@ export default function SmallTweetCard(props: Props): JSX.Element {
                 className={style.moreover_btn}
               />
             ) : (
-              <FollowButton posts={tweet} content='follow' setLoading={setLoading} />
+              <FollowButton
+                posts={tweet}
+                content='follow'
+                setLoading={setLoading}
+                toastFunc={toastFunc}
+              />
             )}
             {moreover && (
               <div className={style.moreover_area} onClick={(): void => handleDelete(tweet)}>
@@ -77,11 +85,17 @@ export default function SmallTweetCard(props: Props): JSX.Element {
         </div>
         <div className={style.footer}>
           <IconButton aria-label='add to favorites'>
-            <TweetLikeBtn tweet={tweet} setCountLikes={setCountLikes} setLoading={setLoading} />
+            <TweetLikeBtn
+              tweet={tweet}
+              setCountLikes={setCountLikes}
+              setLoading={setLoading}
+              toastFunc={toastFunc}
+            />
             <span>{countLikes}</span>
           </IconButton>
         </div>
       </Card>
+      <ToastBase content={toastContent} isError={isError} active={isToast} />
     </div>
   )
 }

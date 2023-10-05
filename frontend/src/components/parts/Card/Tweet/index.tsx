@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react'
+import { useToast } from 'components/hooks/useToast'
 import { formatTimestamp } from 'utils/functions/Time'
+import ToastBase from 'components/parts/Toast'
 import style from './Tweet.module.scss'
 import { Card, IconButton } from '@mui/material'
 import Image from 'next/image'
@@ -20,6 +22,7 @@ interface Props {
 export default function TweetCard(props: Props): JSX.Element {
   const { tweet, handleDelete, setLoading } = props
 
+  const { toastContent, isError, isToast, toastFunc } = useToast()
   const { userId } = useSelector((state: RootState) => state.user)
   const [moreover, setMoreover] = useState<boolean>(false)
   const [countLikes, setCountLikes] = useState<number>(0)
@@ -52,7 +55,12 @@ export default function TweetCard(props: Props): JSX.Element {
                 className={style.moreover_btn}
               />
             ) : (
-              <FollowBtn posts={tweet} content='follow' setLoading={setLoading} />
+              <FollowBtn
+                posts={tweet}
+                content='follow'
+                setLoading={setLoading}
+                toastFunc={toastFunc}
+              />
             )}
             {moreover && (
               <div className={style.moreover_area} onClick={(): void => handleDelete(tweet)}>
@@ -77,11 +85,17 @@ export default function TweetCard(props: Props): JSX.Element {
         </div>
         <div className={style.footer}>
           <IconButton aria-label='add to favorites'>
-            <TweetLikeBtn tweet={tweet} setCountLikes={setCountLikes} setLoading={setLoading} />
+            <TweetLikeBtn
+              tweet={tweet}
+              setCountLikes={setCountLikes}
+              setLoading={setLoading}
+              toastFunc={toastFunc}
+            />
             <span>{countLikes}</span>
           </IconButton>
         </div>
       </Card>
+      <ToastBase content={toastContent} isError={isError} active={isToast} />
     </div>
   )
 }

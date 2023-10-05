@@ -8,15 +8,17 @@ interface Props {
   tweet: TweetsType
   setCountLikes: React.Dispatch<React.SetStateAction<number>>
   setLoading: (loading: boolean) => void
+  toastFunc: (content: string, isError: boolean) => void
 }
 
 export default function TweetLikeBtn(props: Props): JSX.Element {
-  const { tweet, setCountLikes, setLoading } = props
+  const { tweet, setCountLikes, setLoading, toastFunc } = props
 
   const { userId } = useSelector((state: RootState) => state.user)
   const [likeBtn, setLikeBtn] = useState<boolean>(false)
 
   useEffect(() => {
+    if (!userId) return
     const fetchLike = async (): Promise<void> => {
       await apiClient
         .post('/post/tweet/like/check', {
@@ -33,6 +35,7 @@ export default function TweetLikeBtn(props: Props): JSX.Element {
   }, [setLoading, tweet, userId])
 
   const handleLike = async (): Promise<void> => {
+    if (!userId) return toastFunc('ログインしてください', true)
     setLoading(true)
     if (likeBtn) {
       await apiClient
