@@ -32,14 +32,15 @@ export default function MypageBooKMark(props: Props): JSX.Element {
 
   const handleDelete = async (album: ArticlesType): Promise<void> => {
     await apiClient
-      .delete('/post/Newalbum/delete', {
+      .delete('/post/myalbum/bookmark/delete', {
         params: {
           postId: album.id,
+          userId,
         },
       })
       .then((res) => {
         if (res.status !== HttpStatusCode.Ok) throw Error
-        setAlbumsData(res.data.remainAlbums)
+        setAlbumsData(res.data.bookmarkedPosts)
       })
   }
 
