@@ -18,7 +18,7 @@ interface Props {
   onClose: (open: boolean) => void
 }
 
-const ModalBase = (props: Props): JSX.Element => {
+export default function ModalBase(props: Props): JSX.Element {
   const { open, children, onClose } = props
 
   return (
@@ -27,5 +27,3 @@ const ModalBase = (props: Props): JSX.Element => {
     </Modal>
   )
 }
-
-export default ModalBase
