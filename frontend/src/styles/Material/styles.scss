@@ -53,7 +53,10 @@
 }
 
 .stepper {
-  .MuiSvgIcon-root {
+  .MuiSvgIcon-root{
+    color: rgb(145, 145, 145);
+  }
+  .MuiSvgIcon-root.Mui-active  {
     color: black;
   }
 }
