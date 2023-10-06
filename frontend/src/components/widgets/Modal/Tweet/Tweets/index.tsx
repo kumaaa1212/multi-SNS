@@ -36,13 +36,31 @@ export default function TweetModal(props: Props): JSX.Element {
   const handleTweet = async (): Promise<void> => {
     try {
       setLoading(true)
-      if (tweetContents && fileData) {
+      if (tweetContents.length <= 0 || selectedLabels.length <= 0) return
+      if (!fileData) {
+        await apiClient
+          .post('/post/tweet', {
+            content: tweetContents,
+            authorId: userId,
+            authorName: username,
+            authorAvatar: iconPath,
+            img: '/thumbnail.png',
+            label: selectedLabels[0].name,
+          })
+          .then((res) => {
+            setTweetContents('')
+            setDisplayImg('')
+            setFile(undefined)
+            setSelectedLabels([])
+            setOpen(false)
+          })
+      } else {
         const { data: storageData, error: storegeError } = await supabase.storage
           .from('thumbnail')
-          .upload(`${userId}/${uuidv4()}`, fileData ? fileData : '')
-        if (storegeError) {
-          throw storegeError
-        }
+          .upload(`${userId}/${uuidv4()}`, fileData ? fileData : '/thumbnail.png')
+
+        if (storegeError) return toastFunc('投稿に失敗しました', true)
+
         const { data: urlData } = supabase.storage.from('thumbnail').getPublicUrl(storageData.path)
         await apiClient
           .post('/post/tweet', {
@@ -50,7 +68,7 @@ export default function TweetModal(props: Props): JSX.Element {
             authorId: userId,
             authorName: username,
             authorAvatar: iconPath,
-            img: urlData.publicUrl ? urlData.publicUrl : '',
+            img: urlData.publicUrl,
             label: selectedLabels[0].name,
           })
           .then((res) => {
@@ -87,9 +105,7 @@ export default function TweetModal(props: Props): JSX.Element {
       <div className={style.tweet_content}>
         <Image src={icon} alt={''} width={50} height={50} className={style.profile_img} />
         <textarea
-          name=''
-          id=''
-          placeholder='What is happening'
+          placeholder='本文とLabelの入力が必須です'
           className={style.tweet_textarea}
           onChange={(e): void => setTweetContents(e.target.value)}
         ></textarea>
