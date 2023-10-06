@@ -36,7 +36,8 @@ export default function TweetModal(props: Props): JSX.Element {
   const handleTweet = async (): Promise<void> => {
     try {
       setLoading(true)
-      if (tweetContents.length <= 0 || selectedLabels.length <= 0) return
+      if (tweetContents.length <= 0 || selectedLabels.length <= 0)
+        return toastFunc('本文とLabelをしてください', true)
       if (!fileData) {
         await apiClient
           .post('/post/tweet', {
