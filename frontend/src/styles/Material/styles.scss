@@ -38,23 +38,17 @@
 }
 
 // アルバムのheaderのデザイン
-.switch_btn_area {
-  .MuiSwitch-track {
-    background-color: black;
+.switch_btn {
+  .MuiButtonBase-root {
+    color: black;
   }
 
-  .switch_btn {
-    .MuiButtonBase-root {
-      color: black;
-    }
-  }
-}
-
-.css-j204z7-MuiFormControlLabel-root {
-  width: 140px;
-  margin: 0 auto;
-  span {
+  .MuiFormControlLabel-root {
+    width: 140px;
     margin: 0 auto;
+    span {
+      margin: 0 auto;
+    }
   }
 }
 
