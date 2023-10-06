@@ -23,6 +23,7 @@ export default function Profile(props: Props): JSX.Element {
   const [moreover, setMoreover] = useState<boolean>(false)
 
   const handleDelete = async (album: ArticlesType): Promise<void> => {
+    setLoading(true)
     await apiClient
       .delete('/post/album/more/delete', {
         params: {
@@ -32,6 +33,7 @@ export default function Profile(props: Props): JSX.Element {
       .then((res) => {
         if (res.status !== HttpStatusCode.Ok) throw Error
         setMoreover(false)
+        setLoading(false)
       })
   }
 

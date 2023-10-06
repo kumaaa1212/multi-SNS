@@ -385,17 +385,33 @@ router.get("/album/myalbum/:userId", async (req: Request, res: Response) => {
 router.delete("/album/myalbum/delete", async (req: Request, res: Response) => {
   const { userId, postId } = req.query;
   try {
-    await prisma.post.delete({
+    await prisma.postLabel.deleteMany({
       where: {
-        id: Number(postId),
-        authorId: String(userId),
-      },
-      include: {
-        labels: true,
-        likes: true,
-        bookmarks: true,
+        postId: Number(postId),
       },
     });
+
+    await prisma.like.deleteMany({
+      where: {
+        postId: Number(postId),
+      },
+    });
+
+    await prisma.bookmark.deleteMany({
+      where: {
+        postId: Number(postId),
+      },
+    });
+
+    const deletedPost = await prisma.post.delete({
+      where: {
+        id: Number(postId),
+      },
+    });
+
+    if (!deletedPost) {
+      return res.status(404).json({ error: "Post not found." });
+    }
 
     const updatedPosts = await prisma.post.findMany({
       where: {
@@ -592,39 +608,59 @@ router.get("/myalbum/like/:authorId", async (req: Request, res: Response) => {
 });
 
 // 自分がいいねしているエリアの投稿を削除する
-router.delete("/myalbum/like/delete",
-  async (req: Request, res: Response) => {
-    const { userId, postId } = req.params;
+router.delete("/myalbum/like/delete", async (req: Request, res: Response) => {
+  const { userId, postId } = req.params;
 
-    try {
-      await prisma.post.delete({
-        where: {
-          id: Number(postId),
-          authorId: userId,
-        },
-      });
+  try {
+    await prisma.postLabel.deleteMany({
+      where: {
+        postId: Number(postId),
+      },
+    });
 
-      const likedPosts = await prisma.post.findMany({
-        where: {
-          likes: {
-            some: {
-              authorId: String(userId),
-            },
+    await prisma.like.deleteMany({
+      where: {
+        postId: Number(postId),
+      },
+    });
+
+    await prisma.bookmark.deleteMany({
+      where: {
+        postId: Number(postId),
+      },
+    });
+
+    const deletedPost = await prisma.post.delete({
+      where: {
+        id: Number(postId),
+      },
+    });
+
+    if (!deletedPost) {
+      return res.status(404).json({ error: "Post not found." });
+    }
+
+
+    const likedPosts = await prisma.post.findMany({
+      where: {
+        likes: {
+          some: {
+            authorId: String(userId),
           },
         },
-        include: {
-          labels: true,
-          likes: true,
-          bookmarks: true,
-        },
-      });
+      },
+      include: {
+        labels: true,
+        likes: true,
+        bookmarks: true,
+      },
+    });
 
-      return res.json({ likedPosts });
-    } catch (err: any) {
-      return res.status(500).json({ error: err.message });
-    }
+    return res.json({ likedPosts });
+  } catch (err: any) {
+    return res.status(500).json({ error: err.message });
   }
-);
+});
 
 // ブックマークを追加する
 router.post("/album/bookmark/add", async (req, res) => {
@@ -786,12 +822,33 @@ router.delete("/myalbum/bookmark/delete",
     const { userId, postId } = req.params;
 
     try {
-      await prisma.post.delete({
+      await prisma.postLabel.deleteMany({
         where: {
-          id: Number(postId),
-          authorId: userId,
+          postId: Number(postId),
         },
       });
+
+      await prisma.like.deleteMany({
+        where: {
+          postId: Number(postId),
+        },
+      });
+
+      await prisma.bookmark.deleteMany({
+        where: {
+          postId: Number(postId),
+        },
+      });
+
+      const deletedPost = await prisma.post.delete({
+        where: {
+          id: Number(postId),
+        },
+      });
+
+      if (!deletedPost) {
+        return res.status(404).json({ error: "Post not found." });
+      }
 
       const bookmarkedPosts = await prisma.post.findMany({
         where: {
