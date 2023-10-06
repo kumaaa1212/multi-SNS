@@ -1,10 +1,7 @@
 export interface ChidrenProps {
   children: React.ReactNode
 }
-// album
-// tweet
 
-// chat
 export interface RoomType {
   id: string
   user1Id: string
@@ -28,7 +25,6 @@ export interface MessageType {
   roomId: string
 }
 
-// team
 export interface TeamDataType {
   label: string
   name: string
@@ -37,7 +33,6 @@ export interface TeamDataType {
   stadium: string
 }
 
-// user
 export interface Usertype {
   username: string
   userId: string
@@ -50,7 +45,6 @@ export interface Usertype {
   twitterURL?: string
   teamURL?: string
 }
-// followUser, followerUser
 export interface FrendInfo {
   userId: string
   bio: string

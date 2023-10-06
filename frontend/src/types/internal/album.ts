@@ -28,6 +28,7 @@ export interface ArticlesBookmarksType {
   postId: string
   authorId: string
 }
+
 export interface LabelType {
   id: number
   label: string
