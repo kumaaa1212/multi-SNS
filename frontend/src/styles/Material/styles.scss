@@ -38,13 +38,15 @@
 }
 
 // アルバムのheaderのデザイン
-.switch_btn {
-  .css-5ryogn-MuiButtonBase-root-MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track {
+.switch_btn_area {
+  .MuiSwitch-track {
     background-color: black;
   }
 
-  .css-5ryogn-MuiButtonBase-root-MuiSwitch-switchBase.Mui-checked {
-    color: black;
+  .switch_btn {
+    .MuiButtonBase-root {
+      color: black;
+    }
   }
 }
 
@@ -57,11 +59,7 @@
 }
 
 .stepper {
-  .css-1u4zpwo-MuiSvgIcon-root-MuiStepIcon-root.Mui-active {
-    color: black;
-  }
-
-  .css-1u4zpwo-MuiSvgIcon-root-MuiStepIcon-root.Mui-completed {
+  .MuiSvgIcon-root {
     color: black;
   }
 }
@@ -77,7 +75,6 @@
       margin-right: 0px;
     }
   }
-
 }
 
 .labels {
