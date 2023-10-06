@@ -3,5 +3,25 @@
   position: fixed;
   left: 50%;
   transform: translateX(-50%);
-  bottom: 60px;
+  bottom: -100px; /* 初期位置を画面外に設定 */
+  z-index: 1000;
+  animation: slideIn 0.2s forwards, fadeOut 0.3s forwards 2.0s;
+}
+
+@keyframes slideIn {
+  from {
+    bottom: -100px;
+  }
+  to {
+    bottom: 60px;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
 }
