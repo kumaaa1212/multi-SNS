@@ -106,8 +106,8 @@ const userSlice = createSlice({
     updataFrends: (state, action) => {
       return {
         ...state,
-        follow: action.payload.follow,
-        follower: action.payload.followers,
+        follow: action.payload.follows?.length === 0 ? [] : action.payload.follows,
+        follower: action.payload.followers?.length === 0 ? [] : action.payload.followers,
       }
     },
   },

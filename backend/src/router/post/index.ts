@@ -390,6 +390,11 @@ router.delete("/album/myalbum/delete", async (req: Request, res: Response) => {
         id: Number(postId),
         authorId: String(userId),
       },
+      include: {
+        labels: true,
+        likes: true,
+        bookmarks: true,
+      },
     });
 
     const updatedPosts = await prisma.post.findMany({

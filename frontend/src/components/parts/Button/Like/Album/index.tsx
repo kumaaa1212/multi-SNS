@@ -21,28 +21,22 @@ export default function AlbumLikeBtn(props: Props): JSX.Element {
   const [likeBtn, setLikeBtn] = useState<boolean>(false)
 
   useEffect(() => {
+    if (!userId) return
     const fetchData = async (): Promise<void> => {
-      if (!userId) return
-      const [likeCheckRes, likeCountRes] = await Promise.all([
-        apiClient.get('/post/album/like/check', {
+      await apiClient
+        .get('/post/album/like/check', {
           params: {
             postId: album.id,
             authorId: userId,
           },
-        }),
-        apiClient.get('/post/like/count', {
-          params: {
-            postId: album.id,
-          },
-        }),
-      ])
-      if (likeCheckRes.status !== HttpStatusCode.Ok || likeCountRes.status !== HttpStatusCode.Ok)
-        throw Error
-      setLikeBtn(likeCheckRes.data.hasLiked)
-      setCountLikes(likeCountRes.data.likeCount)
+        })
+        .then((res) => {
+          if (res.status !== HttpStatusCode.Ok) throw Error
+          setLikeBtn(res.data.hasLiked)
+        })
     }
     fetchData()
-  }, [album.id, setCountLikes, setLoading, userId])
+  }, [album, userId])
 
   const handleLike = async (): Promise<void> => {
     if (!userId) return toastFunc('ログインしてください', true)

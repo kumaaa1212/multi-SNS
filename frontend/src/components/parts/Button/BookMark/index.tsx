@@ -23,24 +23,17 @@ const BookMarkBtn = (props: Props): JSX.Element => {
   useEffect(() => {
     if (!userId) return
     const fetchBookmark = async (): Promise<void> => {
-      const [likeCheckRes, likeCountRes] = await Promise.all([
-        apiClient.get('/post/album/bookmark/check', {
+      await apiClient
+        .get('/post/album/bookmark/check', {
           params: {
             postId: album.id,
             authorId: userId,
           },
-        }),
-        apiClient.get('/post/album/bookmark/get', {
-          params: {
-            postId: album.id,
-            authorId: userId,
-          },
-        }),
-      ])
-      if (likeCheckRes.status !== HttpStatusCode.Ok || likeCountRes.status !== HttpStatusCode.Ok)
-        throw Error
-      setBookmark(likeCheckRes.data.hasLiked)
-      setCountBookmarks(likeCountRes.data.bookmarkCount)
+        })
+        .then((res) => {
+          if (res.status !== HttpStatusCode.Ok) throw Error
+          setBookmark(res.data.hasLiked)
+        })
     }
     fetchBookmark()
   }, [album, setCountBookmarks, userId])
