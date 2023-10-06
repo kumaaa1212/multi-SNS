@@ -19,17 +19,15 @@ export default function SwitchBtn(props: Props): JSX.Element {
   }
 
   return (
-    <div className='switch_btn_area'>
-      <div className={`switch_btn ${!checked && style.keepoff}`}>
-        {relese ? (
-          <FormControlLabel control={<Switch checked={true} />} label='次へ進む' />
-        ) : (
-          <FormControlLabel
-            control={<Switch checked={checked} onChange={handleChange} />}
-            label='次へ進む'
-          />
-        )}
-      </div>
+    <div className={`switch_btn ${!checked && style.keepoff}`}>
+      {relese ? (
+        <FormControlLabel control={<Switch checked={true} color={'default'} />} label='次へ進む' />
+      ) : (
+        <FormControlLabel
+          control={<Switch checked={checked} onChange={handleChange} color={'default'} />}
+          label='次へ進む'
+        />
+      )}
     </div>
   )
 }
