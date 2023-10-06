@@ -56,17 +56,10 @@ export const jLeagueTeams = [
     stadium: 'Shonan BMW スタジアム平塚',
   },
   {
-    label: 'YokohamaFC',
-    name: '横浜FC',
-    league: 'J1リーグ',
-    img: '/teamUniform/yokohama.png',
-    stadium: 'ニッパツ三ツ沢球技場',
-  },
-  {
     label: 'JubiloIwata',
     name: 'ジュビロ磐田',
     league: 'J1リーグ',
-    img: '/teamUniform/yokohama.png',
+    img: '/teamUniform/jbiro.png',
     stadium: 'デンカビッグスワンスタジアム',
   },
   {
