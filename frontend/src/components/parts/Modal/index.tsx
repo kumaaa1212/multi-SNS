@@ -22,7 +22,7 @@ export default function ModalBase(props: Props): JSX.Element {
   const { open, children, onClose } = props
 
   return (
-    <Modal open={open || false} onClose={onClose}>
+    <Modal open={open || false} onClose={onClose} disableRestoreFocus disableAutoFocus>
       <Box sx={style}>{children}</Box>
     </Modal>
   )
