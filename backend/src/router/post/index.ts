@@ -609,7 +609,7 @@ router.get("/myalbum/like/:authorId", async (req: Request, res: Response) => {
 
 // 自分がいいねしているエリアの投稿を削除する
 router.delete("/myalbum/liked/delete", async (req: Request, res: Response) => {
-  const { userId, postId } = req.params;
+  const { userId, postId } = req.query;
 
   try {
     await prisma.postLabel.deleteMany({
@@ -819,7 +819,7 @@ router.get("/album/bookmarked/:authorId",
 // 自分がbookmarkした投稿エリアの削除
 router.delete("/myalbum/bookmarked/delete",
   async (req: Request, res: Response) => {
-    const { userId, postId } = req.params;
+    const { userId, postId } = req.query;
 
     try {
       await prisma.postLabel.deleteMany({
