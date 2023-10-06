@@ -8,6 +8,7 @@ import { v4 as uuidv4 } from 'uuid'
 import { jLeagueTeams } from 'utils/TeamData'
 import { supabase } from 'utils/supabaseClient'
 import { TeamDataType } from 'types/internal'
+import Loading from 'components/layout/Loading'
 import ButtonBase from 'components/parts/Button/Base'
 import ModalBase from 'components/parts/Modal'
 import ToastBase from 'components/parts/Toast'
@@ -19,16 +20,16 @@ import style from './TweetModal.module.scss'
 interface Props {
   open: boolean
   setOpen: React.Dispatch<React.SetStateAction<boolean>>
-  setLoading: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 export default function TweetModal(props: Props): JSX.Element {
-  const { open, setOpen, setLoading } = props
+  const { open, setOpen } = props
 
   const { username, userId, iconPath, icon } = useSelector((state: RootState) => state.user)
   const [tweetContents, setTweetContents] = useState<string>('')
   const [dispalayImg, setDisplayImg] = useState<string>('')
   const [selectedLabels, setSelectedLabels] = useState<TeamDataType[]>([])
+  const [loading, setLoading] = useState<boolean>(false)
   const { toastContent, isError, isToast, toastFunc } = useToast()
   const [fileData, setFile] = useState<File>()
 
@@ -139,6 +140,7 @@ export default function TweetModal(props: Props): JSX.Element {
         </div>
       </div>
       <ToastBase content={toastContent} isError={isError} active={isToast} />
+      {loading && <Loading />}
     </ModalBase>
   )
 }

@@ -82,7 +82,7 @@ export default function Profile(): JSX.Element {
       {openEdit && (
         <EditModal openEdit={openEdit} setOpenEdit={setOpenEdit} setLoading={setLoading} />
       )}
-      {openTweet && <TweetModal open={openTweet} setOpen={setOpenTweet} setLoading={setLoading} />}
+      {openTweet && <TweetModal open={openTweet} setOpen={setOpenTweet} />}
       {loading && <Loading />}
       <PostBtn setOpen={setOpenTweet} />
     </div>

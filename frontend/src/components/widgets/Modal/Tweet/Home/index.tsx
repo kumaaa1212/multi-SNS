@@ -38,7 +38,7 @@ export default function HomeTweetModal(props: Props): JSX.Element {
           </div>
         </div>
       </div>
-      {loading && <Loading />}
+      {loading && showTweets && <Loading />}
     </ModalBase>
   )
 }
