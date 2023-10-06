@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import Layout from 'components/layout'
 import { ArticlesType, LabelType } from 'types/internal/album'
 import { TweetsType } from 'types/internal/tweet'
@@ -13,11 +14,11 @@ interface Props {
 
 export default function Home(props: Props): JSX.Element {
   const { albums, tweets, labels } = props
-
+  const [loaindg, setLoaindg] = useState<boolean>(false)
   return (
-    <Layout>
+    <Layout loadingAll={loaindg}>
       <CategoriesPart labels={labels} />
-      <TweetParts tweets={tweets} />
+      <TweetParts tweets={tweets} setLoaindg={setLoaindg} />
       <AlbumParts albums={albums} />
     </Layout>
   )

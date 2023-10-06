@@ -1,6 +1,7 @@
 import React from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+import Loading from 'components/layout/Loading'
 import style from './Home.module.scss'
 
 interface Props {
@@ -10,10 +11,11 @@ interface Props {
   footerShowAll: string
   children: React.ReactNode
   color?: string
+  loading?: boolean
 }
 
 export default function HomeTemplate(props: Props): JSX.Element {
-  const { titile, showAll, href, footerShowAll, children, color = 'white' } = props
+  const { titile, showAll, href, footerShowAll, children, color = 'white', loading } = props
   const router = useRouter()
 
   const colorcheck = (color: string): string => {
@@ -37,6 +39,7 @@ export default function HomeTemplate(props: Props): JSX.Element {
       >
         {footerShowAll}
       </button>
+      {loading && <Loading />}
     </div>
   )
 }

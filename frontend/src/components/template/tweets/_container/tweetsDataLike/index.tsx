@@ -41,6 +41,7 @@ export default function TweetLike(props: Props): JSX.Element {
   }, [setLoading, toastFunc])
 
   const handleDelete = async (tweet: TweetsType): Promise<void> => {
+    setLoading(true)
     try {
       await apiClient
         .delete('/post/likeTweet/delete', {
