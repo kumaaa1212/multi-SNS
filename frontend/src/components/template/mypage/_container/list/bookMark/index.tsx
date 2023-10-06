@@ -31,8 +31,9 @@ export default function MypageBooKMark(props: Props): JSX.Element {
   }, [setLoading, userId])
 
   const handleDelete = async (album: ArticlesType): Promise<void> => {
+    setLoading(true)
     await apiClient
-      .delete('/post/myalbum/bookmark/delete', {
+      .delete('/post/myalbum/bookmarked/delete', {
         params: {
           postId: album.id,
           userId,
@@ -41,6 +42,7 @@ export default function MypageBooKMark(props: Props): JSX.Element {
       .then((res) => {
         if (res.status !== HttpStatusCode.Ok) throw Error
         setAlbumsData(res.data.bookmarkedPosts)
+        setLoading(false)
       })
   }
 

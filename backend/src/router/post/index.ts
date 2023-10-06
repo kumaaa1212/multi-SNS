@@ -608,7 +608,7 @@ router.get("/myalbum/like/:authorId", async (req: Request, res: Response) => {
 });
 
 // 自分がいいねしているエリアの投稿を削除する
-router.delete("/myalbum/like/delete", async (req: Request, res: Response) => {
+router.delete("/myalbum/liked/delete", async (req: Request, res: Response) => {
   const { userId, postId } = req.params;
 
   try {
@@ -817,7 +817,7 @@ router.get("/album/bookmarked/:authorId",
 );
 
 // 自分がbookmarkした投稿エリアの削除
-router.delete("/myalbum/bookmark/delete",
+router.delete("/myalbum/bookmarked/delete",
   async (req: Request, res: Response) => {
     const { userId, postId } = req.params;
 

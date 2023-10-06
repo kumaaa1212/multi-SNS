@@ -32,8 +32,9 @@ export default function MypageLikes(props: Props): JSX.Element {
   }, [setLoading, userId])
 
   const handleDelete = async (album: ArticlesType): Promise<void> => {
+    setLoading(true)
     await apiClient
-      .delete('/post/myalbum/like/delete', {
+      .delete('/post/myalbum/liked/delete', {
         params: {
           postId: album.id,
           userId,
@@ -42,6 +43,7 @@ export default function MypageLikes(props: Props): JSX.Element {
       .then((res) => {
         if (res.status !== HttpStatusCode.Ok) throw Error
         setAlbumsData(res.data.likedPosts)
+        setLoading(false)
       })
   }
 
