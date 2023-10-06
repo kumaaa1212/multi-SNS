@@ -2,6 +2,7 @@
   display: grid;
   grid-template-columns: 1fr 300px;
   margin-top: 30px;
+  padding-bottom: 20px;
   @media screen and (max-width: 750px) {
     display: flex;
     flex-flow: column;

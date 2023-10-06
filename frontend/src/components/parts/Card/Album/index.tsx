@@ -110,7 +110,9 @@ export default function AlbumCard(props: Props): JSX.Element {
         <CardContent>
           <span className={style.thumbnail_text}>{album?.thumbnailText}</span>
           <div className={style.label_area}>
-            {album?.labels.map((label: LabelType) => <Chip label={label.name} key={label.label} />)}
+            {album?.labels.map((label: LabelType) => (
+              <Chip label={label.name} key={label.label} className={style.label} />
+            ))}
           </div>
         </CardContent>
         <CardActions disableSpacing>
