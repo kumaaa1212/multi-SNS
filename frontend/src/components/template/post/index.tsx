@@ -87,21 +87,27 @@ export default function Album(): JSX.Element {
               <div>
                 {preview ? (
                   <Tooltip title='プレビュー'>
-                    <ReproductionIcon
-                      onClick={(): void => {
-                        setPreview(!preview)
-                      }}
-                    />
+                    <>
+                      <ReproductionIcon
+                        onClick={(): void => {
+                          setPreview(!preview)
+                        }}
+                      />
+                    </>
                   </Tooltip>
                 ) : (
                   <Tooltip title='プレビュー'>
-                    <PreviewIcon onClick={(): void => setPreview(!preview)} />
+                    <>
+                      <PreviewIcon onClick={(): void => setPreview(!preview)} />
+                    </>
                   </Tooltip>
                 )}
               </div>
               <div>
                 <Tooltip title='写真を追加'>
-                  <AddImgIcon onClick={(): void => openFileInput()} />
+                  <>
+                    <AddImgIcon onClick={(): void => openFileInput()} />
+                  </>
                 </Tooltip>
                 <input
                   type='file'
