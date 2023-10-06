@@ -117,7 +117,12 @@ export default function AlbumCard(props: Props): JSX.Element {
         </CardContent>
         <CardActions disableSpacing>
           <IconButton aria-label='add to favorites'>
-            <AlbumLikeBtn album={album} setCountLikes={setCountLikes} toastFunc={toastFunc} />
+            <AlbumLikeBtn
+              album={album}
+              setCountLikes={setCountLikes}
+              toastFunc={toastFunc}
+              setLoading={setLoading}
+            />
             <span>{countLikes}</span>
           </IconButton>
           <IconButton aria-label='share'>
@@ -125,6 +130,7 @@ export default function AlbumCard(props: Props): JSX.Element {
               album={album}
               setCountBookmarks={setCountBookmarks}
               toastFunc={toastFunc}
+              setLoading={setLoading}
             />
             <span>{countBookmarks}</span>
           </IconButton>

@@ -11,10 +11,11 @@ interface Props {
   album: ArticlesType
   setCountBookmarks: React.Dispatch<React.SetStateAction<number>>
   toastFunc: (content: string, isError: boolean) => void
+  setLoading: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 const BookMarkBtn = (props: Props): JSX.Element => {
-  const { album, setCountBookmarks, toastFunc } = props
+  const { album, setCountBookmarks, toastFunc, setLoading } = props
 
   const { userId } = useSelector((state: RootState) => state.user)
   const [bookmark, setBookmark] = useState<boolean>(false)
@@ -46,6 +47,7 @@ const BookMarkBtn = (props: Props): JSX.Element => {
 
   const handleBookMark = async (): Promise<void> => {
     if (!userId) return toastFunc('ログインしてください', true)
+    setLoading(true)
     if (bookmark) {
       await apiClient
         .delete('/post/album/bookmark/delete', {
@@ -71,6 +73,7 @@ const BookMarkBtn = (props: Props): JSX.Element => {
           setBookmark(true)
         })
     }
+    setLoading(false)
   }
 
   return (

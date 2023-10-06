@@ -11,10 +11,11 @@ interface Props {
   album: ArticlesType
   setCountLikes: React.Dispatch<React.SetStateAction<number>>
   toastFunc: (content: string, isError: boolean) => void
+  setLoading: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 export default function AlbumLikeBtn(props: Props): JSX.Element {
-  const { album, setCountLikes, toastFunc } = props
+  const { album, setCountLikes, toastFunc, setLoading } = props
 
   const { userId } = useSelector((state: RootState) => state.user)
   const [likeBtn, setLikeBtn] = useState<boolean>(false)
@@ -41,10 +42,11 @@ export default function AlbumLikeBtn(props: Props): JSX.Element {
       setCountLikes(likeCountRes.data.likeCount)
     }
     fetchData()
-  }, [album.id, setCountLikes, userId])
+  }, [album.id, setCountLikes, setLoading, userId])
 
   const handleLike = async (): Promise<void> => {
     if (!userId) return toastFunc('ログインしてください', true)
+    setLoading(true)
     if (likeBtn) {
       await apiClient
         .post('/post/album/like/delete', {
@@ -68,6 +70,7 @@ export default function AlbumLikeBtn(props: Props): JSX.Element {
           setCountLikes(res.data.updatedPost.likes.length)
         })
     }
+    setLoading(false)
   }
 
   return <>{likeBtn ? <LikedBtn onClick={handleLike} /> : <LikeBtn onClick={handleLike} />}</>
