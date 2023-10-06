@@ -10,7 +10,7 @@ import Head from 'next/head'
 import { CacheProvider, EmotionCache } from '@emotion/react'
 import CssBaseline from '@mui/material/CssBaseline'
 import store from 'store/store'
-import createEmotionCache from '../createEmotionCache'
+import createEmotionCache from '../utils/createEmotionCache'
 
 const clientSideEmotionCache = createEmotionCache()
 interface MyAppProps extends AppProps {
