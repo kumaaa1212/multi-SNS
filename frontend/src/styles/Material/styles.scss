@@ -1,94 +1,4 @@
-.sidebar {
-  .MuiPaper-root {
-    margin: 20px 0;
-  }
-
-  .MuiTabs-scroller {
-    width: 250px;
-  }
-
-  .MuiButtonBase-root {
-    display: block;
-    width: 250px;
-  }
-
-  .MuiButtonBase-root {
-    color: black;
-  }
-
-  .MuiTabs-indicator {
-    background-color: rgb(80, 80, 80);
-  }
-
-  .rank_accordion {
-    .MuiPaper-root {
-      margin: 0;
-    }
-
-    .MuiButtonBase-root {
-      display: flex;
-      width: 400px;
-    }
-
-    .MuiTypography-root {
-      width: 100%;
-    }
-  }
-}
-
-// sginup
-.sginup {
-  .MuiContainer-root {
-    margin-top: 150px;
-  }
-  .MuiBox-root {
-    pointer-events: none;
-  }
-}
-
-// プロフィールrightの大枠
-.timeline_tab {
-  width: 900px;
-  margin: 0 auto;
-
-  .MuiBox-root {
-    margin-bottom: 20px;
-  }
-
-  .MuiPaper-root {
-    margin: 0 auto;
-    width: 100%;
-    // border: 1px red solid;
-  }
-
-  .MuiTabs-scroller {
-    border-bottom: 1px solid rgb(80, 80, 80);
-    // position: fixed;
-  }
-
-  .MuiButtonBase-root {
-    color: black;
-  }
-
-  .MuiTabs-indicator {
-    background-color: rgb(80, 80, 80);
-  }
-
-  .MuiPaper-root {
-    margin: 0 auto;
-  }
-
-  .add_btn {
-    .MuiSvgIcon-root {
-      color: white;
-    }
-
-    .MuiButtonBase-root {
-      background-color: black;
-    }
-  }
-}
-
+// 掲示板
 .timeline {
   .timeline_img {
     width: 100%;
@@ -169,6 +79,7 @@
   }
 
 }
+
 .labels {
   .MuiFormControl-root {
     margin-bottom: 40px;
@@ -197,6 +108,7 @@
     margin: 20px auto;
   }
 }
+
 .pagenation_area {
   .MuiPagination-ul {
     width: 300px;

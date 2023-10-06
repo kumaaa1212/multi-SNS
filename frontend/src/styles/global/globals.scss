@@ -1,28 +1,3 @@
-// mypageのレイアウトのcss
-.profile {
-  display: grid;
-  grid-template-columns: 500px 1fr;
-}
-.chat {
-  display: grid;
-  grid-template-columns: 400px 1fr;
-}
-
-// アルバム
-.keepoff {
-  opacity: 0.5;
-}
-
-.timeline_tab {
-  position: relative;
-}
-
-.release_card {
-  .MuiPaper-root {
-    margin: 0;
-  }
-}
-
 // 共通のcss
 * {
   margin: 0;

@@ -1,6 +1,7 @@
 import * as React from 'react'
 import FormControlLabel from '@mui/material/FormControlLabel'
 import Switch from '@mui/material/Switch'
+import stlye from './SwitchBtn.module.scss'
 
 interface Props {
   keepPost: boolean
@@ -18,7 +19,7 @@ export default function SwitchBtn(props: Props): JSX.Element {
   }
 
   return (
-    <div className={`switch_btn ${!checked && 'keepoff'}`}>
+    <div className={`switch_btn ${!checked && stlye.keepoff}`}>
       {relese ? (
         <FormControlLabel control={<Switch checked={true} />} label='次へ進む' />
       ) : (
