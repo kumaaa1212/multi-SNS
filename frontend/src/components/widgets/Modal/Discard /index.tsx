@@ -1,52 +1,53 @@
-import { useState } from 'react'
-import { KeepAlbum } from 'types/internal/album'
-import Loading from 'components/layout/Loading'
+import { useDispatch } from 'react-redux'
+import { Divider } from '@mui/material'
+import { stateReset } from 'features/postSlice'
+import { AppDispatch } from 'store/store'
 import ModalBase from 'components/parts/Modal'
 import style from './Discard.module.scss'
-import ControlledAccordions from '../../../parts/Accordion'
+import CloseIcon from '/public/svg/modal_close.svg'
 
 interface Props {
   open: boolean
   setOpen: (open: boolean) => void
-  discardModalRefresh?: () => void
+  setIsSaveBar: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 export default function ModalDiscard(props: Props): JSX.Element {
-  const { open, setOpen, discardModalRefresh } = props
-  const [keepPost, setKeepPost] = useState<KeepAlbum[]>([])
-  const [loading, setLoading] = useState<boolean>(false)
+  const { open, setOpen, setIsSaveBar } = props
+  const dispatch: AppDispatch = useDispatch()
+
+  const handleDelete = async (): Promise<void> => {
+    dispatch(stateReset())
+    setOpen(!open)
+    setIsSaveBar(false)
+  }
+
+  const handleContinue = (): void => {
+    setOpen(!open)
+    setIsSaveBar(false)
+  }
 
   return (
     <ModalBase open={open} onClose={setOpen}>
-      <div className={style.keep_modal}>
-        <div className={style.modal_header}>
-          <button onClick={(): void => setOpen(!open)} className={style.close_btn}>
-            <svg
-              xmlns='http://www.w3.org/2000/svg'
-              className='icon icon-tabler icon-tabler-x'
-              width='40'
-              height='40'
-              viewBox='0 0 24 24'
-              strokeWidth='1.5'
-              stroke='#000000'
-              fill='none'
-              strokeLinecap='round'
-              strokeLinejoin='round'
-            >
-              <path stroke='none' d='M0 0h24v24H0z' fill='none' />
-              <path d='M18 6l-12 12' />
-              <path d='M6 6l12 12' />
-            </svg>
-          </button>
-          <h1>保存済みAlbum一覧</h1>
+      <div className={style.contents}>
+        <div className={style.handle_close}>
+          <CloseIcon className={style.close_btn} onClick={(): void => setOpen(!open)} />
         </div>
-        <ControlledAccordions
-          keepPost={keepPost}
-          setKeepPost={setKeepPost}
-          setLoading={setLoading}
-        />
+        <div className={style.main}>
+          <h2 className='mb_10'>保存されていないすべての変更を破棄</h2>
+          <Divider />
+          <p className='mv_20'>変更を破棄すると、最後に保存した後に編集した内容が削除されます。</p>
+          <Divider />
+        </div>
+        <div className={style.use_btn}>
+          <button className={style.delete_btn} onClick={handleDelete}>
+            破棄
+          </button>
+          <button className={style.btn} onClick={handleContinue}>
+            編集
+          </button>
+        </div>
       </div>
-      {loading && <Loading />}
     </ModalBase>
   )
 }

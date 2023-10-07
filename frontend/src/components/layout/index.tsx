@@ -18,16 +18,15 @@ interface Props {
   loadingAll?: boolean
   children: React.ReactNode
   isSaveBar?: boolean
-  saveAction?: () => void
+  setIsSaveBar?: React.Dispatch<React.SetStateAction<boolean>>
   discardModalOpen?: boolean
   discardModalClose?: React.Dispatch<React.SetStateAction<boolean>>
-  discardModalRefresh?: () => void
 }
 
 export default function Layout(props: Props): JSX.Element {
-  const { margin = 'm_0', padding = 'p_0', bgColor, loadingAll, children, isSaveBar } = props
+  const { margin = 'm_0', padding = 'p_0', bgColor, loadingAll, children } = props
+  const { isSaveBar = false, setIsSaveBar = (): void => {} } = props
   const { discardModalOpen = false, discardModalClose = (): void => {} } = props
-  const { discardModalRefresh = (): void => {} } = props
 
   const loading = useLoading()
   const dispatch: AppDispatch = useDispatch()
@@ -62,7 +61,7 @@ export default function Layout(props: Props): JSX.Element {
       <ModalDiscard
         open={discardModalOpen}
         setOpen={discardModalClose}
-        discardModalRefresh={discardModalRefresh}
+        setIsSaveBar={setIsSaveBar}
       />
       <Footer />
     </div>

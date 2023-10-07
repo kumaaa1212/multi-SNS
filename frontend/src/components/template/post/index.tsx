@@ -46,6 +46,7 @@ export default function Album(): JSX.Element {
   return (
     <Layout
       isSaveBar={isSaveBar}
+      setIsSaveBar={setIsSaveBar}
       discardModalOpen={open}
       discardModalClose={setOpen}
       bgColor='bg_gray'

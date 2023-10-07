@@ -67,6 +67,7 @@ const modalSlice = createSlice({
     stateReset: (state) => {
       state.titleText = ''
       state.contentText = ''
+      state.displayContentText = ''
       state.labels = []
       state.thumbnailText = ''
     },
