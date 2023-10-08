@@ -14,9 +14,9 @@ export default function HorizontalLinearStepper(props: Props): JSX.Element {
   const { activeStep } = props
 
   return (
-    <Box sx={{ width: '60%' }}>
+    <Box sx={{ width: '60%' }} className={style.main}>
       <div className='stepper'>
-        <Stepper activeStep={activeStep} className={style.main}>
+        <Stepper activeStep={activeStep}>
           {steps.map((label) => {
             const stepProps: { completed?: boolean } = {}
             const labelProps: {
