@@ -22,7 +22,10 @@ export default function AlbumNew(props: Props): JSX.Element {
   const { toastContent, isError, isToast, toastFunc } = useToast()
   const [albumNewData, setAlbumNewData] = useState<ArticlesType[]>(articlesNew)
   const articlesNewFilter = albumNewData?.filter(
-    (article) => article.title.includes(albumserch) || article.content.includes(albumserch),
+    (article) =>
+      article.title.includes(albumserch) ||
+      article.content.includes(albumserch) ||
+      article.thumbnailText.includes(albumserch),
   )
 
   useEffect(() => {

@@ -18,7 +18,7 @@ export default function Albums(props: Props): JSX.Element {
 
   const [click, setClicked] = useState<boolean>(false)
   const [albumserch, setAlbumserch] = useState<string>('')
-  const [currentPage, setCurrentPage] = useState<number>(1)
+  const [currentPage, setCurrentPage] = useState<number>(0)
   const [loading, setLoading] = useState<boolean>(false)
 
   return (

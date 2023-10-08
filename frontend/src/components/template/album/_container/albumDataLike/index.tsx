@@ -17,12 +17,15 @@ interface Props {
 }
 
 export default function AlbumLike(props: Props): JSX.Element {
-  const { articlesLike, albumserch, setLoading } = props
+  const { articlesLike, albumserch, setLoading, currentPage } = props
 
   const { toastContent, isError, isToast, toastFunc } = useToast()
   const [albumLikeData, setAlbumLikeData] = useState<ArticlesType[]>(articlesLike)
   const articlesNewFilter = albumLikeData?.filter(
-    (article) => article.title.includes(albumserch) || article.content.includes(albumserch),
+    (article) =>
+      article.title.includes(albumserch) ||
+      article.content.includes(albumserch) ||
+      article.thumbnailText.includes(albumserch),
   )
 
   useEffect(() => {
@@ -59,7 +62,7 @@ export default function AlbumLike(props: Props): JSX.Element {
 
   return (
     <AlbumArea>
-      {articlesNewFilter?.map((album) => (
+      {articlesNewFilter?.slice(currentPage, currentPage + 6).map((album) => (
         <div key={album.id}>
           <div className={style.large}>
             <ArticleCard album={album} handleDelete={handleDelete} setLoading={setLoading} />
