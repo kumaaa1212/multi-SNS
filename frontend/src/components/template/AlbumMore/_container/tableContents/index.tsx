@@ -44,11 +44,11 @@ export default function TableContent(): JSX.Element {
 
         .toc-link {
           color: var(--text-secondary);
+          font-weight: 700;
         }
 
         .is-active-link {
           color: var(--text-primary);
-          font-weight: 700;
         }
       `}</style>
     </Paper>
