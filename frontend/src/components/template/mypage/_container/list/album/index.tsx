@@ -6,7 +6,7 @@ import { RootState } from 'store/store'
 import { ArticlesType } from 'types/internal/album'
 import ArticleCard from 'components/parts/Card/Album'
 import HomeAlbumCard from 'components/parts/Card/Home/Album'
-import style from '../index.module.scss'
+import style from '../Tab.module.scss'
 
 interface Props {
   setLoading: React.Dispatch<React.SetStateAction<boolean>>
