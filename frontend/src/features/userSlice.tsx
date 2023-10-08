@@ -48,6 +48,7 @@ const userSlice = createSlice({
         teamURL: action.payload.teamURL,
       }
     },
+
     singUpUser: (state, action) => {
       return {
         ...state,
