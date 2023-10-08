@@ -56,7 +56,7 @@ export default function Layout(props: Props): JSX.Element {
       )}
       <ResponsiveAppBar />
       <div className={`${margin} ${padding} ${bgColor} min_height`}>{children}</div>
-      {isSaveBar && <SaveBar discardModalClose={discardModalClose} />}
+      {isSaveBar && <SaveBar discardModalClose={discardModalClose} setIsSaveBar={setIsSaveBar} />}
       {loadingAll && <Loading />}
       <ModalDiscard
         open={discardModalOpen}

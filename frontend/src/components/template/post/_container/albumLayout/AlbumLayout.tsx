@@ -135,9 +135,9 @@ export default function AlnumLayout(props: Props): JSX.Element {
 
   return (
     <div>
+      {ideaOpen && <IdeaModal open={ideaOpen} setOpen={setIdeaOpen} />}
+      {keepOpen && <KeepModal open={keepOpen} setOpen={setKeepOpen} />}
       <div className={style.album_header}>
-        {ideaOpen && <IdeaModal open={ideaOpen} setOpen={setIdeaOpen} />}
-        {keepOpen && <KeepModal open={keepOpen} setOpen={setKeepOpen} />}
         <ReverseIcon onClick={handleReverse} className={style.album_btn} />
         <HorizontalLinearStepper activeStep={activeStep} />
         <div className={style.header_right}>

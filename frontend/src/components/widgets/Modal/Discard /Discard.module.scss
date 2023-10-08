@@ -1,0 +1,48 @@
+.handle_close {
+  .close_btn {
+    cursor: pointer;
+  }
+}
+
+.contents {
+  width: 600px;
+
+  @media screen and (max-width: 768px) {
+    width: 400px;
+  }
+
+  @media screen and (max-width: 480px) {
+    width: 300px;
+  }
+}
+
+.use_btn {
+  margin-top: 20px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 20px;
+
+  .delete_btn {
+    display: block;
+    width: 100px;
+    height: 40px;
+    font-weight: bold;
+    background-color: rgb(208, 0, 0);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  .btn {
+    display: block;
+    width: 100px;
+    height: 40px;
+    font-weight: bold;
+    background-color: #1876d2;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+}

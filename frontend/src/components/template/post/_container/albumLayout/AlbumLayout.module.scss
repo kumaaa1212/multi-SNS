@@ -1,5 +1,5 @@
 .album_header {
-  margin: 0px 30px;
+  margin: 0px 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -14,9 +14,10 @@
   }
 
   .album_btn {
-    border: none;
     background-color: transparent;
     cursor: pointer;
+    width: 50px;
+    height: 50px;
   }
 }
 
