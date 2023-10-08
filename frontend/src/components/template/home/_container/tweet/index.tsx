@@ -11,19 +11,19 @@ import stlye from './Tweet.module.scss'
 
 interface Props {
   tweets: TweetsType[]
-  setLoaindg: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 export default function TweetParts(props: Props): JSX.Element {
-  const { tweets, setLoaindg } = props
+  const { tweets } = props
 
   const [showTweets, setShowTweets] = useState<TweetsType>(tweets[0])
   const [tweetsData, setTweetsData] = useState<TweetsType[]>(tweets)
   const [open, setOpen] = useState<boolean>(false)
+  const [modalLoading, setModalLoading] = useState<boolean>(false)
   const { toastContent, isError, isToast, toastFunc } = useToast()
 
   const handleDelete = async (tweet: TweetsType): Promise<void> => {
-    setLoaindg(true)
+    setModalLoading(true)
     try {
       await apiClient
         .delete('/post/newTweet/delete', {
@@ -38,7 +38,7 @@ export default function TweetParts(props: Props): JSX.Element {
     } catch {
       toastFunc('削除に失敗しました', true)
     } finally {
-      setLoaindg(false)
+      setModalLoading(false)
     }
   }
 
@@ -62,6 +62,8 @@ export default function TweetParts(props: Props): JSX.Element {
           ))}
         </div>
         <HomeTweetModal
+          loading={modalLoading}
+          setLoading={setModalLoading}
           open={open}
           setOpen={setOpen}
           showTweets={showTweets}

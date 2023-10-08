@@ -22,6 +22,7 @@ export default function TweetNew(props: Props): JSX.Element {
   const [open, setOpen] = useState(false)
   const [tweetsData, setTweetsData] = useState<TweetsType[]>(tweetsNew)
   const [showTweets, setShowTweets] = useState<TweetsType>(tweetsNew[0])
+  const [modalLoading, setModalLoading] = useState<boolean>(false)
   const tweetsNewFilter = tweetsData?.filter((tweet) => tweet.content.includes(albumserch))
 
   useEffect(() => {
@@ -43,7 +44,7 @@ export default function TweetNew(props: Props): JSX.Element {
 
   const handleDelete = async (tweet: TweetsType): Promise<void> => {
     try {
-      setLoading(true)
+      setModalLoading(true)
       await apiClient
         .delete('/post/newTweet/delete', {
           params: {
@@ -58,7 +59,7 @@ export default function TweetNew(props: Props): JSX.Element {
     } catch {
       toastFunc('削除に失敗しました', true)
     } finally {
-      setLoading(false)
+      setModalLoading(false)
     }
   }
 
@@ -66,7 +67,7 @@ export default function TweetNew(props: Props): JSX.Element {
     <TweetArea>
       {tweetsNewFilter?.slice(currentPage, currentPage + 6).map((tweet) => (
         <>
-          <div className={style.large}>
+          <div className={style.large} key={tweet.id}>
             <TweetCard
               tweet={tweet}
               key={tweet.id}
@@ -80,6 +81,8 @@ export default function TweetNew(props: Props): JSX.Element {
         </>
       ))}
       <HomeTweetModal
+        loading={modalLoading}
+        setLoading={setModalLoading}
         open={open}
         setOpen={setOpen}
         showTweets={showTweets}

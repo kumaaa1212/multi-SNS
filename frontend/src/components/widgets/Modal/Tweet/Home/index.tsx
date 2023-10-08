@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { TweetsType } from 'types/internal/tweet'
 import Loading from 'components/layout/Loading'
 import TweetCard from 'components/parts/Card/Tweet'
@@ -8,6 +7,8 @@ import ModalIcon from '/public/svg/modal_close.svg'
 import style from './Tweet.module.scss'
 
 interface Props {
+  loading: boolean
+  setLoading: React.Dispatch<React.SetStateAction<boolean>>
   open: boolean
   setOpen: (open: boolean) => void
   showTweets: TweetsType
@@ -15,9 +16,7 @@ interface Props {
 }
 
 export default function HomeTweetModal(props: Props): JSX.Element {
-  const { open, setOpen, showTweets, handleDelete } = props
-
-  const [loading, setLoading] = useState<boolean>(false)
+  const { loading, setLoading, open, setOpen, showTweets, handleDelete } = props
 
   return (
     <ModalBase open={open} onClose={setOpen}>

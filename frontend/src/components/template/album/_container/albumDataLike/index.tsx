@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react'
 import { HttpStatusCode } from 'axios'
+import { useToast } from 'components/hooks/useToast'
 import apiClient from 'libs/apiClient'
 import { ArticlesType } from 'types/internal/album'
 import ArticleCard from 'components/parts/Card/Album'
 import HomeAlbumCard from 'components/parts/Card/Home/Album'
+import ToastBase from 'components/parts/Toast'
 import AlbumArea from 'components/widgets/Article/Album'
 import style from '../index.module.scss'
 
@@ -21,17 +23,27 @@ export default function AlbumLike(props: Props): JSX.Element {
   const articlesNewFilter = albumLikeData?.filter(
     (article) => article.title.includes(albumserch) || article.content.includes(albumserch),
   )
+  const { toastContent, isError, isToast, toastFunc } = useToast()
 
   useEffect(() => {
+    setLoading(true)
     const detaFetch = async (): Promise<void> => {
-      const resLike = await apiClient.get('/article/all/content/order/like')
-      if (resLike.status !== HttpStatusCode.Ok) throw Error
-      setAlbumLikeData(resLike.data.articleTopLike)
+      try {
+        await apiClient.get('/article/all/content/order/like').then((res) => {
+          if (res.status !== HttpStatusCode.Ok) throw Error
+          setAlbumLikeData(res.data.articleTopLike)
+        })
+      } catch {
+        toastFunc('データの取得に失敗しました', true)
+      } finally {
+        setLoading(false)
+      }
     }
     detaFetch()
-  }, [])
+  }, [setLoading, toastFunc])
 
   const handleDelete = async (album: ArticlesType): Promise<void> => {
+    setLoading(true)
     await apiClient
       .delete('/post/Likealbum/delete', {
         params: {
@@ -41,6 +53,7 @@ export default function AlbumLike(props: Props): JSX.Element {
       .then((res) => {
         if (res.status !== HttpStatusCode.Ok) throw Error
         setAlbumLikeData(res.data.remainAlbums)
+        setLoading(false)
       })
   }
 
@@ -56,6 +69,7 @@ export default function AlbumLike(props: Props): JSX.Element {
           </div>
         </div>
       ))}
+      <ToastBase content={toastContent} isError={isError} active={isToast} />
     </AlbumArea>
   )
 }

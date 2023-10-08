@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { HttpStatusCode } from 'axios'
+import { useToast } from 'components/hooks/useToast'
 import apiClient from 'libs/apiClient'
 import { ArticlesType } from 'types/internal/album'
 import ArticleCard from 'components/parts/Card/Album'
 import HomeAlbumCard from 'components/parts/Card/Home/Album'
+import ToastBase from 'components/parts/Toast'
 import AlbumArea from 'components/widgets/Article/Album'
 import style from '../index.module.scss'
 
@@ -21,6 +23,7 @@ export default function AlbumNew(props: Props): JSX.Element {
   const articlesNewFilter = albumNewData?.filter(
     (article) => article.title.includes(albumserch) || article.content.includes(albumserch),
   )
+  const { toastContent, isError, isToast, toastFunc } = useToast()
 
   useEffect(() => {
     const detaFetch = async (): Promise<void> => {
@@ -31,15 +34,16 @@ export default function AlbumNew(props: Props): JSX.Element {
           setAlbumNewData(res.data.articleTopNew)
         })
       } catch {
-        // toast
+        toastFunc('データの取得に失敗しました', true)
       } finally {
         setLoading(false)
       }
     }
     detaFetch()
-  }, [setLoading])
+  }, [setLoading, toastFunc])
 
   const handleDelete = async (album: ArticlesType): Promise<void> => {
+    setLoading(true)
     await apiClient
       .delete('/post/Newalbum/delete', {
         params: {
@@ -49,6 +53,7 @@ export default function AlbumNew(props: Props): JSX.Element {
       .then((res) => {
         if (res.status !== HttpStatusCode.Ok) throw Error
         setAlbumNewData(res.data.remainAlbums)
+        setLoading(false)
       })
   }
 
@@ -64,6 +69,7 @@ export default function AlbumNew(props: Props): JSX.Element {
           </div>
         </div>
       ))}
+      <ToastBase content={toastContent} isError={isError} active={isToast} />
     </AlbumArea>
   )
 }

@@ -21,6 +21,7 @@ export default function TweetLike(props: Props): JSX.Element {
   const [tweetsData, setTweetsData] = useState<TweetsType[]>(tweetsLike)
   const [open, setOpen] = useState<boolean>(false)
   const [showTweets, setShowTweets] = useState<TweetsType>(tweetsLike[0])
+  const [modalLoading, setModalLoading] = useState<boolean>(false)
   const tweetsLikeFilter = tweetsData?.filter((tweet) => tweet.content.includes(albumserch))
 
   useEffect(() => {
@@ -41,7 +42,7 @@ export default function TweetLike(props: Props): JSX.Element {
   }, [setLoading, toastFunc])
 
   const handleDelete = async (tweet: TweetsType): Promise<void> => {
-    setLoading(true)
+    setModalLoading(true)
     try {
       await apiClient
         .delete('/post/likeTweet/delete', {
@@ -57,7 +58,7 @@ export default function TweetLike(props: Props): JSX.Element {
     } catch {
       toastFunc('削除に失敗しました', true)
     } finally {
-      setLoading(false)
+      setModalLoading(false)
     }
   }
 
@@ -65,7 +66,7 @@ export default function TweetLike(props: Props): JSX.Element {
     <TweetArea>
       {tweetsLikeFilter?.slice(currentPage, currentPage + 6).map((tweet) => (
         <>
-          <div className={style.large}>
+          <div className={style.large} key={tweet.id}>
             <TweetCard
               tweet={tweet}
               key={tweet.id}
@@ -79,6 +80,8 @@ export default function TweetLike(props: Props): JSX.Element {
         </>
       ))}
       <HomeTweetModal
+        loading={modalLoading}
+        setLoading={setModalLoading}
         open={open}
         setOpen={setOpen}
         showTweets={showTweets}
