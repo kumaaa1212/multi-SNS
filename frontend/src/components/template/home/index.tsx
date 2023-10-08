@@ -13,6 +13,7 @@ interface Props {
 
 export default function Home(props: Props): JSX.Element {
   const { albums, tweets, labels } = props
+
   return (
     <Layout>
       <CategoriesPart labels={labels} />

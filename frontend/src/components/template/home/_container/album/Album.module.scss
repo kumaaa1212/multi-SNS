@@ -3,6 +3,7 @@
   grid-template-columns: 1fr 1fr;
   gap: 50px;
 }
+
 @media screen and (max-width: 1000px) {
   .main {
     grid-template-columns: 1fr;

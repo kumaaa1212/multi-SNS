@@ -7,7 +7,7 @@ import ArticleCard from 'components/parts/Card/Album'
 import HomeAlbumCard from 'components/parts/Card/Home/Album'
 import ToastBase from 'components/parts/Toast'
 import AlbumArea from 'components/widgets/Article/Album'
-import style from '../index.module.scss'
+import style from '../Album.module.scss'
 
 interface Props {
   currentPage: number
@@ -19,11 +19,11 @@ interface Props {
 export default function AlbumLike(props: Props): JSX.Element {
   const { articlesLike, albumserch, setLoading } = props
 
+  const { toastContent, isError, isToast, toastFunc } = useToast()
   const [albumLikeData, setAlbumLikeData] = useState<ArticlesType[]>(articlesLike)
   const articlesNewFilter = albumLikeData?.filter(
     (article) => article.title.includes(albumserch) || article.content.includes(albumserch),
   )
-  const { toastContent, isError, isToast, toastFunc } = useToast()
 
   useEffect(() => {
     setLoading(true)

@@ -13,7 +13,6 @@ export default function CategoriesPart(props: Props): JSX.Element {
   const { labels } = props
 
   const router = useRouter()
-
   const labelCounts: { [label: string]: number } = {}
 
   labels.forEach((item) => {
