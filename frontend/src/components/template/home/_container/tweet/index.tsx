@@ -16,9 +16,9 @@ interface Props {
 export default function TweetParts(props: Props): JSX.Element {
   const { tweets } = props
 
+  const [open, setOpen] = useState<boolean>(false)
   const [showTweets, setShowTweets] = useState<TweetsType>(tweets[0])
   const [tweetsData, setTweetsData] = useState<TweetsType[]>(tweets)
-  const [open, setOpen] = useState<boolean>(false)
   const [modalLoading, setModalLoading] = useState<boolean>(false)
   const { toastContent, isError, isToast, toastFunc } = useToast()
 
