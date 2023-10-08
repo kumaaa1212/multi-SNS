@@ -166,8 +166,9 @@ export default function Privacy(): JSX.Element {
           <p>
             本ポリシーに関するお問い合わせは，
             <a href='mailto:kuma.soccer1225@gmail.com' className={style.link}>
-              お問い合わせフォームまでお願いいたします。
+              お問い合わせフォーム
             </a>
+            <span>までお願いいたします。</span>
           </p>
         </section>
       </div>
