@@ -10,22 +10,25 @@ import style from './index.module.scss'
 
 interface Props {
   rooms: RoomType[]
+  loading: boolean
+  setLoading: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 export default function Chat(props: Props): JSX.Element {
-  const { rooms } = props
+  const { rooms, loading, setLoading } = props
 
+  const [roomState, setRoomState] = useState<RoomType[]>(rooms)
   const { toastContent, isError, isToast, toastFunc } = useToast()
   const [selectChatRoom, setSelectChatRoom] = useState<boolean>(false)
   const [selectRoom, setSelectRoom] = useState<RoomType>(rooms[0])
-  const [loading, setLoading] = useState<boolean>(false)
 
   return (
     <Layout bgColor='bg_blue' loadingAll={loading}>
       <Meta title='Chat' />
       <div className={style.chat}>
         <SideBar
-          rooms={rooms}
+          roomState={roomState}
+          setRoomState={setRoomState}
           toastFunc={toastFunc}
           setLoading={setLoading}
           selectChatRoom={selectChatRoom}
@@ -33,9 +36,13 @@ export default function Chat(props: Props): JSX.Element {
           setSelectRoom={setSelectRoom}
         />
         <ChatArea
+          setRoomState={setRoomState}
+          setLoading={setLoading}
+          toastFunc={toastFunc}
           selectRoom={selectRoom}
           setSelectRoom={setSelectRoom}
           selectChatRoom={selectChatRoom}
+          setSelectChatRoom={setSelectChatRoom}
         />
       </div>
       <ToastBase content={toastContent} isError={isError} active={isToast} />

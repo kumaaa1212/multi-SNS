@@ -110,7 +110,6 @@ router.post("/follow", async (req: Request, res: Response) => {
     req.body;
 
   try {
-    // Ensure the users exist
     const authorUser = await prisma.user.findUnique({
       where: { id: Number(authorId) },
     });

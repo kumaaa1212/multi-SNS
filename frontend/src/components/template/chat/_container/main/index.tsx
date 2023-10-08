@@ -11,30 +11,35 @@ import SendInput from 'components/parts/Input/Send'
 import style from './Main.module.scss'
 
 interface Props {
+  setRoomState: React.Dispatch<React.SetStateAction<RoomType[]>>
+  setLoading: React.Dispatch<React.SetStateAction<boolean>>
+  toastFunc: (content: string, isError: boolean) => void
   selectRoom: RoomType
   setSelectRoom: React.Dispatch<React.SetStateAction<RoomType>>
   selectChatRoom: boolean
+  setSelectChatRoom: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 export default function ChatArea(props: Props): JSX.Element {
-  const { selectRoom, setSelectRoom, selectChatRoom } = props
+  const { setRoomState, setLoading, toastFunc, selectRoom, setSelectRoom } = props
+  const { selectChatRoom, setSelectChatRoom } = props
 
   const { follow, userId, iconPath, icon, bio, team, twitterURL, teamURL, username } = useSelector(
     (state: RootState) => state.user,
   )
   const [input, setInput] = useState<string>('')
   const [filterFrend, setFilterFrend] = useState<boolean>(false)
-
   useEffect(() => {
     if (!selectRoom) return
     const filterFrend: boolean = follow.some((frend) => {
-      return selectRoom.user1Id === String(frend.userId)
+      return selectRoom.user1Id === String(frend.frendId) || selectRoom.user1Id === String(userId)
     })
-    setFilterFrend(!filterFrend)
-  }, [follow, selectRoom])
+    setFilterFrend(filterFrend)
+  }, [follow, selectRoom, userId])
 
   const handleSend = async (): Promise<void> => {
     if (!input) return
+    setLoading(true)
     try {
       await apiClient
         .post('/chat/room/add/message', {
@@ -48,11 +53,14 @@ export default function ChatArea(props: Props): JSX.Element {
         })
       setInput('')
     } catch {
-      alert('メッセージの送信に失敗しました')
+      toastFunc('メッセージの送信に失敗しました', true)
+    } finally {
+      setLoading(false)
     }
   }
 
   const handleDelete = async (): Promise<void> => {
+    setLoading(true)
     await apiClient
       .delete('/chat/room/delete', {
         params: {
@@ -61,10 +69,13 @@ export default function ChatArea(props: Props): JSX.Element {
         },
       })
       .then((res) => {
-        setSelectRoom(res.data.rooms)
+        setRoomState(res.data.rooms)
+        setLoading(false)
+        setSelectChatRoom(false)
       })
   }
   const handleFollow = async (): Promise<void> => {
+    setLoading(true)
     await apiClient
       .post('/auth/follow', {
         authorId: selectRoom.user1Id,
@@ -77,10 +88,9 @@ export default function ChatArea(props: Props): JSX.Element {
         teamURL,
       })
       .then((res) => {
-        if (res.status !== HttpStatusCode.Ok) {
-          throw new Error('Failed to follow user')
-        }
-        setFilterFrend(false)
+        if (res.status !== HttpStatusCode.Ok) throw new Error('Failed to follow user')
+        setFilterFrend(true)
+        setLoading(false)
       })
   }
 
@@ -96,7 +106,7 @@ export default function ChatArea(props: Props): JSX.Element {
             </div>
           </div>
           <div className={style.input_area}>
-            {filterFrend && (
+            {!filterFrend && (
               <Alert severity='info' className={style.alart_area}>
                 <div className={style.message_area}>
                   <p>メッセージのリクエストが来ています。</p>
@@ -114,9 +124,7 @@ export default function ChatArea(props: Props): JSX.Element {
                 </div>
               </Alert>
             )}
-            {!filterFrend && (
-              <SendInput input={input} setInput={setInput} handleSend={handleSend} />
-            )}
+            {filterFrend && <SendInput input={input} setInput={setInput} handleSend={handleSend} />}
           </div>
         </>
       )}

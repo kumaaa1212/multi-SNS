@@ -10,7 +10,8 @@ import ChatSearch from 'components/parts/Search'
 import MultipleSelectNative from 'components/parts/Select'
 
 interface Props {
-  rooms: RoomType[]
+  roomState: RoomType[]
+  setRoomState: Dispatch<SetStateAction<RoomType[]>>
   toastFunc: (content: string, isError: boolean) => void
   setLoading: Dispatch<SetStateAction<boolean>>
   selectChatRoom: boolean
@@ -19,11 +20,11 @@ interface Props {
 }
 
 export default function SideBar(props: Props): JSX.Element {
-  const { toastFunc, setSelectChatRoom, setSelectRoom, rooms, selectChatRoom, setLoading } = props
+  const { toastFunc, setSelectChatRoom, setSelectRoom } = props
+  const { roomState, setRoomState, selectChatRoom, setLoading } = props
 
   const { userId } = useSelector((state: RootState) => state.user)
   const [followListm, setFollowList] = useState<boolean>(false)
-  const [myListRooms, setMyListRooms] = useState<RoomType[]>(rooms)
   const [serchInput, setSerchInput] = useState<string>('')
 
   useEffect(() => {
@@ -31,7 +32,7 @@ export default function SideBar(props: Props): JSX.Element {
     const roomFetch = async (): Promise<void> => {
       try {
         await apiClient.get(`/chat/allrooms/${userId}`).then((res) => {
-          setMyListRooms(res.data.rooms)
+          setRoomState(res.data.rooms)
         })
       } catch {
         toastFunc('エラーが発生しました', true)
@@ -40,18 +41,18 @@ export default function SideBar(props: Props): JSX.Element {
       }
     }
     roomFetch()
-  }, [setLoading, toastFunc, userId])
+  }, [setLoading, setRoomState, toastFunc, userId])
 
   const handleSerch = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setSerchInput(e.target.value)
-    if (e.target.value === '') return setMyListRooms(rooms)
-    const filterRoom = myListRooms.filter((room) => {
+    if (e.target.value === '') return
+    const filterRoom = roomState.filter((room) => {
       return (
         room.user1Name.toLowerCase().includes(e.target.value.toLowerCase()) ||
         room.user2Name.toLowerCase().includes(e.target.value.toLowerCase())
       )
     })
-    setMyListRooms(filterRoom)
+    setRoomState(filterRoom)
   }
 
   return (
@@ -68,8 +69,8 @@ export default function SideBar(props: Props): JSX.Element {
               <MultipleSelectNative
                 toastFunc={toastFunc}
                 setLoading={setLoading}
-                myListRooms={myListRooms}
-                setMyListRooms={setMyListRooms}
+                myListRooms={roomState}
+                setMyListRooms={setRoomState}
               />
             </div>
           )}
@@ -77,7 +78,7 @@ export default function SideBar(props: Props): JSX.Element {
       </div>
 
       <div className={style.chat_person}>
-        {myListRooms?.map((room: RoomType) => (
+        {roomState?.map((room: RoomType) => (
           <Chatlist
             key={room.id}
             selectChatRoom={selectChatRoom}

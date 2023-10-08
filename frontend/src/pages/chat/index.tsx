@@ -8,13 +8,16 @@ import NoUser from 'components/widgets/NoUser'
 
 export default function ChatPage(): JSX.Element {
   const [roomState, setRoomState] = useState<RoomType[]>([])
+  const [loading, setLoading] = useState<boolean>(false)
   const { userId } = useSelector((state: RootState) => state.user)
 
   useEffect(() => {
     if (userId.length === 0) return
+    setLoading(true)
     const roomFetch = async (): Promise<void> => {
       await apiClient.get(`/chat/allrooms/${userId}`).then((res) => {
         setRoomState(res.data.rooms)
+        setLoading(false)
       })
     }
     roomFetch()
@@ -22,7 +25,11 @@ export default function ChatPage(): JSX.Element {
 
   return (
     <div suppressHydrationWarning={true}>
-      {userId.length > 0 ? <Chat rooms={roomState} /> : <NoUser contens='Chat' />}
+      {userId.length > 0 ? (
+        <Chat rooms={roomState} loading={loading} setLoading={setLoading} />
+      ) : (
+        <NoUser contens='Chat' />
+      )}
     </div>
   )
 }
