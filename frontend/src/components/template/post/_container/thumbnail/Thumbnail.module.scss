@@ -1,8 +1,10 @@
 .thumbnail {
   display: flex;
   justify-content: center;
+
   .thumbnail_delail {
     margin-top: 50px;
+
     .thumbnail_textarea {
       background-color: #f1f5f9;
       min-width: 600px;
@@ -13,6 +15,7 @@
       border: none;
       resize: none;
     }
+
     .thumbnail_textarea:focus {
       outline: none;
     }
@@ -25,8 +28,10 @@
     justify-content: center;
     align-items: center;
     flex-flow: column;
+
     .thumbnail_delail {
       margin-top: 50px;
+
       .thumbnail_textarea {
         background-color: #f1f5f9;
         min-width: 600px;
@@ -37,6 +42,7 @@
         border: none;
         resize: none;
       }
+
       .thumbnail_textarea:focus {
         outline: none;
       }
@@ -52,11 +58,13 @@
     flex-flow: column;
     padding-bottom: 50px;
     padding: 0 5px;
+
     .thumbnail_delail {
       margin-top: 50px;
       display: flex;
       align-items: center;
       flex-flow: column;
+
       .thumbnail_textarea {
         background-color: #f1f5f9;
         min-width: 300px;
@@ -67,6 +75,7 @@
         border: none;
         resize: none;
       }
+      
       .thumbnail_textarea:focus {
         outline: none;
       }

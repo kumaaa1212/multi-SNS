@@ -15,10 +15,12 @@
     display: flex;
   }
 }
+
 @media screen and (max-width: 660px) {
   .search_area {
     display: block;
   }
+  
   .search_btn_area {
     margin-bottom: 20px;
   }

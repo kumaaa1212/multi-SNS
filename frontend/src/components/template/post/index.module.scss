@@ -78,9 +78,11 @@
     .preview_area {
       height: 400px;
     }
+
     .album_text_area {
       width: 600px;
     }
+
     .album_text {
       background-color: #fbfbfb;
       display: block;
@@ -113,6 +115,7 @@
     }
   }
 }
+
 @media screen and (max-width: 760px) {
   .input {
     display: block;
@@ -162,6 +165,7 @@
     }
   }
 }
+
 @media screen and (max-width: 480px) {
   .input {
     display: block;

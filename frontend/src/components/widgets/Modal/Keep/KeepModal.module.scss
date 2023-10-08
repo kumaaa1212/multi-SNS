@@ -1,14 +1,18 @@
 .keep_modal{
   width: 600px;
   height: 500px;
+
   .modal_header{
     margin-bottom: 20px;
+
     h1{
       width: 100%;
       text-align: center;
     }
+
     display: flex;
     align-items: center;
+    
     .close_btn {
       display: block;
       background-color: #fff;

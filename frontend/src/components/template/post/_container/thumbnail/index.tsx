@@ -9,7 +9,7 @@ import Meta from 'components/layout/Head'
 import ThumbnailCard from 'components/parts/Card/Post/thumbnail'
 import Labels from 'components/widgets/Label/Input'
 import style from './Thumbnail.module.scss'
-import AlnumLayout from '../albumLayout/AlbumLayout'
+import AlnumLayout from '../albumLayout'
 
 export default function Thumbnail(): JSX.Element {
   const dispatch: AppDispatch = useDispatch()
