@@ -29,6 +29,7 @@ export default function Login(): JSX.Element {
   const router = useRouter()
   const dispatch: AppDispatch = useDispatch()
   const { toastContent, isError, isToast, toastFunc } = useToast()
+
   const { control, handleSubmit, getValues } = useForm<LoginType>({
     defaultValues: {
       email: '',
