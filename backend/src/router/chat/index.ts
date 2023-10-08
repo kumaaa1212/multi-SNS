@@ -10,7 +10,7 @@ router.post("/newroom", async (req: Request, res: Response) => {
     req.body;
 
   try {
-    const room = await prisma.room.create({
+     await prisma.room.create({
       data: {
         user1Id,
         user1Name,
@@ -21,7 +21,27 @@ router.post("/newroom", async (req: Request, res: Response) => {
       },
     });
 
-    return res.json({ room });
+    const allRooms = await prisma.room.findMany({
+      where: {
+        OR: [
+          {
+            user1Id: String(user1Id),
+          },
+          {
+            user2Id: String(user1Id),
+          },
+        ],
+      },
+      include: {
+        messages: {
+          orderBy: {
+            createdAt: "asc",
+          },
+        },
+      },
+    });
+
+    return res.json({ allRooms });
   } catch (error) {
     console.error(error);
     return res.status(500).json({ error: "Failed to create new room." });

@@ -20,10 +20,10 @@ export default function MultipleSelectNative(props: Props): JSX.Element {
 
   useEffect(() => {
     const filterFreds = follow.filter((person) => {
-      return !myListRooms.some((room) => {
+      return !myListRooms?.some((room) => {
         return (
-          (room.user1Id === person.userId && room.user2Id === userId) ||
-          (room.user2Id === person.userId && room.user1Id === userId)
+          (room.user1Id === person.frendId && room.user2Id === userId) ||
+          (room.user2Id === person.frendId && room.user1Id === userId)
         )
       })
     })
@@ -43,7 +43,7 @@ export default function MultipleSelectNative(props: Props): JSX.Element {
         })
         .then((res) => {
           if (res.status !== 200) return
-          setSelectFrend((prev) => prev.filter((person) => person.frendId !== info.userId))
+          setMyListRooms(res.data.allRooms)
         })
     } catch {
       alert('チャットルームの作成に失敗しました')
@@ -67,7 +67,7 @@ export default function MultipleSelectNative(props: Props): JSX.Element {
               >
                 <Image
                   src={Icongenerate(person.icon)}
-                  alt={''}
+                  alt='icon'
                   width={40}
                   height={40}
                   className={style.new_chat_person_img}

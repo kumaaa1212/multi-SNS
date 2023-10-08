@@ -43,34 +43,32 @@ export default function SideBar(props: Props): JSX.Element {
   }
 
   return (
-    <div className='chat_sidebar'>
-      <div className={style.sidebar}>
-        <div className={style.sidebar_header}>
-          <ChatSearch serchInput={serchInput} onChange={handleSerch} />
-          <div>
-            <NewChatIcon
-              className={style.addIcon}
-              onClick={(): void => setFollowList(!followListm)}
-            />
-            {followListm && (
-              <div className={style.new_chat}>
-                <MultipleSelectNative myListRooms={myListRooms} setMyListRooms={setMyListRooms} />
-              </div>
-            )}
-          </div>
+    <div className={style.sidebar}>
+      <div className={style.sidebar_header}>
+        <ChatSearch serchInput={serchInput} onChange={handleSerch} />
+        <div>
+          <NewChatIcon
+            className={style.addIcon}
+            onClick={(): void => setFollowList(!followListm)}
+          />
+          {followListm && (
+            <div className={style.new_chat}>
+              <MultipleSelectNative myListRooms={myListRooms} setMyListRooms={setMyListRooms} />
+            </div>
+          )}
         </div>
+      </div>
 
-        <div className={style.chat_person}>
-          {myListRooms?.map((room: RoomType) => (
-            <Chatlist
-              key={room.id}
-              selectChatRoom={selectChatRoom}
-              setSelectChatRoom={setSelectChatRoom}
-              room={room}
-              setSelectRoom={setSelectRoom}
-            />
-          ))}
-        </div>
+      <div className={style.chat_person}>
+        {myListRooms?.map((room: RoomType) => (
+          <Chatlist
+            key={room.id}
+            selectChatRoom={selectChatRoom}
+            setSelectChatRoom={setSelectChatRoom}
+            room={room}
+            setSelectRoom={setSelectRoom}
+          />
+        ))}
       </div>
     </div>
   )
