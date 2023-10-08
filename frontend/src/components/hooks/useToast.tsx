@@ -16,6 +16,10 @@ export const useToast = (): ToastData => {
     setToastContent(content)
     setIsError(isError)
     setIsToast(true)
+
+    setTimeout(() => {
+      setIsToast(false)
+    }, 5000)
   }, [])
 
   return { toastContent, isError, isToast, toastFunc }
