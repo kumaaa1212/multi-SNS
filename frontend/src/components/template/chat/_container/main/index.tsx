@@ -25,6 +25,14 @@ export default function ChatArea(props: Props): JSX.Element {
   const [input, setInput] = useState<string>('')
   const [filterFrend, setFilterFrend] = useState<boolean>(false)
 
+  useEffect(() => {
+    if (!selectRoom) return
+    const filterFrend: boolean = follow.some((frend) => {
+      return selectRoom.user1Id === String(frend.userId)
+    })
+    setFilterFrend(!filterFrend)
+  }, [follow, selectRoom])
+
   const handleSend = async (): Promise<void> => {
     if (!input) return
     try {
@@ -43,14 +51,6 @@ export default function ChatArea(props: Props): JSX.Element {
       alert('メッセージの送信に失敗しました')
     }
   }
-
-  useEffect(() => {
-    if (!selectRoom) return
-    const filterFrend: boolean = follow.some((frend) => {
-      return selectRoom.user1Id === frend.userId
-    })
-    setFilterFrend(!filterFrend)
-  }, [follow, selectRoom])
 
   const handleDelete = async (): Promise<void> => {
     await apiClient

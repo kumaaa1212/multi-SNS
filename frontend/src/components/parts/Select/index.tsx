@@ -8,29 +8,33 @@ import { FrendInfo, RoomType } from 'types/internal'
 import style from './Native.module.scss'
 
 interface Props {
+  toastFunc: (content: string, isError: boolean) => void
+  setLoading: Dispatch<SetStateAction<boolean>>
   myListRooms: RoomType[]
   setMyListRooms: Dispatch<SetStateAction<RoomType[]>>
 }
 
 export default function MultipleSelectNative(props: Props): JSX.Element {
-  const { myListRooms, setMyListRooms } = props
+  const { toastFunc, myListRooms, setMyListRooms, setLoading } = props
 
   const { userId, iconPath, icon, username, follow } = useSelector((state: RootState) => state.user)
   const [selectFrend, setSelectFrend] = useState<FrendInfo[]>(follow)
 
   useEffect(() => {
     const filterFreds = follow.filter((person) => {
-      return !myListRooms?.some((room) => {
+      const isFrend = myListRooms.some((room) => {
         return (
-          (room.user1Id === person.frendId && room.user2Id === userId) ||
-          (room.user2Id === person.frendId && room.user1Id === userId)
+          (room.user2Id === String(person.frendId) && room.user1Id === userId) ||
+          (room.user1Id === String(person.frendId) && room.user2Id === userId)
         )
       })
+      return !isFrend
     })
     setSelectFrend(filterFreds)
   }, [follow, myListRooms, userId])
 
   const handleAddNewPerson = async (info: FrendInfo): Promise<void> => {
+    setLoading(true)
     try {
       await apiClient
         .post('/chat/newroom', {
@@ -46,7 +50,9 @@ export default function MultipleSelectNative(props: Props): JSX.Element {
           setMyListRooms(res.data.allRooms)
         })
     } catch {
-      alert('チャットルームの作成に失敗しました')
+      toastFunc('エラーが発生しました', true)
+    } finally {
+      setLoading(false)
     }
   }
 

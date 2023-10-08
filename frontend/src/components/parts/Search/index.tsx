@@ -1,5 +1,3 @@
-import SearchIcon from '@mui/icons-material/Search'
-import IconButton from '@mui/material/IconButton'
 import InputBase from '@mui/material/InputBase'
 import Paper from '@mui/material/Paper'
 
@@ -23,9 +21,6 @@ export default function ChatSearch(props: Props): JSX.Element {
         inputProps={{ 'aria-label': 'search person' }}
         onChange={onChange}
       />
-      <IconButton type='button' sx={{ p: '10px' }} aria-label='search'>
-        <SearchIcon />
-      </IconButton>
     </Paper>
   )
 }

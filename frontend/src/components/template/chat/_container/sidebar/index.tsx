@@ -4,20 +4,22 @@ import Chatlist from 'components/template/chat/_container/sidebar/_container/Cha
 import apiClient from 'libs/apiClient'
 import { RootState } from 'store/store'
 import { RoomType } from 'types/internal'
-import ChatSearch from 'components/parts/Search'
 import NewChatIcon from '/public/svg/newchat.svg'
-import MultipleSelectNative from 'components/parts/Select'
 import style from './Sidebar.module.scss'
+import ChatSearch from 'components/parts/Search'
+import MultipleSelectNative from 'components/parts/Select'
 
 interface Props {
   rooms: RoomType[]
+  toastFunc: (content: string, isError: boolean) => void
+  setLoading: Dispatch<SetStateAction<boolean>>
   selectChatRoom: boolean
   setSelectChatRoom: Dispatch<SetStateAction<boolean>>
   setSelectRoom: Dispatch<SetStateAction<RoomType>>
 }
 
 export default function SideBar(props: Props): JSX.Element {
-  const { setSelectChatRoom, setSelectRoom, rooms, selectChatRoom } = props
+  const { toastFunc, setSelectChatRoom, setSelectRoom, rooms, selectChatRoom, setLoading } = props
 
   const { userId } = useSelector((state: RootState) => state.user)
   const [followListm, setFollowList] = useState<boolean>(false)
@@ -25,19 +27,29 @@ export default function SideBar(props: Props): JSX.Element {
   const [serchInput, setSerchInput] = useState<string>('')
 
   useEffect(() => {
+    setLoading(false)
     const roomFetch = async (): Promise<void> => {
-      await apiClient.get(`/chat/allrooms/${userId}`).then((res) => {
-        setMyListRooms(res.data.rooms)
-      })
+      try {
+        await apiClient.get(`/chat/allrooms/${userId}`).then((res) => {
+          setMyListRooms(res.data.rooms)
+        })
+      } catch {
+        toastFunc('エラーが発生しました', true)
+      } finally {
+        setLoading(false)
+      }
     }
     roomFetch()
-  }, [userId])
+  }, [setLoading, toastFunc, userId])
 
   const handleSerch = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setSerchInput(e.target.value)
     if (e.target.value === '') return setMyListRooms(rooms)
     const filterRoom = myListRooms.filter((room) => {
-      room.user1Name.includes(e.target.value) || room.user2Name.includes(e.target.value)
+      return (
+        room.user1Name.toLowerCase().includes(e.target.value.toLowerCase()) ||
+        room.user2Name.toLowerCase().includes(e.target.value.toLowerCase())
+      )
     })
     setMyListRooms(filterRoom)
   }
@@ -53,7 +65,12 @@ export default function SideBar(props: Props): JSX.Element {
           />
           {followListm && (
             <div className={style.new_chat}>
-              <MultipleSelectNative myListRooms={myListRooms} setMyListRooms={setMyListRooms} />
+              <MultipleSelectNative
+                toastFunc={toastFunc}
+                setLoading={setLoading}
+                myListRooms={myListRooms}
+                setMyListRooms={setMyListRooms}
+              />
             </div>
           )}
         </div>
