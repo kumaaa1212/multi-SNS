@@ -3,6 +3,7 @@
   grid-template-columns: 1fr 300px;
   margin-top: 30px;
   padding-bottom: 20px;
+
   @media screen and (max-width: 750px) {
     display: flex;
     flex-flow: column;
@@ -14,6 +15,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+
     @media screen and (max-width: 500px) {
       flex-flow: column;
       gap: 20px;
@@ -31,12 +33,14 @@
       text-align: center;
       font-size: 50px;
     }
+
     .not_article_sub_title {
       margin-top: 10px;
       font-size: 20px;
       text-align: center;
       color: gray;
     }
+
     .not_article_img {
       display: block;
       margin: 0 auto;
@@ -64,6 +68,7 @@
     .labels_area_large {
       display: none;
     }
+
     .labels_area_small {
       display: block;
     }
@@ -82,6 +87,7 @@
   .large {
     display: none;
   }
+  
   .small {
     display: block;
   }

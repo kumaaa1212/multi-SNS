@@ -18,8 +18,8 @@ interface Props {
 export default function MessageSidebar(props: Props): JSX.Element {
   const { selectBoard, setSelectBoard } = props
 
-  const { userId, username, iconPath, icon } = useSelector((state: RootState) => state.user)
   const { toastContent, isError, isToast, toastFunc } = useToast()
+  const { userId, username, iconPath, icon } = useSelector((state: RootState) => state.user)
   const [input, setInput] = useState<string>('')
 
   const handleSubmit = async (): Promise<void> => {
