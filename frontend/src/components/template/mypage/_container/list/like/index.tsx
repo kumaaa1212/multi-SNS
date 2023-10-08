@@ -16,7 +16,6 @@ export default function MypageLikes(props: Props): JSX.Element {
   const { setLoading } = props
 
   const { userId } = useSelector((state: RootState) => state.user)
-
   const [albumsData, setAlbumsData] = React.useState<ArticlesType[]>([])
 
   useEffect(() => {

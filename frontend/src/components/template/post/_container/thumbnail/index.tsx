@@ -37,7 +37,7 @@ export default function Thumbnail(): JSX.Element {
                 setSelectedLabels={setSelectedLabels}
               />
               <textarea
-                placeholder='説明を入力してください'
+                placeholder='サムネイルタイトルを入力してください(５文字以上)'
                 rows={5}
                 cols={10}
                 value={thumbnailText}

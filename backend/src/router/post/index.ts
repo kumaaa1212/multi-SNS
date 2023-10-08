@@ -639,7 +639,7 @@ router.delete("/myalbum/liked/delete", async (req: Request, res: Response) => {
     if (!deletedPost) {
       return res.status(404).json({ error: "Post not found." });
     }
-
+    
 
     const likedPosts = await prisma.post.findMany({
       where: {
