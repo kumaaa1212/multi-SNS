@@ -1,0 +1,23 @@
+.contents{
+  display: none;
+  
+  @media screen and (max-width: 1000px) {
+    display: block;
+  }
+}
+
+.down{
+  display: none;
+
+  @media screen and (max-width: 1000px) {
+    display: block;
+  }
+}
+
+.handle_btn{
+  display: block;
+  width: 150px;
+  height: 50px;
+  border: none;
+  border-radius: 10px;
+}

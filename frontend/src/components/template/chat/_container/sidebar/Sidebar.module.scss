@@ -3,6 +3,13 @@
   padding-right: 5px;
   min-height: 100vh;
   border-right: 1px solid #ccc;
+  
+  @media screen and (max-width: 1000px) {
+    margin-right: 0px;
+    padding-right: 0px;
+    min-height: 100vh;
+    border: none;
+  }
 
   .sidebar_header {
     margin-top: 15px;

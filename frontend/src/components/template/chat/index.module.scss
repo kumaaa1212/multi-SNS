@@ -1,4 +1,23 @@
 .chat {
   display: grid;
   grid-template-columns: 350px 1fr;
+  padding: 10px 0;
+  
+  @media screen and (max-width: 1000px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.chat_drawer{
+  display: none;
+}
+
+@media screen and (max-width: 1000px) {
+  .chat_side {
+    display: none;
+  }
+
+  .chat_drawer{
+    display: block;
+  }
 }

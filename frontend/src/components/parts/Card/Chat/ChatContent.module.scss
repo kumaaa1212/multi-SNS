@@ -1,7 +1,6 @@
 .chatContent_mychat {
   display: flex;
   justify-content: flex-end;
-  margin-top: 20px;
 }
 
 .chatContent_senderchat {
@@ -32,7 +31,7 @@
   padding: 10px;
   border-radius: 10px;
   background-color: rgb(219, 219, 219);
-  width: 500px;
+  min-width: 200px;
   word-break: break-all;
 }
 
