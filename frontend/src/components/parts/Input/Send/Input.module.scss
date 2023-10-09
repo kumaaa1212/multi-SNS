@@ -4,6 +4,7 @@
   align-items: center;
   justify-content: center;
   width: 100%;
+  
   .timeline_search {
     display: block;
     width: 100%;
@@ -13,9 +14,11 @@
     font-size: 20px;
     border: 1px black solid;
   }
+
   .timeline_search:focus {
     outline: none;
   }
+
   .imput_area_icon {
     padding: 5px;
     width: 40px;

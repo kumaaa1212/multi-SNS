@@ -124,7 +124,11 @@ export default function ChatArea(props: Props): JSX.Element {
                 </div>
               </Alert>
             )}
-            {filterFrend && <SendInput input={input} setInput={setInput} handleSend={handleSend} />}
+            {filterFrend && (
+              <div className={style.small}>
+                <SendInput input={input} setInput={setInput} handleSend={handleSend} />
+              </div>
+            )}
           </div>
         </>
       )}
