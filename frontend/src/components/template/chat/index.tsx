@@ -18,8 +18,8 @@ interface Props {
 export default function Chat(props: Props): JSX.Element {
   const { rooms, loading, setLoading } = props
 
-  const [roomState, setRoomState] = useState<RoomType[]>(rooms)
   const { toastContent, isError, isToast, toastFunc } = useToast()
+  const [roomState, setRoomState] = useState<RoomType[]>(rooms)
   const [selectChatRoom, setSelectChatRoom] = useState<boolean>(false)
   const [selectRoom, setSelectRoom] = useState<RoomType>(rooms[0])
 

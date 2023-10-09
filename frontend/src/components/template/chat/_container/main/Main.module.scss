@@ -8,6 +8,10 @@
 .contents {
   position: relative;
   height: 80vh;
+
+  @media screen and (max-width: 1000px) {
+    height: 70vh;
+  }
   .input_area {
     position: absolute;
     width: 100%;
@@ -33,6 +37,8 @@
 
 .small {
   width: 100%;
+  padding: 0px 10px;
+
   @media screen and (max-width: 1000px) {
     position: absolute;
     top: 70%;
