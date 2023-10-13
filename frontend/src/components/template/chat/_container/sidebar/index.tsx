@@ -10,6 +10,7 @@ import ChatSearch from 'components/parts/Search'
 import MultipleSelectNative from 'components/parts/Select'
 
 interface Props {
+  rooms: RoomType[]
   roomState: RoomType[]
   setRoomState: Dispatch<SetStateAction<RoomType[]>>
   toastFunc: (content: string, isError: boolean) => void
@@ -21,7 +22,7 @@ interface Props {
 
 export default function SideBar(props: Props): JSX.Element {
   const { toastFunc, setSelectChatRoom, setSelectRoom } = props
-  const { roomState, setRoomState, selectChatRoom, setLoading } = props
+  const { rooms, roomState, setRoomState, selectChatRoom, setLoading } = props
 
   const { userId } = useSelector((state: RootState) => state.user)
   const [followListm, setFollowList] = useState<boolean>(false)
@@ -43,22 +44,26 @@ export default function SideBar(props: Props): JSX.Element {
     roomFetch()
   }, [setLoading, setRoomState, toastFunc, userId])
 
-  const handleSerch = (e: React.ChangeEvent<HTMLInputElement>): void => {
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setSerchInput(e.target.value)
-    if (e.target.value === '') return
-    const filterRoom = roomState.filter((room) => {
+    if (serchInput === '') {
+      setRoomState(rooms)
+      return
+    }
+    const filteredRooms = rooms.filter((room) => {
       return (
-        room.user1Name.toLowerCase().includes(e.target.value.toLowerCase()) ||
-        room.user2Name.toLowerCase().includes(e.target.value.toLowerCase())
+        room.user1Name.toLowerCase().includes(serchInput) ||
+        room.user2Name.toLowerCase().includes(serchInput)
       )
     })
-    setRoomState(filterRoom)
+
+    setRoomState(filteredRooms)
   }
 
   return (
     <div className={style.sidebar}>
       <div className={style.sidebar_header}>
-        <ChatSearch serchInput={serchInput} onChange={handleSerch} />
+        <ChatSearch serchInput={serchInput} onChange={handleSearch} />
         <div>
           <NewChatIcon
             className={style.addIcon}

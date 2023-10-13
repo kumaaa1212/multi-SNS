@@ -12,20 +12,24 @@ export default function ChatPage(): JSX.Element {
   const { userId } = useSelector((state: RootState) => state.user)
 
   useEffect(() => {
-    if (userId.length === 0) return
+    if (!userId) return
     setLoading(true)
     const roomFetch = async (): Promise<void> => {
-      await apiClient.get(`/chat/allrooms/${userId}`).then((res) => {
-        setRoomState(res.data.rooms)
+      try {
+        await apiClient.get(`/chat/allrooms/${userId}`).then((res) => {
+          setRoomState(res.data.rooms)
+          setLoading(false)
+        })
+      } catch {
         setLoading(false)
-      })
+      }
     }
     roomFetch()
   }, [userId])
 
   return (
-    <div suppressHydrationWarning={true}>
-      {userId.length > 0 ? (
+    <div>
+      {userId ? (
         <Chat rooms={roomState} loading={loading} setLoading={setLoading} />
       ) : (
         <NoUser contens='Chat' />
