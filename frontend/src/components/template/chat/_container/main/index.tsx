@@ -29,6 +29,7 @@ export default function ChatArea(props: Props): JSX.Element {
   )
   const [input, setInput] = useState<string>('')
   const [filterFrend, setFilterFrend] = useState<boolean>(false)
+
   useEffect(() => {
     if (!selectRoom) return
     const filterFrend: boolean = follow.some((frend) => {

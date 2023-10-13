@@ -24,15 +24,16 @@ export default function Chat(props: Props): JSX.Element {
   const [selectRoom, setSelectRoom] = useState<RoomType>(rooms[0])
 
   return (
-    <Layout bgColor='bg_blue' loadingAll={loading}>
+    <Layout bgColor='bg_blue' loadingAll={loading} footerState>
       <Meta title='Chat' />
       <div className={style.chat_drawer}>
         <SwipeableEdgeDrawer>
           <SideBar
-            roomState={roomState}
-            setRoomState={setRoomState}
             toastFunc={toastFunc}
             setLoading={setLoading}
+            rooms={rooms}
+            roomState={roomState}
+            setRoomState={setRoomState}
             selectChatRoom={selectChatRoom}
             setSelectChatRoom={setSelectChatRoom}
             setSelectRoom={setSelectRoom}
@@ -42,10 +43,11 @@ export default function Chat(props: Props): JSX.Element {
       <div className={style.chat}>
         <div className={style.chat_side}>
           <SideBar
-            roomState={roomState}
-            setRoomState={setRoomState}
             toastFunc={toastFunc}
             setLoading={setLoading}
+            rooms={rooms}
+            roomState={roomState}
+            setRoomState={setRoomState}
             selectChatRoom={selectChatRoom}
             setSelectChatRoom={setSelectChatRoom}
             setSelectRoom={setSelectRoom}
