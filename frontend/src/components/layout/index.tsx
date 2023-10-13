@@ -21,12 +21,13 @@ interface Props {
   setIsSaveBar?: React.Dispatch<React.SetStateAction<boolean>>
   discardModalOpen?: boolean
   discardModalClose?: React.Dispatch<React.SetStateAction<boolean>>
+  footerState?: boolean
 }
 
 export default function Layout(props: Props): JSX.Element {
   const { margin = 'm_0', padding = 'p_0', bgColor, loadingAll, children } = props
   const { isSaveBar = false, setIsSaveBar = (): void => {} } = props
-  const { discardModalOpen = false, discardModalClose = (): void => {} } = props
+  const { discardModalOpen = false, discardModalClose = (): void => {}, footerState } = props
 
   const loading = useLoading()
   const dispatch: AppDispatch = useDispatch()
@@ -63,7 +64,7 @@ export default function Layout(props: Props): JSX.Element {
         setOpen={discardModalClose}
         setIsSaveBar={setIsSaveBar}
       />
-      <Footer />
+      {!footerState && <Footer />}
     </div>
   )
 }
