@@ -1,12 +1,8 @@
-import { Dispatch, SetStateAction, useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
+import { Dispatch, SetStateAction, useState } from 'react'
 import Chatlist from 'components/template/chat/_container/sidebar/_container/Chatlist'
-import apiClient from 'libs/apiClient'
-import { RootState } from 'store/store'
 import { RoomType } from 'types/internal'
 import NewChatIcon from '/public/svg/newchat.svg'
 import style from './Sidebar.module.scss'
-import ChatSearch from 'components/parts/Search'
 import MultipleSelectNative from 'components/parts/Select'
 
 interface Props {
@@ -17,53 +13,42 @@ interface Props {
   setLoading: Dispatch<SetStateAction<boolean>>
   selectChatRoom: boolean
   setSelectChatRoom: Dispatch<SetStateAction<boolean>>
-  setSelectRoom: Dispatch<SetStateAction<RoomType>>
+  setSelectRoom: Dispatch<SetStateAction<RoomType | undefined>>
 }
 
 export default function SideBar(props: Props): JSX.Element {
-  const { toastFunc, setSelectChatRoom, setSelectRoom } = props
-  const { rooms, roomState, setRoomState, selectChatRoom, setLoading } = props
+  const { rooms, toastFunc, setSelectChatRoom, setSelectRoom } = props
+  const { roomState, setRoomState, selectChatRoom, setLoading } = props
 
-  const { userId } = useSelector((state: RootState) => state.user)
   const [followListm, setFollowList] = useState<boolean>(false)
   const [serchInput, setSerchInput] = useState<string>('')
 
-  useEffect(() => {
-    setLoading(false)
-    const roomFetch = async (): Promise<void> => {
-      try {
-        await apiClient.get(`/chat/allrooms/${userId}`).then((res) => {
-          setRoomState(res.data.rooms)
-        })
-      } catch {
-        toastFunc('エラーが発生しました', true)
-      } finally {
-        setLoading(false)
-      }
-    }
-    roomFetch()
-  }, [setLoading, setRoomState, toastFunc, userId])
-
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    setSerchInput(e.target.value)
-    if (serchInput === '') {
+    const inputValue = e.target.value.toLowerCase()
+    setSerchInput(inputValue)
+    if (inputValue === '') {
       setRoomState(rooms)
       return
     }
     const filteredRooms = rooms.filter((room) => {
       return (
-        room.user1Name.toLowerCase().includes(serchInput) ||
-        room.user2Name.toLowerCase().includes(serchInput)
+        room.user1Name.toLowerCase().includes(inputValue) ||
+        room.user2Name.toLowerCase().includes(inputValue)
       )
     })
-
     setRoomState(filteredRooms)
   }
 
   return (
     <div className={style.sidebar}>
       <div className={style.sidebar_header}>
-        <ChatSearch serchInput={serchInput} onChange={handleSearch} />
+        <input
+          type='text'
+          value={serchInput}
+          onChange={handleSearch}
+          placeholder='Search for a chat'
+          className={style.sidebar_input}
+        />
         <div>
           <NewChatIcon
             className={style.addIcon}

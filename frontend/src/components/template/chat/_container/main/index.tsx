@@ -14,8 +14,8 @@ interface Props {
   setRoomState: React.Dispatch<React.SetStateAction<RoomType[]>>
   setLoading: React.Dispatch<React.SetStateAction<boolean>>
   toastFunc: (content: string, isError: boolean) => void
-  selectRoom: RoomType
-  setSelectRoom: React.Dispatch<React.SetStateAction<RoomType>>
+  selectRoom: RoomType | undefined
+  setSelectRoom: React.Dispatch<React.SetStateAction<RoomType | undefined>>
   selectChatRoom: boolean
   setSelectChatRoom: React.Dispatch<React.SetStateAction<boolean>>
 }
@@ -39,7 +39,7 @@ export default function ChatArea(props: Props): JSX.Element {
   }, [follow, selectRoom, userId])
 
   const handleSend = async (): Promise<void> => {
-    if (!input) return
+    if (!input || !selectRoom) return
     setLoading(true)
     try {
       await apiClient
@@ -61,6 +61,7 @@ export default function ChatArea(props: Props): JSX.Element {
   }
 
   const handleDelete = async (): Promise<void> => {
+    if (!selectRoom) return
     setLoading(true)
     await apiClient
       .delete('/chat/room/delete', {
@@ -76,6 +77,7 @@ export default function ChatArea(props: Props): JSX.Element {
       })
   }
   const handleFollow = async (): Promise<void> => {
+    if (!selectRoom) return
     setLoading(true)
     await apiClient
       .post('/auth/follow', {

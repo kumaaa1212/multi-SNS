@@ -1,7 +1,6 @@
 import { Dispatch, SetStateAction } from 'react'
 import { useSelector } from 'react-redux'
 import Image from 'next/image'
-import { useRouter } from 'next/router'
 import { RootState } from 'store/store'
 import { formatTimestamp } from 'utils/functions/Time'
 import style from './ChatList.module.scss'
@@ -13,13 +12,12 @@ interface Props {
   selectChatRoom: boolean
   setSelectChatRoom: Dispatch<SetStateAction<boolean>>
   room: RoomType
-  setSelectRoom: Dispatch<SetStateAction<RoomType>>
+  setSelectRoom: Dispatch<SetStateAction<RoomType | undefined>>
 }
 
 export default function Chatlist(props: Props): JSX.Element {
   const { selectChatRoom, setSelectChatRoom, room, setSelectRoom } = props
   const { userId } = useSelector((state: RootState) => state.user)
-  const router = useRouter()
 
   const handleShowChatRoom = async (room: RoomType): Promise<void> => {
     if (!selectChatRoom) {
@@ -27,7 +25,6 @@ export default function Chatlist(props: Props): JSX.Element {
       setSelectRoom(room)
     } else {
       setSelectChatRoom(false)
-      router.reload()
     }
   }
 
