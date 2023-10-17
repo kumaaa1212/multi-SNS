@@ -76,6 +76,7 @@ export default function ChatArea(props: Props): JSX.Element {
         setSelectChatRoom(false)
       })
   }
+
   const handleFollow = async (): Promise<void> => {
     if (!selectRoom) return
     setLoading(true)
