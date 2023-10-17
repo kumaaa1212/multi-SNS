@@ -62,6 +62,15 @@ export default function BulletinboardCard(props: Props): JSX.Element {
     fetchLike()
   }, [board, toastFunc, userId])
 
+  const dataFetch = async (): Promise<void> => {
+    await apiClient.get(`/board/boardRooms/${router.query.team}`).then((res) => {
+      if (res.status !== HttpStatusCode.Ok) {
+        toastFunc('掲示板の更新に失敗しました', true)
+      }
+      setBoardRooms(res.data.boardRoom)
+    })
+  }
+
   const handleSelectBoard = (): void => {
     if (!sideMessagrBar) {
       setSelectBoard(board)
@@ -69,7 +78,7 @@ export default function BulletinboardCard(props: Props): JSX.Element {
     } else {
       setSelectBoard(undefined)
       setSideMessagrBar(false)
-      router.reload()
+      dataFetch()
     }
   }
 
