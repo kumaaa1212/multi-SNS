@@ -29,7 +29,7 @@ export default function BoardPage(props: Props): JSX.Element {
   const router = useRouter()
 
   return (
-    <div suppressHydrationWarning={false}>
+    <div>
       {router.query.team === String(undefined) ? (
         <NoUser contens='自分のTeamの掲示板' />
       ) : (
