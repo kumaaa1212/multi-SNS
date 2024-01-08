@@ -1,4 +1,26 @@
+```
+現在TOKOTOKO=Jのリプレスを行っています。
+理由として、
+・　　フロントエンドの表示速度の遅さ。
+・　バックエンドの知識不足のおおさ。
+・　コンポーネント指向の修正
+などが挙げられます。
+そして制作時期が7月-９月であることで、自身の技術の向上、選択の幅が増えたと感じており、それを本プロダクトに落とし込みたいと考えています。
+2月末を目処に完成予定です。
+下記記載のリポジトリから確認することができます。
+
+```
+【frontend】
+https://github.com/kumaaa1212/tokotoko-frontend-v2
+
+【backend】
+https://github.com/kumaaa1212/tokotoko-backend-v2
+___
+
+<br />
+
 # TOKOTOKO=J
+
 <img width="1457" alt="スクリーンショット 2023-09-30 2 49 45" src="https://github.com/kumaaa1212/multi-SNS/assets/116778080/e86e355e-2257-47c3-bcf2-0d98e6fe2117">
 
 <br />
