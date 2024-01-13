@@ -24,14 +24,15 @@
      - 開発前の要件定義の質を向上させる。（開発中での機能重複などを避ける。）
      - 今回のユーザーの声も元に取捨選択をし、機能を追加。
 <br />
-【V2　要件定義】
+<br />
+【V2要件定義】
 https://stone-path-dfe.notion.site/TOKOTOKO-J-V2-cc8693b1e9434999b3b368154c1d6204?pvs=4
+<br />
 <br />
 【frontend】
 https://github.com/kumaaa1212/tokotoko-frontend-v2
 <br />
 <br />
-
 【backend】
 https://github.com/kumaaa1212/tokotoko-backend-v2
 ___
