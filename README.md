@@ -35,7 +35,6 @@ https://github.com/kumaaa1212/tokotoko-frontend-v2
 <br />
 【backend】
 https://github.com/kumaaa1212/tokotoko-backend-v2
-___
 
 <br />
 
